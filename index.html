@@ -380,7 +380,7 @@ textarea.inp{resize:vertical;min-height:85px;line-height:1.5}
 <div class="ov" id="welcomePopup">
   <div class="popup wp">
     <div class="wp-hd">
-      <button class="wp-x" onclick="closePopup('welcomePopup')">×</button>
+    <button class="wp-x" onclick="this.closest('.ov').classList.add('hide')">×</button>
       <div style="font-size:36px;margin-bottom:7px">👋</div>
       <h2>TARRY의 데일리</h2>
       <p>매일 업데이트되는 핫이슈 블로그에 오신 걸 환영해요!<br>회원가입하고 다양한 혜택을 누려보세요</p>
