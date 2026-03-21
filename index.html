@@ -83,7 +83,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--tx);min-height:100
 .nav-av img{width:100%;height:100%;object-fit:cover}
 .nav-grade{font-size:10px;padding:2px 7px;border-radius:999px;font-weight:700}
 .g-free{background:var(--sur3);color:var(--ac)}.g-vip{background:linear-gradient(135deg,#f59e0b,#ef4444);color:#fff}.g-admin{background:linear-gradient(135deg,#1a1a2e,#7c3aed);color:#fff}
-.browse-bar{background:linear-gradient(135deg,rgba(124,58,237,.07),rgba(236,72,153,.07));border-bottom:1px solid var(--bd2);padding:7px 1.2rem;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.browse-bar{background:linear-gradient(135deg,rgba(124,58,237,.07),rgba(236,72,153,.07));border-bottom:1px solid var(--bd2);padding:7px 1.2rem;display:none;align-items:center;gap:10px;flex-wrap:wrap}.browse-bar.show{display:flex !important}
 .browse-bar{display:flex}.browse-bar.hide{display:none !important}
 .bb-t{flex:1;font-size:11px;color:var(--ac);font-weight:500}.bb-btns{display:flex;gap:5px}
 .bb-btn{border:none;border-radius:6px;padding:5px 11px;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--font)}
@@ -357,7 +357,7 @@ textarea.inp{resize:vertical;min-height:80px;line-height:1.5}
     <button class="bb-btn bba" onclick="showPage('auth');setAtab('signup')">무료 가입</button>
     <button class="bb-btn bbb" onclick="showPage('auth');setAtab('login')">로그인</button>
   </div>
-  <button class="bbx" onclick="document.getElementById('browseBanner').classList.add('hide')">×</button>
+  <button class="bbx" onclick="document.getElementById('browseBanner').classList.remove('show')">×</button>
 </div>
 
 
@@ -1028,7 +1028,7 @@ function changeAdminPw(){const cur=document.getElementById('curPw').value,nw=doc
 function setAdminTab(id){document.querySelectorAll('.atab-admin').forEach(t=>t.classList.remove('on'));document.querySelectorAll('.admin-panel').forEach(p=>p.classList.remove('on'));const btn=document.getElementById('at-'+id);if(btn)btn.classList.add('on');const panel=document.getElementById('ap-'+id);if(panel)panel.classList.add('on');}
 
 // ── 둘러보기 ──
-function startBrowse(){isBrowsing=true;closePopup('welcomePopup');document.getElementById('browseBanner').classList.remove('hide');showPage('home');setNav('home');toast('👀 둘러보기 모드!');}
+function startBrowse(){isBrowsing=true;closePopup('welcomePopup');document.getElementById('browseBanner').classList.add('show');showPage('home');setNav('home');toast('👀 둘러보기 모드!');}
 function handleLockedClick(){if(!currentUser){toast('🔒 회원가입 후 전체 글을 볼 수 있어요!');setTimeout(()=>{showPage('auth');setAtab('signup');},800);}}
 
 // ── 프로필 ──
@@ -1044,7 +1044,7 @@ function doSignup(){const nick=document.getElementById('sNick').value.trim(),ema
 function socialLogin(provider){loginSuccess(provider+'유저',`user@${provider.toLowerCase()}.com`,'free',null);}
 function loginSuccess(nick,email,grade,imgData){
   currentUser={nick,email,grade,cmtCount:0,profileImg:imgData};isBrowsing=false;
-  document.getElementById('browseBanner').classList.add('hide');
+  document.getElementById('browseBanner').classList.remove('show');
   document.getElementById('guestArea').style.display='none';
   document.getElementById('navUser').style.display='flex';
   const initials=nick[0].toUpperCase();
@@ -1062,7 +1062,7 @@ function loginSuccess(nick,email,grade,imgData){
   document.getElementById('dashGrade').textContent=grade.toUpperCase()+' 회원';
   closePopup('welcomePopup');toast('🎉 환영해요, '+nick+'님!');showPage('home');setNav('home');
 }
-function doLogout(){currentUser=null;isBrowsing=false;profileImageData=null;document.getElementById('guestArea').style.display='flex';document.getElementById('navUser').style.display='none';document.getElementById('memberDash').style.display='none';document.getElementById('guestMsg').style.display='block';document.getElementById('cmtAv').innerHTML='?';document.getElementById('cmtHint').textContent='로그인 후 댓글을 쓸 수 있어요';document.getElementById('browseBanner').classList.add('hide');toast('로그아웃됐어요');}
+function doLogout(){currentUser=null;isBrowsing=false;profileImageData=null;document.getElementById('guestArea').style.display='flex';document.getElementById('navUser').style.display='none';document.getElementById('memberDash').style.display='none';document.getElementById('guestMsg').style.display='block';document.getElementById('cmtAv').innerHTML='?';document.getElementById('cmtHint').textContent='로그인 후 댓글을 쓸 수 있어요';document.getElementById('browseBanner').classList.remove('show');toast('로그아웃됐어요');}
 function upgradeVip(){if(!currentUser)return;currentUser.grade='vip';document.getElementById('navGrade').textContent='VIP';document.getElementById('navGrade').className='nav-grade g-vip';document.getElementById('dashGrade').textContent='VIP 회원';['vb1','vb2','vb3'].forEach(id=>{const el=document.getElementById(id);el.classList.remove('ben-locked');el.querySelector('.ben-d').textContent='VIP 혜택 활성화! ✓';});toast('👑 VIP 업그레이드 완료!');}
 function closePopup(id){}
 
