@@ -95,18 +95,18 @@ body{font-family:var(--font);background:var(--bg);color:var(--tx);min-height:100
 .wrap{max-width:1060px;margin:0 auto;padding:1.5rem}
 
 /* HERO */
-.hero{min-height:88vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:4rem 1.5rem 3rem;position:relative;overflow:hidden}
+.hero{min-height:88vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:4rem 1.5rem 3rem;position:relative;overflow:hidden;isolation:isolate}
 .blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.3;animation:bf 9s ease-in-out infinite;pointer-events:none !important}
 .b1{width:500px;height:500px;background:var(--g1);top:-120px;left:-120px;pointer-events:none !important}
 .b2{width:420px;height:420px;background:var(--g2);bottom:-80px;right:-80px;animation-delay:3s;pointer-events:none !important}
 .b3{width:300px;height:300px;background:var(--g3);top:50%;left:50%;animation:bf3 9s ease-in-out 6s infinite;pointer-events:none !important}
 @keyframes bf{0%,100%{transform:translate(0,0)}50%{transform:translate(20px,-18px)}}
 @keyframes bf3{0%,100%{transform:translate(-50%,-50%)}50%{transform:translate(calc(-50% + 18px),calc(-50% - 18px))}}
-.hero-tag{display:inline-block;background:rgba(124,58,237,.1);border:1px solid rgba(124,58,237,.2);border-radius:999px;padding:5px 18px;font-size:12px;font-weight:600;color:var(--ac);margin-bottom:1.4rem;position:relative;z-index:2}
+.hero-tag{display:inline-block;background:rgba(124,58,237,.1);border:1px solid rgba(124,58,237,.2);border-radius:999px;padding:5px 18px;font-size:12px;font-weight:600;color:var(--ac);margin-bottom:1.4rem;position:relative;z-index:999}
 .hero-title{font-family:var(--display);font-size:clamp(36px,6.5vw,76px);line-height:1.08;position:relative;z-index:2;max-width:800px}
 .gt{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero-sub{font-size:16px;color:var(--mt);margin:1.4rem 0 2.4rem;max-width:460px;line-height:1.75;position:relative;z-index:2}
-.hero-btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;position:relative;z-index:2}
+.hero-sub{font-size:16px;color:var(--mt);margin:1.4rem 0 2.4rem;max-width:460px;line-height:1.75;position:relative;z-index:999}
+.hero-btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;position:relative;z-index:999}
 .hbtn{border:none;border-radius:999px;padding:13px 30px;font-size:13px;font-weight:600;cursor:pointer;transition:.2s;font-family:var(--font)}
 .hb-main{background:var(--grad);color:#fff;box-shadow:0 8px 28px rgba(124,58,237,.3)}.hb-main:hover{transform:translateY(-2px)}
 .hb-browse{background:var(--sur);color:var(--ac);border:1.5px solid var(--bd2)}
@@ -1119,6 +1119,7 @@ function submitContact(){const name=document.getElementById('cName').value.trim(
 function togFaq(el){const arr=el.querySelector('.faq-arr'),ans=el.nextElementSibling;arr.classList.toggle('open');ans.classList.toggle('open');}
 
 // ── MISC ──
-function subscribeEmail(){const email=document.getElementById('emailInp').value.trim();if(!email||!email.includes('@')){toast('올바른 이메일을 입력해주세요');return;}document.getElementById('emailInp').value='';toast('📮 구독 완료! 매주 목요일 편지 보내드릴게요 ✓');} //
+function subscribeEmail(){const email=document.getElementById('emailInp').value.trim();if(!email||!email.includes('@')){toast('올바른 이메일을 입력해주세요');return;}document.getElementById('emailInp').value='';toast('📮 구독 완료! 매주 목요일 편지 보내드릴게요 ✓');}
+</script>
 </body>
 </html>
