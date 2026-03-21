@@ -1872,12 +1872,26 @@ img { max-width: 100% !important; height: auto !important; }
   <div id="socialPopupBar" style="height:3px;background:var(--grad);border-radius:999px;margin-top:6px;animation:shrink 20s linear forwards"></div>
 </div>
 
-<!-- 공지사항 팝업 -->
-<div id="noticePopup" style="position:fixed;top:0;left:0;right:0;z-index:9998;display:none">
-  <div style="background:linear-gradient(135deg,var(--g1),var(--g2));padding:10px 1.5rem;display:flex;align-items:center;gap:10px">
-    <span style="font-size:16px">📢</span>
-    <div id="noticeText" style="flex:1;font-size:13px;font-weight:600;color:#fff;line-height:1.5">공지사항 내용이 여기 표시됩니다</div>
-    <button onclick="document.getElementById('noticePopup').style.display='none'" style="background:rgba(255,255,255,.2);border:none;color:#fff;border-radius:6px;padding:4px 10px;font-size:12px;cursor:pointer;font-family:var(--font);flex-shrink:0">닫기</button>
+<!-- 공지사항 팝업 (풀 모달) -->
+<div id="noticePopup" class="ov" style="display:none;z-index:9998">
+  <div style="background:var(--sur);border-radius:22px;width:min(560px,96vw);max-height:88vh;overflow-y:auto;box-shadow:0 24px 70px rgba(0,0,0,.25)">
+    <!-- 헤더 -->
+    <div id="noticeHeader" style="background:var(--grad);padding:18px 20px;display:flex;align-items:center;justify-content:space-between;border-radius:22px 22px 0 0">
+      <div style="display:flex;align-items:center;gap:9px">
+        <span style="font-size:20px">📢</span>
+        <span id="noticeTitle" style="font-size:16px;font-weight:700;color:#fff;font-family:var(--display)">공지사항</span>
+      </div>
+      <button onclick="closeNoticePopup()" style="background:rgba(255,255,255,.2);border:none;color:#fff;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:18px;line-height:1">×</button>
+    </div>
+    <!-- 본문 -->
+    <div id="noticeBody" style="padding:20px 22px">
+      <p style="color:var(--mt);text-align:center">공지사항 내용이 여기 표시됩니다</p>
+    </div>
+    <!-- 하단 버튼 -->
+    <div style="padding:0 22px 18px;display:flex;gap:8px">
+      <button onclick="closeNoticePopup()" style="flex:1;background:var(--grad);color:#fff;border:none;border-radius:10px;padding:12px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font)">확인했어요 ✓</button>
+      <button onclick="closeNoticeForever()" style="background:var(--sur2);color:var(--mt);border:1px solid var(--bd);border-radius:10px;padding:12px 14px;font-size:11px;cursor:pointer;font-family:var(--font)">다시 보지 않기</button>
+    </div>
   </div>
 </div>
 
@@ -4552,14 +4566,65 @@ const noticeColors = {
   'green': 'linear-gradient(135deg,#059669,#0891b2)',
   'red': 'linear-gradient(135deg,#dc2626,#f97316)',
   'dark': 'linear-gradient(135deg,#1a1a2e,#2d2945)',
+  'gold': 'linear-gradient(135deg,#d97706,#f59e0b)',
 };
 const noticeTemplates = [
-  '🎉 TARRY의 데일리 오픈 기념! 지금 가입하면 VIP 혜택을 드려요!',
-  '📰 매일 오전 8시, 오늘의 핫뉴스를 가장 먼저 받아보세요!',
-  '💰 무료 뉴스레터 구독하고 매주 알짜 정보 받아보세요!',
-  '⚠️ 서버 점검 안내: 오늘 밤 12시 ~ 오전 2시 서비스 일시 중단될 수 있어요',
-  '🔥 지금 가장 핫한 글: ChatGPT 프롬프트 모음 → 바로 읽으러 가기',
+  {title:'🎉 오픈 이벤트', text:'TARRY의 데일리 오픈 기념! 지금 가입하면 VIP 혜택을 드려요! 무료 회원가입으로 이모티콘 댓글, 프로필 사진, 새 글 알림 서비스를 모두 이용해보세요 😊'},
+  {title:'📰 매일 업데이트', text:'매일 오전 8시, 오늘의 핫뉴스가 자동으로 업데이트돼요! 뉴스레터를 구독하면 새 글 알림을 이메일로 받을 수 있어요 📮'},
+  {title:'💰 무료 뉴스레터', text:'매주 목요일 알짜 정보를 담은 뉴스레터를 발송해요! 지금 구독하면 놓쳤던 인기 글들을 한 번에 받아볼 수 있어요 📬'},
+  {title:'⚠️ 서버 점검 안내', text:'오늘 밤 12시부터 오전 2시까지 서버 점검이 있을 예정이에요. 이용에 불편을 드려 죄송합니다.'},
+  {title:'🔥 이번 주 인기 글', text:'지금 가장 많이 읽히는 글: ChatGPT 프롬프트 모음 완벽 가이드! 업무 생산성을 200% 높여보세요 🚀'},
 ];
+
+// 유튜브 URL에서 영상 ID 추출
+function extractYoutubeId(url) {
+  if(!url) return null;
+  // watch?v= 형식
+  let m = url.match(/[?&]v=([a-zA-Z0-9_-]{11})/);
+  if(m) return m[1];
+  // youtu.be/ID 형식
+  m = url.match(/youtu[.]be[/]([a-zA-Z0-9_-]{11})/);
+  if(m) return m[1];
+  // shorts 형식
+  m = url.match(/shorts\/([a-zA-Z0-9_-]{11})/);
+  if(m) return m[1];
+  // embed 형식
+  m = url.match(/embed\/([a-zA-Z0-9_-]{11})/);
+  if(m) return m[1];
+  return null;
+}
+
+function buildNoticeBody(text, imageUrl, youtubeUrl) {
+  let html = '';
+  
+  // 이미지
+  if(imageUrl && imageUrl.trim()) {
+    html += `<div style="margin-bottom:14px;border-radius:12px;overflow:hidden">
+      <img src="${imageUrl}" style="width:100%;max-height:250px;object-fit:cover;display:block" alt="공지 이미지"
+           onerror="this.parentElement.style.display='none'">
+    </div>`;
+  }
+  
+  // 유튜브 영상 (인라인 재생)
+  const ytId = extractYoutubeId(youtubeUrl);
+  if(ytId) {
+    html += `<div style="margin-bottom:14px;border-radius:12px;overflow:hidden;background:#000;position:relative;padding-bottom:56.25%;height:0">
+      <iframe 
+        src="https://www.youtube.com/embed/${ytId}?autoplay=0&rel=0"
+        style="position:absolute;top:0;left:0;width:100%;height:100%;border:none"
+        allowfullscreen
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+      </iframe>
+    </div>`;
+  }
+  
+  // 텍스트
+  if(text && text.trim()) {
+    html += `<p style="font-size:14px;line-height:1.8;color:var(--mt);white-space:pre-line">${text}</p>`;
+  }
+  
+  return html || '<p style="color:var(--mt);text-align:center">내용을 입력해주세요</p>';
+}
 
 function toggleNotice() {
   noticeActive = !noticeActive;
@@ -4573,12 +4638,12 @@ function toggleNotice() {
     if(toggle) toggle.style.background = 'var(--grad)';
     if(knob) { knob.style.right = '3px'; knob.style.left = 'auto'; }
     if(onLabel) { onLabel.style.color = 'var(--ac)'; onLabel.style.fontWeight = '800'; }
-    if(offLabel) offLabel.style.color = 'var(--mt)';
+    if(offLabel) { offLabel.style.color = 'var(--mt)'; offLabel.style.fontWeight = '400'; }
     applyNotice();
   } else {
     if(toggle) toggle.style.background = '#d1d5db';
     if(knob) { knob.style.left = '3px'; knob.style.right = 'auto'; }
-    if(onLabel) onLabel.style.color = 'var(--mt)';
+    if(onLabel) { onLabel.style.color = 'var(--mt)'; onLabel.style.fontWeight = '400'; }
     if(offLabel) { offLabel.style.color = 'var(--ac)'; offLabel.style.fontWeight = '800'; }
     if(popup) popup.style.display = 'none';
     toast('🔕 공지사항 숨김');
@@ -4586,14 +4651,28 @@ function toggleNotice() {
 }
 
 function applyNotice() {
-  const text = document.getElementById('noticeContent')?.value?.trim();
-  if(!text) { toast('공지 내용을 입력해주세요'); return; }
+  const titleText = document.getElementById('noticeTitle')?.value?.trim() || '공지사항';
+  const text = document.getElementById('noticeContent')?.value?.trim() || '';
+  const imageUrl = document.getElementById('noticeImageUrl')?.value?.trim() || '';
+  const youtubeUrl = document.getElementById('noticeYoutubeUrl')?.value?.trim() || '';
+  
   const popup = document.getElementById('noticePopup');
-  const textEl = document.getElementById('noticeText');
-  if(popup && textEl) {
-    textEl.textContent = text;
-    popup.querySelector('div').style.background = noticeColors[noticeColor] || noticeColors['grad'];
-    popup.style.display = 'block';
+  const titleEl = document.getElementById('noticeTitle');
+  const bodyEl = document.getElementById('noticeBody');
+  const headerEl = document.getElementById('noticeHeader');
+  
+  if(popup) {
+    // 제목 설정
+    const titleSpan = popup.querySelector('#noticeTitle') || popup.querySelector('span[style*="font-family"]');
+    if(titleSpan) titleSpan.textContent = titleText;
+    
+    // 헤더 색상
+    if(headerEl) headerEl.style.background = noticeColors[noticeColor] || noticeColors['grad'];
+    
+    // 본문 빌드
+    if(bodyEl) bodyEl.innerHTML = buildNoticeBody(text, imageUrl, youtubeUrl);
+    
+    popup.style.display = 'flex';
     noticeActive = true;
   }
   toast('📢 공지사항 적용됨!');
@@ -4601,26 +4680,40 @@ function applyNotice() {
 
 function previewNotice() {
   applyNotice();
-  setTimeout(() => {
-    const popup = document.getElementById('noticePopup');
-    if(popup && !noticeActive) popup.style.display = 'none';
-  }, 3000);
+}
+
+function closeNoticePopup() {
+  const popup = document.getElementById('noticePopup');
+  if(popup) popup.style.display = 'none';
+}
+
+function closeNoticeForever() {
+  closeNoticePopup();
+  noticeActive = false;
+  const toggle = document.getElementById('noticeToggle');
+  const knob = document.getElementById('noticeToggleKnob');
+  if(toggle) toggle.style.background = '#d1d5db';
+  if(knob) { knob.style.left = '3px'; knob.style.right = 'auto'; }
+  toast('다시 보지 않기로 설정됐어요');
 }
 
 function setNoticeColor(color) {
   noticeColor = color;
-  const popup = document.getElementById('noticePopup');
-  if(popup && noticeActive) {
-    popup.querySelector('div').style.background = noticeColors[color];
-  }
+  const headerEl = document.getElementById('noticeHeader');
+  if(headerEl && noticeActive) headerEl.style.background = noticeColors[color];
   toast('🎨 색상 변경됨!');
 }
 
 function setNoticeTemplate(idx) {
-  const inp = document.getElementById('noticeContent');
-  if(inp) inp.value = noticeTemplates[idx];
+  const tpl = noticeTemplates[idx];
+  if(!tpl) return;
+  const titleInp = document.getElementById('noticeTitle');
+  const contentInp = document.getElementById('noticeContent');
+  if(titleInp) titleInp.value = tpl.title;
+  if(contentInp) contentInp.value = tpl.text;
   toast('📋 템플릿 선택됨!');
 }
+
 
 // ── INIT ──
 buildCatTree();renderBreadcrumb();renderPosts();
