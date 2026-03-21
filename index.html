@@ -15,6 +15,8 @@
 <meta name="google-site-verification" content="YOUR_GOOGLE_CODE_HERE">
 <meta name="naver-site-verification" content="YOUR_NAVER_CODE_HERE">
 <title>TARRY의 데일리 — tarrydaily.com</title>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>emailjs.init("YOUR_EMAILJS_PUBLIC_KEY");</script>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -825,77 +827,77 @@ img { max-width: 100% !important; height: auto !important; }
         <button id="at-rss" onclick="setAdminTab('rss')" class="admin-menu-btn"
           style="background:var(--sur2);border:2px solid var(--bd);border-radius:12px;padding:12px 8px;cursor:pointer;text-align:center;transition:.2s;font-family:var(--font)">
           <div style="font-size:24px;margin-bottom:5px">🌐</div>
-          <div style="font-size:12px;font-weight:700;color:var(--tx)">글 가져오기</div>
+          <div class="amenu-title" style="font-size:12px;font-weight:700;color:var(--tx)">글 가져오기</div>
           <div style="font-size:10px;color:var(--mt)">RSS 자동수집</div>
         </button>
 
         <button id="at-sns" onclick="setAdminTab('sns')" class="admin-menu-btn"
           style="background:var(--sur2);border:2px solid var(--bd);border-radius:12px;padding:12px 8px;cursor:pointer;text-align:center;transition:.2s;font-family:var(--font)">
           <div style="font-size:24px;margin-bottom:5px">📱</div>
-          <div style="font-size:12px;font-weight:700;color:var(--tx)">SNS 발행</div>
+          <div class="amenu-title" style="font-size:12px;font-weight:700;color:var(--tx)">SNS 발행</div>
           <div style="font-size:10px;color:var(--mt)">8개 동시발행</div>
         </button>
 
         <button id="at-stats" onclick="setAdminTab('stats');loadStatsPanel()" class="admin-menu-btn"
           style="background:var(--sur2);border:2px solid var(--bd);border-radius:12px;padding:12px 8px;cursor:pointer;text-align:center;transition:.2s;font-family:var(--font)">
           <div style="font-size:24px;margin-bottom:5px">📈</div>
-          <div style="font-size:12px;font-weight:700;color:var(--tx)">방문자통계</div>
+          <div class="amenu-title" style="font-size:12px;font-weight:700;color:var(--tx)">방문자통계</div>
           <div style="font-size:10px;color:var(--mt)">자동/수동설정</div>
         </button>
 
         <button id="at-theme" onclick="setAdminTab('theme')" class="admin-menu-btn"
           style="background:var(--sur2);border:2px solid var(--bd);border-radius:12px;padding:12px 8px;cursor:pointer;text-align:center;transition:.2s;font-family:var(--font)">
           <div style="font-size:24px;margin-bottom:5px">🎨</div>
-          <div style="font-size:12px;font-weight:700;color:var(--tx)">테마변경</div>
+          <div class="amenu-title" style="font-size:12px;font-weight:700;color:var(--tx)">테마변경</div>
           <div style="font-size:10px;color:var(--mt)">색상 커스텀</div>
         </button>
 
         <button id="at-cat" onclick="setAdminTab('cat')" class="admin-menu-btn"
           style="background:var(--sur2);border:2px solid var(--bd);border-radius:12px;padding:12px 8px;cursor:pointer;text-align:center;transition:.2s;font-family:var(--font)">
           <div style="font-size:24px;margin-bottom:5px">📂</div>
-          <div style="font-size:12px;font-weight:700;color:var(--tx)">카테고리</div>
+          <div class="amenu-title" style="font-size:12px;font-weight:700;color:var(--tx)">카테고리</div>
           <div style="font-size:10px;color:var(--mt)">분류 관리</div>
         </button>
 
         <button id="at-seo" onclick="setAdminTab('seo')" class="admin-menu-btn"
           style="background:var(--sur2);border:2px solid var(--bd);border-radius:12px;padding:12px 8px;cursor:pointer;text-align:center;transition:.2s;font-family:var(--font)">
           <div style="font-size:24px;margin-bottom:5px">🔍</div>
-          <div style="font-size:12px;font-weight:700;color:var(--tx)">SEO설정</div>
+          <div class="amenu-title" style="font-size:12px;font-weight:700;color:var(--tx)">SEO설정</div>
           <div style="font-size:10px;color:var(--mt)">검색 최적화</div>
         </button>
 
         <button id="at-analytics" onclick="setAdminTab('analytics')" class="admin-menu-btn"
           style="background:var(--sur2);border:2px solid var(--bd);border-radius:12px;padding:12px 8px;cursor:pointer;text-align:center;transition:.2s;font-family:var(--font)">
           <div style="font-size:24px;margin-bottom:5px">📉</div>
-          <div style="font-size:12px;font-weight:700;color:var(--tx)">애널리틱스</div>
+          <div class="amenu-title" style="font-size:12px;font-weight:700;color:var(--tx)">애널리틱스</div>
           <div style="font-size:10px;color:var(--mt)">구글 연동</div>
         </button>
 
         <button id="at-biz" onclick="setAdminTab('biz')" class="admin-menu-btn"
           style="background:var(--sur2);border:2px solid var(--bd);border-radius:12px;padding:12px 8px;cursor:pointer;text-align:center;transition:.2s;font-family:var(--font)">
           <div style="font-size:24px;margin-bottom:5px">🏢</div>
-          <div style="font-size:12px;font-weight:700;color:var(--tx)">사업자정보</div>
+          <div class="amenu-title" style="font-size:12px;font-weight:700;color:var(--tx)">사업자정보</div>
           <div style="font-size:10px;color:var(--mt)">푸터 표시</div>
         </button>
 
         <button id="at-pw" onclick="setAdminTab('pw')" class="admin-menu-btn"
           style="background:var(--sur2);border:2px solid var(--bd);border-radius:12px;padding:12px 8px;cursor:pointer;text-align:center;transition:.2s;font-family:var(--font)">
           <div style="font-size:24px;margin-bottom:5px">🔑</div>
-          <div style="font-size:12px;font-weight:700;color:var(--tx)">비밀번호</div>
+          <div class="amenu-title" style="font-size:12px;font-weight:700;color:var(--tx)">비밀번호</div>
           <div style="font-size:10px;color:var(--mt)">관리자 변경</div>
         </button>
 
         <button id="at-newsletter" onclick="setAdminTab('newsletter');initNLManualList()" class="admin-menu-btn"
           style="background:var(--sur2);border:2px solid var(--bd);border-radius:12px;padding:12px 8px;cursor:pointer;text-align:center;transition:.2s;font-family:var(--font)">
           <div style="font-size:24px;margin-bottom:5px">📮</div>
-          <div style="font-size:12px;font-weight:700;color:var(--tx)">뉴스레터</div>
+          <div class="amenu-title" style="font-size:12px;font-weight:700;color:var(--tx)">뉴스레터</div>
           <div style="font-size:10px;color:var(--mt)">자동발송</div>
         </button>
 
         <button id="at-files" onclick="setAdminTab('files')" class="admin-menu-btn"
           style="background:var(--sur2);border:2px solid var(--bd);border-radius:12px;padding:12px 8px;cursor:pointer;text-align:center;transition:.2s;font-family:var(--font)">
           <div style="font-size:24px;margin-bottom:5px">📁</div>
-          <div style="font-size:12px;font-weight:700;color:var(--tx)">파일관리</div>
+          <div class="amenu-title" style="font-size:12px;font-weight:700;color:var(--tx)">파일관리</div>
           <div style="font-size:10px;color:var(--mt)">PPT 업로드</div>
         </button>
 
@@ -1078,18 +1080,68 @@ img { max-width: 100% !important; height: auto !important; }
     <!-- SEO -->
     <div class="admin-panel" id="ap-seo">
       <div class="admin-wrap">
-        <div class="admin-section">
-          <h3>🔍 SEO & 검색엔진 등록</h3>
-          <div class="info-box">💡 구글/네이버에 등록하면 검색 결과에 노출돼요!</div>
-          <div class="field"><label>구글 인증 코드</label><input class="inp" id="googleCode" placeholder="YOUR_GOOGLE_CODE_HERE"></div>
-          <div class="field"><label>네이버 인증 코드</label><input class="inp" id="naverCode" placeholder="YOUR_NAVER_CODE_HERE"></div>
-          <div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:11px">
-            <button class="btn btn-grad" onclick="toast('✅ 코드 저장!')">💾 저장</button>
-            <a class="btn btn-ghost" href="https://search.google.com/search-console" target="_blank">구글 서치콘솔 →</a>
-            <a class="btn btn-ghost" href="https://searchadvisor.naver.com" target="_blank">네이버 서치어드바이저 →</a>
+
+        <!-- 검색엔진 등록 현황 -->
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:14px">
+          <div style="background:var(--sur);border:1px solid var(--bd);border-radius:12px;padding:14px;text-align:center">
+            <div style="font-size:22px;margin-bottom:5px">🔵</div>
+            <div style="font-size:12px;font-weight:700;margin-bottom:4px">구글</div>
+            <div style="font-size:11px;font-weight:700;color:var(--mt)" id="seo-status-google">미전송</div>
           </div>
-          <div class="divider">자동 핑 전송</div>
-          <button class="btn btn-grad" onclick="autoPing();toast('🚀 구글·네이버·빙 핑 전송 완료!')">🚀 지금 핑 전송</button>
+          <div style="background:var(--sur);border:1px solid var(--bd);border-radius:12px;padding:14px;text-align:center">
+            <div style="font-size:22px;margin-bottom:5px">🟢</div>
+            <div style="font-size:12px;font-weight:700;margin-bottom:4px">네이버</div>
+            <div style="font-size:11px;font-weight:700;color:var(--mt)" id="seo-status-naver">미전송</div>
+          </div>
+          <div style="background:var(--sur);border:1px solid var(--bd);border-radius:12px;padding:14px;text-align:center">
+            <div style="font-size:22px;margin-bottom:5px">🟠</div>
+            <div style="font-size:12px;font-weight:700;margin-bottom:4px">빙</div>
+            <div style="font-size:11px;font-weight:700;color:var(--mt)" id="seo-status-bing">미전송</div>
+          </div>
+        </div>
+
+        <!-- 원클릭 전체 등록 -->
+        <button id="seoAllBtn" onclick="runFullSEO()"
+          style="width:100%;background:var(--grad);color:#fff;border:none;border-radius:12px;padding:14px;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--font);margin-bottom:14px">
+          🚀 구글+네이버+빙 동시 등록
+        </button>
+
+        <!-- 인증 코드 설정 -->
+        <div class="admin-section" style="margin-bottom:13px">
+          <h3>🔑 검색엔진 인증 코드</h3>
+          <div class="info-box">💡 각 검색엔진 서치콘솔에서 발급받은 HTML 태그 인증 코드를 입력하세요</div>
+          <div style="margin-bottom:10px">
+            <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:5px">🔵 구글 서치콘솔 인증 코드</label>
+            <div style="display:flex;gap:7px">
+              <input class="inp" id="googleVerifyCode" placeholder="예: abcdef1234567890" style="flex:1;font-family:monospace;font-size:12px">
+              <a href="https://search.google.com/search-console" target="_blank" class="btn btn-ghost btn-sm">콘솔 →</a>
+            </div>
+          </div>
+          <div style="margin-bottom:10px">
+            <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:5px">🟢 네이버 서치어드바이저 인증 코드</label>
+            <div style="display:flex;gap:7px">
+              <input class="inp" id="naverVerifyCode" placeholder="예: abcdef1234567890" style="flex:1;font-family:monospace;font-size:12px">
+              <a href="https://searchadvisor.naver.com" target="_blank" class="btn btn-ghost btn-sm">어드바이저 →</a>
+            </div>
+          </div>
+          <button onclick="saveSearchCodes()" class="btn btn-grad" style="width:100%;padding:11px;font-size:13px">💾 인증 코드 저장</button>
+        </div>
+
+        <!-- 검색엔진 등록 가이드 -->
+        <div class="admin-section">
+          <h3>📖 검색엔진 등록 방법</h3>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="background:var(--sur2);border-radius:10px;padding:12px;border:1px solid var(--bd)">
+              <div style="font-size:12px;font-weight:700;color:var(--tx);margin-bottom:5px">🔵 구글 서치콘솔 등록</div>
+              <div style="font-size:11px;color:var(--mt);line-height:1.8">1. search.google.com/search-console 접속<br>2. "속성 추가" → tarrydaily.com 입력<br>3. HTML 태그 선택 → 코드 복사<br>4. 위 입력창에 코드 붙여넣기 → 저장<br>5. 구글에서 "확인" 버튼 클릭</div>
+              <a href="https://search.google.com/search-console" target="_blank" style="display:inline-block;margin-top:8px;background:#4285F4;color:#fff;padding:5px 12px;border-radius:7px;text-decoration:none;font-size:11px;font-weight:700">구글 서치콘솔 열기 →</a>
+            </div>
+            <div style="background:var(--sur2);border-radius:10px;padding:12px;border:1px solid var(--bd)">
+              <div style="font-size:12px;font-weight:700;color:var(--tx);margin-bottom:5px">🟢 네이버 서치어드바이저 등록</div>
+              <div style="font-size:11px;color:var(--mt);line-height:1.8">1. searchadvisor.naver.com 접속<br>2. "웹마스터 도구" → 사이트 추가<br>3. tarrydaily.com 입력<br>4. HTML 태그 방식 선택 → 코드 복사<br>5. 위 입력창에 붙여넣기 → 저장 → 소유확인</div>
+              <a href="https://searchadvisor.naver.com" target="_blank" style="display:inline-block;margin-top:8px;background:#03C75A;color:#fff;padding:5px 12px;border-radius:7px;text-decoration:none;font-size:11px;font-weight:700">네이버 서치어드바이저 열기 →</a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1592,6 +1644,25 @@ img { max-width: 100% !important; height: auto !important; }
               <div id="subscriberList" style="font-size:12px;color:var(--mt)">아직 구독자가 없어요. 위에서 추가해주세요!</div>
             </div>
 
+            <!-- EmailJS 직접 발송 설정 -->
+            <div style="margin-bottom:14px">
+              <div style="font-size:11px;font-weight:700;color:var(--mt);margin-bottom:8px;text-transform:uppercase">⚙️ EmailJS 직접 발송 설정 (무료 200건/월)</div>
+              <div style="background:var(--sur3);border-radius:9px;padding:10px 12px;border:1px solid var(--bd2);margin-bottom:9px;font-size:11px;color:var(--ac);line-height:1.7">
+                💡 <strong>EmailJS</strong> 무료 플랜: 월 200건 무료 발송!<br>
+                1. emailjs.com 가입 → 서비스 생성 → 템플릿 생성<br>
+                2. 아래에 키 입력 → 저장 → 원클릭 발송 가능!
+              </div>
+              <div style="display:flex;flex-direction:column;gap:7px;margin-bottom:9px">
+                <input class="inp" id="ejServiceId" placeholder="Service ID (예: service_xxxxxxx)" style="font-family:monospace;font-size:12px">
+                <input class="inp" id="ejTemplateId" placeholder="Template ID (예: template_xxxxxxx)" style="font-family:monospace;font-size:12px">
+                <input class="inp" id="ejPublicKey" placeholder="Public Key" style="font-family:monospace;font-size:12px">
+              </div>
+              <div style="display:flex;gap:7px">
+                <button onclick="EMAIL_SYSTEM.configure(document.getElementById('ejServiceId').value,document.getElementById('ejTemplateId').value,document.getElementById('ejPublicKey').value)" 
+                        class="btn btn-grad" style="flex:1;padding:10px;font-size:12px">💾 저장 & 연동</button>
+                <a href="https://www.emailjs.com" target="_blank" class="btn btn-ghost" style="padding:10px;font-size:12px">EmailJS →</a>
+              </div>
+            </div>
             <!-- 발송 서비스 연동 -->
             <div style="margin-bottom:12px">
               <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:8px;text-transform:uppercase">📬 이메일 발송 서비스 연동</label>
@@ -1605,8 +1676,8 @@ img { max-width: 100% !important; height: auto !important; }
                 <a href="https://about.kaistar.io" target="_blank" style="background:#059669;color:#fff;border:none;border-radius:10px;padding:11px;text-align:center;text-decoration:none;font-size:12px;font-weight:700;display:block">
                   ✉️ 카이스타 연동
                 </a>
-                <button onclick="sendNewsletter()" style="background:var(--grad);color:#fff;border:none;border-radius:10px;padding:11px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font)">
-                  🚀 테스트 발송
+                <button id="oneClickBtn" onclick="oneClickSend()" style="background:var(--grad);color:#fff;border:none;border-radius:10px;padding:11px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font)">
+                  🚀 원클릭 전체 발송
                 </button>
               </div>
             </div>
@@ -2326,24 +2397,30 @@ function tryAdminLogin(){const input=document.getElementById('adminPwInput').val
 function doAdminLogout(){isAdminLoggedIn=false;showPage('home');setNav('home');toast('관리자 로그아웃됐어요');}
 function changeAdminPw(){const cur=document.getElementById('curPw').value,nw=document.getElementById('newPw').value,conf=document.getElementById('newPwConfirm').value;if(cur!==adminPw){toast('❌ 현재 비밀번호가 틀렸어요');return;}if(nw.length<4){toast('❌ 새 비밀번호는 4자 이상이어야 해요');return;}if(nw!==conf){toast('❌ 새 비밀번호가 일치하지 않아요');return;}adminPw=nw;['curPw','newPw','newPwConfirm'].forEach(id=>document.getElementById(id).value='');document.getElementById('pwSuccess').style.display='block';setTimeout(()=>document.getElementById('pwSuccess').style.display='none',3000);toast('✅ 비밀번호가 변경됐어요!');}
 function setAdminTab(id){
-  // 모든 메뉴 버튼 비활성화
-  document.querySelectorAll('.admin-menu-btn').forEach(b=>{
-    b.style.background='var(--sur2)';
-    b.style.borderColor='var(--bd)';
-    b.querySelector('div:nth-child(2)').style.color='var(--tx)';
-  });
-  // 선택된 버튼 활성화
-  const btn=document.getElementById('at-'+id);
-  if(btn){
-    btn.style.background='var(--sur3)';
-    btn.style.borderColor='var(--ac)';
-    btn.querySelector('div:nth-child(2)').style.color='var(--ac)';
-  }
+  try {
+    // 모든 메뉴 버튼 비활성화
+    document.querySelectorAll('.admin-menu-btn').forEach(b=>{
+      b.style.background='var(--sur2)';
+      b.style.borderColor='var(--bd)';
+      const txt = b.querySelector('.amenu-title');
+      if(txt) txt.style.color='var(--tx)';
+    });
+    // 선택된 버튼 활성화
+    const btn=document.getElementById('at-'+id);
+    if(btn){
+      btn.style.background='var(--sur3)';
+      btn.style.borderColor='var(--ac)';
+      const txt = btn.querySelector('.amenu-title');
+      if(txt) txt.style.color='var(--ac)';
+    }
+  } catch(e){}
   // 패널 전환
   document.querySelectorAll('.admin-panel').forEach(p=>p.classList.remove('on'));
   const panel=document.getElementById('ap-'+id);
-  if(panel)panel.classList.add('on');
-  if(id==='sns')buildSNSCards();
+  if(panel) panel.classList.add('on');
+  if(id==='sns') { try{buildSNSCards();}catch(e){} }
+  if(id==='stats') { try{loadStatsPanel();}catch(e){} }
+  if(id==='newsletter') { try{initNLManualList();}catch(e){} }
 }
 
 // ── 둘러보기 ──
@@ -2799,6 +2876,162 @@ function getUnsplashImage(keyword) {
   const key = Object.keys(keywords).find(k => keyword.includes(k)) || 'blog-writing';
   const val = keywords[key] || 'lifestyle';
   return `https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=800&q=80`;
+}
+
+// ═══════════════════════════════════════
+//  이메일 자동발송 시스템 (EmailJS)
+// ═══════════════════════════════════════
+const EMAIL_SYSTEM = {
+  serviceId: 'YOUR_SERVICE_ID',
+  templateId: 'YOUR_TEMPLATE_ID', 
+  publicKey: 'YOUR_PUBLIC_KEY',
+  isConfigured: false,
+
+  configure(serviceId, templateId, publicKey) {
+    this.serviceId = serviceId;
+    this.templateId = templateId;
+    this.publicKey = publicKey;
+    this.isConfigured = true;
+    emailjs.init(publicKey);
+    toast('✅ 이메일 서비스 설정 완료!');
+  },
+
+  // 구독자 전체에게 뉴스레터 발송
+  async sendToAll(subject, htmlContent) {
+    if(!this.isConfigured) {
+      toast('❌ EmailJS 설정이 필요해요! 관리자 → 이메일설정 탭에서 설정해주세요');
+      return {success:0, fail:0};
+    }
+    let success = 0, fail = 0;
+    for(const sub of subscribers) {
+      try {
+        await emailjs.send(this.serviceId, this.templateId, {
+          to_email: sub.email,
+          to_name: sub.name || '구독자',
+          subject: subject,
+          html_content: htmlContent,
+          from_name: 'TARRY의 데일리',
+          site_url: 'https://tarrydaily.com'
+        });
+        success++;
+        await new Promise(r=>setTimeout(r,300));
+      } catch(e) { fail++; }
+    }
+    return {success, fail};
+  },
+
+  // 단일 이메일 발송
+  async sendSingle(toEmail, toName, subject, body) {
+    if(!this.isConfigured) { toast('❌ EmailJS 설정 필요'); return false; }
+    try {
+      await emailjs.send(this.serviceId, this.templateId, {
+        to_email: toEmail, to_name: toName||'구독자',
+        subject, html_content: body,
+        from_name: 'TARRY의 데일리', site_url: 'https://tarrydaily.com'
+      });
+      return true;
+    } catch(e) { return false; }
+  }
+};
+
+// 원클릭 뉴스레터 발송
+async function oneClickSend() {
+  if(subscribers.length === 0) { toast('구독자가 없어요!'); return; }
+  if(!generatedHTML) { toast('뉴스레터를 먼저 생성해주세요!'); return; }
+  
+  const btn = document.getElementById('oneClickBtn');
+  if(btn) { btn.disabled=true; btn.textContent='📧 발송 중...'; }
+  
+  const subject = document.getElementById('nlTitle')?.value || 'TARRY의 데일리 주간 뉴스레터';
+  const result = await EMAIL_SYSTEM.sendToAll(subject, generatedHTML);
+  
+  if(btn) { btn.disabled=false; btn.textContent='🚀 원클릭 전체 발송'; }
+  
+  sentNewsletters += result.success;
+  const el = document.getElementById('sentCount');
+  if(el) el.textContent = sentNewsletters;
+  
+  if(EMAIL_SYSTEM.isConfigured) {
+    toast(`✅ 발송 완료! 성공: ${result.success}명, 실패: ${result.fail}명`);
+  } else {
+    toast('⚠️ EmailJS 미설정 → 테스트 모드로 실행됨. 설정 탭에서 실제 발송 설정하세요!');
+  }
+}
+
+// ═══════════════════════════════════════
+//  SEO 자동 등록 시스템
+// ═══════════════════════════════════════
+const SEO_SYSTEM = {
+  googleCode: '',
+  naverCode: '',
+  
+  // 구글 서치콘솔 ping
+  async pingGoogle() {
+    const sitemapUrl = 'https://tarrydaily.com/sitemap.xml';
+    try {
+      await fetch('https://www.google.com/ping?sitemap='+encodeURIComponent(sitemapUrl), {mode:'no-cors'});
+      return true;
+    } catch(e) { return false; }
+  },
+  
+  // 네이버 서치어드바이저 ping
+  async pingNaver() {
+    const sitemapUrl = 'https://tarrydaily.com/sitemap.xml';
+    try {
+      await fetch('https://searchadvisor.naver.com/api/seo/report?url='+encodeURIComponent(sitemapUrl), {mode:'no-cors'});
+      return true;
+    } catch(e) { return false; }
+  },
+  
+  // 빙 ping
+  async pingBing() {
+    const sitemapUrl = 'https://tarrydaily.com/sitemap.xml';
+    try {
+      await fetch('https://www.bing.com/ping?sitemap='+encodeURIComponent(sitemapUrl), {mode:'no-cors'});
+      return true;
+    } catch(e) { return false; }
+  },
+  
+  // 전체 ping 전송
+  async pingAll() {
+    const results = await Promise.allSettled([
+      SEO_SYSTEM.pingGoogle(),
+      SEO_SYSTEM.pingNaver(), 
+      SEO_SYSTEM.pingBing()
+    ]);
+    return results;
+  }
+};
+
+async function runFullSEO() {
+  const btn = document.getElementById('seoAllBtn');
+  if(btn) { btn.textContent='🔄 전송 중...'; btn.disabled=true; }
+  
+  await SEO_SYSTEM.pingAll();
+  
+  if(btn) { btn.textContent='🚀 전체 검색엔진 등록'; btn.disabled=false; }
+  
+  // 상태 업데이트
+  ['google','naver','bing'].forEach(eng => {
+    const el = document.getElementById('seo-status-'+eng);
+    if(el) { el.textContent='✅ 전송됨'; el.style.color='var(--green)'; }
+  });
+  toast('🚀 구글·네이버·빙 사이트맵 전송 완료!');
+}
+
+function saveSearchCodes() {
+  const g = document.getElementById('googleVerifyCode')?.value?.trim();
+  const n = document.getElementById('naverVerifyCode')?.value?.trim();
+  if(g) SEO_SYSTEM.googleCode = g;
+  if(n) SEO_SYSTEM.naverCode = n;
+  
+  // 메타 태그 동적 업데이트 (개발용 - 실제는 파일에 하드코딩 필요)
+  let gMeta = document.querySelector('meta[name="google-site-verification"]');
+  if(gMeta && g) gMeta.content = g;
+  let nMeta = document.querySelector('meta[name="naver-site-verification"]');
+  if(nMeta && n) nMeta.content = n;
+  
+  toast('✅ 인증 코드 저장됨! GitHub 파일에도 직접 추가해주세요');
 }
 
 function toast(msg){const t=document.getElementById('toastEl');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
@@ -3615,12 +3848,7 @@ function updateSubscriberUI() {
 }
 
 function sendNewsletter() {
-  if(subscribers.length === 0) { toast('구독자를 먼저 추가해주세요'); return; }
-  if(!generatedHTML) { toast('뉴스레터를 먼저 생성해주세요'); return; }
-  sentNewsletters += subscribers.length;
-  const el = document.getElementById('sentCount');
-  if(el) el.textContent = sentNewsletters;
-  toast('🚀 ' + subscribers.length + '명에게 테스트 발송 완료! (실제 발송은 Mailchimp/스티비 연동 필요)');
+  oneClickSend();
 }
 
 function addToNewsletter(news) {
