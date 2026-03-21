@@ -6,6 +6,15 @@
 <meta name="description" content="TARRY의 데일리 — 생활꿀팁, 돈되는정보, IT, 트렌드">
 <meta property="og:title" content="TARRY의 데일리">
 <meta property="og:url" content="https://tarrydaily.com">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'GA_MEASUREMENT_ID');
+</script>
+<!-- End Google Analytics -->
 <meta name="google-site-verification" content="YOUR_GOOGLE_CODE_HERE">
 <meta name="naver-site-verification" content="YOUR_NAVER_CODE_HERE">
 <meta name="google-adsense-account" content="YOUR_ADSENSE_ID">
@@ -30,13 +39,13 @@ body{font-family:var(--font);background:var(--bg);color:var(--tx);min-height:100
 ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:3px}
 
 /* OVERLAY */
-.ov{position:fixed;inset:0;background:rgba(15,14,26,.78);z-index:600;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px);padding:1rem}.ov.hide{display:none}
+.ov{position:fixed;inset:0;background:rgba(15,14,26,.78);z-index:600;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px);padding:1rem;cursor:pointer}.ov.hide{display:none}.popup{cursor:default}
 
 /* POPUPS */
 .popup{background:var(--sur);border-radius:24px;overflow:hidden;box-shadow:0 32px 80px rgba(124,58,237,.25)}
 
 /* WELCOME */
-.wp{width:min(480px,96vw)}
+.wp{width:min(480px,96vw);cursor:default}
 .wp-hd{background:var(--grad);padding:26px 26px 20px;text-align:center;position:relative}
 .wp-hd h2{font-family:var(--display);font-size:24px;color:#fff;margin-bottom:5px}
 .wp-hd p{font-size:12px;color:rgba(255,255,255,.88);line-height:1.5}
@@ -368,8 +377,8 @@ textarea.inp{resize:vertical;min-height:85px;line-height:1.5}
 <body>
 
 <!-- WELCOME POPUP -->
-<div class="ov" id="welcomePopup">
-  <div class="popup wp">
+<div class="ov" id="welcomePopup" onclick="if(event.target===this)closePopup('welcomePopup')">
+  <div class="popup wp" onclick="event.stopPropagation()">
     <div class="wp-hd">
       <button class="wp-x" onclick="closePopup('welcomePopup')">×</button>
       <div style="font-size:36px;margin-bottom:7px">👋</div>
@@ -393,8 +402,8 @@ textarea.inp{resize:vertical;min-height:85px;line-height:1.5}
 </div>
 
 <!-- VIP POPUP -->
-<div class="ov hide" id="vipPopup">
-  <div class="popup vip-p">
+<div class="ov hide" id="vipPopup" onclick="if(event.target===this)closePopup('vipPopup')">
+  <div class="popup vip-p" onclick="event.stopPropagation()">
     <div class="vip-hd">
       <button class="wp-x" onclick="closePopup('vipPopup')">×</button>
       <div class="vip-crown">👑</div>
@@ -413,8 +422,8 @@ textarea.inp{resize:vertical;min-height:85px;line-height:1.5}
 </div>
 
 <!-- ADMIN LOGIN POPUP -->
-<div class="ov hide" id="adminLoginPopup">
-  <div class="popup admin-pop">
+<div class="ov hide" id="adminLoginPopup" onclick="if(event.target===this)closePopup('adminLoginPopup')">
+  <div class="popup admin-pop" onclick="event.stopPropagation()">
     <div class="admin-hd">
       <button class="wp-x" onclick="closePopup('adminLoginPopup')" style="background:rgba(255,255,255,.1)">×</button>
       <div style="font-size:36px;margin-bottom:7px">🔐</div>
@@ -741,6 +750,8 @@ textarea.inp{resize:vertical;min-height:85px;line-height:1.5}
       <button class="atab-admin" id="at-biz" onclick="setAdminTab('biz')">🏢 사업자</button>
       <button class="atab-admin" id="at-pw" onclick="setAdminTab('pw')">🔑 비밀번호</button>
       <button class="atab-admin" id="at-ads" onclick="setAdminTab('ads')">💰 애드센스</button>
+      <button class="atab-admin" id="at-theme" onclick="setAdminTab('theme')">🎨 테마변경</button>
+      <button class="atab-admin" id="at-analytics" onclick="setAdminTab('analytics')">📊 애널리틱스</button>
     </div>
 
     <!-- 대시보드 -->
@@ -957,11 +968,115 @@ textarea.inp{resize:vertical;min-height:85px;line-height:1.5}
   </div>
 </div>
 
-<!-- ═══ ABOUT ═══ --><div class="page" id="page-about">  <div class="wrap" style="max-width:800px">    <div style="text-align:center;padding:3rem 1rem 2rem">      <div style="font-size:56px;margin-bottom:1rem">✦</div>      <h1 style="font-family:var(--display);font-size:clamp(28px,5vw,42px);background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:1rem">TARRY의 데일리</h1>      <p style="font-size:16px;color:var(--mt);line-height:1.8;max-width:520px;margin:0 auto">매일 업데이트되는 생활꿀팁, 돈되는정보, IT&amp;온라인, 트렌드정보 블로그예요.<br>알짜 정보만 모아서 전달해드립니다.</p>    </div>    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-bottom:2.5rem">      <div style="background:var(--sur);border:1px solid var(--bd);border-radius:16px;padding:1.5rem;text-align:center;box-shadow:var(--shadow)">        <div style="font-size:36px;margin-bottom:10px">📰</div>        <div style="font-size:14px;font-weight:700;margin-bottom:6px">매일 업데이트</div>        <div style="font-size:12px;color:var(--mt);line-height:1.6">생활꿀팁, IT정보, 트렌드를 매일 새롭게 업데이트해요</div>      </div>      <div style="background:var(--sur);border:1px solid var(--bd);border-radius:16px;padding:1.5rem;text-align:center;box-shadow:var(--shadow)">        <div style="font-size:36px;margin-bottom:10px">💡</div>        <div style="font-size:14px;font-weight:700;margin-bottom:6px">실용적인 정보</div>        <div style="font-size:12px;color:var(--mt);line-height:1.6">실제로 써먹을 수 있는 알짜 정보만 엄선해서 제공해요</div>      </div>      <div style="background:var(--sur);border:1px solid var(--bd);border-radius:16px;padding:1.5rem;text-align:center;box-shadow:var(--shadow)">        <div style="font-size:36px;margin-bottom:10px">🤝</div>        <div style="font-size:14px;font-weight:700;margin-bottom:6px">함께하는 커뮤니티</div>        <div style="font-size:12px;color:var(--mt);line-height:1.6">이모티콘 댓글로 서로 소통하고 정보를 나눠요</div>      </div>    </div>    <div style="background:var(--sur);border:1px solid var(--bd);border-radius:16px;padding:2rem;box-shadow:var(--shadow);margin-bottom:1.5rem">      <h2 style="font-family:var(--display);font-size:22px;margin-bottom:1rem">블로그 소개</h2>      <p style="font-size:14px;color:var(--mt);line-height:1.9;margin-bottom:1rem">안녕하세요, <strong style="color:var(--tx)">TARRY</strong>입니다! 😊</p>      <p style="font-size:14px;color:var(--mt);line-height:1.9;margin-bottom:1rem">TARRY의 데일리는 일상에서 바로 써먹을 수 있는 생활 꿀팁, 돈이 되는 정보, IT &amp; 온라인 트렌드, 최신 핫이슈를 매일 업데이트하는 블로그예요.</p>      <p style="font-size:14px;color:var(--mt);line-height:1.9;margin-bottom:1rem">복잡한 정보를 쉽고 간결하게 정리해서 누구나 바로 활용할 수 있도록 제공하는 것이 목표예요.</p>      <p style="font-size:14px;color:var(--mt);line-height:1.9">궁금한 점이나 제안사항이 있으시면 언제든지 문의해주세요!</p>    </div>    <div style="background:var(--grad);border-radius:16px;padding:2rem;text-align:center;color:#fff">      <h3 style="font-family:var(--display);font-size:20px;margin-bottom:.8rem">함께 소통해요 💬</h3>      <p style="font-size:13px;opacity:.88;margin-bottom:1.5rem">회원가입하고 이모티콘 댓글로 소통해보세요!</p>      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">        <button onclick="showPage('auth');setAtab('signup')" style="background:#fff;color:var(--ac);border:none;border-radius:999px;padding:11px 24px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font)">무료 회원가입</button>        <button onclick="showPage('contact');setNav('contact')" style="background:rgba(255,255,255,.2);color:#fff;border:1.5px solid rgba(255,255,255,.4);border-radius:999px;padding:11px 24px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font)">문의하기</button>      </div>    </div>  </div></div><!-- ═══ PRIVACY ═══ --><div class="page" id="page-privacy">  <div class="wrap" style="max-width:800px">    <div style="background:var(--sur);border:1px solid var(--bd);border-radius:16px;padding:2.5rem;box-shadow:var(--shadow)">      <h1 style="font-family:var(--display);font-size:26px;margin-bottom:.5rem">개인정보처리방침</h1>      <p style="font-size:12px;color:var(--mt);margin-bottom:2rem">최종 업데이트: 2026년 3월 21일</p>      <div style="display:flex;flex-direction:column;gap:1.8rem;font-size:14px;line-height:1.9;color:var(--mt)">        <div>          <h3 style="font-size:16px;font-weight:700;color:var(--tx);margin-bottom:.7rem">1. 개인정보의 처리 목적</h3>          <p>TARRY의 데일리(tarrydaily.com, 이하 "블로그")는 다음의 목적을 위하여 개인정보를 처리합니다. 처리하는 개인정보는 다음의 목적 이외의 용도로는 이용되지 않습니다.</p>          <ul style="margin-top:.7rem;padding-left:1.2rem;display:flex;flex-direction:column;gap:.4rem">            <li>회원 가입 및 관리 (본인 확인, 서비스 이용)</li>            <li>댓글 서비스 제공 및 커뮤니티 운영</li>            <li>뉴스레터 발송 (구독 신청 시)</li>            <li>민원 처리 및 고객 서비스</li>          </ul>        </div>        <div>          <h3 style="font-size:16px;font-weight:700;color:var(--tx);margin-bottom:.7rem">2. 수집하는 개인정보 항목</h3>          <p><strong style="color:var(--tx)">회원 가입 시:</strong> 닉네임, 이메일 주소, 비밀번호(암호화 저장), 프로필 사진(선택)</p>          <p style="margin-top:.5rem"><strong style="color:var(--tx)">서비스 이용 시:</strong> 접속 IP, 쿠키, 방문 일시, 서비스 이용 기록</p>          <p style="margin-top:.5rem"><strong style="color:var(--tx)">뉴스레터 구독 시:</strong> 이메일 주소</p>        </div>        <div>          <h3 style="font-size:16px;font-weight:700;color:var(--tx);margin-bottom:.7rem">3. 개인정보의 보유 및 이용 기간</h3>          <p>회원 탈퇴 시 즉시 파기합니다. 단, 관련 법령에 따라 보존이 필요한 경우 해당 기간 동안 보관합니다.</p>          <ul style="margin-top:.7rem;padding-left:1.2rem;display:flex;flex-direction:column;gap:.4rem">            <li>계약 또는 청약철회 기록: 5년 (전자상거래법)</li>            <li>소비자 불만 또는 분쟁처리 기록: 3년 (전자상거래법)</li>            <li>접속에 관한 기록: 3개월 (통신비밀보호법)</li>          </ul>        </div>        <div>          <h3 style="font-size:16px;font-weight:700;color:var(--tx);margin-bottom:.7rem">4. 개인정보의 제3자 제공</h3>          <p>블로그는 이용자의 개인정보를 원칙적으로 외부에 제공하지 않습니다. 다만, 이용자가 사전에 동의한 경우 또는 법령에 의해 요구되는 경우는 예외입니다.</p>        </div>        <div>          <h3 style="font-size:16px;font-weight:700;color:var(--tx);margin-bottom:.7rem">5. 쿠키(Cookie)의 사용</h3>          <p>블로그는 맞춤형 서비스 제공을 위해 쿠키를 사용합니다. 이용자는 브라우저 설정을 통해 쿠키 저장을 거부할 수 있으나, 일부 서비스 이용에 제한이 생길 수 있습니다.</p>        </div>        <div>          <h3 style="font-size:16px;font-weight:700;color:var(--tx);margin-bottom:.7rem">6. 광고 서비스 (Google AdSense)</h3>          <p>본 블로그는 Google AdSense를 통해 광고를 게재합니다. Google은 쿠키를 사용하여 사용자의 관심사에 맞는 광고를 표시할 수 있습니다. Google의 광고 및 개인정보 정책은 <a href="https://policies.google.com/privacy" target="_blank" style="color:var(--ac)">Google 개인정보처리방침</a>에서 확인하실 수 있습니다.</p>        </div>        <div>          <h3 style="font-size:16px;font-weight:700;color:var(--tx);margin-bottom:.7rem">7. 이용자의 권리</h3>          <p>이용자는 언제든지 자신의 개인정보를 조회, 수정, 삭제할 수 있습니다. 회원 탈퇴를 원하시면 문의하기를 통해 요청해주세요.</p>        </div>        <div>          <h3 style="font-size:16px;font-weight:700;color:var(--tx);margin-bottom:.7rem">8. 개인정보 보호책임자</h3>          <div style="background:var(--sur2);border-radius:10px;padding:1rem;border:1px solid var(--bd)">            <p><strong style="color:var(--tx)">담당자:</strong> TARRY</p>            <p><strong style="color:var(--tx)">이메일:</strong> s965300111@gmail.com</p>            <p><strong style="color:var(--tx)">웹사이트:</strong> tarrydaily.com</p>          </div>        </div>        <div style="background:var(--sur2);border-radius:10px;padding:1rem;border:1px solid var(--bd);font-size:12px">          본 개인정보처리방침은 2026년 3월 21일부터 적용됩니다. 변경 시 블로그를 통해 공지합니다.        </div>      </div>    </div>  </div></div><!-- ═══ TERMS ═══ --><div class="page" id="page-terms">  <div class="wrap" style="max-width:800px">    <div style="background:var(--sur);border:1px solid var(--bd);border-radius:16px;padding:2.5rem;box-shadow:var(--shadow)">      <h1 style="font-family:var(--display);font-size:26px;margin-bottom:.5rem">이용약관</h1>      <p style="font-size:12px;color:var(--mt);margin-bottom:2rem">최종 업데이트: 2026년 3월 21일</p>      <div style="display:flex;flex-direction:column;gap:1.8rem;font-size:14px;line-height:1.9;color:var(--mt)">        <div>          <h3 style="font-size:16px;font-weight:700;color:var(--tx);margin-bottom:.7rem">제1조 (목적)</h3>          <p>이 약관은 TARRY의 데일리(tarrydaily.com, 이하 "블로그")가 제공하는 서비스의 이용 조건 및 절차, 블로그와 이용자 간의 권리, 의무 및 책임사항을 규정함을 목적으로 합니다.</p>        </div>        <div>          <h3 style="font-size:16px;font-weight:700;color:var(--tx);margin-bottom:.7rem">제2조 (서비스 내용)</h3>          <p>블로그는 다음과 같은 서비스를 제공합니다.</p>          <ul style="margin-top:.7rem;padding-left:1.2rem;display:flex;flex-direction:column;gap:.4rem">            <li>생활꿀팁, 돈되는정보, IT&amp;온라인, 트렌드정보 콘텐츠 제공</li>            <li>회원 가입 및 댓글 서비스</li>            <li>뉴스레터 서비스</li>            <li>기타 블로그가 정하는 서비스</li>          </ul>        </div>        <div>          <h3 style="font-size:16px;font-weight:700;color:var(--tx);margin-bottom:.7rem">제3조 (회원 가입)</h3>          <p>회원 가입은 무료이며, 이용자가 약관에 동의하고 회원가입 양식을 작성하여 제출함으로써 성립됩니다. 만 14세 미만의 아동은 회원 가입을 할 수 없습니다.</p>        </div>        <div>          <h3 style="font-size:16px;font-weight:700;color:var(--tx);margin-bottom:.7rem">제4조 (이용자의 의무)</h3>          <p>이용자는 다음 행위를 하여서는 안 됩니다.</p>          <ul style="margin-top:.7rem;padding-left:1.2rem;display:flex;flex-direction:column;gap:.4rem">            <li>타인의 정보 도용 및 허위 정보 등록</li>            <li>블로그의 운영을 방해하는 행위</li>            <li>타인을 비방하거나 명예를 훼손하는 행위</li>            <li>음란물, 폭력적인 내용의 게시 및 유포</li>            <li>저작권법 등 관련 법령을 위반하는 행위</li>            <li>스팸, 광고성 댓글 작성</li>          </ul>        </div>        <div>          <h3 style="font-size:16px;font-weight:700;color:var(--tx);margin-bottom:.7rem">제5조 (저작권)</h3>          <p>블로그에 게시된 모든 콘텐츠(글, 이미지 등)의 저작권은 블로그 운영자에게 있습니다. 무단 복제, 배포, 수정은 금지됩니다. 단, 출처를 명시한 인용은 허용됩니다.</p>        </div>        <div>          <h3 style="font-size:16px;font-weight:700;color:var(--tx);margin-bottom:.7rem">제6조 (광고)</h3>          <p>블로그는 Google AdSense 등의 광고 서비스를 통해 광고를 게재할 수 있습니다. 광고 내용은 광고주의 책임이며, 블로그는 광고 내용에 대한 책임을 지지 않습니다.</p>        </div>        <div>          <h3 style="font-size:16px;font-weight:700;color:var(--tx);margin-bottom:.7rem">제7조 (면책조항)</h3>          <p>블로그는 제공하는 정보의 정확성에 최선을 다하지만, 정보의 오류나 누락에 대한 책임을 지지 않습니다. 이용자는 정보를 참고용으로만 활용하고, 중요한 결정은 전문가와 상담하시기 바랍니다.</p>        </div>        <div>          <h3 style="font-size:16px;font-weight:700;color:var(--tx);margin-bottom:.7rem">제8조 (약관 변경)</h3>          <p>블로그는 필요한 경우 약관을 변경할 수 있으며, 변경 시 블로그에 공지합니다. 변경된 약관에 동의하지 않는 경우 서비스 이용을 중단하고 회원 탈퇴를 할 수 있습니다.</p>        </div>        <div style="background:var(--sur2);border-radius:10px;padding:1rem;border:1px solid var(--bd)">          <p><strong style="color:var(--tx)">문의:</strong> s965300111@gmail.com</p>          <p><strong style="color:var(--tx)">시행일:</strong> 2026년 3월 21일</p>        </div>      </div>    </div>  </div></div>
+<!-- ═══ ABOUT ═══ --><div class="page" id="page-about">  <div class="wrap" style="max-width:800px">    <div style="text-align:center;padding:3rem 1rem 2rem">      <div style="font-size:56px;margin-bottom:1rem">✦</div>      <h1 style="font-family:var(--display);font-size:clamp(28px,5vw,42px);background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:1rem">TARRY의 데일리</h1>      <p style="font-size:16px;color:var(--mt);line-height:1.8;max-width:520px;margin:0 auto">매일 업데이트되는 생활꿀팁, 돈되는정보, IT&amp;온라인, 트렌드정보 블로그예요.<br>알짜 정보만 모아서 전달해드립니다.</p>    </div>    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-bottom:2.5rem">      <div style="background:var(--sur);border:1px solid var(--bd);border-radius:16px;padding:1.5rem;text-align:center;box-shadow:var(--shadow)">        <div style="font-size:36px;margin-bottom:10px">📰</div>        <div style="font-size:14px;font-weight:700;margin-bottom:6px">매일 업데이트</div>        <div style="font-size:12px;color:var(--mt);line-height:1.6">생활꿀팁, IT정보, 트렌드를 매일 새롭게 업데이트해요</div>      </div>      <div style="background:var(--sur);border:1px solid var(--bd);border-radius:16px;padding:1.5rem;text-align:center;box-shadow:var(--shadow)">        <div style="font-size:36px;margin-bottom:10px">💡</div>        <div style="font-size:14px;font-weight:700;margin-bottom:6px">실용적인 정보</div>        <div style="font-size:12px;color:var(--mt);line-height:1.6">실제로 써먹을 수 있는 알짜 정보만 엄선해서 제공해요</div>      </div>      <div style="background:var(--sur);border:1px solid var(--bd);border-radius:16px;padding:1.5rem;text-align:center;box-shadow:var(--shadow)">        <div style="font-size:36px;margin-bottom:10px">🤝</div>        <div style="font-size:14px;font-weight:700;margin-bottom:6px">함께하는 커뮤니티</div>        <div style="font-size:12px;color:var(--mt);line-height:1.6">이모티콘 댓글로 서로 소통하고 정보를 나눠요</div>      </div>    </div>    <div style="background:var(--sur);border:1px solid var(--bd);border-radius:16px;padding:2rem;box-shadow:var(--shadow);margin-bottom:1.5rem">      <h2 style="font-family:var(--display);font-size:22px;margin-bottom:1rem">블로그 소개</h2>      <p style="font-size:14px;color:var(--mt);line-height:1.9;margin-bottom:1rem">안녕하세요, <strong style="color:var(--tx)">TARRY</strong>입니다! 😊</p>      <p style="font-size:14px;color:var(--mt);line-height:1.9;margin-bottom:1rem">TARRY의 데일리는 일상에서 바로 써먹을 수 있는 생활 꿀팁, 돈이 되는 정보, IT &amp; 온라인 트렌드, 최신 핫이슈를 매일 업데이트하는 블로그예요.</p>      <p style="font-size:14px;color:var(--mt);line-height:1.9;margin-bottom:1rem">복잡한 정보를 쉽고 간결하게 정리해서 누구나 바로 활용할 수 있도록 제공하는 것이 목표예요.</p>      <p style="font-size:14px;color:var(--mt);line-height:1.9">궁금한 점이나 제안사항이 있으시면 언제든지 문의해주세요!</p>    </div>    <div style="background:var(--grad);border-radius:16px;padding:2rem;text-align:center;color:#fff">      <h3 style="font-family:var(--display);font-size:20px;margin-bottom:.8rem">함께 소통해요 💬</h3>      <p style="font-size:13px;opacity:.88;margin-bottom:1.5rem">회원가입하고 이모티콘 댓글로 소통해보세요!</p>      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">        <button onclick="showPage('auth');setAtab('signup')" style="background:#fff;color:var(--ac);border:none;border-radius:999px;padding:11px 24px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font)">무료 회원가입</button>        <button onclick="showPage('contact');setNav('contact')" style="background:rgba(255,255,255,.2);color:#fff;border:1.5px solid rgba(255,255,255,.4);border-radius:999px;padding:11px 24px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font)">문의하기</button>      </div>    </div>  </div></div><!-- ═══ PRIVACY ═══ --><div class="page" id="page-privacy">  <div class="wrap" style="max-width:800px">    <div style="background:var(--sur);border:1px solid var(--bd);border-radius:16px;padding:2.5rem;box-shadow:var(--shadow)">      <h1 style="font-family:var(--display);font-size:26px;margin-bottom:.5rem">개인정보처리방침</h1>      <p style="font-size:12px;color:var(--mt);margin-bottom:2rem">최종 업데이트: 2026년 3월 21일</p>      <div style="display:flex;flex-direction:column;gap:1.8rem;font-size:14px;line-height:1.9;color:var(--mt)">        <div>          <h3 style="font-size:16px;font-weight:700;color:var(--tx);margin-bottom:.7rem">1. 개인정보의 처리 목적</h3>          <p>TARRY의 데일리(tarrydaily.com, 이하 "블로그")는 다음의 목적을 위하여 개인정보를 처리합니다. 처리하는 개인정보는 다음의 목적 이외의 용도로는 이용되지 않습니다.</p>          <ul style="margin-top:.7rem;padding-left:1.2rem;display:flex;flex-direction:column;gap:.4rem">            <li>회원 가입 및 관리 (본인 확인, 서비스 이용)</li>            <li>댓글 서비스 제공 및 커뮤니티 운영</li>            <li>뉴스레터 발송 (구독 신청 시)</li>            <li>민원 처리 및 고객 서비스</li>          </ul>        </div>        <div>          <h3 style="font-size:16px;font-weight:700;color:var(--tx);margin-bottom:.7rem">2. 수집하는 개인정보 항목</h3>          <p><strong style="color:var(--tx)">회원 가입 시:</strong> 닉네임, 이메일 주소, 비밀번호(암호화 저장), 프로필 사진(선택)</p>          <p style="margin-top:.5rem"><strong style="color:var(--tx)">서비스 이용 시:</strong> 접속 IP, 쿠키, 방문 일시, 서비스 이용 기록</p>          <p style="margin-top:.5rem"><strong style="color:var(--tx)">뉴스레터 구독 시:</strong> 이메일 주소</p>        </div>        <div>          <h3 style="font-size:16px;font-weight:700;color:var(--tx);margin-bottom:.7rem">3. 개인정보의 보유 및 이용 기간</h3>          <p>회원 탈퇴 시 즉시 파기합니다. 단, 관련 법령에 따라 보존이 필요한 경우 해당 기간 동안 보관합니다.</p>          <ul style="margin-top:.7rem;padding-left:1.2rem;display:flex;flex-direction:column;gap:.4rem">            <li>계약 또는 청약철회 기록: 5년 (전자상거래법)</li>            <li>소비자 불만 또는 분쟁처리 기록: 3년 (전자상거래법)</li>            <li>접속에 관한 기록: 3개월 (통신비밀보호법)</li>          </ul>        </div>        <div>          <h3 style="font-size:16px;font-weight:700;color:var(--tx);margin-bottom:.7rem">4. 개인정보의 제3자 제공</h3>          <p>블로그는 이용자의 개인정보를 원칙적으로 외부에 제공하지 않습니다. 다만, 이용자가 사전에 동의한 경우 또는 법령에 의해 요구되는 경우는 예외입니다.</p>        </div>        <div>          <h3 style="font-size:16px;font-weight:700;color:var(--tx);margin-bottom:.7rem">5. 쿠키(Cookie)의 사용</h3>          <p>블로그는 맞춤형 서비스 제공을 위해 쿠키를 사용합니다. 이용자는 브라우저 설정을 통해 쿠키 저장을 거부할 수 있으나, 일부 서비스 이용에 제한이 생길 수 있습니다.</p>        </div>        <div>          <h3 style="font-size:16px;font-weight:700;color:var(--tx);margin-bottom:.7rem">6. 광고 서비스 (Google AdSense)</h3>          <p>본 블로그는 Google AdSense를 통해 광고를 게재합니다. Google은 쿠키를 사용하여 사용자의 관심사에 맞는 광고를 표시할 수 있습니다. Google의 광고 및 개인정보 정책은 <a href="https://policies.google.com/privacy" target="_blank" style="color:var(--ac)">Google 개인정보처리방침</a>에서 확인하실 수 있습니다.</p>        </div>        <div>          <h3 style="font-size:16px;font-weight:700;color:var(--tx);margin-bottom:.7rem">7. 이용자의 권리</h3>          <p>이용자는 언제든지 자신의 개인정보를 조회, 수정, 삭제할 수 있습니다. 회원 탈퇴를 원하시면 문의하기를 통해 요청해주세요.</p>        </div>        <div>          <h3 style="font-size:16px;font-weight:700;color:var(--tx);margin-bottom:.7rem">8. 개인정보 보호책임자</h3>          <div style="background:var(--sur2);border-radius:10px;padding:1rem;border:1px solid var(--bd)">            <p><strong style="color:var(--tx)">담당자:</strong> TARRY</p>            <p><strong style="color:var(--tx)">이메일:</strong> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="34470d0201070404050505745359555d581a575b59">[email&#160;protected]</a></p>            <p><strong style="color:var(--tx)">웹사이트:</strong> tarrydaily.com</p>          </div>        </div>        <div style="background:var(--sur2);border-radius:10px;padding:1rem;border:1px solid var(--bd);font-size:12px">          본 개인정보처리방침은 2026년 3월 21일부터 적용됩니다. 변경 시 블로그를 통해 공지합니다.        </div>      </div>    </div>  </div></div><!-- ═══ TERMS ═══ --><div class="page" id="page-terms">  <div class="wrap" style="max-width:800px">    <div style="background:var(--sur);border:1px solid var(--bd);border-radius:16px;padding:2.5rem;box-shadow:var(--shadow)">      <h1 style="font-family:var(--display);font-size:26px;margin-bottom:.5rem">이용약관</h1>      <p style="font-size:12px;color:var(--mt);margin-bottom:2rem">최종 업데이트: 2026년 3월 21일</p>      <div style="display:flex;flex-direction:column;gap:1.8rem;font-size:14px;line-height:1.9;color:var(--mt)">        <div>          <h3 style="font-size:16px;font-weight:700;color:var(--tx);margin-bottom:.7rem">제1조 (목적)</h3>          <p>이 약관은 TARRY의 데일리(tarrydaily.com, 이하 "블로그")가 제공하는 서비스의 이용 조건 및 절차, 블로그와 이용자 간의 권리, 의무 및 책임사항을 규정함을 목적으로 합니다.</p>        </div>        <div>          <h3 style="font-size:16px;font-weight:700;color:var(--tx);margin-bottom:.7rem">제2조 (서비스 내용)</h3>          <p>블로그는 다음과 같은 서비스를 제공합니다.</p>          <ul style="margin-top:.7rem;padding-left:1.2rem;display:flex;flex-direction:column;gap:.4rem">            <li>생활꿀팁, 돈되는정보, IT&amp;온라인, 트렌드정보 콘텐츠 제공</li>            <li>회원 가입 및 댓글 서비스</li>            <li>뉴스레터 서비스</li>            <li>기타 블로그가 정하는 서비스</li>          </ul>        </div>        <div>          <h3 style="font-size:16px;font-weight:700;color:var(--tx);margin-bottom:.7rem">제3조 (회원 가입)</h3>          <p>회원 가입은 무료이며, 이용자가 약관에 동의하고 회원가입 양식을 작성하여 제출함으로써 성립됩니다. 만 14세 미만의 아동은 회원 가입을 할 수 없습니다.</p>        </div>        <div>          <h3 style="font-size:16px;font-weight:700;color:var(--tx);margin-bottom:.7rem">제4조 (이용자의 의무)</h3>          <p>이용자는 다음 행위를 하여서는 안 됩니다.</p>          <ul style="margin-top:.7rem;padding-left:1.2rem;display:flex;flex-direction:column;gap:.4rem">            <li>타인의 정보 도용 및 허위 정보 등록</li>            <li>블로그의 운영을 방해하는 행위</li>            <li>타인을 비방하거나 명예를 훼손하는 행위</li>            <li>음란물, 폭력적인 내용의 게시 및 유포</li>            <li>저작권법 등 관련 법령을 위반하는 행위</li>            <li>스팸, 광고성 댓글 작성</li>          </ul>        </div>        <div>          <h3 style="font-size:16px;font-weight:700;color:var(--tx);margin-bottom:.7rem">제5조 (저작권)</h3>          <p>블로그에 게시된 모든 콘텐츠(글, 이미지 등)의 저작권은 블로그 운영자에게 있습니다. 무단 복제, 배포, 수정은 금지됩니다. 단, 출처를 명시한 인용은 허용됩니다.</p>        </div>        <div>          <h3 style="font-size:16px;font-weight:700;color:var(--tx);margin-bottom:.7rem">제6조 (광고)</h3>          <p>블로그는 Google AdSense 등의 광고 서비스를 통해 광고를 게재할 수 있습니다. 광고 내용은 광고주의 책임이며, 블로그는 광고 내용에 대한 책임을 지지 않습니다.</p>        </div>        <div>          <h3 style="font-size:16px;font-weight:700;color:var(--tx);margin-bottom:.7rem">제7조 (면책조항)</h3>          <p>블로그는 제공하는 정보의 정확성에 최선을 다하지만, 정보의 오류나 누락에 대한 책임을 지지 않습니다. 이용자는 정보를 참고용으로만 활용하고, 중요한 결정은 전문가와 상담하시기 바랍니다.</p>        </div>        <div>          <h3 style="font-size:16px;font-weight:700;color:var(--tx);margin-bottom:.7rem">제8조 (약관 변경)</h3>          <p>블로그는 필요한 경우 약관을 변경할 수 있으며, 변경 시 블로그에 공지합니다. 변경된 약관에 동의하지 않는 경우 서비스 이용을 중단하고 회원 탈퇴를 할 수 있습니다.</p>        </div>        <div style="background:var(--sur2);border-radius:10px;padding:1rem;border:1px solid var(--bd)">          <p><strong style="color:var(--tx)">문의:</strong> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="87f4beb1b2b4b7b7b6b6b6c7e0eae6eeeba9e4e8ea">[email&#160;protected]</a></p>          <p><strong style="color:var(--tx)">시행일:</strong> 2026년 3월 21일</p>        </div>      </div>    </div>  </div></div>
+<!-- 색상 테마 관리자 패널 -->
+<div class="admin-panel" id="ap-theme">
+  <div class="admin-wrap">
+    <div class="admin-section">
+      <h3>🎨 색상 테마 변경</h3>
+      <div class="info-box">💡 클릭 한 번으로 블로그 전체 색상이 바뀌어요! 저장하면 바로 적용돼요.</div>
+      
+      <div class="divider">프리셋 테마</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-bottom:16px" id="themePresets"></div>
+      
+      <div class="divider">직접 색상 설정</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px">
+        <div class="admin-section" style="padding:12px;box-shadow:none">
+          <div style="font-size:11px;font-weight:700;color:var(--mt);margin-bottom:8px">메인 색상</div>
+          <input type="color" id="colorG1" value="#7c3aed" style="width:100%;height:40px;border:1px solid var(--bd);border-radius:8px;cursor:pointer;background:none" onchange="previewTheme()">
+        </div>
+        <div class="admin-section" style="padding:12px;box-shadow:none">
+          <div style="font-size:11px;font-weight:700;color:var(--mt);margin-bottom:8px">포인트 색상</div>
+          <input type="color" id="colorG2" value="#ec4899" style="width:100%;height:40px;border:1px solid var(--bd);border-radius:8px;cursor:pointer;background:none" onchange="previewTheme()">
+        </div>
+        <div class="admin-section" style="padding:12px;box-shadow:none">
+          <div style="font-size:11px;font-weight:700;color:var(--mt);margin-bottom:8px">강조 색상</div>
+          <input type="color" id="colorG3" value="#f97316" style="width:100%;height:40px;border:1px solid var(--bd);border-radius:8px;cursor:pointer;background:none" onchange="previewTheme()">
+        </div>
+      </div>
+      
+      <div style="background:var(--sur2);border-radius:12px;padding:14px;margin-bottom:14px;border:1px solid var(--bd)">
+        <div style="font-size:12px;font-weight:700;margin-bottom:10px">미리보기</div>
+        <div id="themePreviewBox" style="background:linear-gradient(135deg,#7c3aed,#ec4899,#f97316);border-radius:10px;padding:16px;text-align:center;color:#fff">
+          <div style="font-family:var(--display);font-size:18px;font-weight:700;margin-bottom:5px">TARRY의 데일리</div>
+          <div style="font-size:12px;opacity:.88">색상 미리보기</div>
+          <div style="display:flex;gap:8px;justify-content:center;margin-top:10px">
+            <div style="background:rgba(255,255,255,.25);border-radius:999px;padding:5px 14px;font-size:11px;font-weight:600">버튼 예시</div>
+            <div style="background:rgba(255,255,255,.15);border-radius:999px;padding:5px 14px;font-size:11px">버튼 2</div>
+          </div>
+        </div>
+      </div>
+      
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-grad" style="flex:1;padding:13px;font-size:13px" onclick="applyTheme()">🎨 이 테마 적용하기</button>
+        <button class="btn btn-ghost" onclick="resetTheme()">↩ 기본값으로</button>
+      </div>
+    </div>
+
+    <div class="admin-section">
+      <h3>📊 Google Analytics 설정</h3>
+      <div class="info-box">💡 Google Analytics를 연동하면 방문자 수, 유입 경로, 인기 글을 실시간으로 확인할 수 있어요!</div>
+      
+      <div class="divider">연동 방법</div>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px">
+        <div style="background:var(--sur2);border-radius:9px;padding:11px 13px;border:1px solid var(--bd);font-size:12px">
+          <strong>① Google Analytics 가입</strong><br>
+          <span style="color:var(--mt)">analytics.google.com → 시작하기 → 계정 만들기</span>
+        </div>
+        <div style="background:var(--sur2);border-radius:9px;padding:11px 13px;border:1px solid var(--bd);font-size:12px">
+          <strong>② 속성 만들기</strong><br>
+          <span style="color:var(--mt)">속성 이름: tarrydaily.com → 웹 → URL: tarrydaily.com</span>
+        </div>
+        <div style="background:var(--sur2);border-radius:9px;padding:11px 13px;border:1px solid var(--bd);font-size:12px">
+          <strong>③ 측정 ID 복사</strong><br>
+          <span style="color:var(--mt)">G-XXXXXXXXXX 형태의 ID를 아래에 입력해줘요</span>
+        </div>
+      </div>
+      
+      <div class="field">
+        <label>Google Analytics 측정 ID</label>
+        <div style="display:flex;gap:8px">
+          <input class="inp" id="gaId" placeholder="G-XXXXXXXXXX" style="flex:1;font-family:monospace">
+          <button class="btn btn-grad" onclick="saveGaId()">💾 저장</button>
+        </div>
+      </div>
+      
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <a class="btn btn-ghost" href="https://analytics.google.com" target="_blank">📊 Analytics 대시보드 →</a>
+        <a class="btn btn-ghost" href="https://search.google.com/search-console" target="_blank">🔍 서치콘솔 →</a>
+      </div>
+      
+      <div class="divider">확인할 수 있는 데이터</div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px">
+        <div style="background:var(--sur2);border-radius:9px;padding:11px;border:1px solid var(--bd);text-align:center">
+          <div style="font-size:20px;margin-bottom:5px">👥</div>
+          <div style="font-size:11px;font-weight:700;margin-bottom:3px">방문자 수</div>
+          <div style="font-size:10px;color:var(--mt)">일별·주별·월별</div>
+        </div>
+        <div style="background:var(--sur2);border-radius:9px;padding:11px;border:1px solid var(--bd);text-align:center">
+          <div style="font-size:20px;margin-bottom:5px">🔍</div>
+          <div style="font-size:11px;font-weight:700;margin-bottom:3px">유입 경로</div>
+          <div style="font-size:10px;color:var(--mt)">구글·네이버·SNS·직접</div>
+        </div>
+        <div style="background:var(--sur2);border-radius:9px;padding:11px;border:1px solid var(--bd);text-align:center">
+          <div style="font-size:20px;margin-bottom:5px">📄</div>
+          <div style="font-size:11px;font-weight:700;margin-bottom:3px">인기 글</div>
+          <div style="font-size:10px;color:var(--mt)">어떤 글을 많이 봤는지</div>
+        </div>
+        <div style="background:var(--sur2);border-radius:9px;padding:11px;border:1px solid var(--bd);text-align:center">
+          <div style="font-size:20px;margin-bottom:5px">📱</div>
+          <div style="font-size:11px;font-weight:700;margin-bottom:3px">기기·지역</div>
+          <div style="font-size:10px;color:var(--mt)">PC·모바일·태블릿</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toastEl"></div>
 <input type="file" id="profileInput2" accept="image/*" style="display:none">
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ══════════════════════════════
 //   TARRY의 데일리 — 완성본
 // ══════════════════════════════
@@ -1614,14 +1729,4 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // 푸터 링크 업데이트 — 실제 페이지로 연결
-  document.querySelectorAll('.footer-links a').forEach(a => {
-    if (a.textContent.includes('개인정보처리방침')) {
-      a.href = '#'; a.onclick = (e) => { e.preventDefault(); showPage('privacy'); setNav(''); };
-    }
-    if (a.textContent.includes('이용약관')) {
-      a.href = '#'; a.onclick = (e) => { e.preventDefault(); showPage('terms'); setNav(''); };
-    }
-  });
-
-});
-</script>
+  document.querySelectorAll('.footer-links a'
