@@ -1144,6 +1144,33 @@ function togFaq(el){const arr=el.querySelector('.faq-arr'),ans=el.nextElementSib
 
 // ── MISC ──
 function subscribeEmail(){const email=document.getElementById('emailInp').value.trim();if(!email||!email.includes('@')){toast('올바른 이메일을 입력해주세요');return;}document.getElementById('emailInp').value='';toast('📮 구독 완료! 매주 목요일 편지 보내드릴게요 ✓');}
+function toast(msg){const t=document.getElementById('toastEl');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
+
+function autoPing(){const s='https://tarrydaily.com/sitemap.xml';['https://www.google.com/ping?sitemap='+s,'https://www.bing.com/ping?sitemap='+s].forEach(url=>fetch(url,{mode:'no-cors'}).catch(()=>{}));}
+
+function doAdminLogin(){
+  const pw = document.getElementById('adminPwField').value;
+  const err = document.getElementById('adminLoginErr');
+  if(pw === adminPw){
+    isAdminLoggedIn = true;
+    document.getElementById('adminPwField').value = '';
+    err.style.display = 'none';
+    showPage('admin');
+    buildAdminCatTree();
+    buildThemePresets();
+    toast('🔐 관리자 페이지에 오신 걸 환영해요!');
+  } else {
+    err.style.display = 'block';
+    document.getElementById('adminPwField').value = '';
+    document.getElementById('adminPwField').focus();
+  }
+}
+
+// ── INIT ──
+buildCatTree();renderBreadcrumb();renderPosts();
+buildEmojiPicker();renderComments();
+setTimeout(autoPing,3000);
+
 </script>
 </body>
 </html>
