@@ -516,6 +516,26 @@ img { max-width: 100% !important; height: auto !important; }
       </div>
     </div>
   </div>
+  <!-- PPT 다운로드 배너 -->
+  <div style="max-width:1060px;margin:0 auto 1.5rem;padding:0 1.5rem">
+    <div style="background:linear-gradient(135deg,#1a1a2e,#2d2945);border-radius:20px;padding:1.5rem 2rem;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;box-shadow:0 12px 40px rgba(124,58,237,.2)">
+      <div style="font-size:48px">📊</div>
+      <div style="flex:1;min-width:200px">
+        <div style="font-size:18px;font-weight:700;color:#fff;font-family:var(--display);margin-bottom:5px">TARRY의 데일리 완벽 사용설명서</div>
+        <div style="font-size:13px;color:#a78bfa;line-height:1.6">회원 등급별 혜택, 주요 기능, 관리자 가이드가 담긴 PPT 파일을 다운받으세요!</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <a href="https://claude.ai/chat/37923611-9856-474d-8724-8f0864ace332" target="_blank"
+           style="background:var(--grad);color:#fff;border:none;border-radius:12px;padding:12px 22px;font-size:13px;font-weight:700;cursor:pointer;text-decoration:none;display:flex;align-items:center;gap:7px;white-space:nowrap">
+          📥 PPT 다운로드
+        </a>
+        <button onclick="showPage('about');setNav('about')"
+                style="background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:12px 22px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font);white-space:nowrap">
+          👋 블로그 소개
+        </button>
+      </div>
+    </div>
+  </div>
   <div class="nl-wrap" style="margin-top:1rem">
     <div class="nl-inner">
       <h2>매주 목요일, 편지처럼 📮</h2>
@@ -791,17 +811,81 @@ img { max-width: 100% !important; height: auto !important; }
         <button class="btn btn-ghost btn-sm" onclick="doAdminLogout()">로그아웃</button>
       </div>
     </div>
-    <div class="admin-tabs">
-      <button class="atab-admin on" id="at-dash" onclick="setAdminTab('dash')">📊 대시보드</button>
-      <button class="atab-admin" id="at-rss" onclick="setAdminTab('rss')">🌐 RSS</button>
-      <button class="atab-admin" id="at-sns" onclick="setAdminTab('sns')">📱 SNS</button>
-      <button class="atab-admin" id="at-cat" onclick="setAdminTab('cat')">📂 카테고리</button>
-      <button class="atab-admin" id="at-theme" onclick="setAdminTab('theme')">🎨 테마변경</button>
-      <button class="atab-admin" id="at-seo" onclick="setAdminTab('seo')">🔍 SEO</button>
-      <button class="atab-admin" id="at-biz" onclick="setAdminTab('biz')">🏢 사업자</button>
-      <button class="atab-admin" id="at-pw" onclick="setAdminTab('pw')">🔑 비밀번호</button>
-      <button class="atab-admin" id="at-analytics" onclick="setAdminTab('analytics')">📊 애널리틱스</button>
-      <button class="atab-admin" id="at-stats" onclick="setAdminTab('stats');loadStatsPanel()">📈 방문자통계</button>
+    <!-- 관리자 메뉴 그리드 -->
+    <div style="padding:1rem 1.5rem;background:var(--sur);border-bottom:1px solid var(--bd)">
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px">
+        
+        <button id="at-dash" onclick="setAdminTab('dash')" class="admin-menu-btn on"
+          style="background:var(--sur3);border:2px solid var(--ac);border-radius:12px;padding:12px 8px;cursor:pointer;text-align:center;transition:.2s;font-family:var(--font)">
+          <div style="font-size:24px;margin-bottom:5px">📊</div>
+          <div style="font-size:12px;font-weight:700;color:var(--ac)">대시보드</div>
+          <div style="font-size:10px;color:var(--mt)">홈 & 현황</div>
+        </button>
+
+        <button id="at-rss" onclick="setAdminTab('rss')" class="admin-menu-btn"
+          style="background:var(--sur2);border:2px solid var(--bd);border-radius:12px;padding:12px 8px;cursor:pointer;text-align:center;transition:.2s;font-family:var(--font)">
+          <div style="font-size:24px;margin-bottom:5px">🌐</div>
+          <div style="font-size:12px;font-weight:700;color:var(--tx)">글 가져오기</div>
+          <div style="font-size:10px;color:var(--mt)">RSS 자동수집</div>
+        </button>
+
+        <button id="at-sns" onclick="setAdminTab('sns')" class="admin-menu-btn"
+          style="background:var(--sur2);border:2px solid var(--bd);border-radius:12px;padding:12px 8px;cursor:pointer;text-align:center;transition:.2s;font-family:var(--font)">
+          <div style="font-size:24px;margin-bottom:5px">📱</div>
+          <div style="font-size:12px;font-weight:700;color:var(--tx)">SNS 발행</div>
+          <div style="font-size:10px;color:var(--mt)">8개 동시발행</div>
+        </button>
+
+        <button id="at-stats" onclick="setAdminTab('stats');loadStatsPanel()" class="admin-menu-btn"
+          style="background:var(--sur2);border:2px solid var(--bd);border-radius:12px;padding:12px 8px;cursor:pointer;text-align:center;transition:.2s;font-family:var(--font)">
+          <div style="font-size:24px;margin-bottom:5px">📈</div>
+          <div style="font-size:12px;font-weight:700;color:var(--tx)">방문자통계</div>
+          <div style="font-size:10px;color:var(--mt)">자동/수동설정</div>
+        </button>
+
+        <button id="at-theme" onclick="setAdminTab('theme')" class="admin-menu-btn"
+          style="background:var(--sur2);border:2px solid var(--bd);border-radius:12px;padding:12px 8px;cursor:pointer;text-align:center;transition:.2s;font-family:var(--font)">
+          <div style="font-size:24px;margin-bottom:5px">🎨</div>
+          <div style="font-size:12px;font-weight:700;color:var(--tx)">테마변경</div>
+          <div style="font-size:10px;color:var(--mt)">색상 커스텀</div>
+        </button>
+
+        <button id="at-cat" onclick="setAdminTab('cat')" class="admin-menu-btn"
+          style="background:var(--sur2);border:2px solid var(--bd);border-radius:12px;padding:12px 8px;cursor:pointer;text-align:center;transition:.2s;font-family:var(--font)">
+          <div style="font-size:24px;margin-bottom:5px">📂</div>
+          <div style="font-size:12px;font-weight:700;color:var(--tx)">카테고리</div>
+          <div style="font-size:10px;color:var(--mt)">분류 관리</div>
+        </button>
+
+        <button id="at-seo" onclick="setAdminTab('seo')" class="admin-menu-btn"
+          style="background:var(--sur2);border:2px solid var(--bd);border-radius:12px;padding:12px 8px;cursor:pointer;text-align:center;transition:.2s;font-family:var(--font)">
+          <div style="font-size:24px;margin-bottom:5px">🔍</div>
+          <div style="font-size:12px;font-weight:700;color:var(--tx)">SEO설정</div>
+          <div style="font-size:10px;color:var(--mt)">검색 최적화</div>
+        </button>
+
+        <button id="at-analytics" onclick="setAdminTab('analytics')" class="admin-menu-btn"
+          style="background:var(--sur2);border:2px solid var(--bd);border-radius:12px;padding:12px 8px;cursor:pointer;text-align:center;transition:.2s;font-family:var(--font)">
+          <div style="font-size:24px;margin-bottom:5px">📉</div>
+          <div style="font-size:12px;font-weight:700;color:var(--tx)">애널리틱스</div>
+          <div style="font-size:10px;color:var(--mt)">구글 연동</div>
+        </button>
+
+        <button id="at-biz" onclick="setAdminTab('biz')" class="admin-menu-btn"
+          style="background:var(--sur2);border:2px solid var(--bd);border-radius:12px;padding:12px 8px;cursor:pointer;text-align:center;transition:.2s;font-family:var(--font)">
+          <div style="font-size:24px;margin-bottom:5px">🏢</div>
+          <div style="font-size:12px;font-weight:700;color:var(--tx)">사업자정보</div>
+          <div style="font-size:10px;color:var(--mt)">푸터 표시</div>
+        </button>
+
+        <button id="at-pw" onclick="setAdminTab('pw')" class="admin-menu-btn"
+          style="background:var(--sur2);border:2px solid var(--bd);border-radius:12px;padding:12px 8px;cursor:pointer;text-align:center;transition:.2s;font-family:var(--font)">
+          <div style="font-size:24px;margin-bottom:5px">🔑</div>
+          <div style="font-size:12px;font-weight:700;color:var(--tx)">비밀번호</div>
+          <div style="font-size:10px;color:var(--mt)">관리자 변경</div>
+        </button>
+
+      </div>
     </div>
 
     <!-- 대시보드 -->
@@ -1224,23 +1308,7 @@ img { max-width: 100% !important; height: auto !important; }
           <h3>📊 글별 조회수 설정</h3>
           <div style="background:var(--sur2);border-radius:10px;padding:11px;margin-bottom:11px;border:1px solid var(--bd)">
             <div style="display:flex;gap:7px;margin-bottom:8px">
-              <select class="inp" id="postViewSelect" style="flex:2;cursor:pointer" onchange="loadPostView()">
-                <option value="">글 선택...</option>
-                <option value="i1">ChatGPT 프롬프트 모음</option>
-                <option value="i2">ChatGPT로 수익 창출</option>
-                <option value="i3">무료 AI 툴 TOP10</option>
-                <option value="i4">카카오톡 꿀팁</option>
-                <option value="i5">네이버 지도 꿀팁</option>
-                <option value="m1">구글 애드센스 전략</option>
-                <option value="m2">애드센스 자동화</option>
-                <option value="m3">신용카드 추천</option>
-                <option value="l1">봄날의 루틴</option>
-                <option value="l2">주말 보내는 7가지 방법</option>
-                <option value="l3">10분 스트레칭</option>
-                <option value="t1">넷플릭스 TOP10</option>
-                <option value="t2">OTT 콘텐츠 총정리</option>
-                <option value="t3">SNS 트렌드 분석</option>
-              </select>
+              <select class="inp" id="postViewSelect" style="flex:2;cursor:pointer" onchange="loadPostView()"><option value="">글 선택...</option></select>
               <input class="inp" id="postViewValue" type="number" placeholder="조회수" style="flex:1">
               <button onclick="setPostView()" class="btn btn-grad btn-sm">설정</button>
             </div>
@@ -1721,7 +1789,8 @@ let rssPostsCache = [];
 async function loadRSSPosts() {
   const grid = document.getElementById('rssPostGrid');
   const status = document.getElementById('rssStatus');
-  if(status) status.textContent = '동기화 중...';
+  if(status) { status.textContent = '🔄 tarryguide.com에서 글 가져오는 중...'; status.style.color='#f59e0b'; }
+  if(grid) grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:2rem;color:var(--mt)"><div style="font-size:32px;margin-bottom:10px;animation:spin 1s linear infinite">🔄</div>글을 가져오고 있어요...</div>';
   
   try {
     const posts = await RSS_SYSTEM.syncAll();
@@ -1754,7 +1823,40 @@ async function loadRSSPosts() {
     if(status) status.textContent = `✅ ${posts.length}개 글 수집 완료 · ${new Date().toLocaleTimeString('ko-KR')}`;
     
   } catch(e) {
-    if(status) status.textContent = '❌ 수집 실패 — 잠시 후 다시 시도해주세요';
+    // CORS 오류시 tarryguide.com 알려진 글 목록으로 대체
+    rssPostsCache = [
+      {title:'ChatGPT 프롬프트 모음 복붙용 생산성 극대화 활용법 완벽 가이드', url:'https://tarryguide.com/posts/ChatGPT-프롬프트-모음', date:new Date().toISOString(), sourceName:'TARRY의 아카이브'},
+      {title:'온라인 부업 Google 애드센스 수익 극대화 전략 완벽 가이드', url:'https://tarryguide.com/posts/Google-애드센스-수익', date:new Date().toISOString(), sourceName:'TARRY의 아카이브'},
+      {title:'네이버 지도 꿀기능 숨겨진 활용법으로 일상생활을 스마트하게', url:'https://tarryguide.com/posts/네이버-지도-꿀기능', date:new Date().toISOString(), sourceName:'TARRY의 아카이브'},
+      {title:'2026 무료 AI 툴 추천 TOP10 직장인 필독', url:'https://tarryguide.com/posts/AI-툴-추천-TOP10', date:new Date().toISOString(), sourceName:'TARRY의 아카이브'},
+      {title:'카카오톡 숨겨진 꿀팁 5가지 몰랐던 기능', url:'https://tarryguide.com/posts/카카오톡-꿀팁', date:new Date().toISOString(), sourceName:'TARRY의 아카이브'},
+      {title:'전기요금 절약하는 방법 매달 몇만원 아끼기', url:'https://tarryguide.com/posts/전기요금-절약', date:new Date().toISOString(), sourceName:'TARRY의 아카이브'},
+      {title:'2026 넷플릭스 추천 영화 드라마 TOP10', url:'https://tarryguide.com/posts/넷플릭스-추천', date:new Date().toISOString(), sourceName:'TARRY의 아카이브'},
+      {title:'신용카드 추천 소비패턴별 최적 카드 완벽정리', url:'https://tarryguide.com/posts/신용카드-추천', date:new Date().toISOString(), sourceName:'TARRY의 아카이브'},
+    ];
+    if(grid) {
+      grid.innerHTML = rssPostsCache.map(p => `
+        <div style="background:var(--sur);border:1px solid var(--bd);border-radius:12px;overflow:hidden;transition:.2s;cursor:pointer" 
+             onmouseover="this.style.borderColor='var(--bd2)';this.style.transform='translateY(-2px)'"
+             onmouseout="this.style.borderColor='var(--bd)';this.style.transform='none'">
+          <div style="background:var(--grad);height:90px;display:flex;align-items:center;justify-content:center;font-size:28px">📄</div>
+          <div style="padding:10px">
+            <div style="font-size:11px;color:var(--ac);font-weight:700;margin-bottom:4px">${p.sourceName}</div>
+            <div style="font-size:12px;font-weight:600;line-height:1.4;margin-bottom:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">${p.title}</div>
+          </div>
+          <div style="padding:8px;border-top:1px solid var(--bd);display:flex;gap:5px">
+            <button onclick="openRSSPost(${JSON.stringify(p).replace(/"/g,'&quot;')})" 
+                    style="flex:1;background:var(--grad);color:#fff;border:none;border-radius:7px;padding:6px;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--font)">
+              🤖 AI 변환
+            </button>
+            <button onclick="quickShareRSS(${JSON.stringify(p).replace(/"/g,'&quot;')})"
+                    style="background:var(--sur2);color:var(--ac);border:1.5px solid var(--bd2);border-radius:7px;padding:6px 8px;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--font)">
+              📤 공유
+            </button>
+          </div>
+        </div>`).join('');
+    }
+    if(status) { status.textContent = '⚠️ 직접 연결 안됨 → 알려진 글 목록으로 표시 중 (CORS 제한)'; status.style.color='#f59e0b'; }
   }
 }
 
@@ -1893,7 +1995,26 @@ function openAdminLogin(){
 function tryAdminLogin(){const input=document.getElementById('adminPwInput').value;if(input===adminPw){isAdminLoggedIn=true;closePopup('adminLoginPopup');showPage('admin');buildAdminCatTree();buildThemePresets();toast('🔐 관리자 페이지에 오신 걸 환영해요!');}else{document.getElementById('adminErr').classList.add('show');document.getElementById('adminPwInput').value='';}}
 function doAdminLogout(){isAdminLoggedIn=false;showPage('home');setNav('home');toast('관리자 로그아웃됐어요');}
 function changeAdminPw(){const cur=document.getElementById('curPw').value,nw=document.getElementById('newPw').value,conf=document.getElementById('newPwConfirm').value;if(cur!==adminPw){toast('❌ 현재 비밀번호가 틀렸어요');return;}if(nw.length<4){toast('❌ 새 비밀번호는 4자 이상이어야 해요');return;}if(nw!==conf){toast('❌ 새 비밀번호가 일치하지 않아요');return;}adminPw=nw;['curPw','newPw','newPwConfirm'].forEach(id=>document.getElementById(id).value='');document.getElementById('pwSuccess').style.display='block';setTimeout(()=>document.getElementById('pwSuccess').style.display='none',3000);toast('✅ 비밀번호가 변경됐어요!');}
-function setAdminTab(id){document.querySelectorAll('.atab-admin').forEach(t=>t.classList.remove('on'));document.querySelectorAll('.admin-panel').forEach(p=>p.classList.remove('on'));const btn=document.getElementById('at-'+id);if(btn)btn.classList.add('on');const panel=document.getElementById('ap-'+id);if(panel)panel.classList.add('on');if(id==='sns')buildSNSCards();}
+function setAdminTab(id){
+  // 모든 메뉴 버튼 비활성화
+  document.querySelectorAll('.admin-menu-btn').forEach(b=>{
+    b.style.background='var(--sur2)';
+    b.style.borderColor='var(--bd)';
+    b.querySelector('div:nth-child(2)').style.color='var(--tx)';
+  });
+  // 선택된 버튼 활성화
+  const btn=document.getElementById('at-'+id);
+  if(btn){
+    btn.style.background='var(--sur3)';
+    btn.style.borderColor='var(--ac)';
+    btn.querySelector('div:nth-child(2)').style.color='var(--ac)';
+  }
+  // 패널 전환
+  document.querySelectorAll('.admin-panel').forEach(p=>p.classList.remove('on'));
+  const panel=document.getElementById('ap-'+id);
+  if(panel)panel.classList.add('on');
+  if(id==='sns')buildSNSCards();
+}
 
 // ── 둘러보기 ──
 function startBrowse(){isBrowsing=true;closePopup('welcomePopup');document.getElementById('browseBanner').style.display='flex';showPage('home');setNav('home');toast('👀 둘러보기 모드!');}
@@ -2651,6 +2772,20 @@ function setPostView() {
 }
 
 function loadStatsPanel() {
+  // 셀렉트 동적 채우기 (제한 없음)
+  const sel = document.getElementById('postViewSelect');
+  if(sel) {
+    const allPosts = [];
+    CAT_DATA.forEach(l1=>l1.subs.forEach(l2=>l2.items.forEach(item=>{
+      allPosts.push({id:item.id, title:item.title});
+    })));
+    // RSS 수집된 글도 추가
+    rssPostsCache.forEach((p,i)=>allPosts.push({id:'rss_'+i, title:p.title}));
+    
+    const currentVal = sel.value;
+    sel.innerHTML = '<option value="">글 선택...</option>' + 
+      allPosts.map(p=>`<option value="${p.id}" ${p.id===currentVal?'selected':''}>${p.title.substring(0,35)}${p.title.length>35?'...':''}</option>`).join('');
+  }
   // 관리자 통계 수치 업데이트
   const t = document.getElementById('adminStatTotal');
   const d = document.getElementById('adminStatDaily');
