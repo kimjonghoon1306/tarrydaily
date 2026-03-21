@@ -1236,7 +1236,7 @@ function startBrowse() {
   closePopup('welcomePopup');
   document.getElementById('browseBanner').classList.remove('hide');
   showPage('home'); setNav('home');
-  toast('👀 둘러보기 모드 시작!');
+ 
 }
 function handleLockedClick() {
   if (!currentUser) { toast('🔒 회원가입 후 전체 글을 볼 수 있어요!'); setTimeout(() => { showPage('auth'); setAtab('signup'); }, 800); }
