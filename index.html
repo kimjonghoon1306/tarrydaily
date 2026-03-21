@@ -39,7 +39,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--tx);min-height:100
 ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:3px}
 
 /* OVERLAY */
-.ov{position:fixed;inset:0;background:rgba(15,14,26,.78);z-index:600;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px);padding:1rem;cursor:pointer}.ov.hide{display:none}.popup{cursor:default}
+.ov{position:fixed;inset:0;background:rgba(15,14,26,.78);z-index:600;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px);padding:1rem;cursor:pointer}.ov.hide{display:none;pointer-events:none}.popup{cursor:default}
 
 /* POPUPS */
 .popup{background:var(--sur);border-radius:24px;overflow:hidden;box-shadow:0 32px 80px rgba(124,58,237,.25);position:relative;z-index:700;cursor:default}
