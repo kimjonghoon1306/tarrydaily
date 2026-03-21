@@ -22,8 +22,7 @@
   --display:'Playfair Display',serif;
 }
 html{scroll-behavior:smooth}
-.ov{position:fixed;inset:0;background:rgba(15,14,26,.75);z-index:600;display:none;align-items:center;justify-content:center;padding:1rem}
-.ov.show{display:flex !important}
+
 body{font-family:var(--font);background:var(--bg);color:var(--tx);min-height:100vh;overflow-x:hidden;line-height:1.6}
 ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:3px}
 
@@ -549,7 +548,7 @@ textarea.inp{resize:vertical;min-height:80px;line-height:1.5}
           <p id="dashEmail"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ef9b8e9d9d96af8a978e829f838ac18c8082">[email&#160;protected]</a></p>
           <div class="m-badges"><span class="mbadge" id="dashGrade">FREE 회원</span><span class="mbadge">🗓 2026.03.21 가입</span><span class="mbadge" id="dashCmt">💬 댓글 0개</span></div>
         </div>
-        <button class="btn btn-ghost btn-sm" onclick="document.getElementById('vipPopup').classList.add('show')" style="margin-left:auto;color:#fff;border-color:rgba(255,255,255,.35);background:rgba(255,255,255,.18)">👑 VIP 업그레이드</button>
+        <button class="btn btn-ghost btn-sm" onclick="toast('👑 VIP 업그레이드 안내를 이메일로 보내드릴게요!')" style="margin-left:auto;color:#fff;border-color:rgba(255,255,255,.35);background:rgba(255,255,255,.18)">👑 VIP 업그레이드</button>
       </div>
       <div class="mstats">
         <div class="mstat"><div class="mstat-num" id="stCmt">0</div><div class="mstat-lbl">작성 댓글</div></div>
@@ -1022,7 +1021,7 @@ function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.
 function setNav(id){document.querySelectorAll('.nl').forEach(l=>l.classList.remove('on'));const el=document.getElementById('nl-'+id);if(el)el.classList.add('on');}
 
 // ── 관리자 ──
-function openAdminLogin(){if(isAdminLoggedIn){showPage('admin');return;}document.getElementById('adminPwInput').value='';document.getElementById('adminErr').classList.remove('show');document.getElementById('adminLoginPopup').classList.add('show');setTimeout(()=>document.getElementById('adminPwInput').focus(),200);}
+function openAdminLogin(){if(isAdminLoggedIn){showPage('admin');return;}const pw=prompt('관리자 비밀번호를 입력하세요:');if(pw===adminPw){isAdminLoggedIn=true;showPage('admin');buildAdminCatTree();buildThemePresets();toast('🔐 관리자 페이지!');}else if(pw!==null){toast('❌ 비밀번호가 틀렸어요');}}
 function tryAdminLogin(){const input=document.getElementById('adminPwInput').value;if(input===adminPw){isAdminLoggedIn=true;closePopup('adminLoginPopup');showPage('admin');buildAdminCatTree();buildThemePresets();toast('🔐 관리자 페이지에 오신 걸 환영해요!');}else{document.getElementById('adminErr').classList.add('show');document.getElementById('adminPwInput').value='';}}
 function doAdminLogout(){isAdminLoggedIn=false;showPage('home');setNav('home');toast('관리자 로그아웃됐어요');}
 function changeAdminPw(){const cur=document.getElementById('curPw').value,nw=document.getElementById('newPw').value,conf=document.getElementById('newPwConfirm').value;if(cur!==adminPw){toast('❌ 현재 비밀번호가 틀렸어요');return;}if(nw.length<4){toast('❌ 새 비밀번호는 4자 이상이어야 해요');return;}if(nw!==conf){toast('❌ 새 비밀번호가 일치하지 않아요');return;}adminPw=nw;['curPw','newPw','newPwConfirm'].forEach(id=>document.getElementById(id).value='');document.getElementById('pwSuccess').style.display='block';setTimeout(()=>document.getElementById('pwSuccess').style.display='none',3000);toast('✅ 비밀번호가 변경됐어요!');}
@@ -1041,7 +1040,7 @@ function updateSignupInitial(){const nick=document.getElementById('sNick').value
 // ── AUTH ──
 function setAtab(t){document.getElementById('at-login').classList.toggle('on',t==='login');document.getElementById('at-signup').classList.toggle('on',t==='signup');document.getElementById('loginF').style.display=t==='login'?'block':'none';document.getElementById('signupF').style.display=t==='signup'?'block':'none';}
 function doLogin(){const email=document.getElementById('lEmail').value.trim()||'tarry@example.com';const pw=document.getElementById('lPw').value;if(!pw){toast('비밀번호를 입력해주세요');return;}loginSuccess(email.split('@')[0]||'TARRY',email,'free',null);}
-function doSignup(){const nick=document.getElementById('sNick').value.trim(),email=document.getElementById('sEmail').value.trim(),pw=document.getElementById('sPw').value;if(!nick||!email||!pw){toast('모든 항목을 입력해주세요');return;}if(pw.length<8){toast('비밀번호는 8자 이상이어야 해요');return;}loginSuccess(nick,email,'free',profileImageData);setTimeout(()=>document.getElementById('vipPopup').classList.add('show'),1500);}
+function doSignup(){const nick=document.getElementById('sNick').value.trim(),email=document.getElementById('sEmail').value.trim(),pw=document.getElementById('sPw').value;if(!nick||!email||!pw){toast('모든 항목을 입력해주세요');return;}if(pw.length<8){toast('비밀번호는 8자 이상이어야 해요');return;}loginSuccess(nick,email,'free',profileImageData);setTimeout(()=>toast('👑 VIP 업그레이드 안내를 이메일로 보내드릴게요!'),1500);}
 function socialLogin(provider){loginSuccess(provider+'유저',`user@${provider.toLowerCase()}.com`,'free',null);}
 function loginSuccess(nick,email,grade,imgData){
   currentUser={nick,email,grade,cmtCount:0,profileImg:imgData};isBrowsing=false;
@@ -1064,12 +1063,8 @@ function loginSuccess(nick,email,grade,imgData){
   closePopup('welcomePopup');toast('🎉 환영해요, '+nick+'님!');showPage('home');setNav('home');
 }
 function doLogout(){currentUser=null;isBrowsing=false;profileImageData=null;document.getElementById('guestArea').style.display='flex';document.getElementById('navUser').style.display='none';document.getElementById('memberDash').style.display='none';document.getElementById('guestMsg').style.display='block';document.getElementById('cmtAv').innerHTML='?';document.getElementById('cmtHint').textContent='로그인 후 댓글을 쓸 수 있어요';document.getElementById('browseBanner').classList.add('hide');toast('로그아웃됐어요');}
-function upgradeVip(){if(!currentUser)return;currentUser.grade='vip';document.getElementById('navGrade').textContent='VIP';document.getElementById('navGrade').className='nav-grade g-vip';document.getElementById('dashGrade').textContent='VIP 회원';['vb1','vb2','vb3'].forEach(id=>{const el=document.getElementById(id);el.classList.remove('ben-locked');el.querySelector('.ben-d').textContent='VIP 혜택 활성화! ✓';});closePopup('vipPopup');toast('👑 VIP 업그레이드 완료!');}
-function closePopup(id){
-  const el=document.getElementById(id);
-  if(!el)return;
-  el.classList.remove('show');
-}
+function upgradeVip(){if(!currentUser)return;currentUser.grade='vip';document.getElementById('navGrade').textContent='VIP';document.getElementById('navGrade').className='nav-grade g-vip';document.getElementById('dashGrade').textContent='VIP 회원';['vb1','vb2','vb3'].forEach(id=>{const el=document.getElementById(id);el.classList.remove('ben-locked');el.querySelector('.ben-d').textContent='VIP 혜택 활성화! ✓';});toast('👑 VIP 업그레이드 완료!');}
+function closePopup(id){}
 
 // ── CATEGORY ──
 function buildCatTree(){const tree=document.getElementById('catTree');let html=`<button class="cat-all" onclick="selectCat(null,null,null)">🗂 전체 글 <span class="cl1-cnt" style="margin-left:auto">25개</span></button>`;CAT_DATA.forEach(l1=>{const total=l1.subs.reduce((a,b)=>a+b.items.length,0);html+=`<div class="cl1"><button class="cl1b" id="cl1-${l1.id}" onclick="togL1('${l1.id}')"><span>${l1.icon}</span><span style="flex:1">${l1.name}</span><span class="cl1-cnt">${total}개</span><span class="cl1-arr" id="arr1-${l1.id}">▶</span></button><div class="cl2-list" id="l2-${l1.id}">`;l1.subs.forEach(l2=>{html+=`<div><button class="cl2b" id="cl2-${l2.id}" onclick="togL2('${l1.id}','${l2.id}')"><span>📂</span><span style="flex:1">${l2.name}</span><span class="cl2-cnt">${l2.items.length}개</span><span class="cl1-arr" id="arr2-${l2.id}" style="font-size:9px">▶</span></button><div class="cl3-list" id="l3-${l2.id}">`;l2.items.forEach(item=>{html+=`<button class="cl3b" id="cl3-${item.id}" onclick="selectCat('${l1.id}','${l2.id}','${item.id}')"><span class="cl3d"></span>${item.title.substring(0,18)}...</button>`;});html+=`</div></div>`;});html+=`</div></div>`;});tree.innerHTML=html;}
