@@ -813,6 +813,7 @@ img { max-width: 100% !important; height: auto !important; }
             <button class="btn btn-grad" onclick="setAdminTab('rss');document.getElementById('at-rss').classList.add('on')">🌐 RSS</button>
             <button class="btn btn-grad" onclick="setAdminTab('sns');document.getElementById('at-sns').classList.add('on')">📱 SNS</button>
             <button class="btn btn-dark" onclick="setAdminTab('theme');document.getElementById('at-theme').classList.add('on')">🎨 테마</button>
+            <button class="btn" style="background:linear-gradient(135deg,#ec4899,#f97316);color:#fff" onclick="showImageSettings()">🖼️ 이미지 설정</button>
             <button class="btn btn-ghost" onclick="setAdminTab('pw');document.getElementById('at-pw').classList.add('on')">🔑 비밀번호</button>
             <a class="btn" href="https://claude.ai/chat/37923611-9856-474d-8724-8f0864ace332" target="_blank" style="background:linear-gradient(135deg,#059669,#0891b2);color:#fff">📊 사용설명서 PPT 다운로드</a>
           </div>
@@ -1059,7 +1060,8 @@ img { max-width: 100% !important; height: auto !important; }
     </div>
     <article style="background:var(--sur);border:1px solid var(--bd);border-radius:16px;overflow:hidden;box-shadow:0 8px 30px rgba(124,58,237,.08)">
       <!-- 글 헤더 -->
-      <div id="postHeader" style="background:var(--grad);padding:2.5rem 2rem;color:#fff;position:relative;overflow:hidden">
+      <div id="postHeaderImg" style="min-height:280px;position:relative;background:var(--grad)"></div>
+      <div id="postHeader" style="background:rgba(0,0,0,.55);padding:2rem 2rem 1.5rem;color:#fff;position:relative">
         <div style="position:absolute;inset:0;opacity:.15;background:url('data:image/svg+xml,%3Csvg width=60 height=60 viewBox=0 0 60 60 xmlns=http://www.w3.org/2000/svg%3E%3Cg fill=%23ffffff fill-opacity=0.3%3E%3Ccircle cx=30 cy=30 r=20/%3E%3C/g%3E%3C/svg%3E')"></div>
         <div id="postEmoji" style="font-size:48px;margin-bottom:12px;position:relative">🤖</div>
         <div id="postTag" style="display:inline-block;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:3px 12px;font-size:11px;font-weight:600;margin-bottom:12px;position:relative">IT & 온라인</div>
@@ -1154,247 +1156,202 @@ img { max-width: 100% !important; height: auto !important; }
 // ═══════════════════════════════════════════
 
 
-// ═══════════════════════════════════════
-//  TARRY 이미지 자동화 시스템
-//  실사 / 웹툰 / 3D 스타일 자동 선택
-// ═══════════════════════════════════════
+
+// ═══════════════════════════════════════════════════
+//  TARRY 자동 이미지 생성 시스템 v2.0
+//  무료 AI 이미지 자동 생성 (API 키 불필요)
+// ═══════════════════════════════════════════════════
 
 const IMAGE_SYSTEM = {
 
-  // 카테고리별 Unsplash 키워드 매핑
-  unsplashMap: {
-    'IT': '1461749280684-dab91fe1d8d5',
-    'AI': '1677442135703-1787eea5ce01',
-    '온라인': '1516321318423-f06f85e504b3',
-    '앱': '1512941937669-90a1b58e7e9c',
-    '생활': '1506126613408-eca07ce68773',
-    '꿀팁': '1484480974693-6ca0a78fb36b',
-    '돈': '1611974789855-9c2a0a7236a3',
-    '재테크': '1579621970563-ebec7560ff3e',
-    '카드': '1556742049-0cfed4f6a45d',
-    '트렌드': '1518770660439-4636190af475',
-    '넷플릭스': '1574375927938-d5a98e8ffe85',
-    '영화': '1489599849927-2ee91cede3ba',
-    '음식': '1567620905732-2d1ec7ab7445',
-    '여행': '1488646953014-85cb44e25828',
-    '건강': '1571019613576-2b22c76fd955',
-    '운동': '1571019613454-1cb2f99b2d8b',
-    '뷰티': '1596462502278-27bfdc403348',
-    '패션': '1490481651871-ab68de25d43d',
-    '부동산': '1560518883-ce09059eeffa',
+  // ── 무료 이미지 생성 API 목록 (우선순위 순) ──
+  providers: [
+    {
+      id: 'pollinations',
+      name: 'Pollinations AI',
+      free: true,
+      keyRequired: false,
+      active: true,
+      generate(prompt, width=800, height=450) {
+        const encoded = encodeURIComponent(prompt);
+        // 매번 다른 이미지를 위해 seed 추가
+        const seed = Math.floor(Math.random() * 999999);
+        return `https://image.pollinations.ai/prompt/${encoded}?width=${width}&height=${height}&seed=${seed}&nologo=true`;
+      }
+    },
+    {
+      id: 'picsum',
+      name: 'Unsplash Fallback',
+      free: true,
+      keyRequired: false,
+      active: true,
+      generate(prompt) {
+        // 주제별 Unsplash 사진
+        const map = {
+          'IT':'1461749280684-dab91fe1d8d5','AI':'1677442135703-1787eea5ce01',
+          '생활':'1506126613408-eca07ce68773','돈':'1611974789855-9c2a0a7236a3',
+          '트렌드':'1518770660439-4636190af475','넷플릭스':'1574375927938-d5a98e8ffe85',
+          '음식':'1567620905732-2d1ec7ab7445','여행':'1488646953014-85cb44e25828',
+          '건강':'1571019613576-2b22c76fd955','뷰티':'1596462502278-27bfdc403348',
+        };
+        const key = Object.keys(map).find(k => prompt.includes(k));
+        const id = key ? map[key] : '1499750310107-5fef28a66643';
+        return `https://images.unsplash.com/photo-${id}?w=800&h=450&fit=crop&q=85`;
+      }
+    }
+  ],
+
+  // 현재 활성 provider
+  currentProvider: 'pollinations',
+
+  // ── 핵심 함수: 자동 이미지 생성 ──
+  async generateImage(title, tag, style) {
+    const prompt = IMAGE_SYSTEM.buildPrompt(title, tag, style);
+    const provider = IMAGE_SYSTEM.providers.find(p => p.id === IMAGE_SYSTEM.currentProvider && p.active);
+    
+    if(!provider) return IMAGE_SYSTEM.providers[1].generate(title+tag);
+    return provider.generate(prompt);
   },
 
-  // 글 내용 분석 → 스타일 자동 결정
-  detectStyle(title, tag, body) {
-    const webtoonKeywords = ['이야기', '경험', '후기', '일상', '에피소드', '라이프', '루틴'];
-    const threeDKeywords = ['기술', 'AI', 'IT', '미래', '디지털', '데이터', '앱', '시스템'];
-    const realisticKeywords = ['방법', '전략', '팁', '가이드', '정보', '추천', '리뷰'];
-    
-    const text = (title + tag).toLowerCase();
-    if (threeDKeywords.some(k => text.includes(k))) return '3d';
-    if (webtoonKeywords.some(k => text.includes(k))) return 'webtoon';
+  // 스타일 자동 감지
+  detectStyle(title, tag) {
+    const t = (title+tag).toLowerCase();
+    if(['ai','it','기술','디지털','앱','시스템','데이터'].some(k=>t.includes(k))) return '3d';
+    if(['일상','이야기','경험','후기','라이프','루틴','에피소드'].some(k=>t.includes(k))) return 'webtoon';
     return 'realistic';
   },
 
-  // Unsplash 이미지 URL 생성
-  getUnsplashUrl(title, tag, width = 800) {
-    const map = IMAGE_SYSTEM.unsplashMap;
-    const key = Object.keys(map).find(k => (title + tag).includes(k));
-    const photoId = key ? map[key] : '1499750310107-5fef28a66643';
-    return `https://images.unsplash.com/photo-${photoId}?w=${width}&q=85&fit=crop`;
+  // 고품질 프롬프트 생성
+  buildPrompt(title, tag, style) {
+    const visualMap = {
+      'IT': 'modern computer workspace, glowing monitors, professional tech setup',
+      'AI': 'futuristic artificial intelligence visualization, neural networks, glowing brain',
+      '앱': 'smartphone floating with colorful apps, digital interface, mobile technology',
+      '온라인': 'person using laptop with glowing screens, digital world connection',
+      '생활': 'cozy Korean modern apartment, morning sunlight, clean aesthetic lifestyle',
+      '꿀팁': 'lightbulb idea moment, bright inspiration, helpful tips concept',
+      '돈': 'Korean money won coins and bills, financial growth, prosperity concept',
+      '재테크': 'stock market charts rising, investment success, financial freedom',
+      '카드': 'credit card flying with money, financial benefits, rewards concept',
+      '트렌드': 'trendy modern Korean young people, urban Seoul fashion street',
+      '넷플릭스': 'cozy home cinema setup, streaming service, watching movies comfort',
+      '영화': 'dramatic cinema atmosphere, film reel, movie magic lighting',
+      '음식': 'delicious Korean food professional plating, steam rising, appetizing',
+      '여행': 'beautiful Korean travel destination, scenic landscape, adventure',
+      '건강': 'healthy Korean lifestyle, fresh vegetables, morning wellness routine',
+      '운동': 'Korean fitness motivation, gym workout, body transformation',
+      '뷰티': 'Korean beauty aesthetic, skincare products, glowing skin concept',
+    };
+
+    const styles = {
+      'realistic': 'ultra-realistic photography, 8K resolution, professional DSLR camera, cinematic lighting, shallow depth of field, photorealistic, high detail',
+      'webtoon': 'Korean webtoon illustration style, manhwa art, clean line art, vibrant flat colors, cute characters, digital art, comic style',
+      '3d': 'stunning 3D render, Cinema 4D octane render, hyperrealistic visualization, studio lighting, ray tracing, photorealistic 3D'
+    };
+
+    const key = Object.keys(visualMap).find(k => (title+tag).includes(k));
+    const visual = key ? visualMap[key] : 'Korean lifestyle modern concept, editorial quality';
+    const styleDesc = styles[style] || styles['realistic'];
+
+    return `${visual}, ${styleDesc}, Korean aesthetic, professional quality, beautiful composition`;
   },
 
-  // AI 이미지 프롬프트 자동 생성
-  generatePrompt(title, tag, style) {
-    const styleGuides = {
-      'realistic': {
-        prefix: 'Ultra-realistic professional photography, 8K resolution, cinematic lighting, shallow depth of field,',
-        suffix: ', shot on Canon EOS R5, natural lighting, high detail, photorealistic',
-        negative: 'cartoon, anime, drawing, illustration, blurry, low quality'
-      },
-      'webtoon': {
-        prefix: 'Korean webtoon style illustration, clean line art, vibrant colors, manhwa art style,',
-        suffix: ', digital art, Korean comic style, clean outlines, flat coloring, cute characters',
-        negative: 'realistic, 3D, photograph, blurry, dark, gloomy'
-      },
-      '3d': {
-        prefix: 'Stunning 3D render, octane render, cinema 4D style, hyperrealistic 3D visualization,',
-        suffix: ', studio lighting, ray tracing, photorealistic 3D, high quality render, 8K',
-        negative: 'flat, 2D, cartoon, sketch, blurry, low quality'
-      }
-    };
-
-    // 주제별 핵심 시각 요소 생성
-    const visualElements = {
-      'IT': 'modern technology workspace, floating holographic screens, blue neon circuits',
-      'AI': 'neural network visualization, glowing AI brain, digital consciousness, futuristic robot',
-      '온라인': 'person using laptop with glowing screens, digital connection visualization',
-      '앱': 'smartphone with colorful app icons floating, hand touching screen',
-      '생활': 'cozy Korean apartment interior, morning sunlight, clean minimalist space',
-      '꿀팁': 'person having eureka moment, lightbulb moment, bright ideas visualization',
-      '돈': 'Korean won coins and bills, financial growth chart, prosperity visualization',
-      '재테크': 'stock market charts going up, investment portfolio, financial freedom concept',
-      '트렌드': 'modern Korean young adults, trendy urban setting, Seoul cityscape',
-      '넷플릭스': 'person watching TV in dark cozy room, streaming content, popcorn',
-      '영화': 'cinema atmosphere, film reel, dramatic movie scene lighting',
-      '음식': 'delicious Korean food styling, restaurant quality plating, steam rising',
-      '여행': 'Korean tourist destination, beautiful landscape, travel adventure',
-      '건강': 'healthy lifestyle, morning exercise, fresh vegetables, wellness concept',
-      '운동': 'Korean person working out, gym motivation, fitness transformation',
-    };
-
-    const key = Object.keys(visualElements).find(k => (title + tag).includes(k));
-    const visual = key ? visualElements[key] : 'Korean lifestyle concept, modern urban setting, editorial photography';
-    const guide = styleGuides[style];
-
-    const prompt = `${guide.prefix} ${visual}, Korean context, professional quality${guide.suffix}`;
-    const negative = guide.negative;
-    const korean = `${style === 'webtoon' ? '웹툰 스타일' : style === '3d' ? '3D 렌더링' : '실사 사진'}, ${title} 관련 이미지`;
-
-    return { prompt, negative, korean, style, visual };
-  },
-
-  // 여러 AI 플랫폼용 프롬프트 패키지 생성
-  createPromptPackage(title, tag) {
-    const style = IMAGE_SYSTEM.detectStyle(title, tag, '');
-    const base = IMAGE_SYSTEM.generatePrompt(title, tag, style);
-    
-    return {
-      style,
-      midjourney: `${base.prompt} --ar 16:9 --q 2 --v 6`,
-      dalle: base.prompt,
-      stable: { positive: base.prompt, negative: base.negative },
-      leonardo: base.prompt,
-      korean: base.korean,
-      unsplash: IMAGE_SYSTEM.getUnsplashUrl(title, tag),
-      styleVariants: {
-        realistic: IMAGE_SYSTEM.generatePrompt(title, tag, 'realistic').prompt + ' --ar 16:9 --v 6',
-        webtoon: IMAGE_SYSTEM.generatePrompt(title, tag, 'webtoon').prompt + ' --ar 16:9 --niji 6',
-        '3d': IMAGE_SYSTEM.generatePrompt(title, tag, '3d').prompt + ' --ar 16:9 --v 6',
-      }
-    };
+  // provider 변경
+  switchProvider(providerId) {
+    IMAGE_SYSTEM.currentProvider = providerId;
+    localStorage.setItem('imageProvider', providerId);
+    const p = IMAGE_SYSTEM.providers.find(p => p.id === providerId);
+    toast('🎨 이미지 제공사: ' + (p?.name || providerId) + '로 변경됨');
   }
 };
 
-// 이미지 생성 패널 표시
-function showImagePanel(title, tag) {
-  const pkg = IMAGE_SYSTEM.createPromptPackage(title, tag);
-  
-  const modal = document.createElement('div');
-  modal.className = 'ov';
-  modal.style.display = 'flex';
-  modal.innerHTML = `
-    <div style="background:var(--sur);border-radius:20px;width:min(640px,96vw);max-height:90vh;overflow-y:auto;box-shadow:0 24px 70px rgba(124,58,237,.25)">
-      <div style="background:var(--grad);padding:18px 22px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10">
-        <div>
-          <div style="font-size:16px;font-weight:700;color:#fff;font-family:var(--display)">🎨 AI 이미지 생성 프롬프트</div>
-          <div style="font-size:11px;color:rgba(255,255,255,.8);margin-top:2px">${title}</div>
-        </div>
-        <button onclick="this.closest('.ov').remove()" style="background:rgba(255,255,255,.2);border:none;color:#fff;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:16px">×</button>
-      </div>
-      <div style="padding:18px 22px">
-        
-        <!-- 감지된 스타일 -->
-        <div style="background:var(--sur2);border-radius:10px;padding:11px 14px;margin-bottom:14px;display:flex;align-items:center;gap:10px;border:1px solid var(--bd)">
-          <div style="font-size:24px">${pkg.style === 'webtoon' ? '🎨' : pkg.style === '3d' ? '🖥️' : '📸'}</div>
-          <div>
-            <div style="font-size:12px;font-weight:700;color:var(--tx)">자동 감지된 스타일: <span style="color:var(--ac)">${pkg.style === 'webtoon' ? '웹툰 스타일' : pkg.style === '3d' ? '3D 렌더링' : '실사 사진'}</span></div>
-            <div style="font-size:11px;color:var(--mt)">글 내용 분석을 통해 최적 스타일을 자동 선택했어요</div>
-          </div>
-        </div>
+// ── 글에 이미지 자동 생성 & 삽입 ──
+async function autoGeneratePostImage(title, tag, imgElement) {
+  if(!imgElement) return;
 
-        <!-- 스타일 선택 탭 -->
-        <div style="display:flex;gap:6px;margin-bottom:14px">
-          ${['realistic','webtoon','3d'].map(s => `
-            <button onclick="showStylePrompt('${s}','${encodeURIComponent(JSON.stringify(pkg))}')" 
-                    style="flex:1;padding:8px;border:2px solid ${s===pkg.style?'var(--ac)':'var(--bd)'};border-radius:9px;background:${s===pkg.style?'var(--sur3)':'var(--sur2)'};color:${s===pkg.style?'var(--ac)':'var(--mt)'};font-size:11px;font-weight:700;cursor:pointer;font-family:var(--font)">
-              ${s === 'realistic' ? '📸 실사' : s === 'webtoon' ? '🎨 웹툰' : '🖥️ 3D'}
-            </button>`).join('')}
-        </div>
-
-        <!-- Midjourney 프롬프트 -->
-        <div style="margin-bottom:12px">
-          <div style="font-size:11px;font-weight:700;color:var(--mt);margin-bottom:6px;display:flex;align-items:center;gap:6px;text-transform:uppercase;letter-spacing:.06em">
-            <span style="background:#000;color:#fff;padding:2px 7px;border-radius:4px;font-size:10px">MJ</span> Midjourney 프롬프트
-          </div>
-          <div style="background:#1a1a2e;border-radius:9px;padding:11px 13px;position:relative">
-            <p id="mj-prompt" style="font-size:12px;color:#e2e8f0;line-height:1.7;font-family:monospace;margin:0;padding-right:60px">${pkg.midjourney}</p>
-            <button onclick="copyPrompt('mj-prompt')" style="position:absolute;top:8px;right:8px;background:var(--ac);color:#fff;border:none;border-radius:6px;padding:4px 9px;font-size:10px;font-weight:700;cursor:pointer">복사</button>
-          </div>
-        </div>
-
-        <!-- DALL-E 프롬프트 -->
-        <div style="margin-bottom:12px">
-          <div style="font-size:11px;font-weight:700;color:var(--mt);margin-bottom:6px;display:flex;align-items:center;gap:6px;text-transform:uppercase;letter-spacing:.06em">
-            <span style="background:#10a37f;color:#fff;padding:2px 7px;border-radius:4px;font-size:10px">GPT</span> DALL-E / ChatGPT 프롬프트
-          </div>
-          <div style="background:#1a1a2e;border-radius:9px;padding:11px 13px;position:relative">
-            <p id="dalle-prompt" style="font-size:12px;color:#e2e8f0;line-height:1.7;font-family:monospace;margin:0;padding-right:60px">${pkg.dalle}</p>
-            <button onclick="copyPrompt('dalle-prompt')" style="position:absolute;top:8px;right:8px;background:#10a37f;color:#fff;border:none;border-radius:6px;padding:4px 9px;font-size:10px;font-weight:700;cursor:pointer">복사</button>
-          </div>
-        </div>
-
-        <!-- Stable Diffusion -->
-        <div style="margin-bottom:12px">
-          <div style="font-size:11px;font-weight:700;color:var(--mt);margin-bottom:6px;display:flex;align-items:center;gap:6px;text-transform:uppercase;letter-spacing:.06em">
-            <span style="background:#ff6b35;color:#fff;padding:2px 7px;border-radius:4px;font-size:10px">SD</span> Stable Diffusion
-          </div>
-          <div style="background:#1a1a2e;border-radius:9px;padding:11px 13px;margin-bottom:5px;position:relative">
-            <div style="font-size:10px;color:#a78bfa;margin-bottom:4px;font-weight:700">Positive:</div>
-            <p id="sd-positive" style="font-size:12px;color:#e2e8f0;line-height:1.7;font-family:monospace;margin:0 0 6px;padding-right:60px">${pkg.stable.positive}</p>
-            <button onclick="copyPrompt('sd-positive')" style="position:absolute;top:8px;right:8px;background:#ff6b35;color:#fff;border:none;border-radius:6px;padding:4px 9px;font-size:10px;font-weight:700;cursor:pointer">복사</button>
-          </div>
-          <div style="background:#2d1a1a;border-radius:9px;padding:11px 13px;position:relative">
-            <div style="font-size:10px;color:#f87171;margin-bottom:4px;font-weight:700">Negative:</div>
-            <p id="sd-negative" style="font-size:12px;color:#fca5a5;line-height:1.7;font-family:monospace;margin:0;padding-right:60px">${pkg.stable.negative}</p>
-            <button onclick="copyPrompt('sd-negative')" style="position:absolute;top:8px;right:8px;background:#991b1b;color:#fff;border:none;border-radius:6px;padding:4px 9px;font-size:10px;font-weight:700;cursor:pointer">복사</button>
-          </div>
-        </div>
-
-        <!-- Unsplash 바로 사용 -->
-        <div style="margin-bottom:12px">
-          <div style="font-size:11px;font-weight:700;color:var(--mt);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em">🖼️ 지금 바로 사용 가능한 이미지 (Unsplash)</div>
-          <img src="${pkg.unsplash}" style="width:100%;border-radius:10px;height:180px;object-fit:cover;margin-bottom:8px" alt="미리보기">
-          <button onclick="navigator.clipboard.writeText('${pkg.unsplash}').then(()=>toast('🔗 이미지 URL 복사됨!'))" 
-                  style="width:100%;background:var(--sur2);color:var(--ac);border:1.5px solid var(--bd2);border-radius:9px;padding:9px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font)">
-            🔗 이미지 URL 복사
-          </button>
-        </div>
-
-        <!-- AI 이미지 생성 사이트 바로가기 -->
-        <div>
-          <div style="font-size:11px;font-weight:700;color:var(--mt);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em">🚀 AI 이미지 생성 사이트</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px">
-            <a href="https://www.midjourney.com" target="_blank" style="background:#000;color:#fff;border:none;border-radius:9px;padding:10px;font-size:11px;font-weight:700;cursor:pointer;text-decoration:none;text-align:center;display:block">🎨 Midjourney</a>
-            <a href="https://chat.openai.com" target="_blank" style="background:#10a37f;color:#fff;border:none;border-radius:9px;padding:10px;font-size:11px;font-weight:700;cursor:pointer;text-decoration:none;text-align:center;display:block">🤖 DALL-E 3</a>
-            <a href="https://leonardo.ai" target="_blank" style="background:#6d28d9;color:#fff;border:none;border-radius:9px;padding:10px;font-size:11px;font-weight:700;cursor:pointer;text-decoration:none;text-align:center;display:block">✨ Leonardo AI</a>
-            <a href="https://stability.ai" target="_blank" style="background:#ff6b35;color:#fff;border:none;border-radius:9px;padding:10px;font-size:11px;font-weight:700;cursor:pointer;text-decoration:none;text-align:center;display:block">🔥 Stable Diffusion</a>
-          </div>
-        </div>
-      </div>
+  // 로딩 상태
+  imgElement.style.background = 'linear-gradient(135deg,var(--g1),var(--g2),var(--g3))';
+  imgElement.style.minHeight = '280px';
+  imgElement.innerHTML = `
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:280px;color:#fff">
+      <div style="font-size:36px;margin-bottom:10px;animation:spin 1.5s linear infinite">🎨</div>
+      <div style="font-size:14px;font-weight:700">AI 이미지 생성 중...</div>
+      <div style="font-size:11px;opacity:.8;margin-top:5px">잠시만 기다려주세요</div>
     </div>
-  `;
-  document.body.appendChild(modal);
-}
+    <style>@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}</style>`;
 
-function copyPrompt(elementId) {
-  const el = document.getElementById(elementId);
-  if(el) {
-    navigator.clipboard.writeText(el.textContent.trim()).then(() => toast('✅ 프롬프트 복사됨!'));
+  try {
+    const style = IMAGE_SYSTEM.detectStyle(title, tag);
+    const imageUrl = await IMAGE_SYSTEM.generateImage(title, tag, style);
+    
+    // 이미지 로딩 확인
+    const img = new Image();
+    img.onload = () => {
+      imgElement.innerHTML = '';
+      imgElement.style.background = `url('${imageUrl}') center/cover`;
+      imgElement.style.minHeight = '280px';
+      // 스타일 배지 추가
+      const badge = document.createElement('div');
+      badge.style.cssText = 'position:absolute;top:10px;right:10px;background:rgba(0,0,0,.6);color:#fff;padding:4px 10px;border-radius:999px;font-size:10px;font-weight:700;backdrop-filter:blur(4px)';
+      badge.textContent = style === 'webtoon' ? '🎨 웹툰 AI' : style === '3d' ? '🖥️ 3D AI' : '📸 실사 AI';
+      imgElement.style.position = 'relative';
+      imgElement.appendChild(badge);
+    };
+    img.onerror = () => {
+      // Pollinations 실패시 Unsplash 폴백
+      const fallback = IMAGE_SYSTEM.providers[1].generate(title+tag);
+      imgElement.style.background = `url('${fallback}') center/cover`;
+      imgElement.innerHTML = '';
+    };
+    img.src = imageUrl;
+
+  } catch(e) {
+    // 폴백
+    const fallback = IMAGE_SYSTEM.providers[1].generate(title+tag);
+    imgElement.style.background = `url('${fallback}') center/cover`;
+    imgElement.innerHTML = '';
   }
 }
 
-function showStylePrompt(style, pkgEncoded) {
-  // 스타일 변경시 프롬프트 업데이트
-  try {
-    const pkg = JSON.parse(decodeURIComponent(pkgEncoded));
-    const newPrompt = pkg.styleVariants[style];
-    const mjEl = document.getElementById('mj-prompt');
-    if(mjEl) mjEl.textContent = newPrompt || pkg.midjourney;
-    toast('🎨 ' + (style === 'webtoon' ? '웹툰' : style === '3d' ? '3D' : '실사') + ' 스타일로 변경!');
-  } catch(e) {}
-}
+// 관리자 이미지 설정 패널
+function showImageSettings() {
+  const modal = document.createElement('div');
+  modal.className = 'ov';
+  modal.style.cssText = 'display:flex;z-index:800';
+  modal.innerHTML = `
+    <div style="background:var(--sur);border-radius:20px;width:min(520px,95vw);max-height:85vh;overflow-y:auto;box-shadow:0 24px 70px rgba(124,58,237,.25)">
+      <div style="background:var(--grad);padding:18px 22px;display:flex;align-items:center;justify-content:space-between">
+        <div style="font-size:16px;font-weight:700;color:#fff;font-family:var(--display)">🎨 AI 이미지 설정</div>
+        <button onclick="this.closest('.ov').remove()" style="background:rgba(255,255,255,.2);border:none;color:#fff;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:16px">×</button>
+      </div>
+      <div style="padding:20px 22px">
+        
+        <div style="margin-bottom:16px">
+          <div style="font-size:12px;font-weight:700;color:var(--mt);margin-bottom:10px;text-transform:uppercase">현재 이미지 생성 제공사</div>
+          ${IMAGE_SYSTEM.providers.map(p => `
+            <div onclick="IMAGE_SYSTEM.switchProvider('${p.id}');this.closest('.ov').remove()" 
+                 style="background:${IMAGE_SYSTEM.currentProvider===p.id?'var(--sur3)':'var(--sur2)'};border:2px solid ${IMAGE_SYSTEM.currentProvider===p.id?'var(--ac)':'var(--bd)'};border-radius:12px;padding:13px 15px;margin-bottom:8px;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:12px">
+              <div style="font-size:24px">${p.id==='pollinations'?'🤖':'🖼️'}</div>
+              <div style="flex:1">
+                <div style="font-size:13px;font-weight:700;color:var(--tx)">${p.name}</div>
+                <div style="font-size:11px;color:var(--mt);margin-top:2px">${p.keyRequired?'API 키 필요':'API 키 불필요 — 완전 무료 ✓'}</div>
+              </div>
+              ${IMAGE_SYSTEM.currentProvider===p.id?'<span style="font-size:11px;padding:3px 10px;border-radius:999px;background:var(--ac);color:#fff;font-weight:700">사용 중</span>':''}
+            </div>`).join('')}
+        </div>
 
+        <div style="background:var(--sur3);border-radius:10px;padding:12px 14px;border:1px solid var(--bd2)">
+          <div style="font-size:12px;font-weight:700;color:var(--ac);margin-bottom:6px">💡 안내</div>
+          <ul style="font-size:12px;color:var(--mt);padding-left:1.2rem;line-height:1.8">
+            <li><strong style="color:var(--tx)">Pollinations AI:</strong> 무료 무제한. 가끔 느릴 수 있어요.</li>
+            <li>생성 실패 시 자동으로 Unsplash 사진으로 대체돼요.</li>
+            <li>글 클릭할 때마다 새로운 이미지를 생성해요.</li>
+          </ul>
+        </div>
+      </div>
+    </div>`;
+  document.body.appendChild(modal);
+}
 
 // ── RSS 자동 수집 시스템 ──
 const RSS_SYSTEM = {
@@ -1942,6 +1899,10 @@ function openPost(postId, title, tag, emoji, meta, desc) {
   
   showPage('post');
   window.scrollTo(0,0);
+  
+  // 자동 이미지 생성
+  const imgEl = document.getElementById('postHeaderImg');
+  if(imgEl) autoGeneratePostImage(title, tag, imgEl);
 }
 
 function sharePost(){
