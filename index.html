@@ -42,14 +42,14 @@ body{font-family:var(--font);background:var(--bg);color:var(--tx);min-height:100
 .ov{position:fixed;inset:0;background:rgba(15,14,26,.78);z-index:600;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px);padding:1rem;cursor:pointer}.ov.hide{display:none}.popup{cursor:default}
 
 /* POPUPS */
-.popup{background:var(--sur);border-radius:24px;overflow:hidden;box-shadow:0 32px 80px rgba(124,58,237,.25)}
+.popup{background:var(--sur);border-radius:24px;overflow:hidden;box-shadow:0 32px 80px rgba(124,58,237,.25);position:relative;z-index:700;cursor:default}
 
 /* WELCOME */
 .wp{width:min(480px,96vw);cursor:default}
 .wp-hd{background:var(--grad);padding:26px 26px 20px;text-align:center;position:relative}
 .wp-hd h2{font-family:var(--display);font-size:24px;color:#fff;margin-bottom:5px}
 .wp-hd p{font-size:12px;color:rgba(255,255,255,.88);line-height:1.5}
-.wp-x{position:absolute;top:12px;right:14px;background:rgba(255,255,255,.22);border:none;color:#fff;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center}
+.wp-x{position:absolute;top:12px;right:14px;background:rgba(255,255,255,.22);border:none;color:#fff;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;z-index:9999;pointer-events:all}
 .wp-bd{padding:22px 26px}
 .wp-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:18px}
 .wb{background:var(--sur2);border-radius:10px;padding:12px;text-align:center;border:1px solid var(--bd)}
@@ -377,7 +377,7 @@ textarea.inp{resize:vertical;min-height:85px;line-height:1.5}
 <body>
 
 <!-- WELCOME POPUP -->
-<div class="ov" id="welcomePopup" onclick="if(event.target===this)closePopup('welcomePopup')">
+<div class="ov hide" id="welcomePopup" onclick="if(event.target===this)closePopup('welcomePopup')">
   <div class="popup wp" onclick="event.stopPropagation()">
     <div class="wp-hd">
       <button class="wp-x" onclick="closePopup('welcomePopup')">×</button>
