@@ -77,18 +77,18 @@ body{font-family:var(--font);background:var(--bg);color:var(--tx);min-height:100
 .nav{position:sticky;top:0;z-index:300;background:rgba(250,249,255,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--bd);padding:0 1.2rem;height:56px;display:flex;align-items:center;gap:8px}
 .nav-logo{font-family:var(--display);font-size:19px;font-weight:700;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;cursor:pointer;flex-shrink:0}
 .nav-links{display:flex;gap:2px;flex:1;overflow-x:auto;scrollbar-width:none}.nav-links::-webkit-scrollbar{display:none}
-.nl{padding:5px 10px;border:none;background:transparent;color:var(--mt);font-size:11px;font-weight:500;cursor:pointer;border-radius:7px;white-space:nowrap;transition:.2s;font-family:var(--font)}
+.nl{padding:7px 13px;border:none;background:transparent;color:var(--mt);font-size:13px;font-weight:500;cursor:pointer;border-radius:8px;white-space:nowrap;transition:.2s;font-family:var(--font)}
 .nl:hover{background:var(--sur2);color:var(--tx)}.nl.on{background:var(--sur3);color:var(--ac);font-weight:700}
 .nav-r{display:flex;gap:5px;align-items:center;flex-shrink:0}
-.nbtn{border:none;border-radius:7px;padding:5px 11px;font-size:11px;font-weight:600;cursor:pointer;transition:.2s;font-family:var(--font)}
+.nbtn{border:none;border-radius:9px;padding:8px 15px;font-size:13px;font-weight:600;cursor:pointer;transition:.2s;font-family:var(--font)}
 .nb-admin{background:#1a1a2e;color:#a78bfa;border:1px solid rgba(167,139,250,.3)}
 .nb-browse{background:var(--sur2);color:var(--ac);border:1.5px solid var(--bd2)}
 .nb-login{background:transparent;color:var(--mt);border:1px solid var(--bd)}
 .nb-signup{background:var(--grad);color:#fff}
 .nav-user{display:none;align-items:center;gap:6px}
-.nav-av{width:30px;height:30px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:700;overflow:hidden;flex-shrink:0;cursor:pointer}
+.nav-av{width:34px;height:34px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:700;overflow:hidden;flex-shrink:0;cursor:pointer}
 .nav-av img{width:100%;height:100%;object-fit:cover}
-.nav-grade{font-size:10px;padding:2px 7px;border-radius:999px;font-weight:700}
+.nav-grade{font-size:11px;padding:3px 9px;border-radius:999px;font-weight:700}
 .g-free{background:var(--sur3);color:var(--ac)}.g-vip{background:linear-gradient(135deg,#f59e0b,#ef4444);color:#fff}.g-admin{background:linear-gradient(135deg,#1a1a2e,#7c3aed);color:#fff}
 .browse-bar{background:linear-gradient(135deg,rgba(124,58,237,.07),rgba(236,72,153,.07));border-bottom:1px solid var(--bd2);padding:7px 1.2rem;display:none;align-items:center;gap:10px;flex-wrap:wrap}.browse-bar.show{display:flex !important}
 .browse-bar{display:flex}.browse-bar.hide{display:none !important}
@@ -445,10 +445,10 @@ body.dark-mode #socialPopupMsg{color:#e2e0f0!important}
 <body>
 
 <!-- NAV -->
-<nav class="nav" style="position:sticky;top:0;z-index:300;background:rgba(250,249,255,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--bd);padding:0 1rem;height:54px;display:flex;align-items:center;justify-content:space-between;gap:8px">
+<nav class="nav" style="position:sticky;top:0;z-index:300;background:rgba(250,249,255,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--bd);padding:0 1.2rem;height:62px;display:flex;align-items:center;justify-content:space-between;gap:10px">
   
   <!-- 로고 -->
-  <div class="nav-logo" onclick="showPage('home');setNav('home')" style="font-family:var(--display);font-size:17px;font-weight:700;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;cursor:pointer;flex-shrink:0;white-space:nowrap">TARRY의 데일리</div>
+  <div class="nav-logo" onclick="showPage('home');setNav('home')" style="font-family:var(--display);font-size:20px;font-weight:700;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;cursor:pointer;flex-shrink:0;white-space:nowrap">TARRY의 데일리</div>
   
   <!-- PC 메뉴 (모바일 숨김) -->
   <div class="nav-links pc-only" style="display:flex;gap:2px;flex:1;overflow:hidden">
@@ -492,18 +492,18 @@ body.dark-mode #socialPopupMsg{color:#e2e0f0!important}
 </nav>
 
 <!-- 모바일 드롭다운 메뉴 -->
-<div id="mobileMenu" style="display:none;position:fixed;top:54px;left:0;right:0;background:rgba(250,249,255,.98);backdrop-filter:blur(20px);border-bottom:2px solid var(--bd2);z-index:299;padding:10px;box-shadow:0 8px 30px rgba(124,58,237,.1)">
+<div id="mobileMenu" style="display:none;position:fixed;top:54px;left:0;right:0;background:#fff;border-bottom:2px solid var(--bd2);z-index:299;padding:10px;box-shadow:0 8px 30px rgba(124,58,237,.15)">
   <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:9px">
-    <button onclick="showPage('home');setNav('home');closeMobileMenu()" style="background:var(--sur2);border:1.5px solid var(--bd);border-radius:11px;padding:12px 6px;text-align:center;cursor:pointer;font-family:var(--font);font-size:12px;font-weight:600;color:var(--tx)"><div style="font-size:22px;margin-bottom:4px">🏠</div>홈</button>
-    <button onclick="showPage('cat');setNav('cat');closeMobileMenu()" style="background:var(--sur2);border:1.5px solid var(--bd);border-radius:11px;padding:12px 6px;text-align:center;cursor:pointer;font-family:var(--font);font-size:12px;font-weight:600;color:var(--tx)"><div style="font-size:22px;margin-bottom:4px">📂</div>카테고리</button>
-    <button onclick="showPage('comment');setNav('comment');closeMobileMenu()" style="background:var(--sur2);border:1.5px solid var(--bd);border-radius:11px;padding:12px 6px;text-align:center;cursor:pointer;font-family:var(--font);font-size:12px;font-weight:600;color:var(--tx)"><div style="font-size:22px;margin-bottom:4px">💬</div>댓글</button>
-    <button onclick="showPage('member');setNav('member');closeMobileMenu()" style="background:var(--sur2);border:1.5px solid var(--bd);border-radius:11px;padding:12px 6px;text-align:center;cursor:pointer;font-family:var(--font);font-size:12px;font-weight:600;color:var(--tx)"><div style="font-size:22px;margin-bottom:4px">👤</div>마이페이지</button>
-    <button onclick="showPage('about');setNav('about');closeMobileMenu()" style="background:var(--sur2);border:1.5px solid var(--bd);border-radius:11px;padding:12px 6px;text-align:center;cursor:pointer;font-family:var(--font);font-size:12px;font-weight:600;color:var(--tx)"><div style="font-size:22px;margin-bottom:4px">👋</div>소개</button>
-    <button onclick="showPage('contact');setNav('contact');closeMobileMenu()" style="background:var(--sur2);border:1.5px solid var(--bd);border-radius:11px;padding:12px 6px;text-align:center;cursor:pointer;font-family:var(--font);font-size:12px;font-weight:600;color:var(--tx)"><div style="font-size:22px;margin-bottom:4px">📨</div>문의</button>
+    <button onclick="showPage('home');setNav('home');closeMobileMenu()" style="background:#f5f3ff;border:1.5px solid #e9d5ff;border-radius:11px;padding:12px 6px;text-align:center;cursor:pointer;font-family:var(--font);font-size:12px;font-weight:600;color:#1a1a2e"><div style="font-size:22px;margin-bottom:4px">🏠</div>홈</button>
+    <button onclick="showPage('cat');setNav('cat');closeMobileMenu()" style="background:#f5f3ff;border:1.5px solid #e9d5ff;border-radius:11px;padding:12px 6px;text-align:center;cursor:pointer;font-family:var(--font);font-size:12px;font-weight:600;color:#1a1a2e"><div style="font-size:22px;margin-bottom:4px">📂</div>카테고리</button>
+    <button onclick="showPage('comment');setNav('comment');closeMobileMenu()" style="background:#f5f3ff;border:1.5px solid #e9d5ff;border-radius:11px;padding:12px 6px;text-align:center;cursor:pointer;font-family:var(--font);font-size:12px;font-weight:600;color:#1a1a2e"><div style="font-size:22px;margin-bottom:4px">💬</div>댓글</button>
+    <button onclick="showPage('member');setNav('member');closeMobileMenu()" style="background:#f5f3ff;border:1.5px solid #e9d5ff;border-radius:11px;padding:12px 6px;text-align:center;cursor:pointer;font-family:var(--font);font-size:12px;font-weight:600;color:#1a1a2e"><div style="font-size:22px;margin-bottom:4px">👤</div>마이페이지</button>
+    <button onclick="showPage('about');setNav('about');closeMobileMenu()" style="background:#f5f3ff;border:1.5px solid #e9d5ff;border-radius:11px;padding:12px 6px;text-align:center;cursor:pointer;font-family:var(--font);font-size:12px;font-weight:600;color:#1a1a2e"><div style="font-size:22px;margin-bottom:4px">👋</div>소개</button>
+    <button onclick="showPage('contact');setNav('contact');closeMobileMenu()" style="background:#f5f3ff;border:1.5px solid #e9d5ff;border-radius:11px;padding:12px 6px;text-align:center;cursor:pointer;font-family:var(--font);font-size:12px;font-weight:600;color:#1a1a2e"><div style="font-size:22px;margin-bottom:4px">📨</div>문의</button>
   </div>
   <div id="mobileGuestBtns" style="display:flex;gap:7px">
     <button onclick="startBrowse();closeMobileMenu()" style="flex:1;background:var(--sur2);color:var(--ac);border:1.5px solid var(--bd2);border-radius:10px;padding:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font)">👀 둘러보기</button>
-    <button onclick="showPage('auth');setAtab('login');closeMobileMenu()" style="flex:1;background:var(--sur2);border:1px solid var(--bd);border-radius:10px;padding:10px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--font)">로그인</button>
+    <button onclick="showPage('auth');setAtab('login');closeMobileMenu()" style="flex:1;background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font);color:#1a1a2e">로그인</button>
     <button onclick="showPage('auth');setAtab('signup');closeMobileMenu()" style="flex:1;background:var(--grad);color:#fff;border:none;border-radius:10px;padding:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font)">회원가입</button>
   </div>
   <div id="mobileUserBtns" style="display:none">
@@ -1304,109 +1304,92 @@ body.dark-mode #socialPopupMsg{color:#e2e0f0!important}
     <div class="admin-panel" id="ap-stats">
       <div class="admin-wrap">
 
-        <!-- 현재 수치 크게 표시 -->
+        <!-- 현재 수치 -->
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
-          <div style="background:linear-gradient(135deg,var(--g1),var(--g2));border-radius:16px;padding:20px;text-align:center;color:#fff">
-            <div style="font-size:13px;opacity:.85;margin-bottom:6px">👥 누적 방문자</div>
-            <div style="font-size:38px;font-weight:700;font-family:var(--display)" id="adminStatTotal">12,847</div>
-            <div style="font-size:11px;opacity:.75;margin-top:4px">오늘도 방문해주셔서 감사해요!</div>
+          <div style="background:var(--sur);border:2px solid var(--bd2);border-radius:16px;padding:18px;text-align:center">
+            <div style="font-size:36px;font-weight:800;color:var(--ac)" id="adminStatTotal">12,847</div>
+            <div style="font-size:12px;color:var(--mt);margin-top:4px">누적 방문자</div>
           </div>
-          <div style="background:linear-gradient(135deg,var(--g2),var(--g3));border-radius:16px;padding:20px;text-align:center;color:#fff">
-            <div style="font-size:13px;opacity:.85;margin-bottom:6px">🌟 오늘 방문자</div>
-            <div style="font-size:38px;font-weight:700;font-family:var(--display)" id="adminStatDaily">234</div>
-            <div style="font-size:11px;opacity:.75;margin-top:4px" id="adminModeStatus">🤖 자동 모드 ON</div>
+          <div style="background:var(--sur);border:2px solid var(--bd2);border-radius:16px;padding:18px;text-align:center">
+            <div style="font-size:36px;font-weight:800;color:var(--g2)" id="adminStatDaily">234</div>
+            <div style="font-size:12px;color:var(--mt);margin-top:4px">오늘 방문자</div>
           </div>
         </div>
 
-        <!-- 자동 ↔ 수동 모드 전환 -->
+        <!-- 자동/수동 모드 -->
         <div class="admin-section" style="margin-bottom:13px">
-          <h3>🔄 카운터 모드 전환</h3>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px">
-            <button id="btnAutoMode" onclick="setStatsMode('auto')"
-              style="background:var(--grad);color:#fff;border:none;border-radius:12px;padding:16px;cursor:pointer;font-family:var(--font);transition:.2s">
-              <div style="font-size:28px;margin-bottom:7px">🤖</div>
-              <div style="font-size:13px;font-weight:700">자동 모드</div>
-              <div style="font-size:11px;opacity:.85;margin-top:3px">방문시 자동 증가<br>30초마다 랜덤 증가</div>
+          <h3>⚙️ 카운터 모드 선택</h3>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
+            <button onclick="setStatsMode('auto')" id="statsModeAuto"
+              style="background:var(--grad);color:#fff;border:none;border-radius:12px;padding:14px 10px;cursor:pointer;text-align:center;font-family:var(--font)">
+              <div style="font-size:22px;margin-bottom:5px">🤖</div>
+              <div style="font-size:13px;font-weight:800">자동 모드</div>
+              <div style="font-size:10px;opacity:.85;margin-top:2px">방문마다 자동 증가</div>
             </button>
-            <button id="btnManualMode" onclick="setStatsMode('manual')"
-              style="background:var(--sur2);color:var(--tx);border:2px solid var(--bd);border-radius:12px;padding:16px;cursor:pointer;font-family:var(--font);transition:.2s">
-              <div style="font-size:28px;margin-bottom:7px">✋</div>
-              <div style="font-size:13px;font-weight:700">수동 모드</div>
-              <div style="font-size:11px;color:var(--mt);margin-top:3px">내가 직접 숫자<br>설정 & 조절</div>
+            <button onclick="setStatsMode('manual')" id="statsModeManual"
+              style="background:var(--sur2);color:var(--tx);border:2px solid var(--bd);border-radius:12px;padding:14px 10px;cursor:pointer;text-align:center;font-family:var(--font)">
+              <div style="font-size:22px;margin-bottom:5px">✋</div>
+              <div style="font-size:13px;font-weight:800">수동 모드</div>
+              <div style="font-size:10px;color:var(--mt);margin-top:2px">내가 직접 설정</div>
             </button>
           </div>
-        </div>
-
-        <!-- 빠른 조절 버튼 -->
-        <div class="admin-section" style="margin-bottom:13px">
-          <h3>⚡ 빠른 조절</h3>
-          <div style="margin-bottom:10px">
-            <div style="font-size:11px;font-weight:700;color:var(--mt);margin-bottom:7px">누적 방문자 조절</div>
-            <div style="display:flex;gap:6px;flex-wrap:wrap">
-              <button onclick="addVisitors(100,'total')" class="btn btn-grad btn-sm">+100명</button>
-              <button onclick="addVisitors(500,'total')" class="btn btn-grad btn-sm">+500명</button>
-              <button onclick="addVisitors(1000,'total')" class="btn btn-grad btn-sm">+1,000명</button>
-              <button onclick="addVisitors(5000,'total')" class="btn btn-grad btn-sm">+5,000명</button>
-              <button onclick="addVisitors(10000,'total')" class="btn btn-grad btn-sm">+1만명</button>
-              <button onclick="addVisitors(-100,'total')" class="btn btn-danger btn-sm">-100명</button>
-              <button onclick="addVisitors(-1000,'total')" class="btn btn-danger btn-sm">-1,000명</button>
-            </div>
-          </div>
-          <div>
-            <div style="font-size:11px;font-weight:700;color:var(--mt);margin-bottom:7px">오늘 방문자 조절</div>
-            <div style="display:flex;gap:6px;flex-wrap:wrap">
-              <button onclick="addVisitors(10,'daily')" class="btn btn-ghost btn-sm">+10명</button>
-              <button onclick="addVisitors(50,'daily')" class="btn btn-ghost btn-sm">+50명</button>
-              <button onclick="addVisitors(100,'daily')" class="btn btn-ghost btn-sm">+100명</button>
-              <button onclick="addVisitors(-10,'daily')" class="btn btn-danger btn-sm">-10명</button>
-              <button onclick="resetDaily()" class="btn btn-danger btn-sm">오늘 초기화</button>
-            </div>
+          <div id="autoStatsInfo" style="background:var(--sur3);border-radius:9px;padding:10px 12px;border:1px solid var(--bd2);font-size:11px;color:var(--ac);line-height:1.7">
+            🤖 <strong>자동 모드 작동 중</strong> — 방문마다 +1, 30초마다 랜덤 증가, 자정에 일일 초기화
           </div>
         </div>
 
-        <!-- 직접 숫자 입력 -->
+        <!-- 수동 설정 -->
         <div class="admin-section" style="margin-bottom:13px">
-          <h3>🔢 직접 숫자 입력</h3>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px">
+          <h3>🔧 숫자 직접 설정</h3>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:11px">
             <div>
-              <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:5px">누적 방문자 직접 설정</label>
+              <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:5px">누적 방문자</label>
               <div style="display:flex;gap:6px">
-                <input class="inp" id="setTotal" type="number" placeholder="예: 50000" style="flex:1;font-size:14px">
-                <button onclick="setStatValue('total')" class="btn btn-grad">설정</button>
+                <input class="inp" id="setTotal" type="number" placeholder="예: 50000" style="flex:1">
+                <button onclick="setStatValue('total')" class="btn btn-grad btn-sm">적용</button>
               </div>
             </div>
             <div>
-              <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:5px">오늘 방문자 직접 설정</label>
+              <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:5px">오늘 방문자</label>
               <div style="display:flex;gap:6px">
-                <input class="inp" id="setDaily" type="number" placeholder="예: 500" style="flex:1;font-size:14px">
-                <button onclick="setStatValue('daily')" class="btn btn-grad">설정</button>
+                <input class="inp" id="setDaily" type="number" placeholder="예: 500" style="flex:1">
+                <button onclick="setStatValue('daily')" class="btn btn-grad btn-sm">적용</button>
               </div>
             </div>
+          </div>
+          <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:6px">누적 빠른 조정</label>
+          <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px">
+            <button onclick="addVisitors(100)" class="btn btn-ghost btn-sm">+100</button>
+            <button onclick="addVisitors(500)" class="btn btn-ghost btn-sm">+500</button>
+            <button onclick="addVisitors(1000)" class="btn btn-ghost btn-sm">+1,000</button>
+            <button onclick="addVisitors(10000)" class="btn btn-ghost btn-sm">+10,000</button>
+            <button onclick="addVisitors(-100)" class="btn btn-danger btn-sm">-100</button>
+          </div>
+          <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:6px">오늘 방문자 빠른 조정</label>
+          <div style="display:flex;gap:5px;flex-wrap:wrap">
+            <button onclick="addDailyVisitors(10)" class="btn btn-ghost btn-sm">+10</button>
+            <button onclick="addDailyVisitors(50)" class="btn btn-ghost btn-sm">+50</button>
+            <button onclick="addDailyVisitors(100)" class="btn btn-ghost btn-sm">+100</button>
+            <button onclick="addDailyVisitors(500)" class="btn btn-ghost btn-sm">+500</button>
+            <button onclick="addDailyVisitors(-10)" class="btn btn-danger btn-sm">-10</button>
           </div>
         </div>
 
         <!-- 글별 조회수 -->
         <div class="admin-section">
-          <h3>📖 글별 조회수 설정 <span style="font-size:11px;color:var(--mt);font-weight:400">(연동된 모든 글 표시)</span></h3>
-          <div style="display:flex;gap:7px;margin-bottom:10px;flex-wrap:wrap">
-            <select class="inp" id="postViewSelect" style="flex:2;min-width:200px;cursor:pointer" onchange="loadPostView()">
-              <option value="">글 선택...</option>
-            </select>
-            <input class="inp" id="postViewValue" type="number" placeholder="조회수 입력" style="flex:1;min-width:100px">
-            <button onclick="setPostView()" class="btn btn-grad">✅ 설정</button>
+          <h3>📊 글별 조회수 설정</h3>
+          <div style="display:flex;gap:7px;margin-bottom:8px">
+            <select class="inp" id="postViewSelect" style="flex:2;cursor:pointer" onchange="loadPostView()"><option value="">글 선택...</option></select>
+            <input class="inp" id="postViewValue" type="number" placeholder="조회수" style="flex:1">
+            <button onclick="setPostView()" class="btn btn-grad btn-sm">설정</button>
           </div>
-          <div style="background:var(--sur2);border-radius:9px;padding:10px 13px;margin-bottom:11px;border:1px solid var(--bd)">
-            <span style="font-size:12px;color:var(--mt)">선택한 글 현재 조회수: </span>
-            <strong style="color:var(--ac);font-size:14px" id="currentPostView">—</strong>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:5px;max-height:300px;overflow-y:auto" id="postViewList">
-            <div style="text-align:center;padding:1rem;color:var(--mt);font-size:13px">통계 탭 클릭 시 자동으로 로드돼요</div>
-          </div>
+          <div style="font-size:12px;color:var(--mt);margin-bottom:10px">현재: <strong style="color:var(--ac)" id="currentPostView">—</strong></div>
+          <div style="display:flex;flex-direction:column;gap:5px" id="postViewList"></div>
         </div>
 
       </div>
     </div>
-    <!-- 파일 관리 패널 -->
+
     <div class="admin-panel" id="ap-files">
       <div class="admin-wrap">
         
@@ -2753,7 +2736,21 @@ function openAdminLogin(){
 }
 function tryAdminLogin(){const input=document.getElementById('adminPwInput').value;if(input===adminPw){isAdminLoggedIn=true;closePopup('adminLoginPopup');showPage('admin');buildAdminCatTree();buildThemePresets();toast('🔐 관리자 페이지에 오신 걸 환영해요!');}else{document.getElementById('adminErr').classList.add('show');document.getElementById('adminPwInput').value='';}}
 function doAdminLogout(){isAdminLoggedIn=false;showPage('home');setNav('home');toast('관리자 로그아웃됐어요');}
-function changeAdminPw(){const cur=document.getElementById('curPw').value,nw=document.getElementById('newPw').value,conf=document.getElementById('newPwConfirm').value;if(cur!==adminPw){toast('❌ 현재 비밀번호가 틀렸어요');return;}if(nw.length<4){toast('❌ 새 비밀번호는 4자 이상이어야 해요');return;}if(nw!==conf){toast('❌ 새 비밀번호가 일치하지 않아요');return;}adminPw=nw;['curPw','newPw','newPwConfirm'].forEach(id=>document.getElementById(id).value='');document.getElementById('pwSuccess').style.display='block';setTimeout(()=>document.getElementById('pwSuccess').style.display='none',3000);toast('✅ 비밀번호가 변경됐어요!');}
+function changeAdminPw(){
+  const cur=document.getElementById('curPw').value;
+  const nw=document.getElementById('newPw').value;
+  const conf=document.getElementById('newPwConfirm').value;
+  if(cur!==adminPw){toast('❌ 현재 비밀번호가 틀렸어요');return;}
+  if(nw.length<4){toast('❌ 새 비밀번호는 4자 이상이어야 해요');return;}
+  if(nw!==conf){toast('❌ 새 비밀번호가 일치하지 않아요');return;}
+  adminPw=nw;
+  // localStorage에 저장 → 새로고침해도 유지!
+  try { localStorage.setItem('tarry_admin_pw', nw); } catch(e){}
+  ['curPw','newPw','newPwConfirm'].forEach(id=>document.getElementById(id).value='');
+  const suc = document.getElementById('pwSuccess');
+  if(suc){suc.style.display='block';setTimeout(()=>suc.style.display='none',3000);}
+  toast('✅ 비밀번호 변경 완료! 새로고침해도 유지돼요');
+}
 function setAdminTab(id){
   // 패널만 전환 (버튼 스타일은 건드리지 않음)
   document.querySelectorAll('.admin-panel').forEach(p=>p.classList.remove('on'));
@@ -4858,8 +4855,6 @@ function updateSyncTime() {
 }
 
 // ── 뉴스 자동수집 개선 (고품질) ──
-async 
-
 
 // ── 공지 템플릿 편집 기능 ──
 
@@ -4927,6 +4922,21 @@ function saveEmailJS() {
   if(status) status.style.display = 'block';
   toast('✅ EmailJS 연동 완료! 원클릭 발송 가능!');
 }
+
+
+
+function addDailyVisitors(n) {
+  STATS.data.dailyVisitors = Math.max(0, STATS.data.dailyVisitors + n);
+  STATS.updateDisplay();
+  loadStatsPanel();
+  toast((n>0?'➕':'➖') + ' 오늘 방문자: ' + Math.abs(n) + '명');
+}
+// ── 저장된 관리자 비밀번호 불러오기 ──
+try {
+  const savedPw = localStorage.getItem('tarry_admin_pw');
+  if(savedPw) adminPw = savedPw;
+} catch(e){}
+
 // ── INIT ──
 buildCatTree();renderBreadcrumb();renderPosts();
 buildEmojiPicker();renderComments();
