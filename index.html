@@ -22,15 +22,16 @@
   --display:'Playfair Display',serif;
 }
 html{scroll-behavior:smooth}
+.ov{position:fixed;inset:0;background:rgba(15,14,26,.75);z-index:600;display:none;align-items:center;justify-content:center;padding:1rem}
+.ov.show{display:flex !important}
 body{font-family:var(--font);background:var(--bg);color:var(--tx);min-height:100vh;overflow-x:hidden;line-height:1.6}
 ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:3px}
 
 /* OVERLAY - 클릭 안막히게 */
-.ov{position:fixed;inset:0;background:rgba(15,14,26,.75);z-index:600;display:flex;align-items:center;justify-content:center;padding:1rem}
-.ov.hide{display:none !important;pointer-events:none !important;visibility:hidden !important;z-index:-1 !important}
+
 
 /* POPUP */
-.popup{background:var(--sur);border-radius:22px;overflow:hidden;box-shadow:0 24px 70px rgba(124,58,237,.22);position:relative;z-index:601}
+
 .wp{width:min(460px,95vw)}
 .wp-hd{background:var(--grad);padding:24px 24px 18px;text-align:center;position:relative}
 .wp-hd h2{font-family:var(--display);font-size:22px;color:#fff;margin-bottom:5px}
@@ -84,7 +85,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--tx);min-height:100
 .nav-grade{font-size:10px;padding:2px 7px;border-radius:999px;font-weight:700}
 .g-free{background:var(--sur3);color:var(--ac)}.g-vip{background:linear-gradient(135deg,#f59e0b,#ef4444);color:#fff}.g-admin{background:linear-gradient(135deg,#1a1a2e,#7c3aed);color:#fff}
 .browse-bar{background:linear-gradient(135deg,rgba(124,58,237,.07),rgba(236,72,153,.07));border-bottom:1px solid var(--bd2);padding:7px 1.2rem;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.browse-bar.hide{display:none !important}
+.browse-bar{display:flex}.browse-bar.hide{display:none !important}
 .bb-t{flex:1;font-size:11px;color:var(--ac);font-weight:500}.bb-btns{display:flex;gap:5px}
 .bb-btn{border:none;border-radius:6px;padding:5px 11px;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--font)}
 .bba{background:var(--grad);color:#fff}.bbb{background:var(--sur2);color:var(--ac);border:1.5px solid var(--bd2)}.bbx{background:none;border:none;color:var(--mt);cursor:pointer;font-size:17px}
@@ -325,67 +326,6 @@ textarea.inp{resize:vertical;min-height:80px;line-height:1.5}
 </head>
 <body>
 
-<!-- 팝업들 - 처음에 모두 hide -->
-<div class="ov hide" id="welcomePopup">
-  <div class="popup wp">
-    <div class="wp-hd">
-      <button class="wp-x" onclick="closePopup('welcomePopup')">×</button>
-      <div style="font-size:34px;margin-bottom:6px">👋</div>
-      <h2>TARRY의 데일리</h2>
-      <p>핫이슈 블로그에 오신 걸 환영해요!<br>회원가입하고 다양한 혜택을 누려보세요</p>
-    </div>
-    <div class="wp-bd">
-      <div class="wp-grid">
-        <div class="wb"><div class="wb-i">😄</div><div class="wb-t">이모티콘 댓글</div><div class="wb-d">300+ 무료</div></div>
-        <div class="wb"><div class="wb-i">📸</div><div class="wb-t">프로필 사진</div><div class="wb-d">내 얼굴로 설정</div></div>
-        <div class="wb"><div class="wb-i">🔔</div><div class="wb-t">새 글 알림</div><div class="wb-d">즉시 알림</div></div>
-        <div class="wb"><div class="wb-i">👑</div><div class="wb-t">VIP 혜택</div><div class="wb-d">전용 콘텐츠</div></div>
-      </div>
-      <div class="wp-btns">
-        <button class="wpb wpb-main" onclick="closePopup('welcomePopup');showPage('auth');setAtab('signup')">🎉 회원가입하기</button>
-        <button class="wpb wpb-browse" onclick="startBrowse()">👀 일단 둘러보기</button>
-        <button class="wpb wpb-skip" onclick="closePopup('welcomePopup');showPage('auth');setAtab('login')">이미 회원이에요 → 로그인</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="ov hide" id="vipPopup">
-  <div class="popup vip-p">
-    <div class="vip-hd">
-      <button class="wp-x" onclick="closePopup('vipPopup')">×</button>
-      <div style="font-size:40px;margin-bottom:6px">👑</div>
-      <h2>VIP 멤버 특별 혜택!</h2>
-      <p>지금 VIP로 업그레이드하면</p>
-    </div>
-    <div class="vip-bd">
-      <div class="vp"><span class="vp-i">🎨</span><div class="vp-t"><strong>프리미엄 이모티콘 500+개</strong> 독점 사용</div></div>
-      <div class="vp"><span class="vp-i">🔒</span><div class="vp-t"><strong>VIP 전용 글</strong> 무제한 열람</div></div>
-      <div class="vp"><span class="vp-i">📊</span><div class="vp-t"><strong>댓글 통계</strong> & 활동 분석</div></div>
-      <div class="vp"><span class="vp-i">⚡</span><div class="vp-t">광고 없는 <strong>클린 읽기 모드</strong></div></div>
-      <button class="vip-btn" onclick="upgradeVip()">👑 VIP 무료 체험 시작</button>
-      <button class="vip-skip" onclick="closePopup('vipPopup')">괜찮아요, 다음에</button>
-    </div>
-  </div>
-</div>
-
-<div class="ov hide" id="adminLoginPopup">
-  <div class="popup admin-pop">
-    <div class="admin-hd">
-      <button class="wp-x" onclick="closePopup('adminLoginPopup')" style="background:rgba(255,255,255,.1)">×</button>
-      <div style="font-size:32px;margin-bottom:6px">🔐</div>
-      <h2>관리자 로그인</h2>
-      <p>관리자 전용 페이지입니다</p>
-    </div>
-    <div class="admin-bd">
-      <div class="admin-err" id="adminErr">❌ 비밀번호가 틀렸어요</div>
-      <div class="field"><label>관리자 비밀번호</label><input class="inp" id="adminPwInput" type="password" placeholder="비밀번호 입력" onkeydown="if(event.key==='Enter')tryAdminLogin()"></div>
-      <button class="auth-submit" onclick="tryAdminLogin()">🔐 로그인</button>
-      <div style="text-align:center;margin-top:9px;font-size:11px;color:var(--mt)">초기 비밀번호: <strong>123456</strong></div>
-    </div>
-  </div>
-</div>
-
 <!-- NAV -->
 <nav class="nav">
   <div class="nav-logo" onclick="showPage('home');setNav('home')">TARRY의 데일리</div>
@@ -609,7 +549,7 @@ textarea.inp{resize:vertical;min-height:80px;line-height:1.5}
           <p id="dashEmail"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ef9b8e9d9d96af8a978e829f838ac18c8082">[email&#160;protected]</a></p>
           <div class="m-badges"><span class="mbadge" id="dashGrade">FREE 회원</span><span class="mbadge">🗓 2026.03.21 가입</span><span class="mbadge" id="dashCmt">💬 댓글 0개</span></div>
         </div>
-        <button class="btn btn-ghost btn-sm" onclick="document.getElementById('vipPopup').classList.remove('hide')" style="margin-left:auto;color:#fff;border-color:rgba(255,255,255,.35);background:rgba(255,255,255,.18)">👑 VIP 업그레이드</button>
+        <button class="btn btn-ghost btn-sm" onclick="document.getElementById('vipPopup').classList.add('show')" style="margin-left:auto;color:#fff;border-color:rgba(255,255,255,.35);background:rgba(255,255,255,.18)">👑 VIP 업그레이드</button>
       </div>
       <div class="mstats">
         <div class="mstat"><div class="mstat-num" id="stCmt">0</div><div class="mstat-lbl">작성 댓글</div></div>
@@ -1082,7 +1022,7 @@ function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.
 function setNav(id){document.querySelectorAll('.nl').forEach(l=>l.classList.remove('on'));const el=document.getElementById('nl-'+id);if(el)el.classList.add('on');}
 
 // ── 관리자 ──
-function openAdminLogin(){if(isAdminLoggedIn){showPage('admin');return;}document.getElementById('adminPwInput').value='';document.getElementById('adminErr').classList.remove('show');document.getElementById('adminLoginPopup').classList.remove('hide');setTimeout(()=>document.getElementById('adminPwInput').focus(),200);}
+function openAdminLogin(){if(isAdminLoggedIn){showPage('admin');return;}document.getElementById('adminPwInput').value='';document.getElementById('adminErr').classList.remove('show');document.getElementById('adminLoginPopup').classList.add('show');setTimeout(()=>document.getElementById('adminPwInput').focus(),200);}
 function tryAdminLogin(){const input=document.getElementById('adminPwInput').value;if(input===adminPw){isAdminLoggedIn=true;closePopup('adminLoginPopup');showPage('admin');buildAdminCatTree();buildThemePresets();toast('🔐 관리자 페이지에 오신 걸 환영해요!');}else{document.getElementById('adminErr').classList.add('show');document.getElementById('adminPwInput').value='';}}
 function doAdminLogout(){isAdminLoggedIn=false;showPage('home');setNav('home');toast('관리자 로그아웃됐어요');}
 function changeAdminPw(){const cur=document.getElementById('curPw').value,nw=document.getElementById('newPw').value,conf=document.getElementById('newPwConfirm').value;if(cur!==adminPw){toast('❌ 현재 비밀번호가 틀렸어요');return;}if(nw.length<4){toast('❌ 새 비밀번호는 4자 이상이어야 해요');return;}if(nw!==conf){toast('❌ 새 비밀번호가 일치하지 않아요');return;}adminPw=nw;['curPw','newPw','newPwConfirm'].forEach(id=>document.getElementById(id).value='');document.getElementById('pwSuccess').style.display='block';setTimeout(()=>document.getElementById('pwSuccess').style.display='none',3000);toast('✅ 비밀번호가 변경됐어요!');}
@@ -1101,7 +1041,7 @@ function updateSignupInitial(){const nick=document.getElementById('sNick').value
 // ── AUTH ──
 function setAtab(t){document.getElementById('at-login').classList.toggle('on',t==='login');document.getElementById('at-signup').classList.toggle('on',t==='signup');document.getElementById('loginF').style.display=t==='login'?'block':'none';document.getElementById('signupF').style.display=t==='signup'?'block':'none';}
 function doLogin(){const email=document.getElementById('lEmail').value.trim()||'tarry@example.com';const pw=document.getElementById('lPw').value;if(!pw){toast('비밀번호를 입력해주세요');return;}loginSuccess(email.split('@')[0]||'TARRY',email,'free',null);}
-function doSignup(){const nick=document.getElementById('sNick').value.trim(),email=document.getElementById('sEmail').value.trim(),pw=document.getElementById('sPw').value;if(!nick||!email||!pw){toast('모든 항목을 입력해주세요');return;}if(pw.length<8){toast('비밀번호는 8자 이상이어야 해요');return;}loginSuccess(nick,email,'free',profileImageData);setTimeout(()=>document.getElementById('vipPopup').classList.remove('hide'),1500);}
+function doSignup(){const nick=document.getElementById('sNick').value.trim(),email=document.getElementById('sEmail').value.trim(),pw=document.getElementById('sPw').value;if(!nick||!email||!pw){toast('모든 항목을 입력해주세요');return;}if(pw.length<8){toast('비밀번호는 8자 이상이어야 해요');return;}loginSuccess(nick,email,'free',profileImageData);setTimeout(()=>document.getElementById('vipPopup').classList.add('show'),1500);}
 function socialLogin(provider){loginSuccess(provider+'유저',`user@${provider.toLowerCase()}.com`,'free',null);}
 function loginSuccess(nick,email,grade,imgData){
   currentUser={nick,email,grade,cmtCount:0,profileImg:imgData};isBrowsing=false;
@@ -1128,11 +1068,7 @@ function upgradeVip(){if(!currentUser)return;currentUser.grade='vip';document.ge
 function closePopup(id){
   const el=document.getElementById(id);
   if(!el)return;
-  el.classList.add('hide');
-  el.style.display='none';
-  el.style.pointerEvents='none';
-  el.style.visibility='hidden';
-  el.style.zIndex='-1';
+  el.classList.remove('show');
 }
 
 // ── CATEGORY ──
@@ -1188,4 +1124,6 @@ function submitContact(){const name=document.getElementById('cName').value.trim(
 function togFaq(el){const arr=el.querySelector('.faq-arr'),ans=el.nextElementSibling;arr.classList.toggle('open');ans.classList.toggle('open');}
 
 // ── MISC ──
-function subscribeEmail(){const email=document.getElementById('emailInp').value.trim();if(!email||!email.includes('@')){toast(
+function subscribeEmail(){const email=document.getElementById('emailInp').value.trim();if(!email||!email.includes('@')){toast('올바른 이메일을 입력해주세요');return;}document.getElementById('emailInp').value='';toast('📮 구독 완료! 매주 목요일 편지 보내드릴게요 ✓');} //
+</body>
+</html>
