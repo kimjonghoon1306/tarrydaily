@@ -83,7 +83,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--tx);min-height:100
 .nbtn{border:none;border-radius:9px;padding:8px 15px;font-size:13px;font-weight:600;cursor:pointer;transition:.2s;font-family:var(--font)}
 .nb-admin{background:#1a1a2e;color:#a78bfa;border:1px solid rgba(167,139,250,.3)}
 .nb-browse{background:var(--sur2);color:var(--ac);border:1.5px solid var(--bd2)}
-.nb-login{background:transparent;color:var(--mt);border:1px solid var(--bd)}
+.nb-login{background:var(--sur2);color:var(--tx);border:1.5px solid var(--bd2);font-weight:600}
 .nb-signup{background:var(--grad);color:#fff}
 .nav-user{display:none;align-items:center;gap:6px}
 .nav-av{width:34px;height:34px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:700;overflow:hidden;flex-shrink:0;cursor:pointer}
@@ -492,14 +492,14 @@ body.dark-mode #socialPopupMsg{color:#e2e0f0!important}
 </nav>
 
 <!-- 모바일 드롭다운 메뉴 -->
-<div id="mobileMenu" style="display:none;position:fixed;top:54px;left:0;right:0;background:#fff;border-bottom:2px solid var(--bd2);z-index:299;padding:10px;box-shadow:0 8px 30px rgba(124,58,237,.15)">
+<div id="mobileMenu" style="display:none;position:fixed;top:54px;left:0;right:0;background:var(--sur);border-bottom:2px solid var(--bd2);z-index:299;padding:10px;box-shadow:0 8px 30px rgba(124,58,237,.15)">
   <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:9px">
-    <button onclick="showPage('home');setNav('home');closeMobileMenu()" style="background:#f5f3ff;border:1.5px solid #e9d5ff;border-radius:11px;padding:12px 6px;text-align:center;cursor:pointer;font-family:var(--font);font-size:12px;font-weight:600;color:#1a1a2e"><div style="font-size:22px;margin-bottom:4px">🏠</div>홈</button>
-    <button onclick="showPage('cat');setNav('cat');closeMobileMenu()" style="background:#f5f3ff;border:1.5px solid #e9d5ff;border-radius:11px;padding:12px 6px;text-align:center;cursor:pointer;font-family:var(--font);font-size:12px;font-weight:600;color:#1a1a2e"><div style="font-size:22px;margin-bottom:4px">📂</div>카테고리</button>
-    <button onclick="showPage('comment');setNav('comment');closeMobileMenu()" style="background:#f5f3ff;border:1.5px solid #e9d5ff;border-radius:11px;padding:12px 6px;text-align:center;cursor:pointer;font-family:var(--font);font-size:12px;font-weight:600;color:#1a1a2e"><div style="font-size:22px;margin-bottom:4px">💬</div>댓글</button>
-    <button onclick="showPage('member');setNav('member');closeMobileMenu()" style="background:#f5f3ff;border:1.5px solid #e9d5ff;border-radius:11px;padding:12px 6px;text-align:center;cursor:pointer;font-family:var(--font);font-size:12px;font-weight:600;color:#1a1a2e"><div style="font-size:22px;margin-bottom:4px">👤</div>마이페이지</button>
-    <button onclick="showPage('about');setNav('about');closeMobileMenu()" style="background:#f5f3ff;border:1.5px solid #e9d5ff;border-radius:11px;padding:12px 6px;text-align:center;cursor:pointer;font-family:var(--font);font-size:12px;font-weight:600;color:#1a1a2e"><div style="font-size:22px;margin-bottom:4px">👋</div>소개</button>
-    <button onclick="showPage('contact');setNav('contact');closeMobileMenu()" style="background:#f5f3ff;border:1.5px solid #e9d5ff;border-radius:11px;padding:12px 6px;text-align:center;cursor:pointer;font-family:var(--font);font-size:12px;font-weight:600;color:#1a1a2e"><div style="font-size:22px;margin-bottom:4px">📨</div>문의</button>
+    <button onclick="showPage('home');setNav('home');closeMobileMenu()" style="background:var(--sur2);border:1.5px solid var(--bd2);border-radius:11px;padding:12px 6px;text-align:center;cursor:pointer;font-family:var(--font);font-size:12px;font-weight:600;color:var(--tx)"><div style="font-size:22px;margin-bottom:4px">🏠</div>홈</button>
+    <button onclick="showPage('cat');setNav('cat');closeMobileMenu()" style="background:var(--sur2);border:1.5px solid var(--bd2);border-radius:11px;padding:12px 6px;text-align:center;cursor:pointer;font-family:var(--font);font-size:12px;font-weight:600;color:var(--tx)"><div style="font-size:22px;margin-bottom:4px">📂</div>카테고리</button>
+    <button onclick="showPage('comment');setNav('comment');closeMobileMenu()" style="background:var(--sur2);border:1.5px solid var(--bd2);border-radius:11px;padding:12px 6px;text-align:center;cursor:pointer;font-family:var(--font);font-size:12px;font-weight:600;color:var(--tx)"><div style="font-size:22px;margin-bottom:4px">💬</div>댓글</button>
+    <button onclick="showPage('member');setNav('member');closeMobileMenu()" style="background:var(--sur2);border:1.5px solid var(--bd2);border-radius:11px;padding:12px 6px;text-align:center;cursor:pointer;font-family:var(--font);font-size:12px;font-weight:600;color:var(--tx)"><div style="font-size:22px;margin-bottom:4px">👤</div>마이페이지</button>
+    <button onclick="showPage('about');setNav('about');closeMobileMenu()" style="background:var(--sur2);border:1.5px solid var(--bd2);border-radius:11px;padding:12px 6px;text-align:center;cursor:pointer;font-family:var(--font);font-size:12px;font-weight:600;color:var(--tx)"><div style="font-size:22px;margin-bottom:4px">👋</div>소개</button>
+    <button onclick="showPage('contact');setNav('contact');closeMobileMenu()" style="background:var(--sur2);border:1.5px solid var(--bd2);border-radius:11px;padding:12px 6px;text-align:center;cursor:pointer;font-family:var(--font);font-size:12px;font-weight:600;color:var(--tx)"><div style="font-size:22px;margin-bottom:4px">📨</div>문의</button>
   </div>
   <div id="mobileGuestBtns" style="display:flex;gap:7px">
     <button onclick="startBrowse();closeMobileMenu()" style="flex:1;background:var(--sur2);color:var(--ac);border:1.5px solid var(--bd2);border-radius:10px;padding:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font)">👀 둘러보기</button>
