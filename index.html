@@ -465,6 +465,20 @@ img { max-width: 100% !important; height: auto !important; }
     <span class="hero-tag">✦ 매일 업데이트되는 핫이슈 블로그</span>
     <h1 class="hero-title">일상을 <span class="gt">스마트하게</span><br>만드는 정보</h1>
     <p class="hero-sub">생활꿀팁부터 돈되는정보, IT트렌드까지.<br>tarryguide.com의 글을 매일 새롭게 업데이트해요</p>
+    <div style="display:flex;gap:16px;justify-content:center;margin-bottom:1.5rem;position:relative;z-index:2">
+      <div style="background:rgba(255,255,255,.15);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.3);border-radius:12px;padding:10px 20px;text-align:center">
+        <div style="font-size:11px;color:var(--mt);margin-bottom:3px">누적 방문자</div>
+        <div style="font-size:20px;font-weight:700;color:var(--ac)" id="statTotal">12,847</div>
+      </div>
+      <div style="background:rgba(255,255,255,.15);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.3);border-radius:12px;padding:10px 20px;text-align:center">
+        <div style="font-size:11px;color:var(--mt);margin-bottom:3px">오늘 방문자</div>
+        <div style="font-size:20px;font-weight:700;color:var(--g2)" id="statDaily">234</div>
+      </div>
+      <div style="background:rgba(255,255,255,.15);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.3);border-radius:12px;padding:10px 20px;text-align:center">
+        <div style="font-size:11px;color:var(--mt);margin-bottom:3px">전체 글</div>
+        <div style="font-size:20px;font-weight:700;color:var(--g3)">25</div>
+      </div>
+    </div>
     <div class="hero-btns">
       <button class="hbtn hb-main" onclick="showPage('auth');setAtab('signup')">🎉 무료 회원가입</button>
       <button class="hbtn hb-browse" onclick="startBrowse()">👀 일단 둘러보기</button>
@@ -787,6 +801,7 @@ img { max-width: 100% !important; height: auto !important; }
       <button class="atab-admin" id="at-biz" onclick="setAdminTab('biz')">🏢 사업자</button>
       <button class="atab-admin" id="at-pw" onclick="setAdminTab('pw')">🔑 비밀번호</button>
       <button class="atab-admin" id="at-analytics" onclick="setAdminTab('analytics')">📊 애널리틱스</button>
+      <button class="atab-admin" id="at-stats" onclick="setAdminTab('stats');loadStatsPanel()">📈 방문자통계</button>
     </div>
 
     <!-- 대시보드 -->
@@ -1144,6 +1159,101 @@ img { max-width: 100% !important; height: auto !important; }
         </button>
       </div>
     </div>
+
+    <!-- 통계 관리 패널 -->
+    <div class="admin-panel" id="ap-stats">
+      <div class="admin-wrap">
+
+        <!-- 현재 통계 현황 -->
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px">
+          <div style="background:var(--sur);border:1px solid var(--bd);border-radius:14px;padding:18px;text-align:center;box-shadow:0 4px 15px rgba(124,58,237,.08)">
+            <div style="font-size:32px;font-weight:700;color:var(--ac)" id="adminStatTotal">12,847</div>
+            <div style="font-size:12px;color:var(--mt);margin-top:4px">누적 방문자</div>
+          </div>
+          <div style="background:var(--sur);border:1px solid var(--bd);border-radius:14px;padding:18px;text-align:center;box-shadow:0 4px 15px rgba(124,58,237,.08)">
+            <div style="font-size:32px;font-weight:700;color:var(--g2)" id="adminStatDaily">234</div>
+            <div style="font-size:12px;color:var(--mt);margin-top:4px">오늘 방문자</div>
+          </div>
+        </div>
+
+        <!-- 자동/수동 모드 토글 -->
+        <div class="admin-section" style="margin-bottom:13px">
+          <h3>⚙️ 카운터 모드</h3>
+          <div style="background:var(--sur2);border-radius:12px;padding:14px;border:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+            <div>
+              <div style="font-size:13px;font-weight:700" id="modeLabel">🤖 자동 모드</div>
+              <div style="font-size:11px;color:var(--mt);margin-top:2px" id="modeDesc">방문시 자동 증가 + 30초마다 랜덤 증가</div>
+            </div>
+            <button onclick="toggleStatsMode()" id="modeToggleBtn"
+                    style="background:var(--grad);color:#fff;border:none;border-radius:9px;padding:9px 18px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font)">
+              수동으로 전환
+            </button>
+          </div>
+        </div>
+
+        <!-- 수동 설정 -->
+        <div class="admin-section" style="margin-bottom:13px">
+          <h3>🔧 수동 수치 설정</h3>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:11px">
+            <div>
+              <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:5px;text-transform:uppercase">누적 방문자</label>
+              <div style="display:flex;gap:6px">
+                <input class="inp" id="setTotal" type="number" placeholder="예: 50000" style="flex:1">
+                <button onclick="setStatValue('total')" class="btn btn-grad btn-sm">설정</button>
+              </div>
+            </div>
+            <div>
+              <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:5px;text-transform:uppercase">오늘 방문자</label>
+              <div style="display:flex;gap:6px">
+                <input class="inp" id="setDaily" type="number" placeholder="예: 500" style="flex:1">
+                <button onclick="setStatValue('daily')" class="btn btn-grad btn-sm">설정</button>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex;gap:7px;flex-wrap:wrap">
+            <button onclick="addVisitors(100)" class="btn btn-ghost btn-sm">+100명</button>
+            <button onclick="addVisitors(500)" class="btn btn-ghost btn-sm">+500명</button>
+            <button onclick="addVisitors(1000)" class="btn btn-ghost btn-sm">+1,000명</button>
+            <button onclick="addVisitors(10000)" class="btn btn-ghost btn-sm">+10,000명</button>
+            <button onclick="addVisitors(-100)" class="btn btn-danger btn-sm">-100명</button>
+          </div>
+        </div>
+
+        <!-- 글별 조회수 설정 -->
+        <div class="admin-section">
+          <h3>📊 글별 조회수 설정</h3>
+          <div style="background:var(--sur2);border-radius:10px;padding:11px;margin-bottom:11px;border:1px solid var(--bd)">
+            <div style="display:flex;gap:7px;margin-bottom:8px">
+              <select class="inp" id="postViewSelect" style="flex:2;cursor:pointer" onchange="loadPostView()">
+                <option value="">글 선택...</option>
+                <option value="i1">ChatGPT 프롬프트 모음</option>
+                <option value="i2">ChatGPT로 수익 창출</option>
+                <option value="i3">무료 AI 툴 TOP10</option>
+                <option value="i4">카카오톡 꿀팁</option>
+                <option value="i5">네이버 지도 꿀팁</option>
+                <option value="m1">구글 애드센스 전략</option>
+                <option value="m2">애드센스 자동화</option>
+                <option value="m3">신용카드 추천</option>
+                <option value="l1">봄날의 루틴</option>
+                <option value="l2">주말 보내는 7가지 방법</option>
+                <option value="l3">10분 스트레칭</option>
+                <option value="t1">넷플릭스 TOP10</option>
+                <option value="t2">OTT 콘텐츠 총정리</option>
+                <option value="t3">SNS 트렌드 분석</option>
+              </select>
+              <input class="inp" id="postViewValue" type="number" placeholder="조회수" style="flex:1">
+              <button onclick="setPostView()" class="btn btn-grad btn-sm">설정</button>
+            </div>
+            <div style="font-size:12px;color:var(--mt)">현재 조회수: <strong style="color:var(--ac)" id="currentPostView">—</strong></div>
+          </div>
+
+          <!-- 전체 조회수 현황 -->
+          <div style="display:flex;flex-direction:column;gap:5px" id="postViewList"></div>
+        </div>
+
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -1749,8 +1859,26 @@ const THEME_PRESETS = [
 ];
 
 let comments = [
-  {id:1,user:'TARRY',av:'T',grade:'admin',text:'안녕하세요! TARRY의 데일리에 오신 걸 환영해요 😊',likes:7,liked:false,date:'방금',profileImg:null},
-  {id:2,user:'블로그팬',av:'B',grade:'free',text:'정말 유용한 정보 감사합니다! 🔥💯',likes:3,liked:false,date:'5분 전',profileImg:null},
+  {id:1,user:'TARRY',av:'T',grade:'admin',text:'안녕하세요! TARRY의 데일리에 오신 걸 환영해요 😊 매일 유용한 정보로 찾아뵐게요!',likes:24,liked:false,date:'3일 전',profileImg:null},
+  {id:2,user:'김민준',av:'김',grade:'free',text:'ChatGPT 프롬프트 정말 유용해요! 업무에 바로 써먹었어요 🔥',likes:18,liked:false,date:'2일 전',profileImg:null},
+  {id:3,user:'이수연',av:'이',grade:'vip',text:'네이버 지도 꿀팁 덕분에 주차장 찾는 게 너무 편해졌어요! 경유지 기능은 진짜 몰랐네요 😆',likes:15,liked:false,date:'2일 전',profileImg:null},
+  {id:4,user:'박지훈',av:'박',grade:'free',text:'애드센스 수익화 글 읽고 바로 블로그 시작했어요. 도움이 너무 많이 됐습니다!',likes:12,liked:false,date:'1일 전',profileImg:null},
+  {id:5,user:'최서윤',av:'최',grade:'vip',text:'매일 여기 들어와서 정보 얻어가요 ㅎㅎ 오늘도 좋은 글 감사합니다 💕',likes:9,liked:false,date:'1일 전',profileImg:null},
+  {id:6,user:'정우성',av:'정',grade:'free',text:'봄날 루틴 따라해보니까 진짜 아침이 달라지더라고요! 추천드려요 🌸',likes:11,liked:false,date:'20시간 전',profileImg:null},
+  {id:7,user:'강하늘',av:'강',grade:'free',text:'넷플릭스 추천 목록 저장해뒀어요~ 이번 주말에 다 볼 예정 🍿',likes:7,liked:false,date:'18시간 전',profileImg:null},
+  {id:8,user:'윤서진',av:'윤',grade:'vip',text:'TARRY님 글은 항상 퀄리티가 달라요. 다른 블로그랑 차원이 다름 👍👍',likes:16,liked:false,date:'15시간 전',profileImg:null},
+  {id:9,user:'임도현',av:'임',grade:'free',text:'카카오톡 숨겨진 기능 진짜 신기하다... 메시지 예약 발송 기능이 있었다니!',likes:8,liked:false,date:'12시간 전',profileImg:null},
+  {id:10,user:'한지민',av:'한',grade:'free',text:'AI 툴 추천 글 너무 유익해요! 노션 AI 써보니까 업무 효율이 2배는 되는 것 같아요 ✨',likes:13,liked:false,date:'10시간 전',profileImg:null},
+  {id:11,user:'오세훈',av:'오',grade:'vip',text:'구글 애드센스 전략 따라하니까 승인 받았어요!! 감사합니다 정말로 🎉🎉',likes:22,liked:false,date:'9시간 전',profileImg:null},
+  {id:12,user:'김서영',av:'김',grade:'free',text:'SNS 트렌드 분석 너무 정확해요. Threads 요즘 진짜 핫하더라고요',likes:6,liked:false,date:'8시간 전',profileImg:null},
+  {id:13,user:'이준혁',av:'이',grade:'free',text:'신용카드 추천 글 보고 카드 바꿨더니 매달 3만원씩 아끼고 있어요 💰',likes:19,liked:false,date:'7시간 전',profileImg:null},
+  {id:14,user:'박민서',av:'박',grade:'vip',text:'TARRY의 데일리 VIP 가입했어요! 전용 콘텐츠 너무 좋아요 👑',likes:14,liked:false,date:'6시간 전',profileImg:null},
+  {id:15,user:'최현우',av:'최',grade:'free',text:'주말 알차게 보내는 방법 글 읽고 이번 주말 계획 다 짰어요! 역시 TARRY',likes:10,liked:false,date:'5시간 전',profileImg:null},
+  {id:16,user:'정다은',av:'정',grade:'free',text:'10분 스트레칭 1주일째 하고 있는데 허리 통증이 줄었어요~ 🧘',likes:17,liked:false,date:'4시간 전',profileImg:null},
+  {id:17,user:'강민호',av:'강',grade:'vip',text:'RSS 자동 수집 기능 대박이에요. 이런 블로그가 있었다니! 북마크 완료',likes:9,liked:false,date:'3시간 전',profileImg:null},
+  {id:18,user:'윤지혜',av:'윤',grade:'free',text:'ChatGPT로 이메일 작성하니까 진짜 퀄리티가 달라요. 프롬프트 복붙해서 쓰고 있어요 😍',likes:8,liked:false,date:'2시간 전',profileImg:null},
+  {id:19,user:'임성민',av:'임',grade:'free',text:'매일 업데이트되는 게 신기해요. 어떻게 이렇게 꾸준히 하시는 거예요?',likes:5,liked:false,date:'1시간 전',profileImg:null},
+  {id:20,user:'한수빈',av:'한',grade:'vip',text:'오늘도 유익한 정보 잘 읽었습니다! 내일도 기대할게요 😊❤️',likes:11,liked:false,date:'30분 전',profileImg:null},
 ];
 
 // ── 라우팅 ──
@@ -1899,6 +2027,10 @@ function openPost(postId, title, tag, emoji, meta, desc) {
   
   showPage('post');
   window.scrollTo(0,0);
+  // 조회수 증가
+  const views = STATS.getPostView(postId);
+  const metaEl = document.getElementById('postMeta');
+  if(metaEl) metaEl.textContent = (meta||'TARRY') + ' · 조회 ' + views.toLocaleString() + '회';
   
   // 자동 이미지 생성
   const imgEl = document.getElementById('postHeaderImg');
@@ -2387,9 +2519,173 @@ function addRSSSource() {
   toast('✅ ' + name + ' 소스 추가 완료!');
 }
 
+
+// ═══════════════════════════════════════
+//  방문자 통계 시스템
+// ═══════════════════════════════════════
+const STATS = {
+  // 초기값 설정
+  data: {
+    totalVisitors: 12847,
+    dailyVisitors: 234,
+    autoMode: true,
+    lastReset: new Date().toDateString(),
+    postViews: {
+      'i1': 1243, 'i2': 876, 'i3': 654,
+      'i4': 432, 'i5': 987, 'i6': 321,
+      'm1': 1567, 'm2': 876, 'm3': 543,
+      'l1': 765, 'l2': 432, 'l3': 321,
+      't1': 1098, 't2': 654, 't3': 432,
+    }
+  },
+
+  init() {
+    // 오늘 날짜 체크 — 자정 넘으면 일일 방문자 리셋
+    const today = new Date().toDateString();
+    if(STATS.data.lastReset !== today) {
+      STATS.data.dailyVisitors = 0;
+      STATS.data.lastReset = today;
+    }
+    // 자동 모드면 방문시 카운트 증가
+    if(STATS.data.autoMode) {
+      STATS.data.totalVisitors++;
+      STATS.data.dailyVisitors++;
+    }
+    STATS.updateDisplay();
+    // 자동 모드: 30초마다 랜덤 증가
+    if(STATS.data.autoMode) {
+      setInterval(() => {
+        if(STATS.data.autoMode) {
+          const add = Math.floor(Math.random() * 3) + 1;
+          STATS.data.totalVisitors += add;
+          STATS.data.dailyVisitors += add;
+          STATS.updateDisplay();
+        }
+      }, 30000);
+    }
+  },
+
+  updateDisplay() {
+    // 홈 화면 통계 업데이트
+    const totalEl = document.getElementById('statTotal');
+    const dailyEl = document.getElementById('statDaily');
+    if(totalEl) totalEl.textContent = STATS.format(STATS.data.totalVisitors);
+    if(dailyEl) dailyEl.textContent = STATS.format(STATS.data.dailyVisitors);
+  },
+
+  format(n) {
+    if(n >= 10000) return (n/10000).toFixed(1) + '만';
+    return n.toLocaleString('ko-KR');
+  },
+
+  getPostView(postId) {
+    if(!STATS.data.postViews[postId]) STATS.data.postViews[postId] = Math.floor(Math.random()*500)+100;
+    if(STATS.data.autoMode) STATS.data.postViews[postId]++;
+    return STATS.data.postViews[postId];
+  }
+};
+
+
+
+// ── 통계 관리 함수들 ──
+function toggleStatsMode() {
+  STATS.data.autoMode = !STATS.data.autoMode;
+  const label = document.getElementById('modeLabel');
+  const desc = document.getElementById('modeDesc');
+  const btn = document.getElementById('modeToggleBtn');
+  if(STATS.data.autoMode) {
+    if(label) label.textContent = '🤖 자동 모드';
+    if(desc) desc.textContent = '방문시 자동 증가 + 30초마다 랜덤 증가';
+    if(btn) btn.textContent = '수동으로 전환';
+    toast('🤖 자동 모드로 전환됐어요!');
+  } else {
+    if(label) label.textContent = '✋ 수동 모드';
+    if(desc) desc.textContent = '카운터가 자동으로 변경되지 않아요';
+    if(btn) btn.textContent = '자동으로 전환';
+    toast('✋ 수동 모드로 전환됐어요!');
+  }
+}
+
+function setStatValue(type) {
+  if(type === 'total') {
+    const v = parseInt(document.getElementById('setTotal').value);
+    if(isNaN(v)||v<0) { toast('올바른 숫자를 입력해주세요'); return; }
+    STATS.data.totalVisitors = v;
+    document.getElementById('setTotal').value = '';
+  } else {
+    const v = parseInt(document.getElementById('setDaily').value);
+    if(isNaN(v)||v<0) { toast('올바른 숫자를 입력해주세요'); return; }
+    STATS.data.dailyVisitors = v;
+    document.getElementById('setDaily').value = '';
+  }
+  STATS.updateDisplay();
+  loadStatsPanel();
+  toast('✅ 방문자 수치가 변경됐어요!');
+}
+
+function addVisitors(n) {
+  STATS.data.totalVisitors = Math.max(0, STATS.data.totalVisitors + n);
+  STATS.data.dailyVisitors = Math.max(0, STATS.data.dailyVisitors + (n > 0 ? Math.floor(n*0.1) : n));
+  STATS.updateDisplay();
+  loadStatsPanel();
+  toast((n>0?'➕':'➖') + ' 방문자 수치 변경: ' + Math.abs(n) + '명');
+}
+
+function loadPostView() {
+  const id = document.getElementById('postViewSelect').value;
+  if(!id) return;
+  const v = STATS.data.postViews[id] || 0;
+  document.getElementById('postViewValue').value = v;
+  document.getElementById('currentPostView').textContent = v.toLocaleString('ko-KR') + ' 회';
+}
+
+function setPostView() {
+  const id = document.getElementById('postViewSelect').value;
+  const v = parseInt(document.getElementById('postViewValue').value);
+  if(!id) { toast('글을 선택해주세요'); return; }
+  if(isNaN(v)||v<0) { toast('올바른 숫자를 입력해주세요'); return; }
+  STATS.data.postViews[id] = v;
+  document.getElementById('currentPostView').textContent = v.toLocaleString('ko-KR') + ' 회';
+  loadStatsPanel();
+  toast('✅ 조회수가 변경됐어요!');
+}
+
+function loadStatsPanel() {
+  // 관리자 통계 수치 업데이트
+  const t = document.getElementById('adminStatTotal');
+  const d = document.getElementById('adminStatDaily');
+  if(t) t.textContent = STATS.format(STATS.data.totalVisitors);
+  if(d) d.textContent = STATS.format(STATS.data.dailyVisitors);
+
+  // 글별 조회수 목록
+  const postNames = {
+    'i1':'ChatGPT 프롬프트','i2':'ChatGPT 수익','i3':'AI 툴 TOP10',
+    'i4':'카카오톡 꿀팁','i5':'네이버 지도','m1':'애드센스 전략',
+    'm2':'애드센스 자동화','m3':'신용카드 추천','l1':'봄날 루틴',
+    'l2':'주말 보내기','l3':'10분 스트레칭','t1':'넷플릭스 TOP10',
+    't2':'OTT 총정리','t3':'SNS 트렌드'
+  };
+  const list = document.getElementById('postViewList');
+  if(!list) return;
+  
+  const sorted = Object.entries(STATS.data.postViews)
+    .sort((a,b) => b[1]-a[1]);
+  const max = sorted[0]?.[1] || 1;
+  
+  list.innerHTML = sorted.map(([id, views]) => `
+    <div style="display:flex;align-items:center;gap:9px;padding:7px 10px;background:var(--sur);border:1px solid var(--bd);border-radius:9px">
+      <div style="font-size:12px;font-weight:600;color:var(--tx);width:130px;flex-shrink:0">${postNames[id]||id}</div>
+      <div style="flex:1;background:var(--sur2);border-radius:999px;height:8px;overflow:hidden">
+        <div style="background:var(--grad);height:8px;border-radius:999px;width:${Math.round(views/max*100)}%;transition:.5s"></div>
+      </div>
+      <div style="font-size:12px;font-weight:700;color:var(--ac);width:55px;text-align:right">${views.toLocaleString()}회</div>
+    </div>`).join('');
+}
+
 // ── INIT ──
 buildCatTree();renderBreadcrumb();renderPosts();
 buildEmojiPicker();renderComments();
+STATS.init();
 setTimeout(()=>{buildSNSCards();initSNSModal();},500);
 setTimeout(autoPing,3000);
 
