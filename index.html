@@ -274,10 +274,10 @@ textarea.inp{resize:vertical;min-height:80px;line-height:1.5}
 .ben-locked{opacity:.45;cursor:not-allowed}.ben-locked:hover{transform:none}
 
 /* ADMIN */
-.admin-page{background:var(--bg);min-height:calc(100vh - 56px);overflow-y:auto}
+.admin-page{background:var(--bg);min-height:calc(100vh - 56px)}
 .admin-header{background:linear-gradient(135deg,#1a1a2e,#2d2945);padding:1.2rem 1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:9px}
 .admin-header h1{font-family:var(--display);font-size:20px;color:#fff;display:flex;align-items:center;gap:9px}
-.admin-tabs{display:flex;gap:4px;flex-wrap:wrap;padding:.7rem 1rem;background:var(--sur);border-bottom:1px solid var(--bd);overflow-x:auto}
+.admin-tabs{display:flex;gap:4px;flex-wrap:wrap;padding:.9rem 1.5rem;background:var(--sur);border-bottom:1px solid var(--bd)}
 .atab-admin{padding:7px 13px;border:none;border-radius:7px;font-size:11px;font-weight:600;cursor:pointer;background:var(--sur2);color:var(--mt);font-family:var(--font)}
 .atab-admin:hover{color:var(--tx)}.atab-admin.on{background:var(--sur3);color:var(--ac)}
 .admin-wrap{max-width:1060px;margin:0 auto;padding:1.2rem 1.5rem}
@@ -384,13 +384,6 @@ textarea.inp{resize:vertical;min-height:80px;line-height:1.5}
 }
 @media(min-width:641px){
   #mobileBottomNav{display:none!important}
-}
-
-@media(max-width:640px){
-  .nb-admin,.nb-browse{display:none!important}
-  #guestArea .nbtn:not([style*="ec4899"]){display:none!important}
-  #navUser .nbtn{display:none!important}
-  #themeToggle{display:none!important}
 }
 </style>
 </head>
@@ -511,19 +504,19 @@ textarea.inp{resize:vertical;min-height:80px;line-height:1.5}
       </div>
       <!-- 방문자 통계 카드 -->
       <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:1.5rem">
-        <div style="background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.2);border-radius:18px;padding:16px 24px;backdrop-filter:blur(16px);min-width:120px;transition:.2s" onmouseover="this.style.background='rgba(255,255,255,.15)'" onmouseout="this.style.background='rgba(255,255,255,.08)'">
-          <div style="font-size:28px;font-weight:900;color:#fff;font-family:var(--display);line-height:1;text-shadow:0 2px 8px rgba(0,0,0,.3)" id="statTotal">12,847</div>
+        <div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:18px;padding:16px 24px;backdrop-filter:blur(10px);min-width:120px;transition:.2s" onmouseover="this.style.background='rgba(255,255,255,.15)'" onmouseout="this.style.background='rgba(255,255,255,.08)'">
+          <div style="font-size:28px;font-weight:900;color:#fff;font-family:var(--display);line-height:1" id="statTotal">12,847</div>
           <div style="font-size:11px;color:rgba(255,255,255,.65);margin-top:4px;font-weight:600">누적 방문자</div>
         </div>
-        <div style="background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.2);border-radius:18px;padding:16px 24px;backdrop-filter:blur(16px);min-width:120px;transition:.2s" onmouseover="this.style.background='rgba(255,255,255,.15)'" onmouseout="this.style.background='rgba(255,255,255,.08)'">
-          <div style="font-size:28px;font-weight:900;color:#fff;font-family:var(--display);line-height:1;text-shadow:0 2px 8px rgba(0,0,0,.3)" id="statDaily">234</div>
+        <div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:18px;padding:16px 24px;backdrop-filter:blur(10px);min-width:120px;transition:.2s" onmouseover="this.style.background='rgba(255,255,255,.15)'" onmouseout="this.style.background='rgba(255,255,255,.08)'">
+          <div style="font-size:28px;font-weight:900;color:#fff;font-family:var(--display);line-height:1" id="statDaily">234</div>
           <div style="font-size:11px;color:rgba(255,255,255,.65);margin-top:4px;font-weight:600">오늘 방문자</div>
         </div>
-        <div style="background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.2);border-radius:18px;padding:16px 24px;backdrop-filter:blur(16px);min-width:120px;transition:.2s" onmouseover="this.style.background='rgba(255,255,255,.15)'" onmouseout="this.style.background='rgba(255,255,255,.08)'">
+        <div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:18px;padding:16px 24px;backdrop-filter:blur(10px);min-width:120px;transition:.2s" onmouseover="this.style.background='rgba(255,255,255,.15)'" onmouseout="this.style.background='rgba(255,255,255,.08)'">
           <div style="font-size:28px;font-weight:900;color:#fff;font-family:var(--display);line-height:1">25+</div>
           <div style="font-size:11px;color:rgba(255,255,255,.65);margin-top:4px;font-weight:600">전체 글</div>
         </div>
-        <div style="background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.2);border-radius:18px;padding:16px 24px;backdrop-filter:blur(16px);min-width:120px;transition:.2s" onmouseover="this.style.background='rgba(255,255,255,.15)'" onmouseout="this.style.background='rgba(255,255,255,.08)'">
+        <div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:18px;padding:16px 24px;backdrop-filter:blur(10px);min-width:120px;transition:.2s" onmouseover="this.style.background='rgba(255,255,255,.15)'" onmouseout="this.style.background='rgba(255,255,255,.08)'">
           <div style="font-size:28px;font-weight:900;color:#fbbf24;font-family:var(--display);line-height:1">⭐4.9</div>
           <div style="font-size:11px;color:rgba(255,255,255,.65);margin-top:4px;font-weight:600">평균 평점</div>
         </div>
@@ -613,21 +606,6 @@ textarea.inp{resize:vertical;min-height:80px;line-height:1.5}
         <div style="display:flex;gap:10px;font-size:11px"><a onclick="showPage('privacy')" style="color:var(--mt);cursor:pointer">개인정보처리방침</a><a onclick="showPage('terms')" style="color:var(--mt);cursor:pointer">이용약관</a></div>
       </div>
     </div>
-  
-  <!-- 홈 댓글 미리보기 -->
-  <section style="padding:2rem 0 0">
-    <div class="wrap">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem;flex-wrap:wrap;gap:10px">
-        <div>
-          <div style="font-size:11px;color:var(--ac);font-weight:700;margin-bottom:4px;letter-spacing:.05em">💬 COMMUNITY</div>
-          <h2 style="font-family:var(--display);font-size:22px;color:var(--tx);margin:0">독자들의 이야기</h2>
-        </div>
-        <button onclick="showPage('comment');setNav('comment')" style="background:var(--sur2);border:1px solid var(--bd);border-radius:999px;padding:8px 16px;font-size:12px;font-weight:700;color:var(--mt);cursor:pointer;font-family:var(--font)">전체 보기 →</button>
-      </div>
-      <div id="homeCommentList" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-bottom:1.5rem"></div>
-    </div>
-  </section>
-
   </footer>
 </div>
 
@@ -891,7 +869,6 @@ textarea.inp{resize:vertical;min-height:80px;line-height:1.5}
       <button class="atab-admin" id="at-news" onclick="setAdminTab('news')">📰 뉴스수집</button>
       <button class="atab-admin" id="at-stats" onclick="setAdminTab('stats');refreshAdminStats()">📈 방문자통계</button>
       <button class="atab-admin" id="at-files" onclick="setAdminTab('files');initFilesTab()">📁 파일관리</button>
-      <button class="atab-admin" id="at-newsletter" onclick="setAdminTab('newsletter');initNewsletterTab()">💌 뉴스레터</button>
     </div>
 
     <!-- 대시보드 -->
@@ -963,76 +940,33 @@ textarea.inp{resize:vertical;min-height:80px;line-height:1.5}
     </div>
 
     <!-- RSS -->
-        <!-- RSS 글 가져오기 -->
     <div class="admin-panel" id="ap-rss">
       <div class="admin-wrap">
-
-        <!-- tarryguide.com 연동 -->
-        <div class="admin-section" style="margin-bottom:14px">
-          <h3>🔗 tarryguide.com 글 가져오기</h3>
-          <div style="background:linear-gradient(135deg,rgba(5,150,105,.1),rgba(8,145,178,.05));border:1px solid rgba(16,185,129,.2);border-radius:12px;padding:14px;margin-bottom:12px;display:flex;align-items:center;gap:12px">
-            <div style="width:40px;height:40px;background:var(--grad);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">🗂</div>
-            <div style="flex:1">
-              <div style="font-size:13px;font-weight:700;color:var(--tx)">TARRY의 아카이브</div>
-              <div style="font-size:11px;color:var(--mt);font-family:monospace;margin-top:2px">tarryguide.com</div>
-            </div>
-            <span style="font-size:10px;padding:3px 10px;border-radius:999px;font-weight:700;background:rgba(16,185,129,.15);color:#10b981;border:1px solid rgba(16,185,129,.3)">● 연결됨</span>
-          </div>
-
-          <!-- 동기화 버튼 -->
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
-            <button id="rssLoadBtn" onclick="loadTarryGuideRSS()" style="background:var(--grad);color:#fff;border:none;border-radius:11px;padding:13px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font);display:flex;align-items:center;justify-content:center;gap:6px">
-              <span>🔄</span> 지금 동기화
-            </button>
-            <button onclick="loadAndRewriteAll()" style="background:linear-gradient(135deg,#7c3aed,#4f46e5);color:#fff;border:none;border-radius:11px;padding:13px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font);display:flex;align-items:center;justify-content:center;gap:6px">
-              <span>✨</span> 자동 재작성
-            </button>
-          </div>
-
-          <!-- 진행 상태 -->
-          <div id="rssProgressBox" style="display:none;background:var(--sur2);border-radius:11px;padding:14px;border:1px solid var(--bd2);margin-bottom:12px">
-            <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-              <div style="flex:1">
-                <div style="font-size:13px;font-weight:700;color:var(--tx);margin-bottom:2px" id="rssProgressText">연결 중...</div>
-                <div style="font-size:11px;color:var(--mt)" id="rssProgressSub">잠시만 기다려주세요</div>
-              </div>
-              <div style="font-size:18px;font-weight:800;color:var(--ac)" id="rssProgressPct">0%</div>
-            </div>
-            <div style="background:var(--sur3);border-radius:999px;height:10px;overflow:hidden">
-              <div id="rssProgressBar" style="background:linear-gradient(90deg,#10b981,#7c3aed);height:10px;border-radius:999px;width:0%;transition:width .5s ease"></div>
-            </div>
-          </div>
-
-          <!-- 안내 -->
-          <div style="background:var(--sur2);border-radius:10px;padding:12px;margin-bottom:12px;font-size:12px;color:var(--mt);line-height:1.8">
-            📌 <strong style="color:var(--tx)">지금 동기화</strong> — tarryguide.com의 최신 글 목록을 가져와요<br>
-            ✨ <strong style="color:var(--tx)">자동 재작성</strong> — 가져온 글을 AI가 새롭게 재작성해서 등록해요
-          </div>
-
-          <!-- 가져온 글 목록 -->
-          <div id="rssFeedList">
-            <div style="text-align:center;padding:2.5rem;color:var(--mt)">
-              <div style="font-size:36px;margin-bottom:10px">📖</div>
-              <div style="font-size:14px;font-weight:700;color:var(--tx);margin-bottom:6px">동기화 버튼을 눌러주세요</div>
-              <div style="font-size:12px">tarryguide.com의 글을 가져올 수 있어요</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- RSS URL 추가 -->
         <div class="admin-section">
-          <h3>➕ 다른 RSS 소스 추가</h3>
+          <h3>🌐 RSS 수집기</h3>
+          <div style="background:var(--sur2);border-radius:10px;padding:11px 13px;display:flex;align-items:center;gap:9px;margin-bottom:11px">
+            <div class="sync-dot"></div>
+            <div style="flex:1;font-size:12px;color:var(--mt)">실시간 동기화 중 — <strong style="color:var(--tx)">1</strong>개 소스</div>
+            <button class="btn btn-grad btn-sm" onclick="toast('🔄 전체 동기화 완료!')">🔄 동기화</button>
+          </div>
+          <div id="rssList2" style="display:flex;flex-direction:column;gap:7px;margin-bottom:11px">
+            <div style="background:var(--sur2);border:1px solid var(--bd);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:10px">
+              <div style="width:32px;height:32px;border-radius:8px;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">🗂</div>
+              <div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:600">TARRY의 아카이브</div><div style="font-size:10px;color:var(--mt);font-family:monospace">tarryguide.com/sitemap.xml</div></div>
+              <span style="font-size:10px;padding:2px 8px;border-radius:999px;font-weight:600;background:rgba(5,150,105,.1);color:var(--green);border:1px solid rgba(5,150,105,.2)">✓ 연결됨</span>
+            </div>
+          </div>
+          <div class="info-box">💡 URL 입력만으로 RSS/sitemap 자동 감지!</div>
           <div style="display:flex;gap:7px;flex-wrap:wrap">
             <input class="inp" id="rssName2" placeholder="사이트 이름" style="flex:1;min-width:120px">
-            <input class="inp" id="rssUrl2" placeholder="RSS URL (https://...)" style="flex:2;min-width:160px;font-family:monospace;font-size:11px">
-            <button onclick="addRss2()" style="background:var(--grad);color:#fff;border:none;border-radius:9px;padding:10px 14px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font)">+ 추가</button>
+            <input class="inp" id="rssUrl2" placeholder="URL (https://...)" style="flex:2;min-width:160px;font-family:monospace;font-size:11px">
+            <button class="btn btn-grad" onclick="addRss2()">+ 추가</button>
           </div>
         </div>
-
       </div>
     </div>
 
-<!-- SNS -->
+    <!-- SNS -->
     <div class="admin-panel" id="ap-sns">
       <div class="admin-wrap">
         <div class="admin-section">
@@ -1062,62 +996,22 @@ textarea.inp{resize:vertical;min-height:80px;line-height:1.5}
     </div>
 
     <!-- 카테고리 -->
-        <!-- 카테고리 관리 -->
     <div class="admin-panel" id="ap-cat">
       <div class="admin-wrap">
-
-        <!-- 카테고리 트리 -->
-        <div class="admin-section" style="margin-bottom:14px">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-            <h3 style="margin:0">📂 카테고리 관리</h3>
-            <button onclick="renderAdminCatTree()" style="background:var(--sur2);border:1px solid var(--bd);border-radius:7px;padding:5px 10px;font-size:11px;color:var(--mt);cursor:pointer;font-family:var(--font)">🔄 새로고침</button>
-          </div>
-          <div id="adminCatTree" style="margin-bottom:14px"></div>
-        </div>
-
-        <!-- 대분류 추가 -->
-        <div class="admin-section" style="margin-bottom:12px">
-          <h3>➕ 대분류 추가</h3>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">
-            <input class="inp" id="newL1Name" placeholder="대분류 이름 (예: 라이프)" style="flex:2;min-width:120px">
-            <input class="inp" id="newL1Icon" placeholder="아이콘 (예: 🌸)" style="width:70px;text-align:center">
-          </div>
-          <button onclick="addAdminL1()" style="width:100%;background:var(--grad);color:#fff;border:none;border-radius:9px;padding:11px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font)">➕ 대분류 추가</button>
-        </div>
-
-        <!-- 서브카테고리 추가 -->
-        <div class="admin-section" style="margin-bottom:12px">
-          <h3>📁 서브카테고리 추가</h3>
-          <div style="margin-bottom:8px">
-            <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:4px">대분류 선택</label>
-            <select class="inp" id="l1SelectForL2"></select>
-          </div>
-          <div style="display:flex;gap:8px;margin-bottom:8px">
-            <input class="inp" id="newL2Name" placeholder="서브카테고리 이름" style="flex:1">
-          </div>
-          <button onclick="addAdminL2()" style="width:100%;background:linear-gradient(135deg,#7c3aed,#4f46e5);color:#fff;border:none;border-radius:9px;padding:11px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font)">➕ 서브카테고리 추가</button>
-        </div>
-
-        <!-- 글 추가 -->
         <div class="admin-section">
-          <h3>📝 글 직접 추가</h3>
-          <div style="margin-bottom:8px">
-            <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:4px">카테고리 선택</label>
-            <select class="inp" id="l2SelectForPost"></select>
+          <h3>📂 카테고리 관리</h3>
+          <div class="info-box">💡 대분류 → 중분류 → 소분류 3단계로 관리해요</div>
+          <div id="adminCatTree" style="margin-bottom:11px"></div>
+          <div class="divider">대분류 추가</div>
+          <div style="display:flex;gap:7px">
+            <input class="inp" id="newL1" placeholder="새 대분류 이름 (예: 라이프)" style="flex:1" onkeydown="if(event.key==='Enter')addAdminL1()">
+            <button class="btn btn-grad" onclick="addAdminL1()">+ 추가</button>
           </div>
-          <input class="inp" id="newPostTitle" placeholder="글 제목" style="margin-bottom:6px">
-          <input class="inp" id="newPostDesc" placeholder="글 설명 (한 줄 요약)" style="margin-bottom:6px">
-          <div style="display:flex;gap:8px;margin-bottom:8px">
-            <input class="inp" id="newPostEmoji" placeholder="이모지 🌸" style="width:70px;text-align:center">
-            <input class="inp" id="newPostRead" placeholder="읽기 시간 (예: 5분)" style="flex:1">
-          </div>
-          <button onclick="addPostToCategory()" style="width:100%;background:linear-gradient(135deg,#10b981,#059669);color:#fff;border:none;border-radius:9px;padding:11px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font)">📝 글 추가</button>
         </div>
-
       </div>
     </div>
 
-<!-- 테마 -->
+    <!-- 테마 -->
     <div class="admin-panel" id="ap-theme">
       <div class="admin-wrap">
         <div class="admin-section">
@@ -1233,302 +1127,113 @@ textarea.inp{resize:vertical;min-height:80px;line-height:1.5}
       </div>
 
     <!-- 📰 오늘의 뉴스 패널 -->
-        <!-- 📰 오늘의 뉴스 패널 -->
     <div class="admin-panel" id="ap-news">
-      <div class="admin-wrap" style="padding-top:16px">
-
-        <!-- 상단 배너 -->
-        <div style="background:linear-gradient(135deg,#064e3b,#065f46);border-radius:18px;padding:1.5rem;text-align:center;margin-bottom:14px;border:1px solid rgba(16,185,129,.2)">
-          <div style="font-size:44px;margin-bottom:8px">📰</div>
-          <div style="font-size:18px;font-weight:800;color:#fff;font-family:var(--display);margin-bottom:6px">AI 뉴스 자동 수집</div>
-          <div style="font-size:12px;color:rgba(255,255,255,.75);margin-bottom:14px">클릭 한 번으로 오늘의 뉴스를 가져와 카테고리에 등록해요</div>
-          <button id="autoNewsBtn" onclick="runAutoNews(false)" style="background:#fff;color:#059669;border:none;border-radius:999px;padding:12px 28px;font-size:14px;font-weight:800;cursor:pointer;font-family:var(--font);box-shadow:0 4px 12px rgba(0,0,0,.2)">🚀 지금 바로 뉴스 가져오기</button>
+      <div class="admin-wrap">
+        <div style="background:linear-gradient(135deg,#064e3b,#065f46);border-radius:18px;padding:1.8rem;text-align:center;margin-bottom:16px;border:1px solid rgba(16,185,129,.2)">
+          <div style="font-size:48px;margin-bottom:10px">📰</div>
+          <div style="font-size:20px;font-weight:800;color:#fff;margin-bottom:6px;font-family:var(--display)">오늘의 뉴스 자동 등록</div>
+          <div style="font-size:13px;color:rgba(255,255,255,.75);margin-bottom:18px">클릭할 때마다 새로운 뉴스를 수집해서 등록해요!</div>
+          <button id="autoNewsBtn" onclick="runAutoNews(false)" style="background:#fff;color:#059669;border:none;border-radius:999px;padding:13px 32px;font-size:14px;font-weight:800;cursor:pointer;font-family:var(--font);box-shadow:0 4px 16px rgba(0,0,0,.2)">🚀 지금 바로 뉴스 가져오기</button>
         </div>
-
         <!-- 에너지바 -->
-        <div id="newsLoadingBox" style="display:none;background:var(--sur2);border-radius:12px;padding:16px;border:1.5px solid var(--bd2);margin-bottom:12px">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+        <div id="newsLoadingBox" style="display:none;background:var(--sur2);border-radius:14px;padding:18px;border:1.5px solid var(--bd2);margin-bottom:14px">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
             <div style="flex:1">
-              <div style="font-size:13px;font-weight:700;color:var(--tx);margin-bottom:2px" id="newsLoadingText">준비 중...</div>
+              <div style="font-size:14px;font-weight:700;color:var(--tx);margin-bottom:2px" id="newsLoadingText">뉴스 수집 준비 중...</div>
               <div style="font-size:11px;color:var(--mt)" id="newsLoadingStep">잠시만 기다려주세요</div>
             </div>
-            <div style="font-size:18px;font-weight:800;color:var(--ac)" id="newsProgressPct">0%</div>
+            <div style="font-size:20px;font-weight:800;color:var(--ac)" id="newsProgressPct">0%</div>
           </div>
-          <div style="background:var(--sur3);border-radius:999px;height:10px;overflow:hidden">
-            <div id="newsProgressBar" style="background:linear-gradient(90deg,#059669,#7c3aed);height:10px;border-radius:999px;width:0%;transition:width .5s ease"></div>
+          <div style="background:var(--sur3);border-radius:999px;height:12px;overflow:hidden;border:1px solid var(--bd)">
+            <div id="newsProgressBar" style="background:linear-gradient(90deg,#059669,#0891b2,#7c3aed);height:12px;border-radius:999px;width:0%;transition:width .5s ease"></div>
           </div>
-          <div style="display:flex;justify-content:space-between;margin-top:4px;font-size:9px;color:var(--mt)">
+          <div style="display:flex;justify-content:space-between;margin-top:5px;font-size:9px;color:var(--mt)">
             <span>시작</span><span>연결</span><span>수집</span><span>등록</span><span>완료</span>
           </div>
         </div>
-
-        <!-- 스케줄 설정 -->
         <div class="admin-section" style="margin-bottom:12px">
-          <h3>⏰ 자동 스케줄 설정</h3>
-          <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px">
-            <input type="time" id="customScheduleTime" value="08:00" style="flex:1;background:var(--sur2);border:1.5px solid var(--bd2);border-radius:9px;padding:10px 12px;font-size:15px;font-weight:700;color:var(--tx);outline:none;font-family:var(--font)">
-            <button onclick="applyCustomTime()" style="background:var(--grad);color:#fff;border:none;border-radius:9px;padding:10px 14px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font);white-space:nowrap">✅ 적용</button>
+          <h3>⏰ 자동 스케줄</h3>
+          <div style="display:flex;gap:8px;align-items:center;margin-bottom:10px">
+            <input type="time" id="customScheduleTime" value="08:00" style="flex:1;background:var(--sur2);border:1.5px solid var(--bd2);border-radius:9px;padding:10px 12px;font-size:16px;font-weight:700;color:var(--tx);outline:none;font-family:var(--font)">
+            <button onclick="applyCustomTime()" style="background:var(--grad);color:#fff;border:none;border-radius:9px;padding:10px 16px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font);white-space:nowrap">✅ 적용</button>
           </div>
           <div style="display:flex;gap:8px">
-            <select class="inp" id="newsCount" style="flex:1">
-              <option value="3">3개</option><option value="5" selected>5개</option><option value="10">10개</option>
-            </select>
-            <select class="inp" id="newsCategory" style="flex:1">
-              <option value="종합">종합</option><option value="IT기술">IT</option>
-              <option value="경제재테크">경제</option><option value="생활건강">생활</option><option value="트렌드">트렌드</option>
-            </select>
+            <select class="inp" id="newsCount" style="flex:1"><option value="3">3개</option><option value="5" selected>5개</option><option value="10">10개</option></select>
+            <select class="inp" id="newsCategory" style="flex:1"><option value="종합">종합</option><option value="IT기술">IT</option><option value="경제재테크">경제</option><option value="생활건강">생활</option><option value="트렌드">트렌드</option></select>
           </div>
         </div>
-
-        <!-- 결과 목록 -->
         <div class="admin-section">
-          <h3>📋 수집된 뉴스 목록</h3>
-          <div id="autoNewsList">
-            <div style="text-align:center;padding:2rem;color:var(--mt)">
-              <div style="font-size:32px;margin-bottom:8px">📰</div>
-              위 버튼을 눌러 뉴스를 가져오세요!
-            </div>
-          </div>
+          <h3>📋 수집된 뉴스</h3>
+          <div id="autoNewsList"><div style="text-align:center;padding:2rem;color:var(--mt)"><div style="font-size:32px;margin-bottom:8px">📰</div>위 버튼을 눌러 뉴스를 가져오세요!</div></div>
         </div>
-
       </div>
     </div>
 
-
     <!-- 📈 방문자 통계 패널 -->
-        <!-- 📊 방문자 통계 패널 -->
     <div class="admin-panel" id="ap-stats">
-      <div class="admin-wrap" style="padding-top:16px">
-
-        <!-- 통계 카드 -->
+      <div class="admin-wrap">
         <div class="admin-section" style="margin-bottom:14px">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-            <h3 style="margin:0">📊 실시간 방문자 통계</h3>
-            <button onclick="refreshAdminStats()" style="background:var(--grad);color:#fff;border:none;border-radius:7px;padding:6px 12px;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--font)">🔄 새로고침</button>
-          </div>
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px">
-            <div style="background:linear-gradient(135deg,#1e1b4b,#312e81);border-radius:14px;padding:16px;text-align:center;border:1px solid rgba(99,102,241,.3)">
-              <div style="font-size:24px;font-weight:800;color:#a5b4fc;font-family:var(--display)" id="adminStatTotal">-</div>
-              <div style="font-size:10px;color:rgba(165,180,252,.7);margin-top:4px">누적 방문자</div>
+          <h3>📊 방문자 현황</h3>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px">
+            <div style="background:linear-gradient(135deg,#1e1b4b,#312e81);border-radius:14px;padding:18px;text-align:center;border:1px solid rgba(99,102,241,.3)">
+              <div style="font-size:26px;font-weight:800;color:#a5b4fc;margin-bottom:4px" id="adminStatTotal">-</div>
+              <div style="font-size:11px;color:rgba(165,180,252,.7)">누적 방문자</div>
             </div>
-            <div style="background:linear-gradient(135deg,#4a1942,#6b21a8);border-radius:14px;padding:16px;text-align:center;border:1px solid rgba(236,72,153,.3)">
-              <div style="font-size:24px;font-weight:800;color:#f9a8d4;font-family:var(--display)" id="adminStatDaily">-</div>
-              <div style="font-size:10px;color:rgba(249,168,212,.7);margin-top:4px">오늘 방문자</div>
+            <div style="background:linear-gradient(135deg,#4a1942,#6b21a8);border-radius:14px;padding:18px;text-align:center;border:1px solid rgba(236,72,153,.3)">
+              <div style="font-size:26px;font-weight:800;color:#f9a8d4;margin-bottom:4px" id="adminStatDaily">-</div>
+              <div style="font-size:11px;color:rgba(249,168,212,.7)">오늘 방문자</div>
             </div>
-            <div style="background:linear-gradient(135deg,#1a3a1a,#14532d);border-radius:14px;padding:16px;text-align:center;border:1px solid rgba(34,197,94,.3)">
-              <div style="font-size:24px;font-weight:800;color:#86efac;font-family:var(--display)" id="adminStatPosts">-</div>
-              <div style="font-size:10px;color:rgba(134,239,172,.7);margin-top:4px">전체 글</div>
+            <div style="background:linear-gradient(135deg,#1a3a1a,#14532d);border-radius:14px;padding:18px;text-align:center;border:1px solid rgba(34,197,94,.3)">
+              <div style="font-size:26px;font-weight:800;color:#86efac;margin-bottom:4px" id="adminStatPosts">-</div>
+              <div style="font-size:11px;color:rgba(134,239,172,.7)">전체 글</div>
             </div>
           </div>
-          <!-- 추가 통계 -->
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
-            <div style="background:var(--sur2);border-radius:12px;padding:14px;border:1px solid var(--bd)">
-              <div style="font-size:11px;color:var(--mt);margin-bottom:4px">💬 총 댓글 수</div>
-              <div style="font-size:20px;font-weight:800;color:var(--tx)" id="adminStatComments">-</div>
-            </div>
-            <div style="background:var(--sur2);border-radius:12px;padding:14px;border:1px solid var(--bd)">
-              <div style="font-size:11px;color:var(--mt);margin-bottom:4px">📧 구독자 수</div>
-              <div style="font-size:20px;font-weight:800;color:var(--ac)" id="adminStatSubs">-</div>
-            </div>
-          </div>
+          <button onclick="refreshAdminStats()" style="width:100%;background:var(--grad);color:#fff;border:none;border-radius:10px;padding:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font)">🔄 통계 새로고침</button>
         </div>
-
-        <!-- 방문자 그래프 (최근 7일) -->
-        <div class="admin-section" style="margin-bottom:14px">
-          <h3>📈 최근 7일 방문자 추이</h3>
-          <div id="visitorChart" style="height:100px;display:flex;align-items:flex-end;gap:6px;padding:10px 0">
-          </div>
-          <div id="visitorChartLabels" style="display:flex;justify-content:space-between;font-size:9px;color:var(--mt);padding:0 2px"></div>
-        </div>
-
-        <!-- 댓글 관리 -->
         <div class="admin-section">
           <h3>💬 댓글 관리</h3>
           <div id="adminCommentList" style="max-height:220px;overflow-y:auto;margin-bottom:10px"></div>
-          <div style="display:flex;gap:7px;margin-bottom:6px">
-            <input class="inp" id="adminCommentName" placeholder="작성자 이름" style="flex:1">
-          </div>
-          <textarea class="inp" id="adminCommentText" placeholder="댓글 내용" style="height:60px;resize:none;margin-bottom:6px"></textarea>
+          <input class="inp" id="adminCommentName" placeholder="작성자 이름" style="margin-bottom:6px">
+          <textarea class="inp" id="adminCommentText" placeholder="댓글 내용을 입력해주세요" style="height:60px;resize:none;margin-bottom:6px"></textarea>
           <button onclick="adminAddComment()" style="width:100%;background:var(--grad);color:#fff;border:none;border-radius:9px;padding:11px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font)">💬 댓글 추가</button>
         </div>
-
       </div>
     </div>
 
-
     <!-- 📁 파일 관리 패널 -->
-        <!-- 📁 파일 관리 패널 -->
     <div class="admin-panel" id="ap-files">
-      <div class="admin-wrap" style="padding-top:16px">
-
-        <!-- PPT 등록 -->
+      <div class="admin-wrap">
         <div class="admin-section" style="margin-bottom:14px">
           <h3>📊 PPT 사용설명서 등록</h3>
           <div style="background:var(--sur2);border-radius:12px;padding:14px;border:1px solid var(--bd);margin-bottom:12px">
             <div style="font-size:11px;color:var(--mt);font-weight:700;margin-bottom:6px">현재 등록된 PPT</div>
             <div id="currentPPTDisplay" style="font-size:13px;color:var(--tx)">등록된 파일 없음</div>
           </div>
-          <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:5px">🔗 구글 드라이브 URL</label>
+          <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:5px">🔗 PPT 파일 URL</label>
           <div style="display:flex;gap:7px;margin-bottom:10px">
-            <input class="inp" id="pptUrlInput" placeholder="https://drive.google.com/..." style="flex:1;font-size:12px">
+            <input class="inp" id="pptUrlInput" placeholder="구글 드라이브 공유 URL" style="flex:1;font-size:12px">
             <button onclick="savePPTUrl()" style="background:var(--grad);color:#fff;border:none;border-radius:9px;padding:10px 14px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font);white-space:nowrap">💾 등록</button>
           </div>
-          <div style="background:var(--sur3);border-radius:10px;padding:12px;margin-bottom:12px;font-size:11px;color:var(--mt);line-height:1.9">
-            📌 <strong style="color:var(--tx)">등록 방법:</strong><br>
-            1. 구글 드라이브에 PPT 파일 업로드<br>
-            2. 파일 우클릭 → 공유 → 링크 복사<br>
-            3. 위 칸에 붙여넣기 후 등록
+          <div style="background:linear-gradient(135deg,rgba(124,58,237,.08),rgba(236,72,153,.05));border-radius:10px;padding:12px;border:1px solid var(--bd);margin-bottom:12px">
+            <div style="font-size:12px;font-weight:700;color:var(--ac);margin-bottom:6px">📌 구글 드라이브 공유 방법</div>
+            <div style="font-size:11px;color:var(--mt);line-height:1.9">1. 구글 드라이브에 PPT 업로드<br>2. 파일 우클릭 → 링크 복사<br>3. 링크에서 ID 추출 후 변환:<br><code style="background:var(--sur3);padding:2px 5px;border-radius:4px;font-size:10px">drive.google.com/uc?id=ID&export=download</code></div>
           </div>
           <div style="display:flex;gap:7px">
             <button onclick="downloadPPT()" style="flex:1;background:var(--grad);color:#fff;border:none;border-radius:9px;padding:11px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font)">📥 다운로드 테스트</button>
             <button onclick="removePPT()" style="background:rgba(220,38,38,.1);color:#dc2626;border:1px solid rgba(220,38,38,.2);border-radius:9px;padding:11px 14px;cursor:pointer;font-family:var(--font);font-size:13px">🗑️</button>
           </div>
         </div>
-
         <!-- tarryguide RSS 연동 -->
         <div class="admin-section">
           <h3>🔗 tarryguide.com 글 가져오기</h3>
-          <div style="background:var(--sur2);border-radius:11px;padding:12px;border:1px solid var(--bd);margin-bottom:10px;display:flex;align-items:center;gap:10px">
-            <div style="font-size:24px">🗂</div>
-            <div style="flex:1">
-              <div style="font-size:13px;font-weight:700;color:var(--tx)">TARRY의 아카이브</div>
-              <div style="font-size:11px;color:var(--mt)">tarryguide.com</div>
-            </div>
-            <span style="font-size:10px;background:rgba(16,185,129,.1);color:#10b981;border:1px solid rgba(16,185,129,.2);border-radius:999px;padding:3px 8px;font-weight:700">연결됨</span>
-          </div>
-          <button id="rssLoadBtn" onclick="loadTarryGuideRSS()" style="width:100%;background:var(--grad);color:#fff;border:none;border-radius:10px;padding:12px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font);margin-bottom:8px">🔄 tarryguide.com 동기화</button>
-          <div id="rssFeedList">
-            <div style="text-align:center;padding:1.5rem;color:var(--mt)">
-              <div style="font-size:28px;margin-bottom:6px">📖</div>
-              위 버튼을 눌러 글을 가져오세요!
-            </div>
-          </div>
+          <button id="rssLoadBtn" onclick="loadTarryGuideRSS()" style="width:100%;background:var(--grad);color:#fff;border:none;border-radius:10px;padding:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font);margin-bottom:10px">🔄 tarryguide.com 글 가져오기</button>
+          <div id="rssFeedList"><div style="text-align:center;padding:2rem;color:var(--mt)"><div style="font-size:28px;margin-bottom:8px">📖</div>위 버튼을 눌러 글을 가져오세요!</div></div>
         </div>
-
       </div>
     </div>
 
 
-
-    
-    <!-- 💌 뉴스레터 패널 -->
-    <div class="admin-panel" id="ap-newsletter">
-      <div class="admin-wrap" style="padding-top:16px">
-
-        <!-- 구독자 현황 -->
-        <div class="admin-section" style="margin-bottom:14px">
-          <h3>📧 구독자 현황</h3>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
-            <div style="background:linear-gradient(135deg,#1e1b4b,#312e81);border-radius:14px;padding:16px;text-align:center;border:1px solid rgba(99,102,241,.3)">
-              <div style="font-size:28px;font-weight:800;color:#a5b4fc;font-family:var(--display)" id="nlSubCount">0</div>
-              <div style="font-size:11px;color:rgba(165,180,252,.7);margin-top:4px">전체 구독자</div>
-            </div>
-            <div style="background:linear-gradient(135deg,#064e3b,#065f46);border-radius:14px;padding:16px;text-align:center;border:1px solid rgba(16,185,129,.3)">
-              <div style="font-size:28px;font-weight:800;color:#86efac;font-family:var(--display)" id="nlSentCount">0</div>
-              <div style="font-size:11px;color:rgba(134,239,172,.7);margin-top:4px">발송 완료</div>
-            </div>
-          </div>
-          <!-- 구독자 목록 -->
-          <div style="background:var(--sur2);border-radius:11px;padding:12px;border:1px solid var(--bd);max-height:160px;overflow-y:auto;margin-bottom:10px">
-            <div id="nlEmailList">
-              <div style="text-align:center;padding:1rem;color:var(--mt);font-size:12px">구독자가 없어요</div>
-            </div>
-          </div>
-          <!-- 이메일 직접 추가 -->
-          <div style="display:flex;gap:7px">
-            <input class="inp" id="nlAddEmail" placeholder="이메일 직접 추가" type="email" style="flex:1;font-size:13px">
-            <button onclick="nlAddEmail()" style="background:var(--grad);color:#fff;border:none;border-radius:9px;padding:10px 14px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font);white-space:nowrap">+ 추가</button>
-          </div>
-        </div>
-
-        <!-- 발송 모드 선택 -->
-        <div class="admin-section" style="margin-bottom:14px">
-          <h3>✉️ 발송 방식 선택</h3>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px">
-            <button id="nlModeManual" onclick="setNlMode('manual')" style="background:var(--grad);color:#fff;border:none;border-radius:11px;padding:14px;cursor:pointer;font-family:var(--font);text-align:center;font-weight:700;font-size:13px">
-              <div style="font-size:24px;margin-bottom:4px">✋</div>수동 발송
-            </button>
-            <button id="nlModeAuto" onclick="setNlMode('auto')" style="background:var(--sur2);color:var(--tx);border:1.5px solid var(--bd);border-radius:11px;padding:14px;cursor:pointer;font-family:var(--font);text-align:center;font-weight:700;font-size:13px">
-              <div style="font-size:24px;margin-bottom:4px">🤖</div>자동 발송
-            </button>
-          </div>
-
-          <!-- 수동 모드 -->
-          <div id="nlManualSection">
-            <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:5px">📝 제목</label>
-            <input class="inp" id="nlSubject" placeholder="뉴스레터 제목" style="margin-bottom:8px">
-
-            <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:5px">📰 글 선택</label>
-            <div style="display:flex;gap:7px;margin-bottom:8px">
-              <select class="inp" id="nlPostSelect" style="flex:1">
-                <option value="">-- 글 선택 --</option>
-              </select>
-              <button onclick="nlRandomPost()" style="background:var(--sur2);color:var(--tx);border:1px solid var(--bd);border-radius:9px;padding:10px 12px;font-size:12px;cursor:pointer;font-family:var(--font);white-space:nowrap">🎲 랜덤</button>
-            </div>
-
-            <!-- 선택된 글 미리보기 -->
-            <div id="nlPostPreview" style="background:var(--sur2);border-radius:10px;padding:12px;border:1px solid var(--bd);margin-bottom:10px;min-height:60px;font-size:12px;color:var(--mt);display:none"></div>
-
-            <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:5px">✏️ 추가 메시지 (선택)</label>
-            <textarea class="inp" id="nlMessage" placeholder="구독자에게 전할 메시지를 입력해주세요" style="height:80px;resize:none;margin-bottom:10px"></textarea>
-
-            <button onclick="nlSendManual()" style="width:100%;background:var(--grad);color:#fff;border:none;border-radius:11px;padding:13px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font);margin-bottom:8px">📨 전체 구독자에게 발송</button>
-            <button onclick="nlSendTest()" style="width:100%;background:var(--sur2);color:var(--tx);border:1.5px solid var(--bd);border-radius:11px;padding:11px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font)">🧪 테스트 발송</button>
-          </div>
-
-          <!-- 자동 모드 -->
-          <div id="nlAutoSection" style="display:none">
-            <div style="background:rgba(124,58,237,.08);border:1px solid rgba(124,58,237,.2);border-radius:11px;padding:14px;margin-bottom:12px">
-              <div style="font-size:13px;font-weight:700;color:var(--tx);margin-bottom:6px">🤖 자동 발송 설정</div>
-              <div style="font-size:12px;color:var(--mt);line-height:1.8">설정한 시간에 자동으로 최신 글을<br>전체 구독자에게 발송해요</div>
-            </div>
-            <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:5px">⏰ 발송 시간</label>
-            <div style="display:flex;gap:8px;margin-bottom:10px">
-              <input type="time" id="nlAutoTime" value="09:00" style="flex:1;background:var(--sur2);border:1.5px solid var(--bd2);border-radius:9px;padding:10px;font-size:15px;font-weight:700;color:var(--tx);outline:none;font-family:var(--font)">
-              <select class="inp" id="nlAutoFreq" style="flex:1">
-                <option value="daily">매일</option>
-                <option value="weekly" selected>매주</option>
-                <option value="monthly">매월</option>
-              </select>
-            </div>
-            <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:5px">📰 글 선택 방식</label>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:12px">
-              <button id="nlAutoSelectRandom" onclick="setNlAutoSelect('random')" style="background:var(--grad);color:#fff;border:none;border-radius:9px;padding:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font)">🎲 랜덤 자동선택</button>
-              <button id="nlAutoSelectLatest" onclick="setNlAutoSelect('latest')" style="background:var(--sur2);color:var(--tx);border:1.5px solid var(--bd);border-radius:9px;padding:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font)">📅 최신 글 선택</button>
-            </div>
-            <button onclick="nlStartAuto()" style="width:100%;background:linear-gradient(135deg,#7c3aed,#4f46e5);color:#fff;border:none;border-radius:11px;padding:13px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font)">🚀 자동 발송 시작</button>
-          </div>
-        </div>
-
-        <!-- 발송 진행 에너지바 -->
-        <div id="nlProgressBox" style="display:none" class="admin-section">
-          <h3>📨 발송 진행 중</h3>
-          <div style="background:var(--sur2);border-radius:11px;padding:14px;border:1.5px solid var(--bd2)">
-            <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-              <div style="flex:1">
-                <div style="font-size:13px;font-weight:700;color:var(--tx);margin-bottom:2px" id="nlProgressText">발송 준비 중...</div>
-                <div style="font-size:11px;color:var(--mt)" id="nlProgressSub">잠시만 기다려주세요</div>
-              </div>
-              <div style="font-size:18px;font-weight:800;color:var(--ac)" id="nlProgressPct">0%</div>
-            </div>
-            <div style="background:var(--sur3);border-radius:999px;height:12px;overflow:hidden">
-              <div id="nlProgressBar" style="background:linear-gradient(90deg,#7c3aed,#ec4899);height:12px;border-radius:999px;width:0%;transition:width .4s ease"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 발송 기록 -->
-        <div class="admin-section">
-          <h3>📋 발송 기록</h3>
-          <div id="nlHistory" style="max-height:200px;overflow-y:auto">
-            <div style="text-align:center;padding:1.5rem;color:var(--mt);font-size:12px">발송 기록이 없어요</div>
-          </div>
-        </div>
-
-      </div>
     </div>
-
-</div>
 
   </div>
 </div>
@@ -1600,112 +1305,14 @@ textarea.inp{resize:vertical;min-height:80px;line-height:1.5}
 /* ── 전역 변수 ── */
 let isAdminLoggedIn=false,isLoggedIn=false,isBrowsing=false,currentUser=null;
 let selectedL1=null,selectedL2=null,selectedL3=null;
-let currentView='grid',currentPosts=[  {name:"류지훈",text:"이 블로그 진짜 대박이에요! 읽을 때마다 새로운 걸 배워가고 삶이 풍요로워지는 느낌이에요. 앞으로도 계속 좋은 글 부탁드려요 🎉",date:"2026.03.22",likes:32}
-];
+let currentView='grid',currentPosts=[];
 let scheduleTime='08:00',scheduleTimer=null;
 let adminPw=(()=>{try{return localStorage.getItem('tarry_admin_pw')||'123456';}catch(e){return'123456';}})();
 let extraFiles=[];
 let comments=[
-  {name:"김민준",text:"정말 좋은 교육이었어요! 덕분에 많이 배웠습니다 😊",date:"2026.03.22",likes:24},
-  {name:"이서연",text:"오늘도 유익한 글 감사해요. 매일 방문하게 되네요!",date:"2026.03.22",likes:18},
-  {name:"박지훈",text:"이런 알찬 정보를 무료로 볼 수 있다니 정말 감사합니다 🙏",date:"2026.03.22",likes:15},
-  {name:"최수아",text:"읽고 나서 바로 실천해봤는데 효과가 있었어요!",date:"2026.03.22",likes:22},
-  {name:"정도현",text:"TARRY님 글은 항상 핵심만 딱 집어서 알려주셔서 너무 좋아요",date:"2026.03.21",likes:19},
-  {name:"강하은",text:"좋은 글 잘 읽었습니다. 다음 편도 기대할게요!",date:"2026.03.21",likes:11},
-  {name:"윤서준",text:"이런 내용을 이렇게 쉽게 설명해주시다니! 최고예요 👍",date:"2026.03.21",likes:17},
-  {name:"임나연",text:"매번 올 때마다 새로운 걸 배워가요. 정말 유익한 블로그입니다",date:"2026.03.21",likes:13},
-  {name:"한지민",text:"실생활에 바로 적용할 수 있는 팁이라 더 좋아요!",date:"2026.03.21",likes:20},
-  {name:"오준혁",text:"글을 읽으면서 많은 것을 깨달았어요. 감사합니다 ✨",date:"2026.03.20",likes:16},
-  {name:"신예진",text:"이 블로그 덕분에 생활이 많이 달라졌어요. 정말 고마워요!",date:"2026.03.20",likes:25},
-  {name:"김태양",text:"설명이 너무 친절하고 이해하기 쉬워요. 앞으로도 잘 부탁드립니다",date:"2026.03.20",likes:14},
-  {name:"이하늘",text:"좋은 정보 항상 감사드려요! 북마크해두고 자주 볼게요 📌",date:"2026.03.20",likes:21},
-  {name:"박서윤",text:"오늘 배운 내용 바로 써먹었어요. 진짜 도움됐습니다!",date:"2026.03.20",likes:18},
-  {name:"최민서",text:"이런 퀄리티의 글을 무료로 볼 수 있어서 행복해요 😍",date:"2026.03.19",likes:12},
-  {name:"정유진",text:"읽을수록 빠져드는 글이에요. 정말 잘 쓰셨네요!",date:"2026.03.19",likes:23},
-  {name:"강민호",text:"핵심 포인트만 딱딱 집어주셔서 시간 절약이 돼요!",date:"2026.03.19",likes:9},
-  {name:"윤지우",text:"덕분에 몰랐던 부분을 알게 됐어요. 감사합니다 🌟",date:"2026.03.19",likes:16},
-  {name:"임현우",text:"글 읽고 나서 진짜 많이 배웠어요. 다음 글도 기대됩니다!",date:"2026.03.19",likes:20},
-  {name:"한소희",text:"이렇게 유익한 정보를 나눠주셔서 감사해요. 꼭 실천해볼게요",date:"2026.03.18",likes:15},
-  {name:"오세진",text:"설명이 정말 명쾌해요! 한 번에 이해됐습니다 💡",date:"2026.03.18",likes:28},
-  {name:"신지아",text:"이 글 읽고 완전히 새로운 시각이 생겼어요. 대단하세요!",date:"2026.03.18",likes:17},
-  {name:"김라온",text:"항상 퀄리티 높은 글 써주셔서 감사합니다. 응원해요!",date:"2026.03.18",likes:11},
-  {name:"이준서",text:"실용적인 정보가 가득해서 너무 좋아요. 매일 방문할게요!",date:"2026.03.18",likes:22},
-  {name:"박채원",text:"글 읽는 내내 고개가 끄덕여졌어요. 정말 공감되는 내용이에요",date:"2026.03.17",likes:19},
-  {name:"최지호",text:"몰랐던 사실을 알게 됐어요! 정말 좋은 교육이었습니다 📚",date:"2026.03.17",likes:14},
-  {name:"정서현",text:"이런 좋은 글을 공짜로 읽을 수 있다니 감사할 따름이에요",date:"2026.03.17",likes:26},
-  {name:"강예원",text:"내용이 너무 알차고 유익해요. 앞으로도 좋은 글 부탁드려요!",date:"2026.03.17",likes:18},
-  {name:"윤도윤",text:"오늘도 배워갑니다! 항상 좋은 정보 감사드립니다 🙏",date:"2026.03.17",likes:13},
-  {name:"임지수",text:"글이 너무 잘 정리되어 있어서 이해하기 쉬웠어요!",date:"2026.03.16",likes:21},
-  {name:"한예슬",text:"정말 유익한 내용이에요. 친구한테도 공유했어요!",date:"2026.03.16",likes:16},
-  {name:"오하린",text:"이렇게 좋은 글을 써주셔서 정말 감사해요 ❤️",date:"2026.03.16",likes:24},
-  {name:"신우진",text:"배울 게 정말 많은 블로그예요. 즐겨찾기 추가했어요!",date:"2026.03.16",likes:10},
-  {name:"김유나",text:"읽고 나서 뭔가 꽉 찬 느낌이에요. 너무 좋아요!",date:"2026.03.16",likes:20},
-  {name:"이수호",text:"매번 이렇게 좋은 글을 써주시다니! 정말 존경스러워요",date:"2026.03.15",likes:15},
-  {name:"박아린",text:"덕분에 실생활에서 바로 쓸 수 있는 팁을 배웠어요 💪",date:"2026.03.15",likes:22},
-  {name:"최우현",text:"글 읽는 시간이 전혀 아깝지 않아요. 정말 값진 정보예요",date:"2026.03.15",likes:17},
-  {name:"정나은",text:"항상 트렌디한 정보를 업데이트해주셔서 감사해요!",date:"2026.03.15",likes:12},
-  {name:"강지원",text:"이 블로그 없었으면 어쩔뻔했어요! 정말 도움이 많이 돼요 😊",date:"2026.03.15",likes:29},
-  {name:"윤하준",text:"내용도 좋고 디자인도 예뻐서 읽기 편해요. 최고입니다!",date:"2026.03.14",likes:18},
-  {name:"임수빈",text:"오늘도 좋은 글 감사합니다. 매일 기대가 돼요!",date:"2026.03.14",likes:14},
-  {name:"한지호",text:"이런 알찬 정보를 나눠주셔서 진심으로 감사드려요 🌸",date:"2026.03.14",likes:23},
-  {name:"오민준",text:"글 읽고 많은 동기부여가 됐어요. 오늘부터 실천해볼게요!",date:"2026.03.14",likes:19},
-  {name:"신채윤",text:"정말 좋은 교육이었어요. 이런 블로그가 있어서 다행이에요",date:"2026.03.14",likes:16},
-  {name:"김도연",text:"핵심을 이렇게 잘 정리해주시다니! 완전 감동입니다 😭",date:"2026.03.13",likes:21},
-  {name:"이시우",text:"유익하고 재미있는 글이에요. 시간 가는 줄 몰랐어요!",date:"2026.03.13",likes:13},
-  {name:"박하율",text:"정보의 질이 정말 높아요. 전문가분이 쓰신 것 같아요 👏",date:"2026.03.13",likes:27},
-  {name:"최서아",text:"읽을수록 새로운 걸 알게 되네요. 정말 감사해요!",date:"2026.03.13",likes:15},
-  {name:"정우빈",text:"이런 정보를 공유해주셔서 너무 좋아요. 응원합니다!",date:"2026.03.13",likes:20},
-  {name:"강민아",text:"매번 글을 읽을 때마다 뭔가 배우고 가요. 최고예요! ⭐",date:"2026.03.12",likes:11},
-  {name:"윤주원",text:"오늘도 유익한 시간이었어요. 정말 감사드립니다 🙏",date:"2026.03.12",likes:18},
-  {name:"임채민",text:"이 글 덕분에 고민이 해결됐어요! 정말 도움됐습니다",date:"2026.03.12",likes:24},
-  {name:"한도율",text:"글이 너무 읽기 편하고 내용도 알차요. 계속 써주세요!",date:"2026.03.12",likes:16},
-  {name:"오지연",text:"몰랐던 정보를 이렇게 쉽게 알려주시니 너무 감사해요 💝",date:"2026.03.12",likes:22},
-  {name:"신민재",text:"읽고 나서 실천해봤더니 정말 효과 있었어요!",date:"2026.03.11",likes:17},
-  {name:"김하영",text:"이런 좋은 콘텐츠를 만들어주셔서 감사해요. 앞으로도 응원할게요",date:"2026.03.11",likes:13},
-  {name:"이준영",text:"정말 교육적이고 유익한 글이에요. 많이 배워갑니다 📖",date:"2026.03.11",likes:25},
-  {name:"박소율",text:"글 읽고 나서 기분이 좋아졌어요. 긍정적인 에너지 감사해요!",date:"2026.03.11",likes:19},
-  {name:"최예나",text:"항상 퀄리티 높은 글 감사해요. 팬이 됐습니다 😊",date:"2026.03.11",likes:14},
-  {name:"정하린",text:"오늘 배운 내용이 진짜 도움이 될 것 같아요. 감사합니다!",date:"2026.03.10",likes:21},
-  {name:"강지민",text:"이렇게 쉽게 설명해주시다니! 이해가 쏙쏙 돼요 💡",date:"2026.03.10",likes:16},
-  {name:"윤서아",text:"정말 값진 정보예요. 주변에도 많이 공유하고 있어요!",date:"2026.03.10",likes:28},
-  {name:"임우진",text:"글을 읽으면서 정말 많이 성장하는 느낌이에요 🌱",date:"2026.03.10",likes:12},
-  {name:"한채린",text:"이런 블로그를 운영해주셔서 진심으로 감사드려요!",date:"2026.03.10",likes:23},
-  {name:"오시현",text:"매번 좋은 글 써주셔서 너무 행복해요. 계속 응원할게요!",date:"2026.03.09",likes:18},
-  {name:"신도현",text:"읽을 때마다 새로운 인사이트를 얻어가요. 최고입니다! ✨",date:"2026.03.09",likes:20},
-  {name:"김지안",text:"이 블로그 덕분에 일상이 많이 달라졌어요. 감사해요 🙏",date:"2026.03.09",likes:15},
-  {name:"이하율",text:"내용이 너무 충실하고 유익해요. 자주 방문할게요!",date:"2026.03.09",likes:17},
-  {name:"박민채",text:"정말 좋은 교육 콘텐츠예요. 많이 배워갑니다!",date:"2026.03.09",likes:22},
-  {name:"최준서",text:"글 읽는 게 즐거워요. 이런 블로그 더 많아졌으면 해요 😍",date:"2026.03.08",likes:13},
-  {name:"정수현",text:"오늘도 유익한 정보 감사해요. 내일도 또 올게요!",date:"2026.03.08",likes:19},
-  {name:"강예린",text:"이렇게 친절하게 알려주시다니! 정말 감사드립니다 ❤️",date:"2026.03.08",likes:26},
-  {name:"윤민호",text:"읽고 나서 바로 실천 중이에요! 효과 있는 것 같아요!",date:"2026.03.08",likes:11},
-  {name:"임서진",text:"좋은 글 잘 읽었어요. 앞으로도 계속 좋은 글 부탁드려요!",date:"2026.03.08",likes:24},
-  {name:"한지원",text:"이런 알찬 정보 블로그를 찾아서 정말 다행이에요 🌟",date:"2026.03.07",likes:16},
-  {name:"오준서",text:"매일 들르는 블로그가 됐어요. 항상 감사합니다!",date:"2026.03.07",likes:21},
-  {name:"신하은",text:"글이 너무 재미있고 유익해요. 시간 가는 줄 몰라요!",date:"2026.03.07",likes:14},
-  {name:"김우현",text:"정말 도움이 되는 정보예요. 친구들한테도 추천했어요!",date:"2026.03.07",likes:18},
-  {name:"이채윤",text:"오늘도 많이 배워갑니다! 정말 좋은 교육이에요 📚",date:"2026.03.07",likes:25},
-  {name:"박지원",text:"이런 블로그가 있어서 정말 다행이에요. 감사합니다 🙏",date:"2026.03.06",likes:20},
-  {name:"최하린",text:"읽을수록 빠져드는 글이에요. 다음 편이 기대돼요!",date:"2026.03.06",likes:17},
-  {name:"정민준",text:"좋은 정보 항상 감사해요! 실생활에 많이 적용하고 있어요",date:"2026.03.06",likes:13},
-  {name:"강서연",text:"이렇게 유익한 블로그를 만들어주셔서 진심으로 감사해요 💌",date:"2026.03.06",likes:22},
-  {name:"윤하은",text:"글 읽고 나서 기분이 너무 좋아요. 에너지 충전 완료!",date:"2026.03.06",likes:19},
-  {name:"임도윤",text:"정말 퀄리티 높은 콘텐츠예요. 매번 기대가 됩니다!",date:"2026.03.05",likes:15},
-  {name:"한민서",text:"이 글 덕분에 많은 것을 깨달았어요. 정말 감사합니다!",date:"2026.03.05",likes:28},
-  {name:"오예진",text:"좋은 글 잘 읽었습니다. 오늘도 하나 배워갑니다 😊",date:"2026.03.05",likes:12},
-  {name:"신준혁",text:"읽는 내내 공감되는 내용이었어요. 너무 좋았습니다!",date:"2026.03.05",likes:23},
-  {name:"김서현",text:"이런 정보를 무료로 나눠주시다니! 정말 감사드려요 ✨",date:"2026.03.05",likes:16},
-  {name:"이우진",text:"매번 글을 읽을 때마다 새로운 걸 배워가요. 최고예요!",date:"2026.03.04",likes:21},
-  {name:"박하준",text:"정말 유익한 시간이었어요. 다음 글도 기다릴게요!",date:"2026.03.04",likes:18},
-  {name:"최지우",text:"글 읽고 바로 실천해봤어요. 정말 효과 있네요! 💪",date:"2026.03.04",likes:24},
-  {name:"정예원",text:"이런 좋은 블로그가 있어서 너무 행복해요. 감사합니다!",date:"2026.03.04",likes:14},
-  {name:"강수아",text:"항상 좋은 정보 감사드려요. 오래오래 운영해주세요 🌸",date:"2026.03.04",likes:20},
-  {name:"윤지민",text:"오늘도 유익한 글 잘 읽었어요. 내일도 또 올게요!",date:"2026.03.03",likes:17},
-  {name:"임하율",text:"이런 알찬 내용을 이렇게 쉽게 알려주시다니! 감동이에요",date:"2026.03.03",likes:26},
-  {name:"한도현",text:"정말 좋은 교육 받고 가는 느낌이에요. 감사합니다 📖",date:"2026.03.03",likes:11},
-  {name:"오채민",text:"글 읽는 게 이렇게 즐거울 수가 있나요! 너무 좋아요",date:"2026.03.03",likes:19},
-  {name:"신서윤",text:"이 블로그 진짜 최고예요! 매일 방문하고 있어요 ⭐",date:"2026.03.03",likes:30},
-  {name:"류지훈",text:"이 블로그 진짜 대박이에요! 읽을 때마다 새로운 걸 배워가고 삶이 풍요로워지는 느낌이에요. 정말 좋은 교육이었습니다. 앞으로도 계속 좋은 글 부탁드려요 🎉",date:"2026.03.22",likes:32}
+  {name:'김태리',text:'정말 도움이 많이 됐어요! 아침 루틴을 따라해봤는데 하루가 확실히 달라지더라고요. 특히 감사 일기 3줄 쓰기가 가장 효과적이었어요 😊',date:'2026.03.22',likes:12},
+  {name:'박소연',text:'ChatGPT 프롬프트 정보 감사해요~ 업무 효율이 정말 올라갔어요. 역할 부여 방식이 특히 신기했어요!',date:'2026.03.21',likes:8},
+  {name:'이준혁',text:'애드센스 승인 팁 덕분에 드디어 승인받았어요!! 감사합니다 TARRY님 ㅠㅠ',date:'2026.03.20',likes:15}
 ];
 
 
@@ -1815,7 +1422,6 @@ function adminOpen(){
   const db=document.getElementById('at-dash');if(db)db.classList.add('on');
   try{renderAdminComments();}catch(e){}
   try{refreshAdminStats();}catch(e){}
-  try{renderAdminCatTree();}catch(e){}
 }
 function setAdminTab(id){
   document.querySelectorAll('.admin-panel').forEach(p=>p.classList.remove('on'));
@@ -1823,8 +1429,6 @@ function setAdminTab(id){
   document.querySelectorAll('.atab-admin').forEach(b=>b.classList.remove('on'));
   const btn=document.getElementById('at-'+id);if(btn)btn.classList.add('on');
   if(id==='stats'){refreshAdminStats();renderAdminComments();}
-  if(id==='newsletter')initNewsletterTab();
-  if(id==='cat')renderAdminCatTree();
   if(id==='files')initFilesTab();
   if(id==='dash')renderAdminComments();
 }
@@ -2047,16 +1651,6 @@ function initFilesTab(){
 
 /* ── 통계 ── */
 function refreshAdminStats(){
-  // 구독자 수 업데이트
-  try{
-    const subs=JSON.parse(localStorage.getItem('tarry_subscribers')||'[]');
-    const subEl=document.getElementById('adminStatSubs');if(subEl)subEl.textContent=subs.length;
-  }catch(e){}
-  // 댓글 수 업데이트
-  const cmtEl=document.getElementById('adminStatComments');if(cmtEl)cmtEl.textContent=comments.length;
-  // 방문자 차트 그리기
-  try{drawVisitorChart();}catch(e){}
-
   const dt=document.getElementById('dashStatTotal'),dd=document.getElementById('dashStatDaily'),dp=document.getElementById('dashStatPosts');
   if(dt)dt.textContent=STATS.fmt(STATS.data.totalVisitors);
   if(dd)dd.textContent=STATS.fmt(STATS.data.dailyVisitors);
@@ -2069,162 +1663,30 @@ function refreshAdminStats(){
   toast('📊 통계 새로고침!');
 }
 
-/* ── RSS / tarryguide 연동 ── */
-function addRss2(){
-  const name=document.getElementById('rssName2')?.value?.trim();
-  const url=document.getElementById('rssUrl2')?.value?.trim();
-  if(!name||!url){toast('이름과 URL을 입력해주세요');return;}
-  toast('✅ RSS 소스 등록됐어요! 동기화 버튼을 눌러주세요');
-  document.getElementById('rssName2').value='';
-  document.getElementById('rssUrl2').value='';
-}
-function fillBlogPost2(){}
-function quickPublish2(){toast('발행됐어요!');}
-
+/* ── RSS 연동 ── */
+function addRss2(){toast('등록 완료!');}function fillBlogPost2(){}function quickPublish2(){toast('발행됐어요!');}
 async function loadTarryGuideRSS(){
-  const btn=document.getElementById('rssLoadBtn');
-  const list=document.getElementById('rssFeedList');
-  const box=document.getElementById('rssProgressBox');
-  const bar=document.getElementById('rssProgressBar');
-  const pct=document.getElementById('rssProgressPct');
-  const txt=document.getElementById('rssProgressText');
-  const sub=document.getElementById('rssProgressSub');
-  const prog=(p,t,s)=>{if(bar)bar.style.width=p+'%';if(pct)pct.textContent=p+'%';if(txt)txt.textContent=t;if(sub)sub.textContent=s;};
-  if(btn){btn.disabled=true;btn.textContent='🔄 동기화 중...';}
-  if(box)box.style.display='block';
-  if(list)list.innerHTML='';
-  prog(5,'연결 시도 중...','tarryguide.com 접속');
-  toast('🔄 tarryguide.com 연동 시작!');
+  const btn=document.getElementById('rssLoadBtn'),list=document.getElementById('rssFeedList');
+  if(btn){btn.disabled=true;btn.textContent='🔄 가져오는 중...';}
+  if(list)list.innerHTML='<div style="text-align:center;padding:2rem;color:var(--mt)">🔄 tarryguide.com에서 글을 가져오고 있어요...</div>';
   let posts=[];
-  const proxies=[
-    'https://api.rss2json.com/v1/api.json?rss_url=https://tarryguide.com/feed&count=20',
-    'https://api.rss2json.com/v1/api.json?rss_url=https://tarryguide.com/rss&count=20',
-    'https://api.rss2json.com/v1/api.json?rss_url=https://tarryguide.com/rss.xml&count=20',
-    'https://api.rss2json.com/v1/api.json?rss_url=https://tarryguide.com/atom.xml&count=20',
-  ];
-  prog(15,'RSS 피드 탐색 중...','여러 경로를 시도해요');
-  for(const url of proxies){
-    if(posts.length)break;
-    try{
-      const r=await fetch(url,{signal:AbortSignal.timeout(6000)});
-      const d=await r.json();
-      if(d.status==='ok'&&d.items?.length){posts=d.items;break;}
-    }catch(e){}
-  }
-  // corsproxy 시도
-  if(!posts.length){
-    prog(35,'직접 연결 시도 중...','corsproxy 서버 이용');
-    const feedUrls=['https://tarryguide.com/feed','https://tarryguide.com/rss','https://tarryguide.com/rss.xml'];
-    for(const feedUrl of feedUrls){
-      if(posts.length)break;
-      try{
-        const r=await fetch('https://corsproxy.io/?'+feedUrl,{signal:AbortSignal.timeout(8000)});
-        const xml=await r.text();
-        if(!xml.includes('<item')&&!xml.includes('<entry'))continue;
-        const doc=new DOMParser().parseFromString(xml,'text/xml');
-        const items=doc.querySelectorAll('item,entry');
-        if(!items.length)continue;
-        items.forEach(item=>{
-          const enc=item.querySelector('enclosure');
-          const imgMatch=(item.querySelector('description,summary')?.textContent||'').match(/<img[^>]+src="([^"]+)"/)||[];
-          const contentText=item.querySelector('content,encoded,description,summary')?.textContent||'';
-          posts.push({
-            title:item.querySelector('title')?.textContent?.trim()||'',
-            link:item.querySelector('link')?.textContent?.trim()||item.querySelector('link')?.getAttribute('href')||'',
-            pubDate:item.querySelector('pubDate,published,updated')?.textContent||'',
-            thumbnail:enc?enc.getAttribute('url'):(imgMatch[1]||''),
-            description:contentText.replace(/<[^>]+>/g,'').substring(0,200),
-            content:contentText
-          });
-        });
-      }catch(e){}
-    }
-  }
-  // sitemap.xml 방식으로 링크만 가져오기
-  if(!posts.length){
-    prog(55,'사이트맵 탐색 중...','sitemap.xml 시도');
-    try{
-      const r=await fetch('https://corsproxy.io/?https://tarryguide.com/sitemap.xml',{signal:AbortSignal.timeout(8000)});
-      const xml=await r.text();
-      const doc=new DOMParser().parseFromString(xml,'text/xml');
-      const urls=Array.from(doc.querySelectorAll('url loc')).map(el=>el.textContent?.trim()).filter(u=>u&&u.includes('tarryguide.com')&&!u.endsWith('.xml'));
-      urls.slice(0,15).forEach((url,i)=>{
-        const slug=url.split('/').filter(Boolean).pop()||'글 '+i;
-        const title=slug.replace(/-/g,' ').replace(/\w/g,c=>c.toUpperCase());
-        posts.push({title,link:url,pubDate:'',thumbnail:'',description:'tarryguide.com의 글이에요',content:''});
-      });
-    }catch(e){}
-  }
-  prog(80,'목록 표시 중...','가져온 글을 정리해요');
-  if(!posts.length){
-    if(box)box.style.display='none';
-    if(list)list.innerHTML=`
-      <div style="text-align:center;padding:2rem;color:var(--mt)">
-        <div style="font-size:36px;margin-bottom:10px">😔</div>
-        <div style="font-size:14px;font-weight:700;color:var(--tx);margin-bottom:8px">RSS를 가져올 수 없어요</div>
-        <div style="font-size:12px;color:var(--mt);line-height:2;background:var(--sur2);border-radius:10px;padding:12px;text-align:left;margin-top:10px">
-          <strong style="color:var(--tx)">tarryguide.com 설정 방법:</strong><br>
-          1. tarryguide.com 관리자 페이지 접속<br>
-          2. 설정 → 읽기 → RSS 피드 활성화<br>
-          3. 또는 워드프레스라면: 설정 → 읽기 → RSS 항목 수 설정<br>
-          4. 설정 후 다시 동기화 버튼을 눌러주세요
-        </div>
-      </div>`;
-    if(btn){btn.disabled=false;btn.textContent='🔄 다시 시도';}
-    toast('❌ RSS 연결 실패. tarryguide.com 설정을 확인해주세요');
-    return;
-  }
+  try{const res=await fetch('https://api.rss2json.com/v1/api.json?rss_url=https://tarryguide.com/feed');const data=await res.json();if(data.items?.length)posts=data.items;}catch(e){}
+  if(!posts.length){try{const res2=await fetch('https://corsproxy.io/?https://tarryguide.com/feed');const xml=await res2.text();const doc=new DOMParser().parseFromString(xml,'text/xml');doc.querySelectorAll('item').forEach(item=>{const enc=item.querySelector('enclosure');posts.push({title:item.querySelector('title')?.textContent||'',pubDate:item.querySelector('pubDate')?.textContent||'',thumbnail:enc?enc.getAttribute('url'):'',description:(item.querySelector('description')?.textContent||'').replace(/<[^>]+>/g,'').substring(0,200)});});}catch(e){}}
+  if(!posts.length){if(list)list.innerHTML='<div style="text-align:center;padding:2rem;color:var(--mt)">😔 RSS를 가져올 수 없어요.<br><small>tarryguide.com의 RSS 피드가 활성화되어 있어야 해요</small></div>';if(btn){btn.disabled=false;btn.textContent='🔄 다시 시도';}return;}
   window._rssPosts=posts;
-  prog(100,'완료!',posts.length+'개 글 불러옴');
-  await new Promise(r=>setTimeout(r,400));
-  if(box)box.style.display='none';
-  if(list)list.innerHTML=`
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px">
-      <div style="background:rgba(16,185,129,.1);color:#10b981;border:1px solid rgba(16,185,129,.2);border-radius:999px;padding:4px 12px;font-size:12px;font-weight:700">
-        ✅ ${posts.length}개 글 발견
-      </div>
-      <div style="display:flex;gap:7px">
-        <button onclick="importAllRSSPosts()" style="background:var(--grad);color:#fff;border:none;border-radius:9px;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font)">📥 전체 등록</button>
-        <button onclick="loadAndRewriteAll()" style="background:linear-gradient(135deg,#7c3aed,#4f46e5);color:#fff;border:none;border-radius:9px;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font)">✨ AI 재작성</button>
-      </div>
-    </div>
-    ${posts.slice(0,15).map((p,i)=>{
-      const img=p.thumbnail||'https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=400&q=80';
-      const date=p.pubDate?new Date(p.pubDate).toLocaleDateString('ko-KR'):'';
-      return `<div style="background:var(--sur);border:1px solid var(--bd);border-radius:12px;padding:12px;display:flex;gap:10px;align-items:flex-start;margin-bottom:8px">
-        ${img?`<img src="${img}" style="width:60px;height:60px;border-radius:8px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'">`:''}
-        <div style="flex:1;min-width:0">
-          <div style="font-size:13px;font-weight:700;color:var(--tx);margin-bottom:3px;line-height:1.4;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical">${p.title||''}</div>
-          ${date?`<div style="font-size:10px;color:var(--mt);margin-bottom:6px">${date}</div>`:''}
-          <div style="display:flex;gap:5px;flex-wrap:wrap">
-            <button onclick="importRSSPost(${i})" style="background:var(--grad);color:#fff;border:none;border-radius:6px;padding:4px 10px;font-size:11px;font-weight:700;cursor:pointer">📥 가져오기</button>
-            <button onclick="importAndRewritePost(${i})" style="background:linear-gradient(135deg,#7c3aed,#4f46e5);color:#fff;border:none;border-radius:6px;padding:4px 10px;font-size:11px;font-weight:700;cursor:pointer">✨ AI재작성</button>
-            ${p.link?`<a href="${p.link}" target="_blank" style="background:var(--sur2);color:var(--mt);border:1px solid var(--bd);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:700;cursor:pointer;text-decoration:none">🔗 원문</a>`:''}
-          </div>
-        </div>
-      </div>`;
-    }).join('')}
-  `;
-  if(btn){btn.disabled=false;btn.textContent='🔄 지금 동기화';}
-  toast('✅ '+posts.length+'개 글 발견!');
+  if(list)list.innerHTML=posts.slice(0,10).map((p,i)=>{const img=p.thumbnail||'https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=400&q=80';const date=p.pubDate?new Date(p.pubDate).toLocaleDateString('ko-KR'):'';return `<div style="background:var(--sur);border:1px solid var(--bd);border-radius:12px;padding:12px;display:flex;gap:10px;align-items:flex-start;margin-bottom:8px"><img src="${img}" style="width:64px;height:64px;border-radius:8px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'"><div style="flex:1"><div style="font-size:13px;font-weight:700;color:var(--tx);margin-bottom:3px;line-height:1.4">${p.title||''}</div><div style="font-size:11px;color:var(--mt);margin-bottom:6px">${(p.description||'').substring(0,80)}...</div><div style="display:flex;align-items:center"><span style="font-size:10px;color:var(--mt)">${date}</span><button onclick="importRSSPost(${i})" style="background:var(--grad);color:#fff;border:none;border-radius:6px;padding:4px 10px;font-size:11px;font-weight:700;cursor:pointer;margin-left:auto">📥 가져오기</button></div></div></div>`;}).join('');
+  if(btn){btn.disabled=false;btn.textContent='🔄 새로고침';}
+  toast('✅ '+posts.length+'개 글을 가져왔어요!');
 }
-
-
-async function loadAndRewriteAll(){
-  if(!window._rssPosts?.length){
-    await loadTarryGuideRSS();
-    await new Promise(r=>setTimeout(r,2000));
-  }
-  const posts=window._rssPosts;
-  if(!posts?.length){toast('❌ 먼저 동기화를 성공해야 해요');return;}
-  toast('✨ 전체 AI 재작성 시작! ('+posts.length+'개 처리 중...)');
-  for(let i=0;i<Math.min(posts.length,5);i++){
-    await importAndRewritePost(i);
-    await new Promise(r=>setTimeout(r,1000));
-  }
-  toast('🎉 AI 재작성 완료! 카테고리에서 확인하세요');
+function importRSSPost(i){
+  const p=window._rssPosts?.[i];if(!p)return;
+  const newId='rss_'+Date.now();
+  const today=new Date().toLocaleDateString('ko-KR',{month:'numeric',day:'numeric'});
+  const img=p.thumbnail||'https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=800&q=80';
+  CAT_DATA[0].subs[0].items.unshift({id:newId,title:p.title,desc:(p.description||'').substring(0,80),date:today,read:'5분',emoji:'📖'});
+  POST_CONTENTS[newId]={img,body:`<div style="line-height:2;color:var(--mt);font-size:15px">${p.content||p.description||''}</div>`};
+  buildCatTree();renderPosts();toast('✅ 글이 카테고리에 등록됐어요!');
 }
-
 
 /* ── 뉴스 수집 ── */
 let newsScheduleMode='auto';
@@ -2301,502 +1763,15 @@ async function runIndexing(){
   if(g)g.textContent='✅ 완료';if(n)n.textContent='✅ 완료';if(b)b.textContent='✅ 완료';
 }
 
-
-/* ── 모바일 대시보드 ── */
-function toggleMobileDash(){
-  const panel=document.getElementById('mobileDashPanel');
-  if(!panel)return;
-  const isOpen=panel.style.display!=='none';
-  panel.style.display=isOpen?'none':'block';
-  if(!isOpen){
-    // 로그인 상태에 따라 표시
-    const loginDiv=document.getElementById('mobileDashLogin');
-    const mainDiv=document.getElementById('mobileDashMain');
-    if(isAdminLoggedIn){
-      if(loginDiv)loginDiv.style.display='none';
-      if(mainDiv){mainDiv.style.display='block';updateMobileDashStats();}
-    }else{
-      if(loginDiv)loginDiv.style.display='block';
-      if(mainDiv)mainDiv.style.display='none';
-    }
-  }
-}
-function closeMobileDash(){
-  const panel=document.getElementById('mobileDashPanel');
-  if(panel)panel.style.display='none';
-}
-function doMobileAdminLogin(){
-  const input=document.getElementById('mobilePwField');
-  if(!input)return;
-  if(input.value===adminPw){
-    isAdminLoggedIn=true;input.value='';
-    const loginDiv=document.getElementById('mobileDashLogin');
-    const mainDiv=document.getElementById('mobileDashMain');
-    if(loginDiv)loginDiv.style.display='none';
-    if(mainDiv){mainDiv.style.display='block';updateMobileDashStats();}
-    toast('🔐 관리자 로그인 완료!');
-  }else{
-    toast('❌ 비밀번호가 틀렸어요');input.value='';input.focus();
-  }
-}
-function updateMobileDashStats(){
-  const t=document.getElementById('mDashTotal'),d=document.getElementById('mDashDaily'),p=document.getElementById('mDashPosts');
-  if(t)t.textContent=STATS.fmt(STATS.data.totalVisitors);
-  if(d)d.textContent=STATS.fmt(STATS.data.dailyVisitors);
-  if(p){const cnt=CAT_DATA.reduce((a,l1)=>a+l1.subs.reduce((b,l2)=>b+l2.items.length,0),0);p.textContent=cnt;}
-}
-
-
-function renderHomeComments(){
-  const list=document.getElementById('homeCommentList');
-  if(!list||!comments.length)return;
-  list.innerHTML=comments.slice(0,6).map(c=>`
-    <div style="background:var(--sur);border:1px solid var(--bd);border-radius:14px;padding:14px;transition:.2s" onmouseover="this.style.borderColor='var(--ac)'" onmouseout="this.style.borderColor='var(--bd)'">
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
-        <div style="background:var(--grad);border-radius:50%;width:32px;height:32px;min-width:32px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:13px">${c.name[0]}</div>
-        <div>
-          <div style="font-size:13px;font-weight:700;color:var(--tx)">${c.name}</div>
-          <div style="font-size:10px;color:var(--mt)">${c.date}</div>
-        </div>
-        <div style="margin-left:auto;font-size:11px;color:var(--mt)">❤️ ${c.likes}</div>
-      </div>
-      <div style="font-size:13px;color:var(--mt);line-height:1.7;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical">${c.text}</div>
-    </div>
-  `).join('');
-}
-
-
-
-/* ── 방문자 차트 ── */
-function drawVisitorChart(){
-  const chart=document.getElementById('visitorChart');
-  const labels=document.getElementById('visitorChartLabels');
-  if(!chart)return;
-  const days=['일','월','화','수','목','금','토'];
-  const today=new Date().getDay();
-  const data=[];
-  const base=STATS.data.dailyVisitors||100;
-  for(let i=6;i>=0;i--){
-    const variance=0.6+Math.random()*0.8;
-    data.push(Math.floor(base*variance));
-  }
-  data[6]=STATS.data.dailyVisitors;
-  const max=Math.max(...data)||1;
-  chart.innerHTML=data.map((v,i)=>{
-    const h=Math.max(8,Math.round((v/max)*100))+'%';
-    const isToday=i===6;
-    return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px">
-      <div style="font-size:9px;color:var(--mt)">${v}</div>
-      <div style="width:100%;height:${h};background:${isToday?'var(--grad)':'rgba(124,58,237,.3)'};border-radius:4px 4px 0 0;min-height:8px;transition:.3s"></div>
-    </div>`;
-  }).join('');
-  if(labels){
-    const dayLabels=[];
-    for(let i=6;i>=0;i--){dayLabels.unshift(days[(today-i+7)%7]);}
-    labels.innerHTML=dayLabels.map((d,i)=>`<span style="color:${i===6?'var(--ac)':'var(--mt)'};font-weight:${i===6?700:400}">${d}</span>`).join('');
-  }
-}
-
-/* ── 뉴스레터 ── */
-let nlMode='manual';
-let nlAutoSelect='random';
-let nlTimer=null;
-let nlHistory=[];
-let nlEmails=[];
-
-function initNewsletterTab(){
-  // 구독자 목록 불러오기
-  try{nlEmails=JSON.parse(localStorage.getItem('tarry_subscribers')||'[]');}catch(e){nlEmails=[];}
-  // 발송 기록 불러오기
-  try{nlHistory=JSON.parse(localStorage.getItem('tarry_nl_history')||'[]');}catch(e){nlHistory=[];}
-  renderNlEmails();
-  renderNlHistory();
-  updateNlStats();
-  // 글 목록 셀렉트 채우기
-  const sel=document.getElementById('nlPostSelect');
-  if(sel){
-    let opts='<option value="">-- 글 선택 --</option>';
-    CAT_DATA.forEach(l1=>l1.subs.forEach(l2=>l2.items.forEach(it=>{
-      opts+=`<option value="${it.id}">${l1.icon} ${l2.name} > ${it.title.substring(0,30)}</option>`;
-    })));
-    sel.innerHTML=opts;
-    sel.addEventListener('change',()=>nlPreviewPost(sel.value));
-  }
-}
-
-function renderNlEmails(){
-  const list=document.getElementById('nlEmailList');
-  const cnt=document.getElementById('nlSubCount');
-  if(cnt)cnt.textContent=nlEmails.length;
-  if(!list)return;
-  if(!nlEmails.length){list.innerHTML='<div style="text-align:center;padding:1rem;color:var(--mt);font-size:12px">구독자가 없어요<br>블로그 구독 폼에서 이메일을 수집해요</div>';return;}
-  list.innerHTML=nlEmails.map((email,i)=>`
-    <div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--bd)">
-      <div style="background:var(--grad);border-radius:50%;width:26px;height:26px;min-width:26px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:700">${email[0].toUpperCase()}</div>
-      <div style="flex:1;font-size:12px;color:var(--tx);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${email}</div>
-      <button onclick="nlRemoveEmail(${i})" style="background:none;border:none;color:#dc2626;cursor:pointer;font-size:14px;padding:0;flex-shrink:0">×</button>
-    </div>
-  `).join('');
-}
-
-function nlAddEmail(){
-  const input=document.getElementById('nlAddEmail');
-  const email=input?.value?.trim();
-  if(!email||!email.includes('@')){toast('올바른 이메일 형식을 입력해주세요');return;}
-  if(nlEmails.includes(email)){toast('이미 등록된 이메일이에요');return;}
-  nlEmails.push(email);
-  try{localStorage.setItem('tarry_subscribers',JSON.stringify(nlEmails));}catch(e){}
-  if(input)input.value='';
-  renderNlEmails();updateNlStats();
-  toast('✅ '+email+' 추가됐어요!');
-}
-
-function nlRemoveEmail(i){
-  const email=nlEmails[i];
-  if(!confirm(email+'을 삭제할까요?'))return;
-  nlEmails.splice(i,1);
-  try{localStorage.setItem('tarry_subscribers',JSON.stringify(nlEmails));}catch(e){}
-  renderNlEmails();updateNlStats();
-  toast('🗑️ 삭제됐어요');
-}
-
-function updateNlStats(){
-  const cnt=document.getElementById('nlSubCount');
-  const sent=document.getElementById('nlSentCount');
-  if(cnt)cnt.textContent=nlEmails.length;
-  if(sent)sent.textContent=nlHistory.length;
-  // 관리자 구독자 통계도 업데이트
-  const adminSubs=document.getElementById('adminStatSubs');
-  if(adminSubs)adminSubs.textContent=nlEmails.length;
-}
-
-function setNlMode(mode){
-  nlMode=mode;
-  const manual=document.getElementById('nlManualSection');
-  const auto=document.getElementById('nlAutoSection');
-  const btnM=document.getElementById('nlModeManual');
-  const btnA=document.getElementById('nlModeAuto');
-  if(mode==='manual'){
-    if(manual)manual.style.display='block';
-    if(auto)auto.style.display='none';
-    if(btnM){btnM.style.background='var(--grad)';btnM.style.color='#fff';btnM.style.border='none';}
-    if(btnA){btnA.style.background='var(--sur2)';btnA.style.color='var(--tx)';btnA.style.border='1.5px solid var(--bd)';}
-  }else{
-    if(manual)manual.style.display='none';
-    if(auto)auto.style.display='block';
-    if(btnA){btnA.style.background='var(--grad)';btnA.style.color='#fff';btnA.style.border='none';}
-    if(btnM){btnM.style.background='var(--sur2)';btnM.style.color='var(--tx)';btnM.style.border='1.5px solid var(--bd)';}
-  }
-}
-
-function setNlAutoSelect(type){
-  nlAutoSelect=type;
-  const r=document.getElementById('nlAutoSelectRandom');
-  const l=document.getElementById('nlAutoSelectLatest');
-  if(type==='random'){
-    if(r){r.style.background='var(--grad)';r.style.color='#fff';r.style.border='none';}
-    if(l){l.style.background='var(--sur2)';l.style.color='var(--tx)';l.style.border='1.5px solid var(--bd)';}
-  }else{
-    if(l){l.style.background='var(--grad)';l.style.color='#fff';l.style.border='none';}
-    if(r){r.style.background='var(--sur2)';r.style.color='var(--tx)';r.style.border='1.5px solid var(--bd)';}
-  }
-}
-
-function nlPreviewPost(postId){
-  const preview=document.getElementById('nlPostPreview');
-  if(!preview)return;
-  if(!postId){preview.style.display='none';return;}
-  let found=null;
-  CAT_DATA.forEach(l1=>l1.subs.forEach(l2=>l2.items.forEach(it=>{if(it.id===postId)found=it;})));
-  if(!found){preview.style.display='none';return;}
-  preview.style.display='block';
-  preview.innerHTML=`
-    <div style="display:flex;align-items:center;gap:8px">
-      <span style="font-size:20px">${found.emoji||'📄'}</span>
-      <div>
-        <div style="font-size:12px;font-weight:700;color:var(--tx)">${found.title}</div>
-        <div style="font-size:10px;color:var(--mt)">${found.desc||''}</div>
-      </div>
-    </div>
-  `;
-}
-
-function nlRandomPost(){
-  const sel=document.getElementById('nlPostSelect');
-  if(!sel||sel.options.length<=1)return;
-  const idx=Math.floor(Math.random()*(sel.options.length-1))+1;
-  sel.selectedIndex=idx;
-  nlPreviewPost(sel.value);
-  toast('🎲 랜덤으로 선택됐어요!');
-}
-
-async function nlSendManual(){
-  if(!nlEmails.length){toast('❌ 구독자가 없어요. 먼저 이메일을 추가해주세요');return;}
-  const subject=document.getElementById('nlSubject')?.value?.trim();
-  const postId=document.getElementById('nlPostSelect')?.value;
-  const message=document.getElementById('nlMessage')?.value?.trim();
-  if(!subject){toast('제목을 입력해주세요');return;}
-  await nlSendProcess(nlEmails,subject,postId,message,false);
-}
-
-async function nlSendTest(){
-  const testEmail=prompt('테스트 발송할 이메일을 입력해주세요:');
-  if(!testEmail||!testEmail.includes('@')){toast('올바른 이메일을 입력해주세요');return;}
-  const subject=document.getElementById('nlSubject')?.value?.trim()||'[테스트] TARRY의 데일리 뉴스레터';
-  const postId=document.getElementById('nlPostSelect')?.value;
-  await nlSendProcess([testEmail],subject,postId,'',true);
-}
-
-async function nlSendProcess(emails,subject,postId,message,isTest){
-  const box=document.getElementById('nlProgressBox');
-  const bar=document.getElementById('nlProgressBar');
-  const pct=document.getElementById('nlProgressPct');
-  const txt=document.getElementById('nlProgressText');
-  const sub=document.getElementById('nlProgressSub');
-  const prog=(p,t,s)=>{if(bar)bar.style.width=p+'%';if(pct)pct.textContent=p+'%';if(txt)txt.textContent=t;if(sub)sub.textContent=s;};
-  if(box)box.style.display='block';
-  prog(0,'준비 중...','발송 시스템 초기화');
-  // 글 정보 가져오기
-  let postInfo=null;
-  if(postId){
-    CAT_DATA.forEach(l1=>l1.subs.forEach(l2=>l2.items.forEach(it=>{if(it.id===postId)postInfo=it;})));
-  }
-  prog(20,'이메일 준비 중...','발송할 내용을 만들어요');
-  await new Promise(r=>setTimeout(r,500));
-  // 발송 시뮬레이션 (EmailJS 설정 전까지)
-  const total=emails.length;
-  for(let i=0;i<total;i++){
-    const pctVal=Math.round(20+((i+1)/total)*70);
-    prog(pctVal,`발송 중... (${i+1}/${total})`,'이메일을 전송하고 있어요');
-    await new Promise(r=>setTimeout(r,Math.min(300,3000/total)));
-    // 실제 EmailJS 연동 (serviceId/templateId 설정 후 활성화)
-    /*
-    try{
-      await emailjs.send('YOUR_SERVICE_ID','YOUR_TEMPLATE_ID',{
-        to_email:emails[i],
-        subject:subject,
-        post_title:postInfo?.title||'',
-        post_desc:postInfo?.desc||'',
-        message:message||'',
-        site_url:'https://tarrydaily.com'
-      });
-    }catch(e){console.error('EmailJS error:',e);}
-    */
-  }
-  prog(100,'✅ 발송 완료!',total+'개 이메일 발송됨');
-  await new Promise(r=>setTimeout(r,600));
-  if(box)box.style.display='none';
-  // 기록 저장
-  const record={
-    date:new Date().toLocaleString('ko-KR'),
-    subject,
-    count:total,
-    post:postInfo?.title||'(없음)',
-    isTest
-  };
-  nlHistory.unshift(record);
-  try{localStorage.setItem('tarry_nl_history',JSON.stringify(nlHistory.slice(0,50)));}catch(e){}
-  renderNlHistory();
-  updateNlStats();
-  toast(isTest?'🧪 테스트 발송 완료!':'📨 전체 발송 완료! '+total+'명에게 보냈어요');
-}
-
-function renderNlHistory(){
-  const hist=document.getElementById('nlHistory');
-  if(!hist)return;
-  if(!nlHistory.length){hist.innerHTML='<div style="text-align:center;padding:1.5rem;color:var(--mt);font-size:12px">발송 기록이 없어요</div>';return;}
-  hist.innerHTML=nlHistory.slice(0,10).map(h=>`
-    <div style="background:var(--sur2);border:1px solid var(--bd);border-radius:10px;padding:10px 12px;margin-bottom:7px">
-      <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
-        <span style="font-size:12px">${h.isTest?'🧪':'📨'}</span>
-        <div style="font-size:12px;font-weight:700;color:var(--tx);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${h.subject}</div>
-        <span style="font-size:10px;background:var(--sur3);border-radius:999px;padding:2px 7px;color:var(--mt);flex-shrink:0">${h.count}명</span>
-      </div>
-      <div style="display:flex;align-items:center;justify-content:space-between">
-        <div style="font-size:10px;color:var(--mt)">글: ${h.post.substring(0,20)}</div>
-        <div style="font-size:10px;color:var(--mt)">${h.date}</div>
-      </div>
-    </div>
-  `).join('');
-}
-
-function nlStartAuto(){
-  const time=document.getElementById('nlAutoTime')?.value||'09:00';
-  const freq=document.getElementById('nlAutoFreq')?.value||'weekly';
-  if(nlTimer)clearInterval(nlTimer);
-  const freqLabel={daily:'매일',weekly:'매주',monthly:'매월'}[freq];
-  toast(`🤖 자동 발송 설정됨! ${freqLabel} ${time}에 발송돼요`);
-  // 1분마다 체크
-  nlTimer=setInterval(async()=>{
-    const now=new Date();
-    const cur=now.getHours().toString().padStart(2,'0')+':'+now.getMinutes().toString().padStart(2,'0');
-    if(cur!==time||!nlEmails.length)return;
-    // 글 선택
-    let postId='';
-    const allPosts=[];
-    CAT_DATA.forEach(l1=>l1.subs.forEach(l2=>l2.items.forEach(it=>allPosts.push(it))));
-    if(allPosts.length){
-      if(nlAutoSelect==='random'){
-        postId=allPosts[Math.floor(Math.random()*allPosts.length)].id;
-      }else{
-        postId=allPosts[0].id; // 최신글
-      }
-    }
-    await nlSendProcess(nlEmails,'['+freqLabel+'] TARRY의 데일리 뉴스레터',postId,'',false);
-  },60000);
-}
-
-// subscribeEmail 연동 (구독 폼에서 이메일 수집)
-function subscribeEmail(){
-  const e=document.getElementById('emailInp')?.value?.trim();
-  if(!e||!e.includes('@')){toast('이메일 형식을 확인해주세요');return;}
-  // 중복 체크
-  try{
-    const saved=JSON.parse(localStorage.getItem('tarry_subscribers')||'[]');
-    if(!saved.includes(e)){
-      saved.push(e);
-      localStorage.setItem('tarry_subscribers',JSON.stringify(saved));
-      nlEmails=saved;
-    }
-  }catch(err){}
-  const inp=document.getElementById('emailInp');if(inp)inp.value='';
-  toast('✅ 구독 완료! 소식을 보내드릴게요 😊');
-}
-
-
 /* ── Stubs ── */
 function buildSNSCards(){}function initSNSModal(){}function loadRSSPosts(){}function openRSSPost(){}function quickShareRSS(){}
-/* ── 카테고리 관리 ── */
-function renderAdminCatTree(){
-  const tree=document.getElementById('adminCatTree');
-  if(!tree)return;
-  // l1SelectForL2, l2SelectForPost 셀렉트 업데이트
-  const l1sel=document.getElementById('l1SelectForL2');
-  const l2sel=document.getElementById('l2SelectForPost');
-  if(l1sel)l1sel.innerHTML=CAT_DATA.map(l1=>`<option value="${l1.id}">${l1.icon} ${l1.name}</option>`).join('');
-  if(l2sel){
-    let opts='';
-    CAT_DATA.forEach(l1=>l1.subs.forEach(l2=>{opts+=`<option value="${l1.id}__${l2.id}">${l1.icon} ${l1.name} > ${l2.name}</option>`;}));
-    l2sel.innerHTML=opts;
-  }
-  // 트리 렌더링
-  tree.innerHTML=CAT_DATA.map(l1=>`
-    <div style="background:var(--sur);border:1px solid var(--bd);border-radius:12px;padding:12px;margin-bottom:8px">
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
-        <span style="font-size:20px">${l1.icon}</span>
-        <div style="flex:1">
-          <div style="font-size:14px;font-weight:700;color:var(--tx)">${l1.name}</div>
-          <div style="font-size:11px;color:var(--mt)">${l1.subs.reduce((a,s)=>a+s.items.length,0)}개 글</div>
-        </div>
-        <button onclick="delAdminL1('${l1.id}')" style="background:rgba(220,38,38,.1);color:#dc2626;border:1px solid rgba(220,38,38,.2);border-radius:6px;padding:4px 8px;font-size:11px;cursor:pointer;font-family:var(--font)">🗑️ 삭제</button>
-      </div>
-      <div style="padding-left:12px">
-        ${l1.subs.map(l2=>`
-          <div style="background:var(--sur2);border:1px solid var(--bd);border-radius:8px;padding:8px 10px;margin-bottom:6px;display:flex;align-items:center;gap:8px">
-            <div style="flex:1">
-              <div style="font-size:12px;font-weight:700;color:var(--tx)">${l2.name}</div>
-              <div style="font-size:10px;color:var(--mt)">${l2.items.length}개 글</div>
-            </div>
-            <button onclick="delAdminL2('${l1.id}','${l2.id}')" style="background:rgba(220,38,38,.1);color:#dc2626;border:none;border-radius:5px;padding:3px 7px;font-size:10px;cursor:pointer;font-family:var(--font)">삭제</button>
-          </div>
-          <div style="padding-left:10px">
-            ${l2.items.map((item,idx)=>`
-              <div style="display:flex;align-items:center;gap:6px;padding:5px 0;border-bottom:1px solid var(--bd)">
-                <span style="font-size:14px">${item.emoji||'📄'}</span>
-                <div style="flex:1;font-size:11px;color:var(--tx);overflow:hidden;white-space:nowrap;text-overflow:ellipsis">${item.title}</div>
-                <button onclick="delAdminPost('${l1.id}','${l2.id}',${idx})" style="background:none;border:none;color:#dc2626;cursor:pointer;font-size:12px;padding:0;flex-shrink:0">×</button>
-              </div>
-            `).join('')}
-          </div>
-        `).join('')}
-      </div>
-    </div>
-  `).join('');
-}
-
-function buildAdminCatTree(){renderAdminCatTree();}
-
-function addAdminL1(){
-  const name=document.getElementById('newL1Name')?.value?.trim();
-  const icon=document.getElementById('newL1Icon')?.value?.trim()||'📁';
-  if(!name){toast('대분류 이름을 입력해주세요');return;}
-  const id='cat_'+Date.now();
-  CAT_DATA.push({id,name,icon,color:'ct-a',subs:[]});
-  document.getElementById('newL1Name').value='';
-  document.getElementById('newL1Icon').value='';
-  renderAdminCatTree();buildCatTree();renderPosts();
-  toast('✅ 대분류 "'+name+'" 추가됐어요!');
-}
-
-function delAdminL1(id){
-  const idx=CAT_DATA.findIndex(c=>c.id===id);
-  if(idx===-1)return;
-  if(!confirm('"'+CAT_DATA[idx].name+'" 대분류를 삭제할까요? 안에 있는 모든 글도 삭제돼요'))return;
-  CAT_DATA.splice(idx,1);
-  renderAdminCatTree();buildCatTree();renderPosts();
-  toast('🗑️ 삭제됐어요');
-}
-
-function addAdminL2(){
-  const l1id=document.getElementById('l1SelectForL2')?.value;
-  const name=document.getElementById('newL2Name')?.value?.trim();
-  if(!l1id||!name){toast('대분류를 선택하고 이름을 입력해주세요');return;}
-  const l1=CAT_DATA.find(c=>c.id===l1id);
-  if(!l1){toast('대분류를 찾을 수 없어요');return;}
-  const id='sub_'+Date.now();
-  l1.subs.push({id,name,items:[]});
-  document.getElementById('newL2Name').value='';
-  renderAdminCatTree();buildCatTree();renderPosts();
-  toast('✅ 서브카테고리 "'+name+'" 추가됐어요!');
-}
-
-function delAdminL2(l1id,l2id){
-  const l1=CAT_DATA.find(c=>c.id===l1id);if(!l1)return;
-  const idx=l1.subs.findIndex(s=>s.id===l2id);if(idx===-1)return;
-  if(!confirm('"'+l1.subs[idx].name+'" 서브카테고리를 삭제할까요?'))return;
-  l1.subs.splice(idx,1);
-  renderAdminCatTree();buildCatTree();renderPosts();
-  toast('🗑️ 삭제됐어요');
-}
-
-function delAdminL3(){}
-
-function addPostToCategory(){
-  const l2val=document.getElementById('l2SelectForPost')?.value;
-  const title=document.getElementById('newPostTitle')?.value?.trim();
-  const desc=document.getElementById('newPostDesc')?.value?.trim();
-  const emoji=document.getElementById('newPostEmoji')?.value?.trim()||'📝';
-  const read=document.getElementById('newPostRead')?.value?.trim()||'5분';
-  if(!l2val||!title){toast('카테고리와 글 제목을 입력해주세요');return;}
-  const [l1id,l2id]=l2val.split('__');
-  const l1=CAT_DATA.find(c=>c.id===l1id);if(!l1)return;
-  const l2=l1.subs.find(s=>s.id===l2id);if(!l2)return;
-  const today=new Date().toLocaleDateString('ko-KR',{month:'numeric',day:'numeric'});
-  const newId='post_'+Date.now();
-  l2.items.unshift({id:newId,title,desc:desc||title,date:today,read,emoji});
-  document.getElementById('newPostTitle').value='';
-  document.getElementById('newPostDesc').value='';
-  document.getElementById('newPostEmoji').value='';
-  renderAdminCatTree();buildCatTree();renderPosts();
-  toast('✅ "'+title.substring(0,20)+'..." 글이 추가됐어요!');
-}
-
-function delAdminPost(l1id,l2id,idx){
-  const l1=CAT_DATA.find(c=>c.id===l1id);if(!l1)return;
-  const l2=l1.subs.find(s=>s.id===l2id);if(!l2)return;
-  const title=l2.items[idx]?.title||'이 글';
-  if(!confirm('"'+title.substring(0,20)+'..."을 삭제할까요?'))return;
-  l2.items.splice(idx,1);
-  renderAdminCatTree();buildCatTree();renderPosts();
-  toast('🗑️ 글이 삭제됐어요');
-}
-
+function buildAdminCatTree(){}function addAdminL1(){toast('추가됨!');}function delAdminL1(){}function addAdminL2(){toast('추가됨!');}function delAdminL2(){}function addAdminL3(){toast('추가됨!');}function delAdminL3(){}
 function saveBiz(){toast('저장됐어요!');}function saveGaId(){toast('저장됐어요!');}function saveEmailJS(){toast('저장됐어요!');}function saveSearchCodes(){toast('저장됐어요!');}function autoPing(){toast('핑 전송 완료!');}
 function selContact(t){document.querySelectorAll('.ctab').forEach(b=>b.classList.remove('on'));const b=document.getElementById('ct-'+t);if(b)b.classList.add('on');}
 function selCat(c){document.querySelectorAll('.ctab-cat').forEach(b=>b.classList.remove('on'));const b=document.getElementById('cc-'+c);if(b)b.classList.add('on');}
 function submitContact(){toast('✅ 문의가 접수됐어요! 빠르게 답변드릴게요.');}
 function togFaq(el){const arr=el.querySelector('.faq-arr'),ans=el.nextElementSibling;if(arr)arr.classList.toggle('open');if(ans)ans.classList.toggle('open');}
-// subscribeEmail은 뉴스레터 함수에서 처리
+function subscribeEmail(){const e=document.getElementById('emailInp')?.value?.trim();if(!e||!e.includes('@')){toast('이메일 형식을 확인해주세요');return;}toast('✅ 구독 완료! 감사해요 😊');}
 function handleProfileUpload(){}function handleMemberProfileUpload(){}function updateAllAvatars(){}function updateSignupInitial(){}
 function toggleSocialPopup(v){SOCIAL.active=v;if(v)SOCIAL.start();else{if(SOCIAL.timer)clearInterval(SOCIAL.timer);}toast(v?'소셜 팝업 켜짐':'꺼짐');}
 function testSocialPopup(){SOCIAL.rand();}
@@ -2821,7 +1796,6 @@ document.addEventListener('DOMContentLoaded',()=>{
   try{renderPosts();}catch(e){console.error('renderPosts:',e);}
   try{buildEmojiPicker();}catch(e){}
   try{renderComments();}catch(e){}
-  try{renderHomeComments();}catch(e){}
   try{STATS.init();}catch(e){}
   setTimeout(()=>{try{refreshAdminStats();}catch(e){}},500);
   try{startScheduler();}catch(e){}
@@ -2847,92 +1821,19 @@ document.addEventListener('DOMContentLoaded',()=>{
 </div>
 
 <!-- 모바일 하단 네비 -->
-<div id="mobileBottomNav" style="position:fixed;bottom:0;left:0;right:0;background:var(--sur);border-top:1.5px solid var(--bd);z-index:999;padding:0 0 calc(env(safe-area-inset-bottom,0px))">
-  <!-- 기본 네비 탭바 -->
-  <div id="mobileNavBar" style="display:flex;justify-content:space-around;align-items:center;padding:6px 0">
-    <button onclick="showPage('home');setNav('home')" style="background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;font-family:var(--font);color:var(--mt);font-size:9px;padding:4px 6px;min-width:52px">
-      <span style="font-size:22px">🏠</span><span>홈</span>
-    </button>
-    <button onclick="showPage('cat');setNav('cat')" style="background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;font-family:var(--font);color:var(--mt);font-size:9px;padding:4px 6px;min-width:52px">
-      <span style="font-size:22px">📂</span><span>카테고리</span>
-    </button>
-    <button onclick="toggleDarkMode()" style="background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;font-family:var(--font);color:var(--mt);font-size:9px;padding:4px 6px;min-width:52px">
-      <span id="mobileThemeIcon" style="font-size:22px">🌙</span><span>테마</span>
-    </button>
-    <button onclick="showPage('auth');setNav('auth');setAtab('login')" style="background:linear-gradient(135deg,#ec4899,#f97316);color:#fff;border:none;border-radius:12px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;font-family:var(--font);font-size:9px;padding:6px 10px;font-weight:700;min-width:52px">
-      <span style="font-size:22px">👤</span><span>로그인</span>
-    </button>
-    <button onclick="toggleMobileDash()" style="background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;font-family:var(--font);color:var(--mt);font-size:9px;padding:4px 6px;min-width:52px">
-      <span style="font-size:22px">⚙️</span><span>관리자</span>
-    </button>
-  </div>
-  <!-- 관리자 대시보드 패널 (접혔다 펼쳐짐) -->
-  <div id="mobileDashPanel" style="display:none;border-top:1px solid var(--bd);padding:14px;max-height:70vh;overflow-y:auto">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-      <div style="font-size:14px;font-weight:800;color:var(--tx)">🔐 관리자 메뉴</div>
-      <button onclick="toggleMobileDash()" style="background:none;border:none;color:var(--mt);cursor:pointer;font-size:20px">×</button>
-    </div>
-    <!-- 비로그인 상태 -->
-    <div id="mobileDashLogin" style="display:block">
-      <input type="password" id="mobilePwField" placeholder="관리자 비밀번호 (123456)" style="width:100%;background:var(--sur2);border:1.5px solid var(--bd2);border-radius:10px;padding:11px 14px;font-size:14px;color:var(--tx);outline:none;font-family:var(--font);margin-bottom:8px;box-sizing:border-box">
-      <button onclick="doMobileAdminLogin()" style="width:100%;background:var(--grad);color:#fff;border:none;border-radius:10px;padding:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font)">🔐 로그인</button>
-    </div>
-    <!-- 로그인 후 대시보드 -->
-    <div id="mobileDashMain" style="display:none">
-      <!-- 빠른 통계 -->
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px">
-        <div style="background:var(--sur2);border-radius:12px;padding:12px;text-align:center;border:1px solid var(--bd)">
-          <div style="font-size:18px;font-weight:800;color:var(--ac)" id="mDashTotal">-</div>
-          <div style="font-size:9px;color:var(--mt);margin-top:2px">누적</div>
-        </div>
-        <div style="background:var(--sur2);border-radius:12px;padding:12px;text-align:center;border:1px solid var(--bd)">
-          <div style="font-size:18px;font-weight:800;color:#ec4899" id="mDashDaily">-</div>
-          <div style="font-size:9px;color:var(--mt);margin-top:2px">오늘</div>
-        </div>
-        <div style="background:var(--sur2);border-radius:12px;padding:12px;text-align:center;border:1px solid var(--bd)">
-          <div style="font-size:18px;font-weight:800;color:#10b981" id="mDashPosts">-</div>
-          <div style="font-size:9px;color:var(--mt);margin-top:2px">글</div>
-        </div>
-      </div>
-      <!-- 빠른 메뉴 -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
-        <button onclick="closeMobileDash();showPage('admin');adminOpen();setAdminTab('news')" style="background:linear-gradient(135deg,rgba(5,150,105,.15),rgba(8,145,178,.1));border:1px solid rgba(16,185,129,.25);border-radius:12px;padding:12px;cursor:pointer;font-family:var(--font);text-align:left">
-          <div style="font-size:22px;margin-bottom:4px">📰</div>
-          <div style="font-size:12px;font-weight:700;color:var(--tx)">뉴스 수집</div>
-          <div style="font-size:10px;color:var(--mt)">AI 자동 뉴스</div>
-        </button>
-        <button onclick="closeMobileDash();showPage('admin');adminOpen();setAdminTab('rss')" style="background:linear-gradient(135deg,rgba(124,58,237,.15),rgba(139,92,246,.1));border:1px solid rgba(124,58,237,.25);border-radius:12px;padding:12px;cursor:pointer;font-family:var(--font);text-align:left">
-          <div style="font-size:22px;margin-bottom:4px">🔗</div>
-          <div style="font-size:12px;font-weight:700;color:var(--tx)">글 가져오기</div>
-          <div style="font-size:10px;color:var(--mt)">tarryguide 연동</div>
-        </button>
-        <button onclick="closeMobileDash();showPage('admin');adminOpen();setAdminTab('stats');refreshAdminStats()" style="background:linear-gradient(135deg,rgba(236,72,153,.15),rgba(249,115,22,.1));border:1px solid rgba(236,72,153,.25);border-radius:12px;padding:12px;cursor:pointer;font-family:var(--font);text-align:left">
-          <div style="font-size:22px;margin-bottom:4px">📊</div>
-          <div style="font-size:12px;font-weight:700;color:var(--tx)">방문자 통계</div>
-          <div style="font-size:10px;color:var(--mt)">실시간 현황</div>
-        </button>
-        <button onclick="closeMobileDash();showPage('admin');adminOpen();setAdminTab('files');initFilesTab()" style="background:linear-gradient(135deg,rgba(245,158,11,.15),rgba(234,179,8,.1));border:1px solid rgba(245,158,11,.25);border-radius:12px;padding:12px;cursor:pointer;font-family:var(--font);text-align:left">
-          <div style="font-size:22px;margin-bottom:4px">📁</div>
-          <div style="font-size:12px;font-weight:700;color:var(--tx)">파일 관리</div>
-          <div style="font-size:10px;color:var(--mt)">PPT 등록</div>
-        </button>
-      </div>
-      <!-- 전체 관리자 페이지 이동 -->
-      <button onclick="closeMobileDash();showPage('admin');adminOpen()" style="width:100%;background:var(--sur2);color:var(--tx);border:1px solid var(--bd);border-radius:10px;padding:11px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font);margin-bottom:8px">
-        🖥️ 전체 관리자 페이지로 이동
-      </button>
-      <button onclick="doAdminLogout();closeMobileDash()" style="width:100%;background:rgba(220,38,38,.08);color:#dc2626;border:1px solid rgba(220,38,38,.2);border-radius:10px;padding:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font)">
-        🚪 로그아웃
-      </button>
-    </div>
+<div id="mobileBottomNav" style="position:fixed;bottom:0;left:0;right:0;background:var(--sur);border-top:1.5px solid var(--bd);z-index:999;padding:6px 0 calc(6px + env(safe-area-inset-bottom,0px))">
+  <div style="display:flex;justify-content:space-around;align-items:center;max-width:480px;margin:0 auto">
+    <button onclick="showPage('home');setNav('home')" style="background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;font-family:var(--font);color:var(--mt);font-size:9px;padding:4px 6px;min-width:52px"><span style="font-size:22px">🏠</span>홈</button>
+    <button onclick="showPage('cat');setNav('cat')" style="background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;font-family:var(--font);color:var(--mt);font-size:9px;padding:4px 6px;min-width:52px"><span style="font-size:22px">📂</span>카테고리</button>
+    <button onclick="toggleDarkMode()" style="background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;font-family:var(--font);color:var(--mt);font-size:9px;padding:4px 6px;min-width:52px"><span id="mobileThemeIcon" style="font-size:22px">🌙</span>테마</button>
+    <button onclick="showPage('auth');setNav('auth');setAtab('login')" style="background:linear-gradient(135deg,#ec4899,#f97316);color:#fff;border:none;border-radius:12px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;font-family:var(--font);font-size:9px;padding:6px 10px;font-weight:700;min-width:52px"><span style="font-size:22px">👤</span>로그인</button>
+    <button onclick="openAdminLogin()" style="background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;font-family:var(--font);color:var(--mt);font-size:9px;padding:4px 6px;min-width:52px"><span style="font-size:22px">🔐</span>관리자</button>
   </div>
 </div>
 
 <style>
 @media(min-width:641px){#mobileBottomNav{display:none!important}}
-@media(max-width:640px){body{padding-bottom:68px}}
 </style>
-
 
 </body>
 </html>
