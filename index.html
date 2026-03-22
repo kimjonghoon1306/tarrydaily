@@ -3467,109 +3467,112 @@ function startScheduler() {
 // 뉴스 자동 실행 (원클릭)
 async function runAutoNews(isAuto = false) {
   const btn = document.getElementById('autoNewsBtn');
-  if(btn) { btn.textContent = '🔄 뉴스 수집 중...'; btn.disabled = true; btn.style.opacity = '.7'; }
-  
+  const list = document.getElementById('autoNewsList');
+
+  if(btn) { btn.disabled=true; btn.style.opacity='0.7'; btn.textContent='⏳ 뉴스 수집 중...'; }
+
+  if(list) {
+    list.innerHTML = `
+      <div style="text-align:center;padding:2.5rem;background:var(--sur2);border-radius:14px">
+        <div style="font-size:40px;margin-bottom:12px;animation:spin 1s linear infinite">🔄</div>
+        <div style="font-size:15px;font-weight:700;color:var(--tx);margin-bottom:6px">뉴스 수집 중이에요...</div>
+        <div style="font-size:12px;color:var(--mt)">약 5~15초 소요됩니다. 잠시만 기다려주세요!</div>
+        <div style="margin-top:14px;background:var(--bd);border-radius:999px;height:5px;overflow:hidden">
+          <div style="background:var(--grad);height:5px;border-radius:999px;animation:progress 12s linear forwards"></div>
+        </div>
+      </div>
+      <style>@keyframes progress{from{width:0%}to{width:95%}}</style>`;
+  }
+
+  if(!isAuto) toast('📰 뉴스 수집 시작! 잠시만 기다려주세요');
+
   const count = parseInt(document.getElementById('newsCount')?.value || 5);
   const category = document.getElementById('newsCategory')?.value || '종합';
   const today = new Date().toLocaleDateString('ko-KR', {month:'numeric', day:'numeric'});
-  
-  if(!isAuto) toast('📰 뉴스 수집 시작! 약 15~20초 소요돼요');
-  
+
+  const defaults = {
+    '종합':[
+      {title:'2026년 가장 주목받는 라이프스타일 트렌드 완벽 분석',summary:'올해 핫한 트렌드를 한눈에 정리했어요. 바로 확인해보세요!',emoji:'🔥'},
+      {title:'스마트폰 배터리 수명 2배 늘리는 숨겨진 설정법',summary:'몰랐던 배터리 절약 설정으로 하루 종일 쓸 수 있어요',emoji:'🔋'},
+      {title:'매달 10만원 아끼는 생활비 절약 꿀팁 모음',summary:'실생활에서 바로 실천할 수 있는 절약 방법이에요',emoji:'💰'},
+      {title:'봄철 건강 관리 완벽 가이드 이것만 알면 OK',summary:'환절기 건강을 지키는 가장 쉬운 방법들을 정리했어요',emoji:'🌸'},
+      {title:'2026 핫한 OTT 콘텐츠 완벽 정리',summary:'놓치면 후회하는 이번 달 필수 시청 목록이에요',emoji:'🎬'},
+    ],
+    'IT기술':[
+      {title:'챗GPT 신기능 완벽 정리 아직도 모르면 손해',summary:'업데이트된 ChatGPT 기능을 100% 활용하는 방법이에요',emoji:'🤖'},
+      {title:'2026년 무료 AI 툴 추천 TOP10',summary:'직장인이라면 꼭 알아야 할 무료 AI 도구들이에요',emoji:'💻'},
+      {title:'애플 삼성 신제품 비교 어떤 폰을 살까',summary:'2026년 출시 신제품을 완벽하게 비교 분석했어요',emoji:'📱'},
+      {title:'카카오톡 숨겨진 꿀기능 5가지',summary:'매일 쓰는 카카오톡에 이런 기능이 있었다니!',emoji:'💬'},
+    ],
+    '경제재테크':[
+      {title:'적금 vs ETF vs 부동산 2026년 최선의 선택은',summary:'전문가들이 추천하는 올해 최고의 투자 전략이에요',emoji:'📈'},
+      {title:'카드값 줄이는 숨겨진 혜택 완벽 정리',summary:'내 카드에 이런 혜택이 있었다니! 지금 바로 확인하세요',emoji:'💳'},
+      {title:'연봉 협상 완벽 가이드 이렇게 하면 됩니다',summary:'성공적인 연봉 협상을 위한 전략을 공개해요',emoji:'💼'},
+    ],
+    '생활건강':[
+      {title:'아침 10분 스트레칭으로 하루가 달라진다',summary:'직장인을 위한 초간단 아침 루틴을 소개해요',emoji:'🧘'},
+      {title:'냉장고 정리의 기술 식비 30% 절약하기',summary:'올바른 냉장고 정리로 식비를 확 줄일 수 있어요',emoji:'🏠'},
+      {title:'봄철 다이어트 완벽 가이드',summary:'무리하지 않고 건강하게 체중 관리하는 방법이에요',emoji:'🥗'},
+    ],
+    '트렌드':[
+      {title:'2026 SNS 트렌드 완벽 분석',summary:'Threads 숏폼 AI 콘텐츠까지 최신 트렌드를 정리했어요',emoji:'📱'},
+      {title:'요즘 MZ세대가 가장 많이 쓰는 앱 TOP10',summary:'지금 가장 핫한 앱들을 한눈에 볼 수 있어요',emoji:'✨'},
+    ]
+  };
+
+  let newsItems = [];
+
   try {
-    // Claude AI로 최신 뉴스 생성
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        messages: [{
-          role: 'user',
-          content: `오늘 ${new Date().toLocaleDateString('ko-KR')} 기준 ${category} 분야의 인기 뉴스 ${count}개를 만들어주세요.
-
-각 뉴스는 다음 JSON 형식:
-{"title":"제목","summary":"3줄 요약","category":"${category}","emoji":"관련 이모지","keywords":"핵심 키워드 3개"}
-
-실제 최신 트렌드를 반영하되 구체적이고 실용적인 내용으로 만들어주세요.
-JSON 배열만 반환하세요.`
-        }]
-      })
-    });
-    
-    const data = await res.json();
-    const text = data.content?.[0]?.text || '[]';
-    let newsItems = [];
-    try {
-      const clean = text.replace(/```json|```/g, '').trim();
-      const jsonStart = clean.indexOf('[');
-      const jsonEnd = clean.lastIndexOf(']') + 1;
-      newsItems = JSON.parse(jsonStart >= 0 ? clean.slice(jsonStart, jsonEnd) : clean);
-    } catch(e) {
-      // 파싱 실패시 기본 뉴스 사용
-      newsItems = [
-        {title:'오늘의 IT 뉴스: AI 기술 급속 발전으로 업무 자동화 가속화', summary:'인공지능 기술이 빠르게 발전하면서 기업들의 업무 자동화가 가속화되고 있어요. 특히 ChatGPT 등 생성형 AI 도구들이 일반 직장인들의 업무 방식을 바꾸고 있어요.', category:category, emoji:'🤖', keywords:'AI,자동화,ChatGPT'},
-        {title:'재테크 핫이슈: 2026년 부동산 시장 전망과 투자 전략', summary:'전문가들이 분석한 2026년 부동산 시장 전망을 정리했어요. 금리 변동과 정책 변화가 주요 변수로 꼽히고 있어요.', category:category, emoji:'💰', keywords:'부동산,재테크,투자'},
-        {title:'생활꿀팁: 이번 주 가장 많이 공유된 절약 노하우 TOP5', summary:'소셜미디어에서 이번 주 가장 많이 공유된 생활 절약 노하우를 모았어요. 전기요금부터 식비까지 실용적인 팁들이에요.', category:category, emoji:'💡', keywords:'절약,생활,꿀팁'},
-        {title:'트렌드 분석: Z세대가 열광하는 2026년 최신 앱과 서비스', summary:'Z세대 사이에서 최근 가장 인기를 끌고 있는 앱과 서비스들을 분석했어요. SNS 트렌드부터 쇼핑까지 다양한 분야를 다뤄요.', category:category, emoji:'📱', keywords:'트렌드,앱,Z세대'},
-        {title:'건강 정보: 봄철 건강 관리를 위한 영양제와 운동 루틴', summary:'봄이 되면서 건강 관리에 관심이 높아지고 있어요. 전문가들이 추천하는 봄철 필수 영양제와 간단한 운동 루틴을 정리했어요.', category:category, emoji:'🌸', keywords:'건강,영양제,운동'},
-      ].slice(0, count);
-    }
-    
-    // 뉴스를 카테고리에 자동 추가
-    const today = new Date().toLocaleDateString('ko-KR', {month:'numeric', day:'numeric'});
-    const newsPosts = newsItems.map((n, i) => ({
-      id: 'news_' + Date.now() + '_' + i,
-      title: n.title,
-      desc: n.summary,
-      date: today,
-      read: '3분',
-      emoji: n.emoji || '📰',
-      keywords: n.keywords
-    }));
-    
-    // CAT_DATA의 오늘의 뉴스 카테고리에 추가
-    const newsCategory = CAT_DATA.find(c => c.id === 'news');
-    if(newsCategory) {
-      const hotSub = newsCategory.subs.find(s => s.id === 'hot');
-      if(hotSub) {
-        // 오늘 날짜 기준 초기화 후 추가
-        hotSub.items = newsPosts;
-      }
-    }
-    
-    // 카테고리 트리 재빌드
-    buildCatTree();
-    
-    // 결과 표시
-    const list = document.getElementById('autoNewsList');
-    if(list) {
-      list.innerHTML = newsPosts.map(n => `
-        <div style="background:var(--sur);border:1.5px solid var(--bd);border-radius:12px;padding:13px 14px;display:flex;gap:12px;align-items:flex-start">
-          <div style="font-size:28px;flex-shrink:0">${n.emoji}</div>
-          <div style="flex:1">
-            <div style="font-size:13px;font-weight:700;color:var(--tx);margin-bottom:5px;line-height:1.4">${n.title}</div>
-            <div style="font-size:11px;color:var(--mt);line-height:1.6">${n.desc}</div>
-            <div style="margin-top:8px;display:flex;gap:5px;flex-wrap:wrap">
-              <span style="background:var(--sur3);color:var(--ac);border-radius:999px;padding:2px 9px;font-size:10px;font-weight:700;border:1px solid var(--bd2)">✅ 등록됨</span>
-              <span style="background:var(--sur2);color:var(--mt);border-radius:999px;padding:2px 9px;font-size:10px;border:1px solid var(--bd)">${today}</span>
-            </div>
-          </div>
-        </div>`).join('');
-    }
-    
-    // 색인 자동 신청
-    await runIndexing();
-    
-    if(btn) { btn.textContent = '🚀 지금 바로 뉴스 가져오기'; btn.disabled = false; btn.style.opacity = '1'; }
-    toast('🎉 ' + newsItems.length + '개 뉴스 등록 + 색인 신청 완료!');
-    
+    const prompt = encodeURIComponent(category + ' 분야 오늘의 인기 뉴스 ' + count + '개를 JSON 배열로만 반환해줘. 형식: [{"title":"제목","summary":"2줄 요약","emoji":"이모지"}]. JSON만.');
+    const controller = new AbortController();
+    const timeout = setTimeout(function(){ controller.abort(); }, 10000);
+    const res = await fetch('https://text.pollinations.ai/' + prompt, { signal: controller.signal });
+    clearTimeout(timeout);
+    const text = await res.text();
+    const clean = text.replace(/```json|```/g, '').trim();
+    const m = clean.match(/\[[\s\S]*\]/);
+    if(m) newsItems = JSON.parse(m[0]);
   } catch(e) {
-    if(btn) { btn.textContent = '🚀 지금 바로 뉴스 가져오기'; btn.disabled = false; btn.style.opacity = '1'; }
-    toast('❌ 오류 발생. 다시 시도해주세요');
+    console.log('Pollinations 실패:', e.message);
   }
+
+  if(!newsItems || newsItems.length === 0) {
+    newsItems = (defaults[category] || defaults['종합']).slice(0, count);
+    if(!isAuto) toast('📰 기본 뉴스로 표시해요 (AI 지연)');
+  }
+
+  // CAT_DATA에 추가
+  const newsCat = CAT_DATA.find(function(c){ return c.id === 'news'; });
+  if(newsCat) {
+    const hotSub = newsCat.subs.find(function(s){ return s.id === 'hot'; });
+    if(hotSub) {
+      const newPosts = newsItems.map(function(n, i) {
+        return { id: 'auto_' + Date.now() + '_' + i, title: n.title, desc: n.summary||'', date: today, read: '4분', emoji: n.emoji||'📰' };
+      });
+      hotSub.items = newPosts.concat(hotSub.items).slice(0, 20);
+    }
+  }
+  buildCatTree();
+
+  if(list) {
+    list.innerHTML = newsItems.map(function(n) {
+      return '<div style="background:var(--sur);border:1.5px solid var(--bd2);border-radius:12px;padding:13px 14px;display:flex;gap:12px;align-items:flex-start">' +
+        '<div style="font-size:28px;flex-shrink:0">' + (n.emoji||'📰') + '</div>' +
+        '<div style="flex:1">' +
+          '<div style="font-size:13px;font-weight:700;color:var(--tx);margin-bottom:5px;line-height:1.4">' + n.title + '</div>' +
+          '<div style="font-size:11px;color:var(--mt);line-height:1.6;margin-bottom:8px">' + (n.summary||'') + '</div>' +
+          '<span style="background:rgba(5,150,105,.1);color:#059669;border-radius:999px;padding:2px 9px;font-size:10px;font-weight:700;border:1px solid rgba(5,150,105,.2)">✅ 등록됨</span>' +
+        '</div></div>';
+    }).join('');
+  }
+
+  await runIndexing();
+
+  if(btn) { btn.disabled=false; btn.style.opacity='1'; btn.textContent='🚀 지금 바로 뉴스 가져오기'; }
+  toast('🎉 ' + newsItems.length + '개 뉴스 등록 완료! 카테고리에서 확인하세요');
 }
 
-// 색인 자동화
+
 async function runIndexing() {
   const sitemapUrl = 'https://tarrydaily.com/sitemap.xml';
   const siteUrl = 'https://tarrydaily.com';
@@ -4322,7 +4325,7 @@ function buildDefaultNL(title, greeting, posts, date) {
       <div style="font-size:11px;color:#7c3aed;font-weight:700;margin-bottom:4px">${p.tag||'블로그'}</div>
       <div style="font-size:15px;font-weight:700;color:#1f2937;margin-bottom:6px;line-height:1.4">${p.title}</div>
       <div style="font-size:12px;color:#6b7280;margin-bottom:10px">${p.desc||'이번 주 인기 글이에요. 지금 바로 읽어보세요!'}</div>
-      <a href="${postUrl}" target="_parent" style="background:#7c3aed;color:#fff;padding:7px 16px;border-radius:8px;text-decoration:none;font-size:12px;font-weight:700;display:inline-block">읽으러 가기 →</a>
+      <button onclick="try{parent.openPost('${p.id||'i1'}','${p.title}','${p.tag||'블로그'}','${p.emoji||'📄'}','TARRY')}catch(e){}" style="background:#7c3aed;color:#fff;padding:7px 16px;border-radius:8px;border:none;font-size:12px;font-weight:700;cursor:pointer;font-family:sans-serif">읽으러 가기 →</button>
     </div>
   </div>`;
   }).join('');
