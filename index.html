@@ -589,7 +589,7 @@ body.dark-mode #socialPopupMsg{color:#e2e0f0!important}
       </div>
       <div style="display:flex;gap:8px;flex-wrap:wrap">
         <button onclick="downloadPPT()"
-           style="background:var(--grad);color:#fff;border:none;border-radius:12px;padding:12px 22px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:7px;white-space:nowrap;font-family:var(--font)">
+           onclick="downloadPPT()" style="background:var(--grad);color:#fff;border:none;border-radius:12px;padding:12px 22px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:7px;white-space:nowrap;font-family:var(--font)">
           📥 PPT 다운로드
         </button>
         <button onclick="showPage('about');setNav('about')"
@@ -4827,33 +4827,31 @@ try {
 
 // ── INIT ──
 document.addEventListener('DOMContentLoaded', function() {
+  try { buildCatTree(); } catch(e){ console.error('buildCatTree:', e); }
+  try { renderBreadcrumb(); } catch(e){}
+  try { renderPosts(); } catch(e){ console.error('renderPosts:', e); }
+  try { buildEmojiPicker(); } catch(e){}
+  try { renderComments(); } catch(e){}
+  try { STATS.init(); } catch(e){ console.error('STATS.init:', e); }
+  try { startScheduler(); } catch(e){}
+  setTimeout(function(){
+    try { buildSNSCards(); } catch(e){}
+    try { initSNSModal(); } catch(e){}
+    try { extraFiles = JSON.parse(localStorage.getItem('tarry_extra_files') || '[]'); } catch(e){}
+  }, 300);
+  setTimeout(function(){
+    try { SOCIAL.start(); } catch(e){}
+  }, 5000);
   try {
-    buildCatTree();
-    renderBreadcrumb();
-    renderPosts();
-    buildEmojiPicker();
-    renderComments();
-    STATS.init();
-    setTimeout(function(){ 
-      try { buildSNSCards(); initSNSModal(); } catch(e){} 
-    }, 500);
-    setTimeout(function(){
-      try { SOCIAL.start(); } catch(e){}
-    }, 5000);
-    try { startScheduler(); } catch(e){}
-    // 다크모드 저장값 복원
-    try {
-      const savedDark = localStorage.getItem('tarry_dark');
-      if(savedDark === 'true') {
-        document.documentElement.setAttribute('data-theme','dark');
-        const btn = document.getElementById('themeToggle');
-        if(btn) btn.textContent = '🌙';
-      }
-    } catch(e){}
-  } catch(err) {
-    console.error('INIT 오류:', err);
-  }
+    const savedDark = localStorage.getItem('tarry_dark');
+    if(savedDark === 'true') {
+      document.documentElement.setAttribute('data-theme','dark');
+      const btn = document.getElementById('themeToggle');
+      if(btn) btn.textContent = '🌙';
+    }
+  } catch(e){}
 });
+
 
 </script>
 </body>
