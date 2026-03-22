@@ -426,7 +426,6 @@ img { max-width: 100% !important; height: auto !important; }
   .pc-only{display:flex !important}
 }
 @media(max-width:640px){
-  .pc-only{display:none !important}
   .mobile-only{display:flex !important}
 }
 
@@ -2866,8 +2865,15 @@ function showPage(id) {
   const el = document.getElementById('page-' + id);
   if(el) el.classList.add('on');
   window.scrollTo(0, 0);
-  // 히스토리에 현재 페이지 기록
   history.pushState({page: id}, '', '#' + id);
+  // 카테고리 페이지 열릴 때 글 다시 렌더링
+  if(id === 'cat') {
+    try { buildCatTree(); renderPosts(); } catch(e){}
+  }
+  // 관리자 페이지 열릴 때 초기화
+  if(id === 'admin') {
+    try { loadStatsPanel(); } catch(e){}
+  }
 }
 
 // 브라우저 뒤로가기 이벤트 감지
