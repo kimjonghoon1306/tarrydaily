@@ -2742,7 +2742,7 @@ function quickShareRSS(post) {
 // ═══════════════════════════════
 
 let currentUser = null, isBrowsing = false;
-let adminPw = '123456', isAdminLoggedIn = false;
+let adminPw = (function(){ try { return localStorage.getItem('tarry_admin_pw') || '123456'; } catch(e){ return '123456'; } })(), isAdminLoggedIn = false;
 let selectedL1 = null, selectedL2 = null, selectedL3 = null;
 let currentView = 'grid', currentFont = 'Noto Sans KR', currentColor = '#1a1a2e';
 let activeCat = '스마일';
@@ -4100,6 +4100,46 @@ function closeNoticeForever(){closeNoticePopup();noticeActive=false;const t=docu
 function setNoticeColor(color){noticeColor=color;const h=document.getElementById('noticeHeader');if(h&&noticeActive)h.style.background=noticeColors[color];toast('🎨 색상 변경됨!');}
 function setNoticeTemplate(idx){const t=noticeTemplates[idx];if(!t)return;const ti=document.getElementById('noticeTitle');const ci=document.getElementById('noticeContent');if(ti)ti.value=t.title;if(ci)ci.value=t.text;toast('📋 템플릿 선택됨!');}
 
+
+// generatePostWithAI stub - AI 대신 기본 템플릿 사용
+function generatePostWithAI(title, tag, desc) {
+  // 기본 템플릿이 이미 표시됨, 추가 작업 없음
+}
+
+function openPostFromArticle(titleEnc, bodyEnc) {
+  try {
+    const title = decodeURIComponent(titleEnc);
+    const body = decodeURIComponent(bodyEnc);
+    document.getElementById('postTitle').textContent = title;
+    document.getElementById('postTag').textContent = '뉴스';
+    document.getElementById('postEmoji').textContent = '📰';
+    document.getElementById('postMeta').textContent = 'TARRY · ' + new Date().toLocaleDateString('ko-KR') + ' · AI 작성';
+    document.getElementById('postBody').innerHTML = body;
+    showPage('post');
+    window.scrollTo(0,0);
+  } catch(e) { console.error(e); }
+}
+
+function registerCurrentPost() {
+  const title = document.getElementById('postTitle')?.textContent;
+  const today = new Date().toLocaleDateString('ko-KR',{month:'numeric',day:'numeric'});
+  const newsCat = CAT_DATA.find(function(c){return c.id==='news';});
+  if(newsCat){
+    const hotSub = newsCat.subs.find(function(s){return s.id==='hot';});
+    if(hotSub){
+      hotSub.items.unshift({id:'reg_'+Date.now(),title,desc:'등록된 글',date:today,read:'5분',emoji:'📰'});
+      buildCatTree();
+    }
+  }
+  toast('✅ 카테고리에 등록됐어요!');
+}
+
+function publishPostToSNS() {
+  const title = encodeURIComponent(document.getElementById('postTitle')?.textContent||'');
+  const url = encodeURIComponent('https://tarrydaily.com');
+  window.open('https://twitter.com/intent/tweet?text='+title+'%0A%0A'+url+'%0A%0A%23TARRY의데일리','_blank','width=600,height=400');
+  toast('📱 SNS 발행 창이 열렸어요!');
+}
 // ── 저장된 관리자 비밀번호 불러오기 ──
 try {
   const savedPw = localStorage.getItem('tarry_admin_pw');
