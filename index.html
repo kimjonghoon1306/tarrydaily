@@ -2872,7 +2872,7 @@ function showPage(id) {
   }
   // 관리자 페이지 열릴 때 초기화
   if(id === 'admin') {
-    try { loadStatsPanel(); } catch(e){}
+    setTimeout(function(){ try { setAdminTab('dash'); } catch(e){} }, 50);
   }
 }
 
@@ -2993,7 +2993,21 @@ function togL2(l1id,l2id){const list=document.getElementById('l3-'+l2id),arr=doc
 function selectCat(l1id,l2id,l3id){selectedL1=l1id;selectedL2=l2id;selectedL3=l3id;document.querySelectorAll('.cl1b,.cl2b,.cl3b').forEach(b=>b.classList.remove('on'));if(l3id)document.getElementById('cl3-'+l3id)?.classList.add('on');else if(l2id)document.getElementById('cl2-'+l2id)?.classList.add('on');else if(l1id)document.getElementById('cl1-'+l1id)?.classList.add('on');renderBreadcrumb();renderPosts();}
 function renderBreadcrumb(){const bc=document.getElementById('breadcrumb');let html=`<span onclick="selectCat(null,null,null)">🏠 전체</span>`;if(selectedL1){const l1=CAT_DATA.find(x=>x.id===selectedL1);if(l1){html+=`<span class="sep">›</span><span onclick="selectCat('${l1.id}',null,null)">${l1.icon} ${l1.name}</span>`;if(selectedL2){const l2=l1.subs.find(x=>x.id===selectedL2);if(l2){html+=`<span class="sep">›</span><span onclick="selectCat('${l1.id}','${l2.id}',null)">${l2.name}</span>`;if(selectedL3){const item=l2.items.find(x=>x.id===selectedL3);if(item)html+=`<span class="sep">›</span><span class="cur">${item.title.substring(0,18)}...</span>`;}}}}}bc.innerHTML=html;}
 function getFilteredPosts(){let all=[];if(!selectedL1){CAT_DATA.forEach(l1=>l1.subs.forEach(l2=>l2.items.forEach(item=>all.push({...item,l1:l1.id,l1name:l1.name,l1icon:l1.icon,color:l1.color,l2name:l2.name}))));}else{const l1=CAT_DATA.find(x=>x.id===selectedL1);if(!l1)return[];if(!selectedL2)l1.subs.forEach(l2=>l2.items.forEach(item=>all.push({...item,l1:l1.id,l1name:l1.name,l1icon:l1.icon,color:l1.color,l2name:l2.name})));else{const l2=l1.subs.find(x=>x.id===selectedL2);if(!l2)return[];if(!selectedL3)l2.items.forEach(item=>all.push({...item,l1:l1.id,l1name:l1.name,l1icon:l1.icon,color:l1.color,l2name:l2.name}));else{const item=l2.items.find(x=>x.id===selectedL3);if(item)all.push({...item,l1:l1.id,l1name:l1.name,l1icon:l1.icon,color:l1.color,l2name:l2.name});}}}const sort=document.getElementById('sortSel')?.value||'latest';if(sort==='popular')all.sort(()=>Math.random()-.5);else if(sort==='oldest')all.reverse();return all;}
-function renderPosts(){const posts=getFilteredPosts();const grid=document.getElementById('postGrid');const isList=currentView==='list';grid.className='post-grid'+(isList?' list-v':'');document.getElementById('catCountLbl').textContent=posts.length+'개';const l1=selectedL1?CAT_DATA.find(x=>x.id===selectedL1):null;const l2=l1&&selectedL2?l1.subs.find(x=>x.id===selectedL2):null;document.getElementById('catTitle').textContent=l2?l2.name:(l1?l1.icon+' '+l1.name:'전체 글');if(posts.length===0){grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--mt);font-size:13px"><div style="font-size:36px;margin-bottom:10px">📭</div>이 카테고리에 글이 없어요</div>';return;}grid.innerHTML=posts.map(p=>`<div class="pc${isList?' list-v':''}" onclick="openPost('${p.id}','${p.title}','${p.l2name}','${p.emoji}','TARRY · ${p.date} · ${p.read} 읽기')"><div class="pc-thumb ${p.color}">${p.emoji}</div><div style="flex:1"><div class="pc-body"><span class="pc-tag">${p.l2name}</span><div class="pc-title">${p.title}</div><div class="pc-desc">${p.desc}</div></div><div class="pc-footer"><span>${p.date}</span><span>${p.read} 읽기</span></div></div></div>`).join('');}
+function renderPosts(){const posts=getFilteredPosts();const grid=document.getElementById('postGrid');const isList=currentView==='list';grid.className='post-grid'+(isList?' list-v':'');document.getElementById('catCountLbl').textContent=posts.length+'개';const l1=selectedL1?CAT_DATA.find(x=>x.id===selectedL1):null;const l2=l1&&selectedL2?l1.subs.find(x=>x.id===selectedL2):null;document.getElementById('catTitle').textContent=l2?l2.name:(l1?l1.icon+' '+l1.name:'전체 글');if(posts.length===0){grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--mt);font-size:13px"><div style="font-size:36px;margin-bottom:10px">📭</div>이 카테고리에 글이 없어요</div>';return;}grid.innerHTML=posts.map((p,i)=>{
+  const safeTitle=p.title.replace(/'/g,"&#39;").replace(/"/g,"&quot;");
+  const safeMeta=('TARRY · '+p.date+' · '+p.read+' 읽기').replace(/'/g,"&#39;");
+  const safeTag=(p.l2name||'').replace(/'/g,"&#39;");
+  return `<div class="pc${isList?' list-v':''}" onclick="openPost('${p.id}','${safeTitle}','${safeTag}','${p.emoji||'📄'}','${safeMeta}')">
+    <div class="pc-thumb ${p.color||'ct-a'}">${p.emoji||'📄'}</div>
+    <div style="flex:1">
+      <div class="pc-body">
+        <span class="pc-tag">${p.l2name||''}</span>
+        <div class="pc-title">${p.title}</div>
+        <div class="pc-desc">${p.desc||''}</div>
+      </div>
+      <div class="pc-footer"><span>${p.date||''}</span><span>${p.read||''} 읽기</span></div>
+    </div>
+  </div>`;}).join('');}
 function setView(v){currentView=v;document.getElementById('vb-grid').classList.toggle('on',v==='grid');document.getElementById('vb-list').classList.toggle('on',v==='list');renderPosts();}
 
 // ── EMOJI ──
@@ -4315,9 +4329,9 @@ function doAdminLogin() {
     input.value = '';
     if(err) err.style.display = 'none';
     showPage('admin');
+    try { setAdminTab('dash'); } catch(e){}
     try { buildAdminCatTree(); } catch(e){}
     try { buildThemePresets(); } catch(e){}
-    try { loadStatsPanel(); } catch(e){}
     toast('🔐 관리자 페이지에 오신 걸 환영해요!');
   } else {
     if(err) err.style.display = 'block';
