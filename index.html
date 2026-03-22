@@ -1794,6 +1794,146 @@ body.dark-mode #socialPopupMsg{color:#e2e0f0!important}
       <button onclick="closeNoticePopup()" style="flex:1;background:var(--grad);color:#fff;border:none;border-radius:10px;padding:12px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font)">확인했어요 ✓</button>
       <button onclick="closeNoticeForever()" style="background:var(--sur2);color:var(--mt);border:1px solid var(--bd);border-radius:10px;padding:12px 14px;font-size:11px;cursor:pointer;font-family:var(--font)">다시 보지 않기</button>
     </div>
+    <!-- 오늘의 뉴스 자동수집 패널 -->
+    <div class="admin-panel" id="ap-news-auto">
+      <div class="admin-wrap">
+
+        <!-- 원클릭 버튼 -->
+        <div style="background:linear-gradient(135deg,#059669,#0891b2);border-radius:20px;padding:2rem;text-align:center;margin-bottom:14px">
+          <div style="font-size:48px;margin-bottom:10px">📰</div>
+          <div style="font-size:20px;font-weight:800;color:#fff;font-family:var(--display);margin-bottom:6px">오늘의 뉴스 자동 등록</div>
+          <div style="font-size:13px;color:rgba(255,255,255,.85);margin-bottom:18px">버튼 하나로 뉴스 수집 + 카테고리 자동 등록!</div>
+          <button id="autoNewsBtn" onclick="runAutoNews(false)"
+            style="background:#fff;color:#059669;border:none;border-radius:999px;padding:14px 36px;font-size:15px;font-weight:800;cursor:pointer;font-family:var(--font)">
+            🚀 지금 바로 뉴스 가져오기
+          </button>
+        </div>
+
+        <!-- 로딩 진행바 -->
+        <div id="newsLoadingBox" style="display:none;background:var(--sur2);border-radius:14px;padding:16px;border:1px solid var(--bd);margin-bottom:14px;text-align:center">
+          <div style="font-size:28px;margin-bottom:8px;animation:spin 1s linear infinite" id="newsLoadingIcon">🔄</div>
+          <div style="font-size:14px;font-weight:700;color:var(--tx);margin-bottom:4px" id="newsLoadingText">뉴스 수집 중...</div>
+          <div style="font-size:12px;color:var(--mt);margin-bottom:12px" id="newsLoadingStep">서버에 연결하고 있어요</div>
+          <!-- 진행바 -->
+          <div style="background:var(--bd);border-radius:999px;height:8px;overflow:hidden;margin-bottom:8px">
+            <div id="newsProgressBar" style="background:linear-gradient(90deg,#059669,#0891b2);height:8px;border-radius:999px;width:0%;transition:width .5s ease"></div>
+          </div>
+          <div style="font-size:11px;color:var(--ac);font-weight:700" id="newsProgressPct">0%</div>
+        </div>
+
+        <!-- 자동/수동 모드 -->
+        <div class="admin-section" style="margin-bottom:13px">
+          <h3>⏰ 자동 스케줄 설정</h3>
+          <div style="background:var(--sur2);border-radius:11px;padding:13px;border:1px solid var(--bd);margin-bottom:11px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+            <div>
+              <div style="font-size:13px;font-weight:700" id="scheduleLabel">⏰ 매일 오전 08:00 자동 실행</div>
+              <div style="font-size:11px;color:var(--mt);margin-top:2px">매일 아침 8시에 자동으로 뉴스를 수집해서 등록해요</div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-size:10px;color:var(--mt)">다음 실행</div>
+              <div style="font-size:12px;font-weight:700;color:var(--ac)" id="nextRunTime">내일 오전 8:00</div>
+            </div>
+          </div>
+
+          <!-- 자동/수동 모드 버튼 -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:11px">
+            <button onclick="setNewsMode('auto')" id="newsModeAuto"
+              style="background:var(--grad);color:#fff;border:none;border-radius:12px;padding:13px 8px;cursor:pointer;text-align:center;font-family:var(--font)">
+              <div style="font-size:20px;margin-bottom:4px">🤖</div>
+              <div style="font-size:12px;font-weight:800">자동 모드</div>
+              <div style="font-size:10px;opacity:.85">매일 자동 수집</div>
+            </button>
+            <button onclick="setNewsMode('manual')" id="newsModeManual"
+              style="background:var(--sur2);color:var(--tx);border:2px solid var(--bd);border-radius:12px;padding:13px 8px;cursor:pointer;text-align:center;font-family:var(--font)">
+              <div style="font-size:20px;margin-bottom:4px">✋</div>
+              <div style="font-size:12px;font-weight:800">수동 모드</div>
+              <div style="font-size:10px;color:var(--mt)">내가 클릭할 때만</div>
+            </button>
+          </div>
+
+          <!-- 시간 설정 - 빠른 버튼 + 직접 입력 -->
+          <div style="margin-bottom:10px">
+            <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:6px;text-transform:uppercase">빠른 시간 선택</label>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
+              <button onclick="setSchedule('07:00')" class="btn btn-ghost btn-sm">07:00</button>
+              <button onclick="setSchedule('08:00')" class="btn btn-grad btn-sm">08:00 ⭐</button>
+              <button onclick="setSchedule('09:00')" class="btn btn-ghost btn-sm">09:00</button>
+              <button onclick="setSchedule('12:00')" class="btn btn-ghost btn-sm">12:00</button>
+              <button onclick="setSchedule('18:00')" class="btn btn-ghost btn-sm">18:00</button>
+              <button onclick="setSchedule('21:00')" class="btn btn-ghost btn-sm">21:00</button>
+            </div>
+            <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:5px;text-transform:uppercase">직접 시간 입력</label>
+            <div style="display:flex;gap:7px;align-items:center">
+              <input type="time" id="customScheduleTime" value="08:00"
+                style="flex:1;background:var(--sur);border:1.5px solid var(--bd2);border-radius:9px;padding:9px 12px;font-size:14px;font-weight:700;color:var(--tx);outline:none;font-family:var(--font);cursor:pointer">
+              <button onclick="setSchedule(document.getElementById('customScheduleTime').value)"
+                class="btn btn-grad" style="padding:9px 16px;font-size:13px;flex-shrink:0">
+                ✅ 설정
+              </button>
+            </div>
+            <div style="font-size:11px;color:var(--ac);margin-top:6px">현재 설정: <strong id="currentScheduleDisplay">매일 08:00</strong></div>
+          </div>
+
+          <!-- 수집 설정 -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px">
+            <div>
+              <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:4px">수집 뉴스 수</label>
+              <select class="inp" id="newsCount" style="cursor:pointer">
+                <option value="3">3개</option>
+                <option value="5" selected>5개</option>
+                <option value="10">10개</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:4px">뉴스 분야</label>
+              <select class="inp" id="newsCategory" style="cursor:pointer">
+                <option value="종합">종합 뉴스</option>
+                <option value="IT기술">IT·기술</option>
+                <option value="경제재테크">경제·재테크</option>
+                <option value="생활건강">생활·건강</option>
+                <option value="트렌드">트렌드</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- 색인 -->
+        <div class="admin-section" style="margin-bottom:13px">
+          <h3>🔍 검색엔진 색인 자동화</h3>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px">
+            <div style="background:var(--sur);border:1px solid var(--bd);border-radius:10px;padding:10px;text-align:center">
+              <div style="font-size:16px;margin-bottom:3px">🔵</div>
+              <div style="font-size:11px;font-weight:700">구글</div>
+              <div style="font-size:10px;color:var(--mt)" id="idx-google">대기 중</div>
+            </div>
+            <div style="background:var(--sur);border:1px solid var(--bd);border-radius:10px;padding:10px;text-align:center">
+              <div style="font-size:16px;margin-bottom:3px">🟢</div>
+              <div style="font-size:11px;font-weight:700">네이버</div>
+              <div style="font-size:10px;color:var(--mt)" id="idx-naver">대기 중</div>
+            </div>
+            <div style="background:var(--sur);border:1px solid var(--bd);border-radius:10px;padding:10px;text-align:center">
+              <div style="font-size:16px;margin-bottom:3px">🟠</div>
+              <div style="font-size:11px;font-weight:700">빙</div>
+              <div style="font-size:10px;color:var(--mt)" id="idx-bing">대기 중</div>
+            </div>
+          </div>
+          <button onclick="runIndexing()" class="btn btn-grad" style="width:100%;padding:11px;font-size:13px">🔍 색인 신청하기</button>
+        </div>
+
+        <!-- 결과 -->
+        <div class="admin-section">
+          <h3>📋 수집된 뉴스</h3>
+          <div id="autoNewsList">
+            <div style="text-align:center;padding:2rem;color:var(--mt)">
+              <div style="font-size:30px;margin-bottom:8px">📰</div>
+              위 버튼을 눌러 뉴스를 가져오세요!
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -2025,102 +2165,6 @@ body.dark-mode #socialPopupMsg{color:#e2e0f0!important}
   style="position:fixed;bottom:16px;right:16px;z-index:9998;background:rgba(124,58,237,.12);color:var(--ac);border:1.5px solid var(--bd2);border-radius:999px;padding:7px 13px;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--font);backdrop-filter:blur(8px)">
   🔔 알림 끄기
 </button>
-
-    <!-- 오늘의 뉴스 자동수집 패널 -->
-    <div class="admin-panel" id="ap-news-auto">
-      <div class="admin-wrap">
-
-        <!-- 원클릭 버튼 -->
-        <div style="background:linear-gradient(135deg,#059669,#0891b2);border-radius:20px;padding:2rem;text-align:center;margin-bottom:14px">
-          <div style="font-size:48px;margin-bottom:10px">📰</div>
-          <div style="font-size:20px;font-weight:800;color:#fff;font-family:var(--display);margin-bottom:6px">오늘의 뉴스 자동 등록</div>
-          <div style="font-size:13px;color:rgba(255,255,255,.85);margin-bottom:18px">버튼 하나로 뉴스 수집 + 카테고리 자동 등록!</div>
-          <button id="autoNewsBtn" onclick="runAutoNews(false)"
-            style="background:#fff;color:#059669;border:none;border-radius:999px;padding:14px 36px;font-size:15px;font-weight:800;cursor:pointer;font-family:var(--font)">
-            🚀 지금 바로 뉴스 가져오기
-          </button>
-        </div>
-
-        <!-- 자동/수동 모드 -->
-        <div class="admin-section" style="margin-bottom:13px">
-          <h3>⏰ 자동 스케줄</h3>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
-            <button onclick="setNewsMode('auto')" id="newsModeAuto"
-              style="background:var(--grad);color:#fff;border:none;border-radius:12px;padding:13px 8px;cursor:pointer;text-align:center;font-family:var(--font)">
-              <div style="font-size:20px;margin-bottom:4px">🤖</div>
-              <div style="font-size:12px;font-weight:800">자동 모드</div>
-              <div style="font-size:10px;opacity:.85">매일 자동 수집</div>
-            </button>
-            <button onclick="setNewsMode('manual')" id="newsModeManual"
-              style="background:var(--sur2);color:var(--tx);border:2px solid var(--bd);border-radius:12px;padding:13px 8px;cursor:pointer;text-align:center;font-family:var(--font)">
-              <div style="font-size:20px;margin-bottom:4px">✋</div>
-              <div style="font-size:12px;font-weight:800">수동 모드</div>
-              <div style="font-size:10px;color:var(--mt)">내가 클릭할 때만</div>
-            </button>
-          </div>
-          <div style="display:flex;gap:7px;margin-bottom:10px">
-            <button onclick="setSchedule('08:00')" class="btn btn-grad btn-sm" style="flex:1">⏰ 08:00</button>
-            <button onclick="setSchedule('09:00')" class="btn btn-ghost btn-sm" style="flex:1">⏰ 09:00</button>
-            <button onclick="setSchedule('12:00')" class="btn btn-ghost btn-sm" style="flex:1">⏰ 12:00</button>
-          </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px">
-            <div>
-              <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:4px">수집 수</label>
-              <select class="inp" id="newsCount" style="cursor:pointer">
-                <option value="3">3개</option>
-                <option value="5" selected>5개</option>
-                <option value="10">10개</option>
-              </select>
-            </div>
-            <div>
-              <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:4px">분야</label>
-              <select class="inp" id="newsCategory" style="cursor:pointer">
-                <option value="종합">종합 뉴스</option>
-                <option value="IT기술">IT·기술</option>
-                <option value="경제재테크">경제·재테크</option>
-                <option value="생활건강">생활·건강</option>
-                <option value="트렌드">트렌드</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <!-- 색인 -->
-        <div class="admin-section" style="margin-bottom:13px">
-          <h3>🔍 검색엔진 색인 자동화</h3>
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px">
-            <div style="background:var(--sur);border:1px solid var(--bd);border-radius:10px;padding:10px;text-align:center">
-              <div style="font-size:16px;margin-bottom:3px">🔵</div>
-              <div style="font-size:11px;font-weight:700">구글</div>
-              <div style="font-size:10px;color:var(--mt)" id="idx-google">대기 중</div>
-            </div>
-            <div style="background:var(--sur);border:1px solid var(--bd);border-radius:10px;padding:10px;text-align:center">
-              <div style="font-size:16px;margin-bottom:3px">🟢</div>
-              <div style="font-size:11px;font-weight:700">네이버</div>
-              <div style="font-size:10px;color:var(--mt)" id="idx-naver">대기 중</div>
-            </div>
-            <div style="background:var(--sur);border:1px solid var(--bd);border-radius:10px;padding:10px;text-align:center">
-              <div style="font-size:16px;margin-bottom:3px">🟠</div>
-              <div style="font-size:11px;font-weight:700">빙</div>
-              <div style="font-size:10px;color:var(--mt)" id="idx-bing">대기 중</div>
-            </div>
-          </div>
-          <button onclick="runIndexing()" class="btn btn-grad" style="width:100%;padding:11px;font-size:13px">🔍 색인 신청하기</button>
-        </div>
-
-        <!-- 결과 -->
-        <div class="admin-section">
-          <h3>📋 수집된 뉴스</h3>
-          <div id="autoNewsList">
-            <div style="text-align:center;padding:2rem;color:var(--mt)">
-              <div style="font-size:30px;margin-bottom:8px">📰</div>
-              위 버튼을 눌러 뉴스를 가져오세요!
-            </div>
-          </div>
-        </div>
-
-      </div>
-
 
 <div class="toast" id="toastEl"></div>
 <input type="file" id="profileInput2" accept="image/*" style="display:none">
@@ -3937,11 +3981,16 @@ function setNewsMode(mode) {
 }
 
 function setSchedule(time) {
+  if(!time) return;
   scheduleTime = time;
   const el = document.getElementById('scheduleLabel');
-  if(el) el.textContent = '⏰ 매일 오전 '+time+' 자동 실행';
+  const disp = document.getElementById('currentScheduleDisplay');
+  const timeInput = document.getElementById('customScheduleTime');
+  if(el) el.textContent = '⏰ 매일 ' + time + ' 자동 실행';
+  if(disp) disp.textContent = '매일 ' + time;
+  if(timeInput) timeInput.value = time;
   startScheduler();
-  toast('⏰ 매일 '+time+' 자동 실행 설정됨!');
+  toast('⏰ 매일 ' + time + ' 자동 실행으로 설정됐어요!');
 }
 
 function startScheduler() {
@@ -3961,55 +4010,142 @@ function startScheduler() {
 async function runAutoNews(isAuto) {
   const btn = document.getElementById('autoNewsBtn');
   const list = document.getElementById('autoNewsList');
-  if(btn){btn.disabled=true;btn.style.opacity='0.7';btn.textContent='⏳ 수집 중...';}
-  if(list){list.innerHTML='<div style="text-align:center;padding:2rem;background:var(--sur2);border-radius:12px"><div style="font-size:36px;margin-bottom:10px;animation:spin 1s linear infinite">🔄</div><div style="font-size:14px;font-weight:700;color:var(--tx)">뉴스 수집 중이에요...</div><div style="font-size:12px;color:var(--mt);margin-top:6px">5~15초 소요됩니다</div></div>';}
+  const loadingBox = document.getElementById('newsLoadingBox');
+  const progressBar = document.getElementById('newsProgressBar');
+  const progressPct = document.getElementById('newsProgressPct');
+  const loadingText = document.getElementById('newsLoadingText');
+  const loadingStep = document.getElementById('newsLoadingStep');
+
+  // 버튼 비활성화
+  if(btn) { btn.disabled=true; btn.style.opacity='0.6'; btn.textContent='⏳ 수집 중...'; }
+
+  // 로딩박스 표시
+  if(loadingBox) loadingBox.style.display = 'block';
+
+  // 진행 단계 함수
+  function setProgress(pct, text, step) {
+    if(progressBar) progressBar.style.width = pct + '%';
+    if(progressPct) progressPct.textContent = pct + '%';
+    if(loadingText) loadingText.textContent = text;
+    if(loadingStep) loadingStep.textContent = step;
+  }
+
+  setProgress(10, '🔌 서버에 연결 중...', 'AI 서버에 접속하고 있어요');
   if(!isAuto) toast('📰 뉴스 수집 시작!');
-  const count = parseInt(document.getElementById('newsCount')?.value||5);
-  const category = document.getElementById('newsCategory')?.value||'종합';
-  const today = new Date().toLocaleDateString('ko-KR',{month:'numeric',day:'numeric'});
+
+  const count = parseInt(document.getElementById('newsCount')?.value || 5);
+  const category = document.getElementById('newsCategory')?.value || '종합';
+  const today = new Date().toLocaleDateString('ko-KR', {month:'numeric', day:'numeric'});
+
+  // 기본 뉴스 데이터
   const defaults = {
-    '종합':[{title:'2026년 가장 핫한 라이프스타일 트렌드 완벽 분석',summary:'올해 주목받는 트렌드를 한눈에 정리했어요',emoji:'🔥'},{title:'스마트폰 배터리 2배 오래 쓰는 숨겨진 설정법',summary:'몰랐던 배터리 절약 설정으로 하루 종일 쓰세요',emoji:'🔋'},{title:'매달 10만원 아끼는 생활비 절약 꿀팁',summary:'실생활에서 바로 실천 가능한 절약법이에요',emoji:'💰'},{title:'봄철 건강 관리 완벽 가이드',summary:'환절기 건강 지키는 가장 쉬운 방법이에요',emoji:'🌸'},{title:'2026 OTT 콘텐츠 완벽 정리',summary:'이번 달 놓치면 후회할 작품들이에요',emoji:'🎬'}],
-    'IT기술':[{title:'챗GPT 신기능 완벽 정리',summary:'업데이트된 ChatGPT 기능을 100% 활용하세요',emoji:'🤖'},{title:'무료 AI 툴 TOP10 2026',summary:'직장인이 꼭 알아야 할 무료 AI 도구들이에요',emoji:'💻'},{title:'애플 삼성 신제품 비교',summary:'2026년 신제품 완벽 비교 분석이에요',emoji:'📱'},{title:'카카오톡 숨겨진 꿀기능',summary:'매일 쓰는 카카오톡의 숨겨진 기능이에요',emoji:'💬'}],
-    '경제재테크':[{title:'적금 vs ETF 2026 최선의 선택',summary:'전문가 추천 올해 최고 투자 전략이에요',emoji:'📈'},{title:'카드 혜택 완벽 정리',summary:'내 카드의 숨겨진 혜택을 확인하세요',emoji:'💳'},{title:'연봉 협상 완벽 가이드',summary:'성공적인 연봉 협상 전략을 공개해요',emoji:'💼'}],
-    '생활건강':[{title:'아침 10분 스트레칭으로 하루가 달라진다',summary:'직장인을 위한 초간단 아침 루틴이에요',emoji:'🧘'},{title:'냉장고 정리로 식비 절약하기',summary:'올바른 냉장고 정리로 식비를 절약해요',emoji:'🏠'},{title:'봄철 다이어트 완벽 가이드',summary:'건강하게 체중 관리하는 방법이에요',emoji:'🥗'}],
-    '트렌드':[{title:'2026 SNS 트렌드 완벽 분석',summary:'Threads 숏폼 AI까지 최신 트렌드예요',emoji:'📱'},{title:'MZ세대 핫한 앱 TOP10',summary:'지금 가장 핫한 앱들을 정리했어요',emoji:'✨'}]
+    '종합':[
+      {title:'2026년 가장 핫한 라이프스타일 트렌드 완벽 분석',summary:'올해 주목받는 트렌드를 한눈에 정리했어요',emoji:'🔥'},
+      {title:'스마트폰 배터리 2배 오래 쓰는 숨겨진 설정법',summary:'몰랐던 배터리 절약 설정으로 하루 종일 쓰세요',emoji:'🔋'},
+      {title:'매달 10만원 아끼는 생활비 절약 꿀팁',summary:'실생활에서 바로 실천 가능한 절약법이에요',emoji:'💰'},
+      {title:'봄철 건강 관리 완벽 가이드',summary:'환절기 건강 지키는 가장 쉬운 방법이에요',emoji:'🌸'},
+      {title:'2026 OTT 콘텐츠 완벽 정리',summary:'이번 달 놓치면 후회할 작품들이에요',emoji:'🎬'},
+      {title:'재택근무 생산성 높이는 7가지 방법',summary:'집에서도 최고의 성과를 내는 비결이에요',emoji:'💻'},
+      {title:'주식 초보가 꼭 알아야 할 투자 원칙',summary:'잃지 않는 투자의 기본 원칙을 알려드려요',emoji:'📈'},
+      {title:'2026년 여행 트렌드 베스트 여행지 TOP5',summary:'올해 가장 핫한 국내외 여행지를 소개해요',emoji:'✈️'},
+      {title:'다이어트 없이 살 빠지는 생활 습관 7가지',summary:'운동 없이도 체중 관리가 되는 방법이에요',emoji:'🥗'},
+      {title:'스트레스 즉시 해소하는 5분 루틴',summary:'직장인을 위한 빠른 스트레스 해소법이에요',emoji:'😌'},
+    ],
+    'IT기술':[
+      {title:'챗GPT 신기능 완벽 정리 아직도 모르면 손해',summary:'업데이트된 ChatGPT를 100% 활용하세요',emoji:'🤖'},
+      {title:'2026년 무료 AI 툴 TOP10 직장인 필독',summary:'꼭 알아야 할 무료 AI 도구 모음이에요',emoji:'💻'},
+      {title:'애플 삼성 신제품 어떤 폰 살까',summary:'2026년 신제품 완벽 비교 분석이에요',emoji:'📱'},
+      {title:'카카오톡 숨겨진 꿀기능 5가지',summary:'매일 쓰는 카카오톡의 비밀 기능이에요',emoji:'💬'},
+      {title:'네이버 지도 꿀기능 알면 인생이 편해진다',summary:'몰랐던 네이버 지도 활용법을 알려드려요',emoji:'🗺️'},
+    ],
+    '경제재테크':[
+      {title:'적금 vs ETF 2026 최선의 선택은',summary:'전문가 추천 올해 최고 투자 전략이에요',emoji:'📈'},
+      {title:'카드 혜택 완벽 정리 매달 3만원 더 아끼기',summary:'내 카드의 숨겨진 혜택을 확인하세요',emoji:'💳'},
+      {title:'연봉 협상 완벽 가이드 이렇게 하면 됩니다',summary:'성공적인 연봉 협상 전략을 공개해요',emoji:'💼'},
+      {title:'청년 주거 지원 혜택 총정리',summary:'몰랐던 정부 주거 지원을 확인하세요',emoji:'🏠'},
+      {title:'절세 방법 총정리 합법적으로 세금 줄이기',summary:'직장인이 꼭 알아야 할 절세 방법이에요',emoji:'💰'},
+    ],
+    '생활건강':[
+      {title:'아침 10분 스트레칭으로 하루가 달라진다',summary:'직장인을 위한 초간단 아침 루틴이에요',emoji:'🧘'},
+      {title:'냉장고 정리로 식비 30% 절약하기',summary:'올바른 냉장고 정리법을 알려드려요',emoji:'🏠'},
+      {title:'봄철 다이어트 완벽 가이드',summary:'건강하게 체중 관리하는 방법이에요',emoji:'🥗'},
+      {title:'수면의 질을 높이는 7가지 습관',summary:'깊은 잠을 자기 위한 실천 방법이에요',emoji:'😴'},
+      {title:'직장인 눈 건강 지키는 방법',summary:'컴퓨터 사용자를 위한 눈 건강 꿀팁이에요',emoji:'👁️'},
+    ],
+    '트렌드':[
+      {title:'2026 SNS 트렌드 완벽 분석',summary:'Threads 숏폼 AI까지 최신 트렌드예요',emoji:'📱'},
+      {title:'요즘 MZ세대가 많이 쓰는 앱 TOP10',summary:'지금 가장 핫한 앱들을 정리했어요',emoji:'✨'},
+      {title:'2026 패션 트렌드 완벽 가이드',summary:'올해 유행하는 스타일을 알아보세요',emoji:'👗'},
+      {title:'핫플레이스 서울 새로 생긴 명소 TOP10',summary:'요즘 MZ들이 몰리는 서울 핫플이에요',emoji:'🗼'},
+    ],
   };
+
+  setProgress(30, '🔍 뉴스 분석 중...', 'AI가 오늘의 핫이슈를 분석하고 있어요');
+  await new Promise(r => setTimeout(r, 500));
+
   let newsItems = [];
+
   try {
-    const prompt = encodeURIComponent(category+' 분야 뉴스 '+count+'개를 JSON 배열로만 반환. 형식:[{"title":"제목","summary":"2줄요약","emoji":"이모지"}]. JSON만.');
+    setProgress(50, '📡 AI 서버 응답 대기...', '뉴스 데이터를 가져오고 있어요');
+    const prompt = encodeURIComponent(category + ' 분야 오늘의 인기 뉴스 ' + count + '개를 JSON 배열로만 반환. 형식:[{"title":"제목","summary":"2줄 요약","emoji":"이모지"}]. JSON만.');
     const controller = new AbortController();
-    const timeout = setTimeout(function(){controller.abort();},10000);
-    const res = await fetch('https://text.pollinations.ai/'+prompt,{signal:controller.signal});
+    const timeout = setTimeout(function(){ controller.abort(); }, 10000);
+    const res = await fetch('https://text.pollinations.ai/' + prompt, { signal: controller.signal });
     clearTimeout(timeout);
     const text = await res.text();
-    const m = text.replace(/```json|```/g,'').trim().match(/\[[\s\S]*\]/);
+    const m = text.replace(/```json|```/g, '').trim().match(/\[[\s\S]*\]/);
     if(m) newsItems = JSON.parse(m[0]);
-  } catch(e){ console.log('AI 실패:', e.message); }
-  if(!newsItems||newsItems.length===0) {
-    newsItems = (defaults[category]||defaults['종합']).slice(0,count);
+    setProgress(70, '✅ 뉴스 수집 완료!', 'AI가 ' + newsItems.length + '개 뉴스를 가져왔어요');
+  } catch(e) {
+    setProgress(60, '⚠️ 기본 뉴스 사용 중...', 'AI 응답 지연 → 준비된 뉴스로 대체해요');
+    await new Promise(r => setTimeout(r, 300));
   }
-  const newsCat = CAT_DATA.find(function(c){return c.id==='news';});
+
+  if(!newsItems || newsItems.length === 0) {
+    newsItems = (defaults[category] || defaults['종합']).slice(0, count);
+  }
+
+  setProgress(80, '📂 카테고리에 등록 중...', '오늘의 뉴스 카테고리에 추가하고 있어요');
+  await new Promise(r => setTimeout(r, 300));
+
+  // 카테고리에 추가
+  const newsCat = CAT_DATA.find(function(c){ return c.id === 'news'; });
   if(newsCat) {
-    const hotSub = newsCat.subs.find(function(s){return s.id==='hot';});
+    const hotSub = newsCat.subs.find(function(s){ return s.id === 'hot'; });
     if(hotSub) {
-      const newPosts = newsItems.map(function(n,i){return {id:'auto_'+Date.now()+'_'+i,title:n.title,desc:n.summary||'',date:today,read:'4분',emoji:n.emoji||'📰'};});
-      hotSub.items = newPosts.concat(hotSub.items).slice(0,20);
+      const newPosts = newsItems.map(function(n, i) {
+        return { id: 'auto_' + Date.now() + '_' + i, title: n.title, desc: n.summary || '', date: today, read: '4분', emoji: n.emoji || '📰' };
+      });
+      hotSub.items = newPosts.concat(hotSub.items).slice(0, 20);
     }
   }
   buildCatTree();
+
+  setProgress(90, '🔍 검색엔진 색인 신청 중...', '구글·네이버·빙에 색인 신청해요');
+  await runIndexing();
+
+  setProgress(100, '🎉 완료!', newsItems.length + '개 뉴스 등록 완료!');
+  await new Promise(r => setTimeout(r, 800));
+
+  // 로딩 숨기기
+  if(loadingBox) loadingBox.style.display = 'none';
+
+  // 결과 표시
   if(list) {
-    list.innerHTML = newsItems.map(function(n){
-      return '<div style="background:var(--sur);border:1.5px solid var(--bd2);border-radius:12px;padding:13px;display:flex;gap:12px;align-items:flex-start;margin-bottom:7px">'+
-        '<div style="font-size:26px;flex-shrink:0">'+(n.emoji||'📰')+'</div>'+
-        '<div style="flex:1"><div style="font-size:13px;font-weight:700;color:var(--tx);margin-bottom:4px;line-height:1.4">'+n.title+'</div>'+
-        '<div style="font-size:11px;color:var(--mt);margin-bottom:7px">'+(n.summary||'')+'</div>'+
-        '<span style="background:rgba(5,150,105,.1);color:#059669;border-radius:999px;padding:2px 9px;font-size:10px;font-weight:700">✅ 등록됨</span></div></div>';
+    list.innerHTML = newsItems.map(function(n) {
+      return '<div style="background:var(--sur);border:1.5px solid var(--bd2);border-radius:12px;padding:13px;display:flex;gap:12px;align-items:flex-start;margin-bottom:7px">' +
+        '<div style="font-size:26px;flex-shrink:0">' + (n.emoji || '📰') + '</div>' +
+        '<div style="flex:1"><div style="font-size:13px;font-weight:700;color:var(--tx);margin-bottom:4px;line-height:1.4">' + n.title + '</div>' +
+        '<div style="font-size:11px;color:var(--mt);margin-bottom:7px">' + (n.summary || '') + '</div>' +
+        '<span style="background:rgba(5,150,105,.1);color:#059669;border-radius:999px;padding:2px 9px;font-size:10px;font-weight:700;border:1px solid rgba(5,150,105,.2)">✅ 등록됨</span></div></div>';
     }).join('');
   }
-  await runIndexing();
-  if(btn){btn.disabled=false;btn.style.opacity='1';btn.textContent='🚀 지금 바로 뉴스 가져오기';}
-  toast('🎉 '+newsItems.length+'개 뉴스 카테고리에 등록 완료!');
+
+  // 버튼 복구
+  if(btn) { btn.disabled=false; btn.style.opacity='1'; btn.textContent='🚀 지금 바로 뉴스 가져오기'; }
+  toast('🎉 ' + newsItems.length + '개 뉴스 등록 완료! 카테고리에서 확인하세요');
 }
+
 
 async function runIndexing() {
   const sitemap = 'https://tarrydaily.com/sitemap.xml';
