@@ -2153,9 +2153,7 @@ body.dark-mode #socialPopupMsg{color:#e2e0f0!important}
 <div class="toast" id="toastEl"></div>
 <input type="file" id="profileInput2" accept="image/*" style="display:none">
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-window.onerror=function(m,s,l,c,e){document.title="JS오류:"+m.substring(0,30);return false;};
-// ═══════════════════════════════════════════
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>// ═══════════════════════════════════════════
 //  TARRY의 데일리 — 자동배포 시스템 v3.0
 //  대한민국 최고 수준 자동화
 // ═══════════════════════════════════════════
@@ -2874,7 +2872,8 @@ function showPage(id) {
   }
   // 관리자 페이지 열릴 때 초기화
   if(id === 'admin') {
-    setTimeout(function(){ try { setAdminTab('dash'); } catch(e){} }, 50);
+    try { setAdminTab('dash'); } catch(e){}
+    setTimeout(function(){ try { setAdminTab('dash'); } catch(e){}; }, 200);
   }
 }
 
@@ -3009,15 +3008,16 @@ function renderPosts(){
   if(titleEl) titleEl.textContent = l2 ? l2.name : (l1 ? l1.icon+' '+l1.name : '전체 글');
   if(currentPosts.length === 0) {
     grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--mt)"><div style="font-size:36px;margin-bottom:10px">📭</div>이 카테고리에 글이 없어요</div>';
+    grid.onclick = null;
     return;
   }
   var html = '';
-  for(var i=0; i<currentPosts.length; i++){
+  for(var i = 0; i < currentPosts.length; i++){
     var p = currentPosts[i];
     var color = p.color || 'ct-a';
     var emoji = p.emoji || '📄';
     var desc = (p.desc||'').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-    html += '<div class="pc' + (isList?' list-v':'') + '" data-ci="'+i+'" style="cursor:pointer">';
+    html += '<div class="pc'+(isList?' list-v':'')+'" data-ci="'+i+'" style="cursor:pointer">';
     html += '<div class="pc-thumb '+color+'">'+emoji+'</div>';
     html += '<div style="flex:1"><div class="pc-body">';
     html += '<span class="pc-tag">'+(p.l2name||'')+'</span>';
@@ -3026,16 +3026,21 @@ function renderPosts(){
     html += '</div><div class="pc-footer"><span>'+(p.date||'')+'</span><span>'+(p.read||'')+' 읽기</span></div></div></div>';
   }
   grid.innerHTML = html;
-  // 이벤트 위임으로 클릭 처리
-  grid.onclick = function(e){
-    var card = e.target;
-    while(card && !card.getAttribute('data-ci')) card = card.parentElement;
-    if(!card) return;
-    var idx = parseInt(card.getAttribute('data-ci'));
-    var p = currentPosts[idx];
-    if(!p) return;
-    openPost(p.id||'', p.title||'', p.l2name||'', p.emoji||'📄', 'TARRY · '+(p.date||'')+' · '+(p.read||'')+' 읽기');
-  };
+  grid.onclick = null;
+  grid.addEventListener('click', function(e){
+    var node = e.target;
+    var depth = 0;
+    while(node && node !== grid && depth < 6){
+      if(node.nodeType === 1 && node.hasAttribute('data-ci')){
+        var ci = parseInt(node.getAttribute('data-ci'));
+        var p = currentPosts[ci];
+        if(p) openPost(p.id||'', p.title||'', p.l2name||'', p.emoji||'📄', 'TARRY·'+(p.date||'')+'·'+(p.read||'')+' 읽기');
+        return;
+      }
+      node = node.parentNode;
+      depth++;
+    }
+  });
 }
 function setView(v){currentView=v;document.getElementById('vb-grid').classList.toggle('on',v==='grid');document.getElementById('vb-list').classList.toggle('on',v==='list');renderPosts();}
 
