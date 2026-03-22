@@ -1646,7 +1646,7 @@ body.dark-mode #socialPopupMsg{color:#e2e0f0!important}
           <div style="font-size:36px;margin-bottom:6px">📰</div>
           <div style="font-size:22px;font-weight:800;color:#fff;font-family:var(--display);margin-bottom:6px">오늘의 뉴스 자동 등록</div>
           <div style="font-size:13px;color:rgba(255,255,255,.85);margin-bottom:20px;line-height:1.6">버튼 하나로 오늘의 핫뉴스를 자동으로 수집하고<br>AI가 글로 만들어서 바로 등록해줘요!</div>
-          <button id="autoNewsBtn" onclick="runAutoNews()"
+          <button id="nl-autoNewsBtn" onclick="runAutoNews()"
             style="background:#fff;color:#059669;border:none;border-radius:999px;padding:16px 40px;font-size:16px;font-weight:800;cursor:pointer;font-family:var(--font);box-shadow:0 4px 20px rgba(0,0,0,.2);transition:.2s"
             onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
             🚀 지금 바로 뉴스 가져오기
@@ -1659,7 +1659,7 @@ body.dark-mode #socialPopupMsg{color:#e2e0f0!important}
           <div style="background:var(--sur2);border-radius:12px;padding:14px;border:1px solid var(--bd);margin-bottom:11px">
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
               <div>
-                <div style="font-size:13px;font-weight:700" id="scheduleLabel">⏰ 매일 오전 8시 자동 실행</div>
+                <div style="font-size:13px;font-weight:700" id="nl-scheduleLabel">⏰ 매일 오전 8시 자동 실행</div>
                 <div style="font-size:11px;color:var(--mt);margin-top:2px" id="scheduleDesc">매일 아침 8시에 자동으로 뉴스를 수집해서 등록해요</div>
               </div>
               <div style="text-align:right">
@@ -1669,11 +1669,11 @@ body.dark-mode #socialPopupMsg{color:#e2e0f0!important}
             </div>
             <!-- 자동/수동 모드 큰 토글 -->
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
-              <button onclick="setNewsMode('auto')" id="newsModeAuto"
+              <button onclick="setNewsMode('auto')" id="nl-newsModeAuto"
                 style="background:var(--grad);color:#fff;border:none;border-radius:11px;padding:14px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font)">
                 🤖 자동 모드<br><span style="font-size:10px;opacity:.85">매일 정해진 시간에 자동 수집</span>
               </button>
-              <button onclick="setNewsMode('manual')" id="newsModeManual"
+              <button onclick="setNewsMode('manual')" id="nl-newsModeManual"
                 style="background:var(--sur2);color:var(--mt);border:2px solid var(--bd);border-radius:11px;padding:14px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font)">
                 ✋ 수동 모드<br><span style="font-size:10px;opacity:.85">내가 원할 때만 수집</span>
               </button>
@@ -1688,7 +1688,7 @@ body.dark-mode #socialPopupMsg{color:#e2e0f0!important}
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px">
             <div>
               <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:4px">수집할 뉴스 수</label>
-              <select class="inp" id="newsCount" style="cursor:pointer">
+              <select class="inp" id="nl-newsCount" style="cursor:pointer">
                 <option value="3">3개</option>
                 <option value="5" selected>5개</option>
                 <option value="10">10개</option>
@@ -1696,7 +1696,7 @@ body.dark-mode #socialPopupMsg{color:#e2e0f0!important}
             </div>
             <div>
               <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:4px">뉴스 분야</label>
-              <select class="inp" id="newsCategory" style="cursor:pointer">
+              <select class="inp" id="nl-newsCategory" style="cursor:pointer">
                 <option value="종합">종합 뉴스</option>
                 <option value="IT기술">IT·기술</option>
                 <option value="경제재테크">경제·재테크</option>
@@ -1736,7 +1736,7 @@ body.dark-mode #socialPopupMsg{color:#e2e0f0!important}
         <!-- 수집된 뉴스 결과 -->
         <div class="admin-section">
           <h3>📋 오늘 수집된 뉴스</h3>
-          <div id="autoNewsList" style="display:flex;flex-direction:column;gap:8px">
+          <div id="nl-autoNewsList" style="display:flex;flex-direction:column;gap:8px">
             <div style="text-align:center;padding:2rem;color:var(--mt)">
               <div style="font-size:32px;margin-bottom:8px">📰</div>
               위 버튼을 눌러 뉴스를 가져와보세요!
