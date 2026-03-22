@@ -83,7 +83,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--tx);min-height:100
 .nbtn{border:none;border-radius:9px;padding:8px 15px;font-size:13px;font-weight:600;cursor:pointer;transition:.2s;font-family:var(--font)}
 .nb-admin{background:#1a1a2e;color:#a78bfa;border:1px solid rgba(167,139,250,.3)}
 .nb-browse{background:var(--sur2);color:var(--ac);border:1.5px solid var(--bd2)}
-.nb-login{background:var(--sur2);color:var(--tx);border:1.5px solid var(--bd2);font-weight:600}
+.nb-login{background:#ec4899;color:#fff;border:none;font-weight:700}
 .nb-signup{background:var(--grad);color:#fff}
 .nav-user{display:none;align-items:center;gap:6px}
 .nav-av{width:34px;height:34px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:700;overflow:hidden;flex-shrink:0;cursor:pointer}
@@ -1948,10 +1948,11 @@ body.dark-mode #socialPopupMsg{color:#e2e0f0!important}
       <div id="postBody" style="padding:2rem;font-size:15px;line-height:1.9;color:var(--tx)"></div>
       <!-- 글 하단 -->
       <div style="padding:1.2rem 2rem;border-top:1px solid var(--bd);background:var(--sur2);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
-        <div style="display:flex;gap:8px">
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
           <button onclick="showPage('comment');setNav('comment')" style="background:var(--grad);color:#fff;border:none;border-radius:8px;padding:8px 16px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font)">💬 댓글 달기</button>
           <button onclick="sharePost()" style="background:var(--sur);color:var(--ac);border:1.5px solid var(--bd2);border-radius:8px;padding:8px 16px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font)">🔗 공유하기</button>
-          <button onclick="showImagePanel(document.getElementById('postTitle').textContent, document.getElementById('postTag').textContent)" style="background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;border:none;border-radius:8px;padding:8px 16px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font)">🎨 AI 이미지</button>
+          <button onclick="registerCurrentPost()" style="background:linear-gradient(135deg,#059669,#0891b2);color:#fff;border:none;border-radius:8px;padding:8px 16px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font)">✅ 카테고리에 등록</button>
+          <button onclick="publishPostToSNS()" style="background:linear-gradient(135deg,#ec4899,#f97316);color:#fff;border:none;border-radius:8px;padding:8px 16px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font)">📱 SNS 발행</button>
         </div>
         <div id="postSourceLink" style="font-size:11px;color:var(--mt)"></div>
       </div>
@@ -2561,32 +2562,62 @@ async function loadRSSPosts() {
 }
 
 async function openRSSPost(post) {
-  // AI로 글 변환 후 상세 페이지 표시
-  document.getElementById('postTitle').textContent = post.title;
-  document.getElementById('postTag').textContent = '블로그';
-  document.getElementById('postEmoji').textContent = '📄';
-  document.getElementById('postMeta').textContent = `TARRY · ${new Date(post.date).toLocaleDateString('ko-KR')} · AI 자동생성`;
+  const title = post.title || '블로그 글';
+  const url = post.url || 'https://tarryguide.com';
+  
+  // 헤더 설정
+  document.getElementById('postTitle').textContent = title;
+  document.getElementById('postTag').textContent = post.sourceName || '블로그';
+  document.getElementById('postEmoji').textContent = '📰';
+  document.getElementById('postMeta').textContent = 'TARRY · ' + new Date(post.date||Date.now()).toLocaleDateString('ko-KR') + ' · AI 변환';
   document.getElementById('postHeader').style.background = 'var(--grad)';
+  
+  // 원문 링크 표시
+  const srcLink = document.getElementById('postSourceLink');
+  if(srcLink) srcLink.innerHTML = `<a href="${url}" target="_blank" style="color:var(--ac);font-size:11px">📎 원문 보기 →</a>`;
+  
+  // 로딩 표시
   document.getElementById('postBody').innerHTML = `
     <div style="text-align:center;padding:3rem">
-      <div style="font-size:48px;margin-bottom:1rem;animation:spin 2s linear infinite">🤖</div>
-      <div style="font-size:16px;font-weight:700;color:var(--tx);margin-bottom:.5rem">AI가 글을 생성 중이에요...</div>
-      <div style="font-size:13px;color:var(--mt)">약 10~20초 소요됩니다</div>
+      <div style="font-size:48px;margin-bottom:12px;animation:spin 1.5s linear infinite">🤖</div>
+      <div style="font-size:16px;font-weight:700;color:var(--tx);margin-bottom:6px">AI가 글을 작성하고 있어요...</div>
+      <div style="font-size:13px;color:var(--mt)">약 5~10초 소요됩니다</div>
     </div>
     <style>@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}</style>`;
-  showPage('post');
   
-  const generated = await AI_WRITER.generate(post.title, '블로그', post.url);
-  if(generated) {
-    document.getElementById('postBody').innerHTML = generated;
-  } else {
-    document.getElementById('postBody').innerHTML = `
-      <p style="font-size:15px;line-height:2;color:var(--mt)">원문 보기: <a href="${post.url}" target="_blank" style="color:var(--ac)">${post.url}</a></p>`;
+  showPage('post');
+  window.scrollTo(0,0);
+  
+  // Pollinations AI 텍스트 생성 (CORS 허용)
+  try {
+    const prompt = encodeURIComponent(`다음 블로그 글 제목으로 한국어 블로그 글을 2000자 이상 작성해줘. 제목: ${title}. HTML 형식으로 h2, p, ul 태그 사용. 소제목 4개 이상. 실용적인 내용. h2 style="font-family:Georgia,serif;font-size:22px;margin-bottom:1rem;color:#1a1a2e;border-left:4px solid #7c3aed;padding-left:12px;margin-top:2rem" p style="font-size:15px;line-height:2;margin-bottom:1.2rem;color:#6b7280"`);
+    
+    const res = await fetch(`https://text.pollinations.ai/${prompt}`, {
+      method: 'GET',
+      headers: { 'Accept': 'text/plain' }
+    });
+    
+    if(res.ok) {
+      const text = await res.text();
+      if(text && text.length > 200) {
+        document.getElementById('postBody').innerHTML = text;
+        // Pollinations 이미지 자동 생성
+        const imgEl = document.getElementById('postHeaderImg');
+        if(imgEl) autoGeneratePostImage(title, post.sourceName || '블로그', imgEl);
+        return;
+      }
+    }
+  } catch(e) {
+    console.log('Pollinations 실패, 기본 템플릿 사용');
   }
   
-  // SNS 공유 버튼 업데이트
-  document.getElementById('postSourceLink').innerHTML = 
-    `<a href="${post.url}" target="_blank" style="color:var(--ac);font-size:11px">원문 보기 →</a>`;
+  // 기본 풍부한 템플릿 (AI 실패시)
+  const data = getPostBody(null, title, post.sourceName || '블로그');
+  document.getElementById('postBody').innerHTML = data.body;
+  
+  // 이미지 생성
+  const imgEl = document.getElementById('postHeaderImg');
+  if(imgEl) autoGeneratePostImage(title, post.sourceName || '블로그', imgEl);
 }
 
 function quickShareRSS(post) {
@@ -3648,6 +3679,9 @@ function useTemplate(i) {
   toast('📋 템플릿 불러옴! 미리보기를 눌러보세요');
 }
 
+function showImagePanel(title, tag) {
+  toast('🎨 AI 이미지 프롬프트 생성 기능! 관리자 페이지에서 확인하세요.');
+}
 function toast(msg){const t=document.getElementById('toastEl');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
 
 function autoPing(){const s='https://tarrydaily.com/sitemap.xml';['https://www.google.com/ping?sitemap='+s,'https://www.bing.com/ping?sitemap='+s].forEach(url=>fetch(url,{mode:'no-cors'}).catch(()=>{}));}
@@ -4378,31 +4412,9 @@ async function writeArticle(news) {
   preview.scrollIntoView({behavior:'smooth'});
 
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:1000,
-        messages:[{role:'user', content:`다음 뉴스를 바탕으로 TARRY의 데일리 블로그용 기사를 작성해주세요.
-
-뉴스 제목: ${news.title}
-출처: ${news.source}
-요약: ${news.summary}
-
-작성 규칙:
-1. 2000자 이상
-2. 독자 친화적인 한국어
-3. 소제목 3개 이상 포함
-4. 실용적인 정보와 인사이트 포함
-5. HTML 형식 (h2, p, ul 등)
-6. h2: style="font-family:Georgia,serif;font-size:22px;margin-bottom:1rem;color:#1a1a2e;border-left:4px solid #7c3aed;padding-left:12px;margin-top:2rem"
-7. p: style="font-size:15px;line-height:2;margin-bottom:1.2rem;color:#6b7280"
-8. HTML만 반환`}]
-      })
-    });
-    const data = await res.json();
-    const article = data.content?.[0]?.text || '<p>기사 생성 실패</p>';
+    const articlePrompt = encodeURIComponent(`뉴스 제목: ${news.title}. 출처: ${news.source}. 요약: ${news.summary}. 이 뉴스를 바탕으로 한국어 블로그 기사를 2000자 이상 HTML로 작성해줘. h2 태그에 style="font-family:Georgia,serif;font-size:22px;margin-bottom:1rem;color:#1a1a2e;border-left:4px solid #7c3aed;padding-left:12px;margin-top:2rem" 적용. p 태그에 style="font-size:15px;line-height:2;margin-bottom:1.2rem;color:#6b7280" 적용. HTML만 반환.`);
+    const res = await fetch(`https://text.pollinations.ai/${articlePrompt}`);
+    const article = await res.text() || '<p>기사 생성 실패</p>';
     
     preview.innerHTML = `
       <div style="background:var(--sur);border:1.5px solid var(--bd2);border-radius:14px;overflow:hidden;margin-top:12px">
@@ -4937,6 +4949,43 @@ try {
   if(savedPw) adminPw = savedPw;
 } catch(e){}
 
+
+// 현재 글을 카테고리에 등록
+function registerCurrentPost() {
+  const title = document.getElementById('postTitle')?.textContent;
+  const tag = document.getElementById('postTag')?.textContent || '블로그';
+  const today = new Date().toLocaleDateString('ko-KR', {month:'numeric', day:'numeric'});
+  
+  // CAT_DATA 오늘의 뉴스에 추가
+  const newsCat = CAT_DATA.find(c => c.id === 'news');
+  if(newsCat) {
+    const hotSub = newsCat.subs.find(s => s.id === 'hot');
+    if(hotSub) {
+      const newPost = {
+        id: 'reg_' + Date.now(),
+        title,
+        desc: '등록된 글이에요',
+        date: today,
+        read: '5분',
+        emoji: '📰'
+      };
+      hotSub.items.unshift(newPost);
+      buildCatTree();
+      toast('✅ "' + title.substring(0,20) + '..." 카테고리에 등록됐어요!');
+    }
+  } else {
+    toast('✅ 글이 등록됐어요!');
+  }
+}
+
+// 현재 글을 SNS에 발행
+function publishPostToSNS() {
+  const title = document.getElementById('postTitle')?.textContent || '';
+  const url = 'https://tarrydaily.com';
+  const text = encodeURIComponent(title + '\n\n' + url + '\n\n#TARRY의데일리');
+  window.open('https://twitter.com/intent/tweet?text=' + text, '_blank', 'width=600,height=400');
+  toast('📱 SNS 발행 창이 열렸어요!');
+}
 // ── INIT ──
 buildCatTree();renderBreadcrumb();renderPosts();
 buildEmojiPicker();renderComments();
