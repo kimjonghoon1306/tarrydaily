@@ -588,7 +588,7 @@ body.dark-mode #socialPopupMsg{color:#e2e0f0!important}
       </div>
       <div style="display:flex;gap:8px;flex-wrap:wrap">
         <button onclick="downloadPPT()"
-           onclick="downloadPPT()" style="background:var(--grad);color:#fff;border:none;border-radius:12px;padding:12px 22px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:7px;white-space:nowrap;font-family:var(--font)">
+           onclick="downloadPPT()" style="background:var(--grad);color:#fff;border:none;border-radius:12px;padding:12px 22px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:7px;white-space:nowrap;font-family:var(--font)" onclick="downloadPPT()">
           📥 PPT 다운로드
         </button>
         <button onclick="showPage('about');setNav('about')"
@@ -2099,7 +2099,7 @@ body.dark-mode #socialPopupMsg{color:#e2e0f0!important}
       <div id="adminLoginErr" style="background:rgba(220,38,38,.08);border:1px solid rgba(220,38,38,.2);border-radius:8px;padding:9px;font-size:12px;color:var(--red);margin-bottom:12px;display:none">❌ 비밀번호가 틀렸어요</div>
       <div style="margin-bottom:12px">
         <label style="display:block;font-size:10px;font-weight:700;color:var(--mt);margin-bottom:5px;text-transform:uppercase;letter-spacing:.07em">관리자 비밀번호</label>
-        <input class="inp" id="adminPwField" onkeydown="if(event.key==='Enter')doAdminLogin()" type="password" placeholder="" onkeydown="if(event.key==='Enter')doAdminLogin()">
+        <input class="inp" id="adminPwField" onkeydown="if(event.key==='Enter')doAdminLogin()" type="password" placeholder="관리자 비밀번호">
       </div>
       <button onclick="doAdminLogin()" style="width:100%;background:var(--grad);color:#fff;border:none;border-radius:9px;padding:12px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font)">🔐 로그인</button>
       
@@ -2994,42 +2994,45 @@ function selectCat(l1id,l2id,l3id){selectedL1=l1id;selectedL2=l2id;selectedL3=l3
 function renderBreadcrumb(){const bc=document.getElementById('breadcrumb');let html=`<span onclick="selectCat(null,null,null)">🏠 전체</span>`;if(selectedL1){const l1=CAT_DATA.find(x=>x.id===selectedL1);if(l1){html+=`<span class="sep">›</span><span onclick="selectCat('${l1.id}',null,null)">${l1.icon} ${l1.name}</span>`;if(selectedL2){const l2=l1.subs.find(x=>x.id===selectedL2);if(l2){html+=`<span class="sep">›</span><span onclick="selectCat('${l1.id}','${l2.id}',null)">${l2.name}</span>`;if(selectedL3){const item=l2.items.find(x=>x.id===selectedL3);if(item)html+=`<span class="sep">›</span><span class="cur">${item.title.substring(0,18)}...</span>`;}}}}}bc.innerHTML=html;}
 function getFilteredPosts(){let all=[];if(!selectedL1){CAT_DATA.forEach(l1=>l1.subs.forEach(l2=>l2.items.forEach(item=>all.push({...item,l1:l1.id,l1name:l1.name,l1icon:l1.icon,color:l1.color,l2name:l2.name}))));}else{const l1=CAT_DATA.find(x=>x.id===selectedL1);if(!l1)return[];if(!selectedL2)l1.subs.forEach(l2=>l2.items.forEach(item=>all.push({...item,l1:l1.id,l1name:l1.name,l1icon:l1.icon,color:l1.color,l2name:l2.name})));else{const l2=l1.subs.find(x=>x.id===selectedL2);if(!l2)return[];if(!selectedL3)l2.items.forEach(item=>all.push({...item,l1:l1.id,l1name:l1.name,l1icon:l1.icon,color:l1.color,l2name:l2.name}));else{const item=l2.items.find(x=>x.id===selectedL3);if(item)all.push({...item,l1:l1.id,l1name:l1.name,l1icon:l1.icon,color:l1.color,l2name:l2.name});}}}const sort=document.getElementById('sortSel')?.value||'latest';if(sort==='popular')all.sort(()=>Math.random()-.5);else if(sort==='oldest')all.reverse();return all;}
 function renderPosts(){
-  var posts = getFilteredPosts();
+  currentPosts = getFilteredPosts();
   var grid = document.getElementById('postGrid');
   if(!grid) return;
   var isList = currentView === 'list';
   grid.className = 'post-grid' + (isList ? ' list-v' : '');
   var countEl = document.getElementById('catCountLbl');
-  if(countEl) countEl.textContent = posts.length + '개';
+  if(countEl) countEl.textContent = currentPosts.length + '개';
   var l1 = selectedL1 ? CAT_DATA.find(function(x){return x.id===selectedL1;}) : null;
   var l2 = l1 && selectedL2 ? l1.subs.find(function(x){return x.id===selectedL2;}) : null;
   var titleEl = document.getElementById('catTitle');
   if(titleEl) titleEl.textContent = l2 ? l2.name : (l1 ? l1.icon+' '+l1.name : '전체 글');
-  if(posts.length === 0) {
-    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--mt)"><div style="font-size:36px;margin-bottom:10px">\u{1F4ED}</div>\uc774 \uce74\ud14c\uace0\ub9ac\uc5d0 \uae00\uc774 \uc5c6\uc5b4\uc694</div>';
+  if(currentPosts.length === 0) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--mt)"><div style="font-size:36px;margin-bottom:10px">📭</div>이 카테고리에 글이 없어요</div>';
     return;
   }
-  // data-속성으로 저장하고 클릭 이벤트로 처리 (따옴표 충돌 완전 방지)
-  grid.innerHTML = posts.map(function(p, i) {
+  var html = '';
+  for(var i=0; i<currentPosts.length; i++){
+    var p = currentPosts[i];
     var color = p.color || 'ct-a';
-    var emoji = p.emoji || '\ud83d\udcc4';
+    var emoji = p.emoji || '📄';
     var desc = (p.desc||'').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-    return '<div class="pc'+(isList?' list-v':'')+'" data-pid="'+i+'" style="cursor:pointer">'
-      +'<div class="pc-thumb '+color+'">'+emoji+'</div>'
-      +'<div style="flex:1"><div class="pc-body">'
-      +'<span class="pc-tag">'+(p.l2name||'')+'</span>'
-      +'<div class="pc-title">'+(p.title||'')+'</div>'
-      +'<div class="pc-desc">'+desc+'</div>'
-      +'</div><div class="pc-footer"><span>'+(p.date||'')+'</span><span>'+(p.read||'')+' \uc77d\uae30</span></div></div></div>';
-  }).join('');
-  // 클릭 이벤트 위임으로 처리
-  grid.onclick = function(e) {
-    var card = e.target.closest('[data-pid]');
+    html += '<div class="pc' + (isList?' list-v':'') + '" data-ci="'+i+'" style="cursor:pointer">';
+    html += '<div class="pc-thumb '+color+'">'+emoji+'</div>';
+    html += '<div style="flex:1"><div class="pc-body">';
+    html += '<span class="pc-tag">'+(p.l2name||'')+'</span>';
+    html += '<div class="pc-title">'+(p.title||'')+'</div>';
+    html += '<div class="pc-desc">'+desc+'</div>';
+    html += '</div><div class="pc-footer"><span>'+(p.date||'')+'</span><span>'+(p.read||'')+' 읽기</span></div></div></div>';
+  }
+  grid.innerHTML = html;
+  // 이벤트 위임으로 클릭 처리
+  grid.onclick = function(e){
+    var card = e.target;
+    while(card && !card.getAttribute('data-ci')) card = card.parentElement;
     if(!card) return;
-    var idx = parseInt(card.getAttribute('data-pid'));
-    var p = posts[idx];
+    var idx = parseInt(card.getAttribute('data-ci'));
+    var p = currentPosts[idx];
     if(!p) return;
-    openPost(p.id||'', p.title||'', p.l2name||'', p.emoji||'\ud83d\udcc4', 'TARRY\u00b7'+(p.date||'')+'\u00b7'+(p.read||'')+' \uc77d\uae30');
+    openPost(p.id||'', p.title||'', p.l2name||'', p.emoji||'📄', 'TARRY · '+(p.date||'')+' · '+(p.read||'')+' 읽기');
   };
 }
 function setView(v){currentView=v;document.getElementById('vb-grid').classList.toggle('on',v==='grid');document.getElementById('vb-list').classList.toggle('on',v==='list');renderPosts();}
@@ -4353,9 +4356,11 @@ function doAdminLogin() {
     input.value = '';
     if(err) err.style.display = 'none';
     showPage('admin');
-    try { setAdminTab('dash'); } catch(e){}
-    try { buildAdminCatTree(); } catch(e){}
-    try { buildThemePresets(); } catch(e){}
+    setTimeout(function(){
+      try { setAdminTab('dash'); } catch(e){}
+      try { buildAdminCatTree(); } catch(e){}
+      try { buildThemePresets(); } catch(e){}
+    }, 100);
     toast('🔐 관리자 페이지에 오신 걸 환영해요!');
   } else {
     if(err) err.style.display = 'block';
