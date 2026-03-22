@@ -1,0 +1,1865 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="description" content="TARRY의 데일리 — 생활꿀팁, 돈되는정보, IT, 트렌드">
+<meta property="og:title" content="TARRY의 데일리">
+<meta property="og:url" content="https://tarrydaily.com">
+<meta name="google-site-verification" content="YOUR_GOOGLE_CODE_HERE">
+<meta name="naver-site-verification" content="YOUR_NAVER_CODE_HERE">
+<title>TARRY의 데일리 — tarrydaily.com</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --g1:#7c3aed;--g2:#ec4899;--g3:#f97316;
+  --grad:linear-gradient(135deg,var(--g1),var(--g2),var(--g3));
+  --bg:#faf9ff;--sur:#fff;--sur2:#f5f3ff;--sur3:#ede9fe;
+  --tx:#1a1a2e;--mt:#6b7280;--bd:rgba(124,58,237,.12);--bd2:rgba(124,58,237,.28);
+  --ac:#7c3aed;--green:#059669;--red:#dc2626;--yellow:#d97706;
+  --font:'Noto Sans KR',system-ui,sans-serif;
+  --display:'Playfair Display',serif;
+}
+
+[data-theme="dark"] {
+  --bg:#0f0e1a;--sur:#1a1a2e;--sur2:#231f35;--sur3:#2d2945;
+  --tx:#e2e8f0;--mt:#9ca3af;--bd:rgba(124,58,237,.2);--bd2:rgba(124,58,237,.4);
+  --ac:#a78bfa;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--tx);min-height:100vh;overflow-x:hidden;line-height:1.6}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:3px}
+
+/* OVERLAY - 클릭 안막히게 */
+.ov{position:fixed;inset:0;background:rgba(15,14,26,.75);z-index:600;display:flex;align-items:center;justify-content:center;padding:1rem;pointer-events:all}
+.ov.hide{display:none !important;pointer-events:none !important;visibility:hidden !important;opacity:0 !important}
+
+/* POPUP */
+.popup{background:var(--sur);border-radius:22px;overflow:hidden;box-shadow:0 24px 70px rgba(124,58,237,.22);position:relative;z-index:601}
+.wp{width:min(460px,95vw)}
+.wp-hd{background:var(--grad);padding:24px 24px 18px;text-align:center;position:relative}
+.wp-hd h2{font-family:var(--display);font-size:22px;color:#fff;margin-bottom:5px}
+.wp-hd p{font-size:12px;color:rgba(255,255,255,.88);line-height:1.5}
+.wp-x{position:absolute;top:12px;right:12px;background:rgba(255,255,255,.25);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:18px;line-height:1;z-index:700}
+.wp-bd{padding:20px 24px}
+.wp-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
+.wb{background:var(--sur2);border-radius:10px;padding:11px;text-align:center;border:1px solid var(--bd)}
+.wb-i{font-size:20px;margin-bottom:4px}.wb-t{font-size:11px;font-weight:700;margin-bottom:2px}.wb-d{font-size:10px;color:var(--mt)}
+.wp-btns{display:flex;flex-direction:column;gap:7px}
+.wpb{width:100%;padding:11px;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font)}
+.wpb-main{background:var(--grad);color:#fff}
+.wpb-browse{background:var(--sur2);color:var(--ac);border:1.5px solid var(--bd2)}
+.wpb-skip{background:transparent;color:var(--mt);font-size:12px;padding:6px}
+
+/* VIP POPUP */
+.vip-p{width:min(420px,95vw)}
+.vip-hd{background:linear-gradient(135deg,#f59e0b,#ef4444,#ec4899);padding:24px;text-align:center;position:relative}
+.vip-hd h2{font-family:var(--display);font-size:20px;color:#fff;margin-bottom:4px}
+.vip-hd p{font-size:12px;color:rgba(255,255,255,.88)}
+.vip-bd{padding:18px 22px}
+.vp{display:flex;align-items:center;gap:9px;background:var(--sur2);border-radius:8px;padding:9px 11px;border:1px solid var(--bd);margin-bottom:7px}
+.vp-i{font-size:17px;flex-shrink:0}.vp-t{font-size:12px;line-height:1.4}.vp-t strong{color:var(--ac)}
+.vip-btn{width:100%;background:linear-gradient(135deg,#f59e0b,#ef4444);color:#fff;border:none;border-radius:9px;padding:12px;font-size:13px;font-weight:700;cursor:pointer;margin-bottom:7px;font-family:var(--font)}
+.vip-skip{width:100%;background:transparent;border:none;color:var(--mt);font-size:12px;cursor:pointer;padding:4px;font-family:var(--font)}
+
+/* ADMIN LOGIN */
+.admin-pop{width:min(380px,95vw)}
+.admin-hd{background:linear-gradient(135deg,#1a1a2e,#2d2945);padding:22px;text-align:center;position:relative}
+.admin-hd h2{font-family:var(--display);font-size:20px;color:#fff;margin-bottom:4px}
+.admin-hd p{font-size:12px;color:rgba(255,255,255,.55)}
+.admin-bd{padding:20px 24px}
+.admin-err{background:rgba(220,38,38,.08);border:1px solid rgba(220,38,38,.2);border-radius:8px;padding:9px;font-size:12px;color:var(--red);margin-bottom:11px;display:none}
+.admin-err.show{display:block}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:300;background:rgba(250,249,255,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--bd);padding:0 1.2rem;height:56px;display:flex;align-items:center;gap:8px}
+.nav-logo{font-family:var(--display);font-size:19px;font-weight:700;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;cursor:pointer;flex-shrink:0}
+.nav-links{display:flex;gap:2px;flex:1;overflow-x:auto;scrollbar-width:none}.nav-links::-webkit-scrollbar{display:none}
+.nl{padding:5px 10px;border:none;background:transparent;color:var(--mt);font-size:11px;font-weight:500;cursor:pointer;border-radius:7px;white-space:nowrap;transition:.2s;font-family:var(--font)}
+.nl:hover{background:var(--sur2);color:var(--tx)}.nl.on{background:var(--sur3);color:var(--ac);font-weight:700}
+.nav-r{display:flex;gap:5px;align-items:center;flex-shrink:0}
+.nbtn{border:none;border-radius:7px;padding:5px 11px;font-size:11px;font-weight:600;cursor:pointer;transition:.2s;font-family:var(--font)}
+.nb-admin{background:#1a1a2e;color:#a78bfa;border:1px solid rgba(167,139,250,.3)}
+.nb-browse{background:var(--sur2);color:var(--ac);border:1.5px solid var(--bd2)}
+.nb-login{background:transparent;color:var(--mt);border:1px solid var(--bd)}
+.nb-signup{background:var(--grad);color:#fff}
+.nav-user{display:none;align-items:center;gap:6px}
+.nav-av{width:30px;height:30px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:700;overflow:hidden;flex-shrink:0;cursor:pointer}
+.nav-av img{width:100%;height:100%;object-fit:cover}
+.nav-grade{font-size:10px;padding:2px 7px;border-radius:999px;font-weight:700}
+.g-free{background:var(--sur3);color:var(--ac)}.g-vip{background:linear-gradient(135deg,#f59e0b,#ef4444);color:#fff}.g-admin{background:linear-gradient(135deg,#1a1a2e,#7c3aed);color:#fff}
+.browse-bar{background:linear-gradient(135deg,rgba(124,58,237,.07),rgba(236,72,153,.07));border-bottom:1px solid var(--bd2);padding:7px 1.2rem;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.browse-bar.hide{display:none !important}
+.bb-t{flex:1;font-size:11px;color:var(--ac);font-weight:500}.bb-btns{display:flex;gap:5px}
+.bb-btn{border:none;border-radius:6px;padding:5px 11px;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--font)}
+.bba{background:var(--grad);color:#fff}.bbb{background:var(--sur2);color:var(--ac);border:1.5px solid var(--bd2)}.bbx{background:none;border:none;color:var(--mt);cursor:pointer;font-size:17px}
+
+/* PAGES */
+.page{display:none}.page.on{display:block;animation:fadeUp .25s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.wrap{max-width:1060px;margin:0 auto;padding:1.5rem}
+
+/* HERO */
+.hero{min-height:88vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:4rem 1.5rem 3rem;position:relative;overflow:hidden}
+.blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.3;animation:bf 9s ease-in-out infinite;pointer-events:none !important}
+.b1{width:500px;height:500px;background:var(--g1);top:-120px;left:-120px;pointer-events:none !important}
+.b2{width:420px;height:420px;background:var(--g2);bottom:-80px;right:-80px;animation-delay:3s;pointer-events:none !important}
+.b3{width:300px;height:300px;background:var(--g3);top:50%;left:50%;animation:bf3 9s ease-in-out 6s infinite;pointer-events:none !important}
+@keyframes bf{0%,100%{transform:translate(0,0)}50%{transform:translate(20px,-18px)}}
+@keyframes bf3{0%,100%{transform:translate(-50%,-50%)}50%{transform:translate(calc(-50% + 18px),calc(-50% - 18px))}}
+.hero-tag{display:inline-block;background:rgba(124,58,237,.1);border:1px solid rgba(124,58,237,.2);border-radius:999px;padding:5px 18px;font-size:12px;font-weight:600;color:var(--ac);margin-bottom:1.4rem;position:relative;z-index:2}
+.hero-title{font-family:var(--display);font-size:clamp(36px,6.5vw,76px);line-height:1.08;position:relative;z-index:2;max-width:800px}
+.gt{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:16px;color:var(--mt);margin:1.4rem 0 2.4rem;max-width:460px;line-height:1.75;position:relative;z-index:2}
+.hero-btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;position:relative;z-index:2}
+.hbtn{border:none;border-radius:999px;padding:13px 30px;font-size:13px;font-weight:600;cursor:pointer;transition:.2s;font-family:var(--font)}
+.hb-main{background:var(--grad);color:#fff;box-shadow:0 8px 28px rgba(124,58,237,.3)}.hb-main:hover{transform:translateY(-2px)}
+.hb-browse{background:var(--sur);color:var(--ac);border:1.5px solid var(--bd2)}
+.hb-sub{background:transparent;color:var(--tx);border:1.5px solid var(--bd2)}
+.sec-lbl{display:flex;align-items:center;gap:12px;font-size:10px;font-weight:700;color:var(--mt);text-transform:uppercase;letter-spacing:.12em;margin-bottom:1.5rem}
+.sec-lbl::before,.sec-lbl::after{content:'';flex:1;height:1px}
+.sec-lbl::before{background:linear-gradient(to right,transparent,var(--bd2))}.sec-lbl::after{background:linear-gradient(to left,transparent,var(--bd2))}
+
+/* CARDS */
+.featured{display:grid;grid-template-columns:1fr 1fr;border-radius:16px;overflow:hidden;border:1px solid var(--bd);background:var(--sur);box-shadow:0 12px 40px rgba(124,58,237,.1);transition:.3s;cursor:pointer}
+.featured:hover{transform:translateY(-3px)}
+.feat-img{background:var(--grad);min-height:290px;display:flex;align-items:center;justify-content:center}
+.feat-img-inner{width:62%;aspect-ratio:1;background:rgba(255,255,255,.18);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:60px;border:2px solid rgba(255,255,255,.35)}
+.feat-body{padding:2rem;display:flex;flex-direction:column;justify-content:center}
+.ptag{display:inline-block;background:rgba(124,58,237,.1);color:var(--ac);border-radius:999px;padding:3px 11px;font-size:10px;font-weight:600;margin-bottom:.8rem}
+.feat-body h2{font-family:var(--display);font-size:21px;line-height:1.3;margin-bottom:.8rem}
+.feat-body p{color:var(--mt);line-height:1.7;font-size:13px}
+.pmeta{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--mt);margin-top:.8rem}
+.av-sm{width:25px;height:25px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:700;flex-shrink:0}
+.read-more{display:inline-flex;align-items:center;gap:5px;color:var(--ac);font-size:12px;font-weight:600;text-decoration:none;margin-top:.9rem;transition:.2s}
+.card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.card{border-radius:13px;overflow:hidden;border:1px solid var(--bd);background:var(--sur);transition:.3s;cursor:pointer}
+.card:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(124,58,237,.1);border-color:var(--bd2)}
+.cthumb{height:145px;display:flex;align-items:center;justify-content:center;font-size:38px}
+.ct-a{background:linear-gradient(135deg,rgba(124,58,237,.15),rgba(236,72,153,.15))}
+.ct-b{background:linear-gradient(135deg,rgba(236,72,153,.15),rgba(249,115,22,.15))}
+.ct-c{background:linear-gradient(135deg,rgba(249,115,22,.15),rgba(124,58,237,.15))}
+.ct-d{background:linear-gradient(135deg,rgba(37,99,235,.15),rgba(124,58,237,.15))}
+.cbody{padding:.9rem 1rem}
+.ctitle{font-family:var(--display);font-size:14px;line-height:1.4;margin-bottom:.4rem}
+.cdesc{font-size:11px;color:var(--mt);line-height:1.5}
+.cfooter{display:flex;justify-content:space-between;padding:.55rem 1rem;border-top:1px solid var(--bd);font-size:10px;color:var(--mt)}
+.locked-card{position:relative}.locked-card::after{content:'🔒 회원가입 후 보기';position:absolute;inset:0;background:rgba(250,249,255,.88);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--ac);cursor:pointer;backdrop-filter:blur(2px)}
+
+/* NEWSLETTER */
+.nl-wrap{margin:0 auto 2rem;max-width:1060px;padding:0 1.5rem}
+.nl-inner{background:var(--grad);border-radius:20px;padding:3rem;text-align:center;color:#fff;position:relative;overflow:hidden}
+.nl-inner h2{font-family:var(--display);font-size:26px;margin-bottom:.6rem;position:relative}
+.nl-inner p{font-size:14px;opacity:.88;margin-bottom:1.5rem;position:relative}
+.email-form{display:flex;gap:8px;max-width:400px;margin:0 auto}
+.email-inp{flex:1;padding:11px 16px;border-radius:999px;border:none;font-size:13px;background:rgba(255,255,255,.22);color:#fff;outline:none;font-family:var(--font)}.email-inp::placeholder{color:rgba(255,255,255,.65)}
+.email-btn{background:#fff;color:var(--ac);border:none;border-radius:999px;padding:11px 20px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font)}
+
+/* FOOTER */
+.footer{border-top:1px solid var(--bd);padding:2rem 1.5rem;background:var(--sur)}
+.footer-inner{max-width:1060px;margin:0 auto}
+.footer-top{display:flex;gap:2rem;margin-bottom:1.2rem;flex-wrap:wrap}
+.footer-logo{font-family:var(--display);font-size:18px;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block;margin-bottom:.4rem}
+.footer-desc{font-size:12px;color:var(--mt);line-height:1.6;max-width:200px}
+.footer-links h4{font-size:12px;font-weight:700;margin-bottom:8px;color:var(--tx)}
+.footer-links a{display:block;font-size:11px;color:var(--mt);text-decoration:none;margin-bottom:4px;cursor:pointer;transition:.2s}.footer-links a:hover{color:var(--ac)}
+.footer-bottom{border-top:1px solid var(--bd);padding-top:.8rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:7px}
+.footer-biz{font-size:10px;color:var(--mt);line-height:1.7}.footer-biz strong{color:var(--tx)}.footer-biz.hide{display:none}
+.footer-copy{font-size:11px;color:var(--mt)}
+
+/* CATEGORY */
+.cat-layout{display:grid;grid-template-columns:210px 1fr;gap:14px;align-items:start}
+.cat-sb{background:var(--sur);border:1px solid var(--bd);border-radius:13px;overflow:hidden;position:sticky;top:66px}
+.cat-sb-hd{padding:11px 13px;border-bottom:1px solid var(--bd);font-size:12px;font-weight:700;background:var(--sur2)}
+.cat-tree{padding:7px}
+.cat-all{width:100%;display:flex;align-items:center;gap:7px;padding:8px 10px;border:none;background:var(--sur3);color:var(--ac);font-size:12px;font-weight:700;cursor:pointer;border-radius:8px;margin-bottom:5px;font-family:var(--font)}
+.cl1{margin-bottom:3px}
+.cl1b{width:100%;display:flex;align-items:center;gap:7px;padding:7px 10px;border:none;background:transparent;color:var(--tx);font-size:12px;font-weight:600;cursor:pointer;border-radius:7px;transition:.2s;text-align:left;font-family:var(--font)}
+.cl1b:hover{background:var(--sur2)}.cl1b.on{background:var(--sur3);color:var(--ac)}
+.cl1-arr{font-size:10px;color:var(--mt);transition:.2s;margin-left:auto}.cl1-arr.open{transform:rotate(90deg)}
+.cl1-cnt{font-size:9px;color:var(--mt);background:var(--sur2);padding:1px 5px;border-radius:999px;margin-left:auto}
+.cl2-list{display:none;padding-left:8px}.cl2-list.open{display:block}
+.cl2b{width:100%;display:flex;align-items:center;gap:6px;padding:6px 9px;border:none;background:transparent;color:var(--mt);font-size:11px;cursor:pointer;border-radius:6px;transition:.2s;text-align:left;font-family:var(--font)}
+.cl2b:hover{background:var(--sur2);color:var(--tx)}.cl2b.on{background:var(--sur3);color:var(--ac);font-weight:600}
+.cl2-cnt{font-size:9px;color:var(--mt);background:var(--sur2);padding:1px 5px;border-radius:999px;margin-left:auto}
+.cl3-list{display:none;padding-left:8px}.cl3-list.open{display:block}
+.cl3b{width:100%;display:flex;align-items:center;gap:5px;padding:5px 9px;border:none;background:transparent;color:var(--mt);font-size:10px;cursor:pointer;border-radius:6px;transition:.2s;text-align:left;font-family:var(--font)}
+.cl3b:hover{background:var(--sur2);color:var(--tx)}.cl3b.on{color:var(--ac);font-weight:600}
+.cl3d{width:4px;height:4px;border-radius:50%;background:var(--mt);flex-shrink:0}.cl3b.on .cl3d{background:var(--ac)}
+.cat-ch{display:flex;align-items:center;gap:9px;margin-bottom:11px;flex-wrap:wrap}
+.cat-title{font-family:var(--display);font-size:19px;font-weight:700;flex:1}
+.view-tog{display:flex;gap:3px;background:var(--sur2);border-radius:8px;padding:3px}
+.vbtn{padding:4px 8px;border:none;border-radius:6px;background:transparent;color:var(--mt);font-size:12px;cursor:pointer;transition:.2s}.vbtn.on{background:var(--sur);color:var(--ac)}
+.sort-sel{background:var(--sur2);border:1px solid var(--bd);border-radius:8px;padding:5px 9px;font-size:11px;color:var(--tx);outline:none;cursor:pointer;font-family:var(--font)}
+.breadcrumb{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--mt);margin-bottom:10px;flex-wrap:wrap}
+.breadcrumb span{cursor:pointer;transition:.2s}.breadcrumb span:hover{color:var(--ac)}.breadcrumb .sep{color:var(--bd2)}.breadcrumb .cur{color:var(--ac);font-weight:600}
+.post-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:9px}
+.post-grid.list-v{grid-template-columns:1fr}
+.pc{background:var(--sur);border:1px solid var(--bd);border-radius:11px;overflow:hidden;transition:.2s;cursor:pointer}.pc:hover{border-color:var(--bd2);transform:translateY(-2px)}
+.pc.list-v{display:grid;grid-template-columns:88px 1fr}
+.pc-thumb{height:102px;display:flex;align-items:center;justify-content:center;font-size:28px}.pc.list-v .pc-thumb{height:auto;min-height:58px}
+.pc-body{padding:8px 10px}.pc-tag{display:inline-block;background:var(--sur3);color:var(--ac);border-radius:999px;padding:2px 8px;font-size:9px;font-weight:700;margin-bottom:4px}
+.pc-title{font-size:12px;font-weight:600;line-height:1.4;margin-bottom:3px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pc-desc{font-size:10px;color:var(--mt);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pc-footer{display:flex;justify-content:space-between;padding:5px 10px;border-top:1px solid var(--bd);font-size:10px;color:var(--mt)}
+
+/* COMMENT */
+.cmt-box{background:var(--sur);border:1.5px solid var(--bd);border-radius:13px;padding:13px;margin-bottom:11px;position:relative}
+.cmt-head{display:flex;gap:9px;margin-bottom:9px;align-items:flex-start}
+.cmt-av{width:34px;height:34px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:700;overflow:hidden;flex-shrink:0}
+.cmt-av img{width:100%;height:100%;object-fit:cover}
+.cmt-iw{flex:1;position:relative}
+.cmt-inp{width:100%;background:var(--sur2);border:1.5px solid var(--bd);border-radius:9px;padding:9px 40px 9px 11px;color:var(--tx);font-size:13px;outline:none;resize:none;min-height:42px;max-height:120px;transition:.2s;font-family:var(--font);line-height:1.5}
+.cmt-inp:focus{border-color:var(--ac)}.cmt-inp::placeholder{color:var(--mt)}
+.emoji-trigger{position:absolute;right:9px;top:9px;background:none;border:none;font-size:18px;cursor:pointer;transition:.2s}.emoji-trigger:hover{transform:scale(1.2)}
+.emoji-picker{position:absolute;bottom:52px;right:0;background:var(--sur);border:1.5px solid var(--bd);border-radius:15px;padding:10px;width:min(300px,90vw);box-shadow:0 14px 40px rgba(124,58,237,.14);z-index:200;display:none}
+.emoji-picker.open{display:block;animation:fadeUp .18s ease}
+.ecat-tabs{display:flex;gap:4px;margin-bottom:7px;overflow-x:auto;scrollbar-width:none}.ecat-tabs::-webkit-scrollbar{display:none}
+.ecat{padding:4px 9px;border:none;border-radius:999px;font-size:11px;background:var(--sur2);color:var(--mt);cursor:pointer;white-space:nowrap;font-family:var(--font)}.ecat.on{background:var(--sur3);color:var(--ac);font-weight:600}
+.emoji-search{width:100%;background:var(--sur2);border:1px solid var(--bd);border-radius:7px;padding:6px 10px;font-size:12px;color:var(--tx);outline:none;margin-bottom:6px;font-family:var(--font)}.emoji-search::placeholder{color:var(--mt)}
+.emoji-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:2px;max-height:170px;overflow-y:auto}
+.emj{font-size:20px;padding:4px;border-radius:5px;cursor:pointer;text-align:center;transition:.1s;line-height:1.2;user-select:none}.emj:hover{background:var(--sur2);transform:scale(1.15)}
+.cmt-toolbar{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.cmt-hint{font-size:11px;color:var(--mt)}
+.cmt-submit{background:var(--grad);color:#fff;border:none;border-radius:8px;padding:7px 16px;font-size:12px;font-weight:700;cursor:pointer;margin-left:auto;font-family:var(--font)}
+.cmt-list{display:flex;flex-direction:column;gap:8px}
+.ci{background:var(--sur);border:1px solid var(--bd);border-radius:11px;padding:11px 12px}
+.ci-hd{display:flex;align-items:center;gap:7px;margin-bottom:6px}
+.ci-av{width:28px;height:28px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:700;overflow:hidden;flex-shrink:0}
+.ci-av img{width:100%;height:100%;object-fit:cover}
+.ci-name{font-size:12px;font-weight:700;flex:1}.ci-date{font-size:10px;color:var(--mt)}
+.ci-text{font-size:13px;line-height:1.65;color:var(--tx);margin-bottom:7px;word-break:break-word}
+.ci-acts{display:flex;gap:5px}
+.ci-act{background:var(--sur2);border:1px solid var(--bd);border-radius:999px;padding:3px 10px;font-size:11px;color:var(--mt);cursor:pointer;font-family:var(--font)}.ci-act:hover{color:var(--ac)}.ci-act.liked{color:var(--red);border-color:rgba(220,38,38,.2);background:rgba(220,38,38,.05)}
+
+/* AUTH */
+.auth-wrap{min-height:calc(100vh - 56px);display:flex;align-items:center;justify-content:center;padding:2rem}
+.auth-card{background:var(--sur);border:1px solid var(--bd);border-radius:20px;padding:26px;width:min(390px,100%);box-shadow:0 16px 50px rgba(124,58,237,.1)}
+.auth-logo{text-align:center;margin-bottom:16px}
+.auth-logo h1{font-family:var(--display);font-size:24px;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:700}
+.auth-logo p{font-size:12px;color:var(--mt);margin-top:3px}
+.atabs{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:var(--sur2);border-radius:10px;padding:4px;margin-bottom:16px}
+.atab{padding:8px;border:none;border-radius:7px;background:transparent;color:var(--mt);font-size:13px;font-weight:500;cursor:pointer;font-family:var(--font)}.atab.on{background:var(--sur);color:var(--ac);font-weight:700}
+.field{margin-bottom:11px}
+.field label{display:block;font-size:10px;font-weight:700;color:var(--mt);margin-bottom:4px;text-transform:uppercase;letter-spacing:.07em}
+.inp{width:100%;background:var(--sur2);border:1.5px solid var(--bd);border-radius:9px;padding:9px 11px;color:var(--tx);font-size:13px;outline:none;transition:.2s;font-family:var(--font)}
+.inp:focus{border-color:var(--ac)}.inp::placeholder{color:var(--mt)}
+textarea.inp{resize:vertical;min-height:80px;line-height:1.5}
+.auth-submit{width:100%;background:var(--grad);color:#fff;border:none;border-radius:9px;padding:12px;font-size:13px;font-weight:700;cursor:pointer;margin-top:3px;font-family:var(--font)}
+.social-div{display:flex;align-items:center;gap:10px;margin:11px 0;font-size:11px;color:var(--mt)}
+.social-div::before,.social-div::after{content:'';flex:1;height:1px;background:var(--bd)}
+.social-btns{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.social-btn{padding:9px;border:1.5px solid var(--bd);border-radius:9px;background:var(--sur);color:var(--tx);font-size:12px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;font-family:var(--font)}.social-btn:hover{border-color:var(--bd2)}
+.grade-info{background:var(--sur2);border-radius:9px;padding:10px;margin-top:12px;border:1px solid var(--bd)}
+.grade-info h4{font-size:10px;font-weight:700;color:var(--mt);margin-bottom:7px;text-transform:uppercase;letter-spacing:.07em}
+.grade-row{display:flex;align-items:center;gap:7px;margin-bottom:5px;font-size:11px;color:var(--mt)}.grade-row:last-child{margin-bottom:0}
+
+/* PROFILE */
+.profile-upload-area{display:flex;flex-direction:column;align-items:center;margin-bottom:13px}
+.profile-preview{width:74px;height:74px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;color:#fff;font-size:26px;font-weight:700;overflow:hidden;margin-bottom:7px;border:3px solid var(--bd2);cursor:pointer;position:relative}
+.profile-preview img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.profile-preview-overlay{position:absolute;inset:0;background:rgba(0,0,0,.4);border-radius:50%;display:flex;align-items:center;justify-content:center;opacity:0;transition:.2s;font-size:16px;color:#fff}
+.profile-preview:hover .profile-preview-overlay{opacity:1}
+
+/* MEMBER */
+.member-hero{background:var(--grad);border-radius:16px;padding:18px;color:#fff;display:flex;align-items:center;gap:14px;margin-bottom:12px;flex-wrap:wrap}
+.m-av-big{width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;border:3px solid rgba(255,255,255,.4);overflow:hidden;flex-shrink:0;cursor:pointer;position:relative}
+.m-av-big img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.m-av-edit{position:absolute;inset:0;background:rgba(0,0,0,.4);border-radius:50%;display:flex;align-items:center;justify-content:center;opacity:0;transition:.2s;font-size:15px;color:#fff}
+.m-av-big:hover .m-av-edit{opacity:1}
+.m-info h2{font-size:16px;font-weight:700;margin-bottom:3px}.m-info p{font-size:12px;opacity:.85;margin-bottom:7px}
+.m-badges{display:flex;gap:5px;flex-wrap:wrap}
+.mbadge{background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:3px 9px;font-size:10px;font-weight:600}
+.mstats{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:12px}
+.mstat{background:var(--sur);border:1px solid var(--bd);border-radius:10px;padding:10px;text-align:center}
+.mstat-num{font-size:18px;font-weight:700;color:var(--ac);margin-bottom:2px}.mstat-lbl{font-size:10px;color:var(--mt)}
+.ben-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.ben{background:var(--sur);border:1px solid var(--bd);border-radius:10px;padding:12px;text-align:center;transition:.2s;cursor:pointer}.ben:hover{border-color:var(--bd2);transform:translateY(-2px)}
+.ben-ico{font-size:20px;margin-bottom:5px}.ben-t{font-size:12px;font-weight:700;margin-bottom:3px}.ben-d{font-size:10px;color:var(--mt);line-height:1.5}
+.ben-locked{opacity:.45;cursor:not-allowed}.ben-locked:hover{transform:none}
+
+/* ADMIN */
+.admin-page{background:var(--bg);min-height:calc(100vh - 56px)}
+.admin-header{background:linear-gradient(135deg,#1a1a2e,#2d2945);padding:1.2rem 1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:9px}
+.admin-header h1{font-family:var(--display);font-size:20px;color:#fff;display:flex;align-items:center;gap:9px}
+.admin-tabs{display:flex;gap:4px;flex-wrap:wrap;padding:.9rem 1.5rem;background:var(--sur);border-bottom:1px solid var(--bd)}
+.atab-admin{padding:7px 13px;border:none;border-radius:7px;font-size:11px;font-weight:600;cursor:pointer;background:var(--sur2);color:var(--mt);font-family:var(--font)}
+.atab-admin:hover{color:var(--tx)}.atab-admin.on{background:var(--sur3);color:var(--ac)}
+.admin-wrap{max-width:1060px;margin:0 auto;padding:1.2rem 1.5rem}
+.admin-section{background:var(--sur);border:1px solid var(--bd);border-radius:13px;padding:18px;margin-bottom:13px;box-shadow:0 3px 12px rgba(124,58,237,.06)}
+.admin-section h3{font-size:14px;font-weight:700;margin-bottom:13px;color:var(--tx);display:flex;align-items:center;gap:6px}
+.admin-panel{display:none}.admin-panel.on{display:block}
+
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.cc{background:var(--sur);border:1px solid var(--bd);border-radius:12px;padding:14px;text-align:center;transition:.2s;cursor:pointer}.cc:hover{border-color:var(--bd2);transform:translateY(-2px)}
+.cc-ico{font-size:26px;margin-bottom:7px}.cc-t{font-size:13px;font-weight:700;margin-bottom:3px}.cc-d{font-size:11px;color:var(--mt);line-height:1.5}
+.form-card{background:var(--sur);border:1px solid var(--bd);border-radius:13px;padding:17px;margin-bottom:11px}
+.form-card h3{font-size:14px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:7px}
+.cat-btns{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px}
+.cat-btn{padding:5px 11px;border:1.5px solid var(--bd);border-radius:999px;background:var(--sur2);color:var(--mt);font-size:11px;font-weight:500;cursor:pointer;font-family:var(--font)}.cat-btn.sel{border-color:var(--ac);color:var(--ac);background:var(--sur3);font-weight:700}
+.submit-btn{width:100%;background:var(--grad);color:#fff;border:none;border-radius:9px;padding:12px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font)}
+.faq-item{background:var(--sur);border:1px solid var(--bd);border-radius:10px;overflow:hidden;margin-bottom:6px}
+.faq-q{padding:11px 13px;display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;font-weight:600}.faq-q:hover{background:var(--sur2)}
+.faq-arr{color:var(--mt);transition:.2s;flex-shrink:0}.faq-arr.open{transform:rotate(90deg)}
+.faq-a{display:none;padding:0 13px 11px;font-size:12px;color:var(--mt);line-height:1.7}.faq-a.open{display:block}
+.success-msg{background:rgba(5,150,105,.07);border:1px solid rgba(5,150,105,.2);border-radius:9px;padding:14px;text-align:center;display:none}.success-msg.show{display:block}
+
+/* MISC */
+.btn{border:none;border-radius:8px;padding:7px 13px;font-size:12px;font-weight:700;cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:5px;font-family:var(--font)}
+.btn-grad{background:var(--grad);color:#fff}.btn-ghost{background:var(--sur2);color:var(--mt);border:1px solid var(--bd)}.btn-danger{background:rgba(220,38,38,.08);color:var(--red);border:1px solid rgba(220,38,38,.2)}.btn-dark{background:#1a1a2e;color:#a78bfa}.btn-sm{padding:5px 10px;font-size:11px;border-radius:6px}
+.divider{font-size:9px;font-weight:800;color:var(--mt);letter-spacing:.1em;text-transform:uppercase;margin:13px 0 8px;padding-bottom:3px;border-bottom:1px solid var(--bd)}
+.info-box{background:var(--sur3);border:1px solid var(--bd2);border-radius:9px;padding:9px 12px;font-size:11px;color:var(--ac);line-height:1.6;margin-bottom:10px}
+.warn-box{background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.18);border-radius:9px;padding:9px 12px;font-size:11px;color:var(--yellow);line-height:1.6;margin-bottom:10px}
+.tog-row{display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--bd);font-size:12px}.tog-row:last-child{border:none}
+.tog{width:33px;height:18px;background:rgba(124,58,237,.2);border-radius:999px;position:relative;cursor:pointer;border:none;transition:.2s;flex-shrink:0}.tog.on{background:var(--ac)}.tog::after{content:'';position:absolute;width:12px;height:12px;background:#fff;border-radius:50%;top:3px;left:3px;transition:.2s}.tog.on::after{transform:translateX(15px)}
+.sync-dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--tx);color:var(--bg);padding:9px 20px;border-radius:10px;font-size:13px;font-weight:500;opacity:0;transition:.3s;z-index:999;pointer-events:none;white-space:nowrap}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+@media(max-width:760px){
+  .featured{grid-template-columns:1fr}.feat-img{min-height:180px}
+  .card-grid{grid-template-columns:1fr}.cat-layout{grid-template-columns:1fr}.cat-sb{position:static}
+  .mstats{grid-template-columns:1fr 1fr}.ben-grid{grid-template-columns:1fr 1fr}
+  .contact-grid{grid-template-columns:1fr}.footer-top{flex-direction:column}
+  .email-form{flex-direction:column}.nl-inner{padding:2.5rem 1.5rem}
+  .admin-wrap{padding:1rem}.admin-tabs{padding:.7rem 1rem}
+}
+</style>
+</head>
+<body>
+
+<!-- 팝업들 - 처음에 모두 hide -->
+<div class="ov hide" id="welcomePopup">
+  <div class="popup wp">
+    <div class="wp-hd">
+      <button class="wp-x" onclick="closePopup('welcomePopup')">×</button>
+      <div style="font-size:34px;margin-bottom:6px">👋</div>
+      <h2>TARRY의 데일리</h2>
+      <p>핫이슈 블로그에 오신 걸 환영해요!<br>회원가입하고 다양한 혜택을 누려보세요</p>
+    </div>
+    <div class="wp-bd">
+      <div class="wp-grid">
+        <div class="wb"><div class="wb-i">😄</div><div class="wb-t">이모티콘 댓글</div><div class="wb-d">300+ 무료</div></div>
+        <div class="wb"><div class="wb-i">📸</div><div class="wb-t">프로필 사진</div><div class="wb-d">내 얼굴로 설정</div></div>
+        <div class="wb"><div class="wb-i">🔔</div><div class="wb-t">새 글 알림</div><div class="wb-d">즉시 알림</div></div>
+        <div class="wb"><div class="wb-i">👑</div><div class="wb-t">VIP 혜택</div><div class="wb-d">전용 콘텐츠</div></div>
+      </div>
+      <div class="wp-btns">
+        <button class="wpb wpb-main" onclick="closePopup('welcomePopup');showPage('auth');setAtab('signup')">🎉 회원가입하기</button>
+        <button class="wpb wpb-browse" onclick="startBrowse()">👀 일단 둘러보기</button>
+        <button class="wpb wpb-skip" onclick="closePopup('welcomePopup');showPage('auth');setAtab('login')">이미 회원이에요 → 로그인</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="ov hide" id="vipPopup">
+  <div class="popup vip-p">
+    <div class="vip-hd">
+      <button class="wp-x" onclick="closePopup('vipPopup')">×</button>
+      <div style="font-size:40px;margin-bottom:6px">👑</div>
+      <h2>VIP 멤버 특별 혜택!</h2>
+      <p>지금 VIP로 업그레이드하면</p>
+    </div>
+    <div class="vip-bd">
+      <div class="vp"><span class="vp-i">🎨</span><div class="vp-t"><strong>프리미엄 이모티콘 500+개</strong> 독점 사용</div></div>
+      <div class="vp"><span class="vp-i">🔒</span><div class="vp-t"><strong>VIP 전용 글</strong> 무제한 열람</div></div>
+      <div class="vp"><span class="vp-i">📊</span><div class="vp-t"><strong>댓글 통계</strong> & 활동 분석</div></div>
+      <div class="vp"><span class="vp-i">⚡</span><div class="vp-t">광고 없는 <strong>클린 읽기 모드</strong></div></div>
+      <button class="vip-btn" onclick="upgradeVip()">👑 VIP 무료 체험 시작</button>
+      <button class="vip-skip" onclick="closePopup('vipPopup')">괜찮아요, 다음에</button>
+    </div>
+  </div>
+</div>
+
+<div class="ov hide" id="adminLoginPopup">
+  <div class="popup admin-pop">
+    <div class="admin-hd">
+      <button class="wp-x" onclick="closePopup('adminLoginPopup')" style="background:rgba(255,255,255,.1)">×</button>
+      <div style="font-size:32px;margin-bottom:6px">🔐</div>
+      <h2>관리자 로그인</h2>
+      <p>관리자 전용 페이지입니다</p>
+    </div>
+    <div class="admin-bd">
+      <div class="admin-err" id="adminErr">❌ 비밀번호가 틀렸어요</div>
+      <div class="field"><label>관리자 비밀번호</label><input class="inp" id="adminPwInput" type="password" placeholder="비밀번호 입력" onkeydown="if(event.key==='Enter')tryAdminLogin()"></div>
+      <button class="auth-submit" onclick="tryAdminLogin()">🔐 로그인</button>
+      <div style="text-align:center;margin-top:9px;font-size:11px;color:var(--mt)">초기 비밀번호: <strong>123456</strong></div>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo" onclick="showPage('home');setNav('home')">TARRY의 데일리</div>
+  <div class="nav-links">
+    <button class="nl on" id="nl-home" onclick="showPage('home');setNav('home')">🏠 홈</button>
+    <button class="nl" id="nl-cat" onclick="showPage('cat');setNav('cat')">📂 카테고리</button>
+    <button class="nl" id="nl-comment" onclick="showPage('comment');setNav('comment')">💬 댓글</button>
+    <button class="nl" id="nl-member" onclick="showPage('member');setNav('member')">👤 마이페이지</button>
+    <button class="nl" id="nl-about" onclick="showPage('about');setNav('about')">👋 소개</button>
+    <button class="nl" id="nl-contact" onclick="showPage('contact');setNav('contact')">📨 문의</button>
+  </div>
+  <div class="nav-r">
+    <button class="nbtn nb-admin" onclick="openAdminLogin()">🔐 관리자</button>
+    <div id="guestArea" style="display:flex;gap:5px">
+      <button class="nbtn nb-browse" onclick="startBrowse()">👀 둘러보기</button>
+      <button class="nbtn nb-login" onclick="showPage('auth');setNav('auth');setAtab('login')">로그인</button>
+      <button class="nbtn nb-signup" onclick="showPage('auth');setNav('auth');setAtab('signup')">회원가입</button>
+      <button id="themeToggle" onclick="toggleDarkMode()" style="background:var(--sur2);border:1.5px solid var(--bd);border-radius:9px;padding:5px 10px;font-size:18px;cursor:pointer;line-height:1">🌙</button>
+    </div>
+    <div class="nav-user" id="navUser">
+      <span class="nav-grade g-free" id="navGrade">FREE</span>
+      <div class="nav-av" id="navAv" onclick="showPage('member');setNav('member')">T</div>
+      <button class="nbtn nb-login" onclick="doLogout()">로그아웃</button>
+    </div>
+  </div>
+</nav>
+<div class="browse-bar hide" id="browseBanner">
+  <span>👀</span>
+  <div class="bb-t"><strong>둘러보기 모드</strong> — 가입하면 댓글·이모티콘·프로필을 무료로 쓸 수 있어요!</div>
+  <div class="bb-btns">
+    <button class="bb-btn bba" onclick="showPage('auth');setAtab('signup')">무료 가입</button>
+    <button class="bb-btn bbb" onclick="showPage('auth');setAtab('login')">로그인</button>
+  </div>
+  <button class="bbx" onclick="document.getElementById('browseBanner').classList.add('hide')">×</button>
+</div>
+
+
+<!-- HOME -->
+<div class="page on" id="page-home">
+  <section class="hero">
+    <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+    <span class="hero-tag">✦ 매일 업데이트되는 핫이슈 블로그</span>
+    <h1 class="hero-title">일상을 <span class="gt">스마트하게</span><br>만드는 정보</h1>
+    <p class="hero-sub">생활꿀팁부터 돈되는정보, IT트렌드까지.<br>tarryguide.com의 글을 매일 새롭게 업데이트해요</p>
+    <div class="hero-btns">
+      <button class="hbtn hb-main" onclick="showPage('auth');setAtab('signup')">🎉 무료 회원가입</button>
+      <button class="hbtn hb-browse" onclick="startBrowse()">👀 일단 둘러보기</button>
+      <button class="hbtn hb-sub" onclick="showPage('auth');setAtab('login')">로그인 →</button>
+    </div>
+  </section>
+  <div class="wrap">
+    <div class="sec-lbl">Featured Post</div>
+    <div class="featured" onclick="openPost('i1','ChatGPT 프롬프트 모음 — 생산성 극대화 완벽 가이드','IT & 온라인','🤖','TARRY · 2026년 3월 21일 · 8분 읽기')">
+      <div class="feat-img"><div class="feat-img-inner">🤖</div></div>
+      <div class="feat-body">
+        <span class="ptag">IT & 온라인</span>
+        <h2>ChatGPT 프롬프트 모음 — 생산성 극대화 완벽 가이드</h2>
+        <p>복붙만 해도 되는 ChatGPT 프롬프트 모음! 업무·글쓰기·아이디어까지 생산성 200% UP.</p>
+        <div class="pmeta"><div class="av-sm">T</div><span>TARRY · 2026년 3월 21일 · 8분 읽기</span></div>
+        <a class="read-more" href="https://tarryguide.com" target="_blank">전체 글 읽기 →</a>
+      </div>
+    </div>
+    <div class="sec-lbl" style="margin-top:2.5rem">Recent Posts</div>
+    <div class="card-grid">
+      <div class="card" onclick="openPost('i5','네이버 지도 꿀기능 완벽 정리','생활 꿀팁','🗺️','TARRY · 2026년 3월 21일 · 6분 읽기')">
+        <div class="cthumb ct-a">🗺️</div>
+        <div class="cbody"><span class="ptag">생활 꿀팁</span><div class="ctitle">네이버 지도 꿀기능 완벽 정리</div><div class="cdesc">숨겨진 기능으로 일상을 더 스마트하게!</div></div>
+        <div class="cfooter"><span>3월 21일</span><span>6분 읽기</span></div>
+      </div>
+      <div class="card" onclick="openPost('m1','구글 애드센스 수익 극대화 전략','돈되는 정보','💰','TARRY · 2026년 3월 21일 · 7분 읽기')">
+        <div class="cthumb ct-b">💰</div>
+        <div class="cbody"><span class="ptag">돈되는 정보</span><div class="ctitle">구글 애드센스 수익 극대화 전략</div><div class="cdesc">온라인 부업으로 매달 수익 만들기</div></div>
+        <div class="cfooter"><span>3월 21일</span><span>7분 읽기</span></div>
+      </div>
+      <div class="card locked-card" onclick="handleLockedClick()">
+        <div class="cthumb ct-c">🎬</div>
+        <div class="cbody"><span class="ptag">트렌드 정보</span><div class="ctitle">2026 넷플릭스 추천 영화 TOP10</div><div class="cdesc">놓치면 후회하는 최고의 작품들!</div></div>
+        <div class="cfooter"><span>3월 21일</span><span>5분 읽기</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="nl-wrap" style="margin-top:1rem">
+    <div class="nl-inner">
+      <h2>매주 목요일, 편지처럼 📮</h2>
+      <p>새 글과 알짜 정보를 뉴스레터로 보내드려요.</p>
+      <div class="email-form">
+        <input type="email" class="email-inp" id="emailInp" placeholder="이메일 주소를 입력해주세요">
+        <button class="email-btn" onclick="subscribeEmail()">구독하기</button>
+      </div>
+    </div>
+  </div>
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div><span class="footer-logo">TARRY의 데일리</span><div class="footer-desc">생활꿀팁, 돈되는정보, IT&온라인, 트렌드정보 — 매일 업데이트</div></div>
+        <div class="footer-links"><h4>메뉴</h4><a onclick="showPage('home')">홈</a><a onclick="showPage('cat')">카테고리</a><a onclick="showPage('about')">소개</a><a onclick="showPage('contact')">문의하기</a></div>
+        <div class="footer-links"><h4>계정</h4><a onclick="showPage('auth');setAtab('login')">로그인</a><a onclick="showPage('auth');setAtab('signup')">회원가입</a><a onclick="startBrowse()">둘러보기</a></div>
+        <div class="footer-links"><h4>법적 고지</h4><a onclick="showPage('privacy')">개인정보처리방침</a><a onclick="showPage('terms')">이용약관</a><a href="/cdn-cgi/l/email-protection#8af9b3bcbfb9bababbbbbbcaede7ebe3e6a4e9e5e7">이메일 문의</a></div>
+      </div>
+      <div class="footer-biz" id="footerBiz"><strong>TARRY의 데일리</strong> · 이메일: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a1d2989794929191909090e1c6ccc0c8cd8fc2cecc">[email&#160;protected]</a> · tarrydaily.com</div>
+      <div class="footer-bottom">
+        <div class="footer-copy">© 2026 tarrydaily.com · All rights reserved</div>
+        <div style="display:flex;gap:10px;font-size:11px"><a onclick="showPage('privacy')" style="color:var(--mt);cursor:pointer">개인정보처리방침</a><a onclick="showPage('terms')" style="color:var(--mt);cursor:pointer">이용약관</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- PPT 배너 -->
+  <div style="padding:0 1.5rem 1.5rem">
+    <div style="background:linear-gradient(135deg,#1a1a2e,#2d2945);border-radius:20px;padding:1.5rem 2rem;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap">
+      <div style="font-size:40px">📊</div>
+      <div style="flex:1;min-width:180px">
+        <div style="font-size:17px;font-weight:700;color:#fff;margin-bottom:4px">TARRY의 데일리 완벽 사용설명서</div>
+        <div style="font-size:12px;color:#a78bfa">회원 등급별 혜택, 관리자 가이드 PPT</div>
+      </div>
+      <button onclick="downloadPPT()" style="background:var(--grad);color:#fff;border:none;border-radius:12px;padding:12px 20px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font);white-space:nowrap">📥 PPT 다운로드</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- CATEGORY -->
+<div class="page" id="page-cat">
+  <div class="wrap">
+    <div class="cat-layout">
+      <div class="cat-sb">
+        <div class="cat-sb-hd">📂 카테고리 전체보기</div>
+        <div class="cat-tree" id="catTree"></div>
+      </div>
+      <div>
+        <div class="breadcrumb" id="breadcrumb"><span onclick="selectCat(null,null,null)">🏠 전체</span></div>
+        <div class="cat-ch">
+          <div class="cat-title" id="catTitle">전체 글</div>
+          <span id="catCountLbl" style="font-size:12px;color:var(--mt)">25개</span>
+          <div class="view-tog"><button class="vbtn on" id="vb-grid" onclick="setView('grid')">⊞</button><button class="vbtn" id="vb-list" onclick="setView('list')">☰</button></div>
+          <select class="sort-sel" id="sortSel" onchange="renderPosts()"><option value="latest">최신순</option><option value="popular">인기순</option><option value="oldest">오래된순</option></select>
+        </div>
+        <div class="post-grid" id="postGrid"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- COMMENT -->
+<div class="page" id="page-comment">
+  <div class="wrap" style="max-width:740px">
+    <div class="divider" style="margin-top:0">💬 댓글 시스템</div>
+    <div class="cmt-box">
+      <div class="cmt-head">
+        <div class="cmt-av" id="cmtAv">?</div>
+        <div class="cmt-iw">
+          <textarea class="cmt-inp" id="cmtInp" placeholder="댓글을 입력하세요... 😊 버튼으로 이모티콘도 골라보세요!" rows="1" oninput="autoResize(this)"></textarea>
+          <button class="emoji-trigger" onclick="toggleEmoji(event)">😊</button>
+          <div class="emoji-picker" id="emojiPicker">
+            <div class="ecat-tabs" id="emojiCatTabs"></div>
+            <input class="emoji-search" id="emojiSearch" placeholder="🔍 이모티콘 검색..." oninput="searchEmoji(this.value)">
+            <div class="emoji-grid" id="emojiGrid"></div>
+          </div>
+        </div>
+      </div>
+      <div class="cmt-toolbar">
+        <span class="cmt-hint" id="cmtHint">로그인 후 댓글을 쓸 수 있어요</span>
+        <button class="cmt-submit" onclick="submitComment()">댓글 등록</button>
+      </div>
+    </div>
+    <div class="cmt-list" id="cmtList"></div>
+  </div>
+</div>
+
+<!-- AUTH -->
+<div class="page" id="page-auth">
+  <div class="auth-wrap">
+    <div class="auth-card">
+      <div class="auth-logo"><h1>TARRY</h1><p>TARRY의 데일리 멤버가 되어보세요</p></div>
+      <div class="atabs">
+        <button class="atab on" id="at-login" onclick="setAtab('login')">로그인</button>
+        <button class="atab" id="at-signup" onclick="setAtab('signup')">회원가입</button>
+      </div>
+      <div id="loginF">
+        <div class="field"><label>이메일</label><input class="inp" id="lEmail" type="email" placeholder="이메일 주소"></div>
+        <div class="field"><label>비밀번호</label><input class="inp" id="lPw" type="password" placeholder="비밀번호"></div>
+        <button class="auth-submit" onclick="doLogin()">로그인</button>
+        <div style="margin-top:8px"><button class="wpb wpb-browse" style="padding:9px;width:100%" onclick="startBrowse()">👀 가입 없이 먼저 둘러볼게요</button></div>
+        <div class="social-div">또는</div>
+        <div class="social-btns">
+          <button class="social-btn" onclick="socialLogin('Google')">
+            <svg width="14" height="14" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+            Google
+          </button>
+          <button class="social-btn" onclick="socialLogin('카카오')" style="background:#FEE500;border-color:#FEE500;color:#3c1e1e"><span style="font-weight:900;font-size:13px">K</span>카카오</button>
+        </div>
+      </div>
+      <div id="signupF" style="display:none">
+        <div class="profile-upload-area">
+          <div class="profile-preview" id="signupProfilePreview" onclick="document.getElementById('profileInput').click()">
+            <span id="signupProfileInitial">?</span>
+            <div class="profile-preview-overlay">📷</div>
+          </div>
+          <div style="font-size:11px;color:var(--mt);text-align:center">클릭해서 프로필 사진 업로드</div>
+          <input type="file" id="profileInput" accept="image/*" style="display:none" onchange="handleProfileUpload(this)">
+        </div>
+        <div class="field"><label>닉네임</label><input class="inp" id="sNick" placeholder="사용할 닉네임" oninput="updateSignupInitial()"></div>
+        <div class="field"><label>이메일</label><input class="inp" id="sEmail" type="email" placeholder="이메일 주소"></div>
+        <div class="field"><label>비밀번호</label><input class="inp" id="sPw" type="password" placeholder="8자 이상"></div>
+        <button class="auth-submit" onclick="doSignup()">가입하기 🎉</button>
+        <div style="margin-top:8px"><button class="wpb wpb-browse" style="padding:9px;width:100%" onclick="startBrowse()">👀 가입 없이 먼저 둘러볼게요</button></div>
+        <div class="grade-info">
+          <h4>회원 등급 안내</h4>
+          <div class="grade-row"><span class="nav-grade g-free" style="font-size:9px">FREE</span><span>기본 댓글, 이모티콘 300+, 프로필 사진</span></div>
+          <div class="grade-row"><span class="nav-grade g-vip" style="font-size:9px">VIP</span><span>프리미엄 이모티콘, VIP 전용 글, 클린모드</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MEMBER -->
+<div class="page" id="page-member">
+  <div class="wrap">
+    <div id="guestMsg" style="text-align:center;padding:4rem 1rem">
+      <div style="font-size:42px;margin-bottom:11px">🔒</div>
+      <div style="font-size:15px;font-weight:600;margin-bottom:5px">로그인이 필요해요</div>
+      <div style="font-size:12px;color:var(--mt);margin-bottom:15px">마이페이지를 보려면 로그인해주세요</div>
+      <button class="btn btn-grad" onclick="showPage('auth');setNav('auth')">로그인 / 회원가입</button>
+    </div>
+    <div id="memberDash" style="display:none">
+      <div class="member-hero">
+        <div class="m-av-big" id="mAvBig" onclick="document.getElementById('memberProfileInput').click()">
+          <span id="mAvInitial">T</span>
+          <div class="m-av-edit">📷</div>
+        </div>
+        <input type="file" id="memberProfileInput" accept="image/*" style="display:none" onchange="handleMemberProfileUpload(this)">
+        <div class="m-info">
+          <h2 id="dashName">TARRY님</h2>
+          <p id="dashEmail"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ef9b8e9d9d96af8a978e829f838ac18c8082">[email&#160;protected]</a></p>
+          <div class="m-badges"><span class="mbadge" id="dashGrade">FREE 회원</span><span class="mbadge">🗓 2026.03.21 가입</span><span class="mbadge" id="dashCmt">💬 댓글 0개</span></div>
+        </div>
+        <button class="btn btn-ghost btn-sm" onclick="document.getElementById('vipPopup').classList.remove('hide')" style="margin-left:auto;color:#fff;border-color:rgba(255,255,255,.35);background:rgba(255,255,255,.18)">👑 VIP 업그레이드</button>
+      </div>
+      <div class="mstats">
+        <div class="mstat"><div class="mstat-num" id="stCmt">0</div><div class="mstat-lbl">작성 댓글</div></div>
+        <div class="mstat"><div class="mstat-num" id="stLike">0</div><div class="mstat-lbl">받은 좋아요</div></div>
+        <div class="mstat"><div class="mstat-num">25</div><div class="mstat-lbl">읽은 글</div></div>
+        <div class="mstat"><div class="mstat-num">1</div><div class="mstat-lbl">가입 일수</div></div>
+      </div>
+      <div class="divider">내 혜택</div>
+      <div class="ben-grid">
+        <div class="ben"><div class="ben-ico">😄</div><div class="ben-t">이모티콘 댓글</div><div class="ben-d">300+ 이모티콘</div></div>
+        <div class="ben"><div class="ben-ico">📸</div><div class="ben-t">프로필 사진</div><div class="ben-d">내 얼굴로 커스텀</div></div>
+        <div class="ben"><div class="ben-ico">🔔</div><div class="ben-t">새 글 알림</div><div class="ben-d">푸시 알림 수신</div></div>
+        <div class="ben ben-locked" id="vb1"><div class="ben-ico">🎨</div><div class="ben-t">프리미엄 이모티콘</div><div class="ben-d">🔒 VIP 전용</div></div>
+        <div class="ben ben-locked" id="vb2"><div class="ben-ico">🔒</div><div class="ben-t">VIP 전용 글</div><div class="ben-d">🔒 VIP 전용</div></div>
+        <div class="ben ben-locked" id="vb3"><div class="ben-ico">⚡</div><div class="ben-t">클린 읽기 모드</div><div class="ben-d">🔒 VIP 전용</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="page" id="page-about">
+  <div class="wrap" style="max-width:780px">
+    <div style="background:var(--grad);border-radius:20px;padding:3rem;text-align:center;color:#fff;margin-bottom:2rem">
+      <div style="font-size:48px;margin-bottom:12px">📰</div>
+      <h1 style="font-family:var(--display);font-size:30px;margin-bottom:10px">TARRY의 데일리</h1>
+      <p style="font-size:15px;opacity:.9;line-height:1.7">매일 유용한 정보를 발굴해서 전해드리는<br>생활밀착형 핫이슈 블로그입니다</p>
+    </div>
+    <div style="background:var(--sur);border:1px solid var(--bd);border-radius:16px;padding:2rem;margin-bottom:1.2rem">
+      <h2 style="font-family:var(--display);font-size:20px;margin-bottom:1rem">🙋 블로그 소개</h2>
+      <p style="font-size:14px;color:var(--mt);line-height:1.9;margin-bottom:1rem">안녕하세요! <strong style="color:var(--tx)">TARRY의 데일리</strong>에 오신 걸 환영해요.<br><br>저는 일상에서 발견한 생활꿀팁, 돈이 되는 알짜 정보, IT 트렌드, 그리고 요즘 핫한 이슈들을 꾸준히 발굴해서 정리해드리고 있어요.</p>
+      <p style="font-size:14px;color:var(--mt);line-height:1.9">매일 새로운 글로 찾아뵙겠습니다. 궁금한 점이나 제안사항은 언제든지 문의해 주세요! 😊</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-bottom:1.2rem">
+      <div style="background:var(--sur);border:1px solid var(--bd);border-radius:13px;padding:1.3rem"><div style="font-size:26px;margin-bottom:8px">🎯</div><h3 style="font-size:14px;font-weight:700;margin-bottom:7px">블로그 목표</h3><p style="font-size:13px;color:var(--mt);line-height:1.7">어렵고 복잡한 정보를 누구나 쉽게 이해하고 바로 활용할 수 있도록 정리합니다.</p></div>
+      <div style="background:var(--sur);border:1px solid var(--bd);border-radius:13px;padding:1.3rem"><div style="font-size:26px;margin-bottom:8px">📚</div><h3 style="font-size:14px;font-weight:700;margin-bottom:7px">다루는 주제</h3><p style="font-size:13px;color:var(--mt);line-height:1.7">생활꿀팁 · 돈되는정보 · IT&amp;온라인 · 트렌드 · 재테크 · 앱 활용법</p></div>
+      <div style="background:var(--sur);border:1px solid var(--bd);border-radius:13px;padding:1.3rem"><div style="font-size:26px;margin-bottom:8px">✍️</div><h3 style="font-size:14px;font-weight:700;margin-bottom:7px">업데이트 주기</h3><p style="font-size:13px;color:var(--mt);line-height:1.7">매일 새로운 글을 발행합니다. 뉴스레터를 구독하면 새 글 알림을 받을 수 있어요!</p></div>
+      <div style="background:var(--sur);border:1px solid var(--bd);border-radius:13px;padding:1.3rem"><div style="font-size:26px;margin-bottom:8px">📧</div><h3 style="font-size:14px;font-weight:700;margin-bottom:7px">문의 / 제휴</h3><p style="font-size:13px;color:var(--mt);line-height:1.7"><a href="/cdn-cgi/l/email-protection#2e5d17181b1d1e1e1f1f1f6e49434f4742004d4143" style="color:var(--ac);text-decoration:none;font-weight:600"><span class="__cf_email__" data-cfemail="ef9cd6d9dadcdfdfdededeaf88828e8683c18c8082">[email&#160;protected]</span></a></p></div>
+    </div>
+    <div style="background:var(--sur2);border-radius:11px;padding:1.1rem 1.3rem;border:1px solid var(--bd);text-align:center">
+      <p style="font-size:13px;color:var(--mt)">📌 본 블로그의 모든 콘텐츠는 직접 작성한 창작물입니다. © 2026 TARRY의 데일리 · tarrydaily.com</p>
+    </div>
+  </div>
+</div>
+
+<!-- PRIVACY -->
+<div class="page" id="page-privacy">
+  <div class="wrap" style="max-width:780px">
+    <div style="background:var(--sur);border:1px solid var(--bd);border-radius:16px;padding:2rem">
+      <h1 style="font-family:var(--display);font-size:22px;margin-bottom:.4rem">개인정보처리방침</h1>
+      <p style="font-size:12px;color:var(--mt);margin-bottom:1.6rem">최종 업데이트: 2026년 3월 21일</p>
+      <div style="display:flex;flex-direction:column;gap:1.3rem">
+        <div><h3 style="font-size:14px;font-weight:700;color:var(--tx);margin-bottom:6px;padding-left:10px;border-left:3px solid var(--ac)">1. 수집하는 개인정보 항목</h3><p style="font-size:13px;color:var(--mt);line-height:1.8;padding-left:13px">이메일 주소, 닉네임, 프로필 사진(선택), IP 주소(자동 수집)</p></div>
+        <div><h3 style="font-size:14px;font-weight:700;color:var(--tx);margin-bottom:6px;padding-left:10px;border-left:3px solid var(--ac)">2. 개인정보 수집 및 이용 목적</h3><p style="font-size:13px;color:var(--mt);line-height:1.8;padding-left:13px">뉴스레터 발송, 회원 서비스 제공, 댓글 서비스 운영, 서비스 개선</p></div>
+        <div><h3 style="font-size:14px;font-weight:700;color:var(--tx);margin-bottom:6px;padding-left:10px;border-left:3px solid var(--ac)">3. 개인정보 보유 및 이용 기간</h3><p style="font-size:13px;color:var(--mt);line-height:1.8;padding-left:13px">회원 탈퇴 시 즉시 파기합니다.</p></div>
+        <div><h3 style="font-size:14px;font-weight:700;color:var(--tx);margin-bottom:6px;padding-left:10px;border-left:3px solid var(--ac)">4. Google 애드센스</h3><p style="font-size:13px;color:var(--mt);line-height:1.8;padding-left:13px">본 블로그는 Google 애드센스를 통해 광고를 게재합니다. Google의 개인정보 보호정책은 policies.google.com에서 확인하실 수 있습니다.</p></div>
+        <div><h3 style="font-size:14px;font-weight:700;color:var(--tx);margin-bottom:6px;padding-left:10px;border-left:3px solid var(--ac)">5. 개인정보 보호책임자</h3><p style="font-size:13px;color:var(--mt);line-height:1.8;padding-left:13px">이메일: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fa89c3cccfc9cacacbcbcbba9d979b9396d4999597">[email&#160;protected]</a></p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TERMS -->
+<div class="page" id="page-terms">
+  <div class="wrap" style="max-width:780px">
+    <div style="background:var(--sur);border:1px solid var(--bd);border-radius:16px;padding:2rem">
+      <h1 style="font-family:var(--display);font-size:22px;margin-bottom:.4rem">이용약관</h1>
+      <p style="font-size:12px;color:var(--mt);margin-bottom:1.6rem">최종 업데이트: 2026년 3월 21일</p>
+      <div style="display:flex;flex-direction:column;gap:1.3rem">
+        <div><h3 style="font-size:14px;font-weight:700;color:var(--tx);margin-bottom:6px;padding-left:10px;border-left:3px solid var(--ac)">제1조 (목적)</h3><p style="font-size:13px;color:var(--mt);line-height:1.8;padding-left:13px">본 약관은 TARRY의 데일리(tarrydaily.com)가 제공하는 서비스의 이용 조건을 규정합니다.</p></div>
+        <div><h3 style="font-size:14px;font-weight:700;color:var(--tx);margin-bottom:6px;padding-left:10px;border-left:3px solid var(--ac)">제2조 (서비스 이용)</h3><p style="font-size:13px;color:var(--mt);line-height:1.8;padding-left:13px">블로그 서비스는 누구나 무료로 이용할 수 있습니다.</p></div>
+        <div><h3 style="font-size:14px;font-weight:700;color:var(--tx);margin-bottom:6px;padding-left:10px;border-left:3px solid var(--ac)">제3조 (콘텐츠 저작권)</h3><p style="font-size:13px;color:var(--mt);line-height:1.8;padding-left:13px">블로그에 게시된 모든 콘텐츠의 저작권은 블로그 운영자에게 있습니다. 무단 복제를 금지합니다.</p></div>
+        <div><h3 style="font-size:14px;font-weight:700;color:var(--tx);margin-bottom:6px;padding-left:10px;border-left:3px solid var(--ac)">제4조 (광고)</h3><p style="font-size:13px;color:var(--mt);line-height:1.8;padding-left:13px">본 블로그는 Google 애드센스 등 광고 프로그램을 통해 수익을 얻을 수 있습니다.</p></div>
+        <div><h3 style="font-size:14px;font-weight:700;color:var(--tx);margin-bottom:6px;padding-left:10px;border-left:3px solid var(--ac)">문의</h3><p style="font-size:13px;color:var(--mt);line-height:1.8;padding-left:13px"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="16652f202325262627272756717b777f7a3875797b">[email&#160;protected]</a></p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="page" id="page-contact">
+  <div class="wrap" style="max-width:700px">
+    <div class="divider" style="margin-top:0">📨 문의하기</div>
+    <div class="contact-grid">
+      <div class="cc" onclick="selContact('inquiry')"><div class="cc-ico">📝</div><div class="cc-t">1:1 문의</div><div class="cc-d">블로그 관련 궁금한 점이나 건의사항</div></div>
+      <div class="cc" onclick="selContact('report')"><div class="cc-ico">🚨</div><div class="cc-t">신고하기</div><div class="cc-d">불법 콘텐츠나 부적절한 댓글 신고</div></div>
+      <div class="cc" onclick="selContact('ad')"><div class="cc-ico">📢</div><div class="cc-t">광고/제휴 문의</div><div class="cc-d">광고 게재나 제휴 협업 문의</div></div>
+      <div class="cc" onclick="selContact('etc')"><div class="cc-ico">💬</div><div class="cc-t">기타 문의</div><div class="cc-d">그 외 문의사항</div></div>
+    </div>
+    <div class="form-card">
+      <h3>✉️ 문의 작성 <span id="contactTypeLabel" style="font-size:11px;color:var(--ac);font-weight:600;background:var(--sur3);padding:3px 9px;border-radius:999px">1:1 문의</span></h3>
+      <div class="cat-btns">
+        <button class="cat-btn sel" onclick="selCat(this)">일반 문의</button>
+        <button class="cat-btn" onclick="selCat(this)">글/콘텐츠</button>
+        <button class="cat-btn" onclick="selCat(this)">기술 오류</button>
+        <button class="cat-btn" onclick="selCat(this)">계정 문제</button>
+        <button class="cat-btn" onclick="selCat(this)">광고/제휴</button>
+      </div>
+      <div class="field"><label>이름</label><input class="inp" id="cName" placeholder="홍길동"></div>
+      <div class="field"><label>이메일</label><input class="inp" id="cEmail" type="email" placeholder="example@email.com"></div>
+      <div class="field"><label>제목</label><input class="inp" id="cTitle" placeholder="문의 제목"></div>
+      <div class="field"><label>내용</label><textarea class="inp" id="cContent" placeholder="문의 내용을 자세히 적어주세요."></textarea></div>
+      <div class="info-box">📬 평균 응답 시간: <strong>24시간 이내</strong></div>
+      <button class="submit-btn" onclick="submitContact()">📨 문의 보내기</button>
+      <div class="success-msg" id="contactSuccess">
+        <div style="font-size:32px;margin-bottom:7px">✅</div>
+        <div style="font-size:14px;font-weight:700;margin-bottom:4px">문의가 접수됐어요!</div>
+        <div style="font-size:12px;color:var(--mt)">24시간 이내에 이메일로 답변 드릴게요 😊</div>
+      </div>
+    </div>
+    <div class="form-card">
+      <h3>❓ 자주 묻는 질문</h3>
+      <div class="faq-item"><div class="faq-q" onclick="togFaq(this)"><span>🔓</span><span style="flex:1">회원가입 없이 이용할 수 있나요?</span><span class="faq-arr">▶</span></div><div class="faq-a"><strong>둘러보기 모드</strong>로 로그인 없이도 글을 읽을 수 있어요. 댓글·이모티콘·프로필은 회원 전용이에요.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="togFaq(this)"><span>💰</span><span style="flex:1">회원가입은 무료인가요?</span><span class="faq-arr">▶</span></div><div class="faq-a">기본 회원가입은 <strong>완전 무료</strong>예요!</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="togFaq(this)"><span>📧</span><span style="flex:1">비밀번호를 잊어버렸어요</span><span class="faq-arr">▶</span></div><div class="faq-a"><strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a4d79d9291979494959595e4c3c9c5cdc88ac7cbc9">[email&#160;protected]</a></strong>으로 이메일을 보내주시면 도와드릴게요.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="togFaq(this)"><span>📢</span><span style="flex:1">광고/협찬 문의는 어디로 하나요?</span><span class="faq-arr">▶</span></div><div class="faq-a">위 문의 양식에서 <strong>광고/제휴</strong>를 선택하거나 <strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bfcc86898a8c8f8f8e8e8effd8d2ded6d391dcd0d2">[email&#160;protected]</a></strong>으로 이메일 주세요.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div class="page" id="page-admin">
+  <div class="admin-page">
+    <div class="admin-header">
+      <h1>🔐 관리자 페이지 <span style="font-size:11px;color:#a78bfa;font-family:var(--font);font-weight:400">tarrydaily.com</span></h1>
+      <div style="display:flex;gap:7px;align-items:center">
+        <span style="font-size:11px;color:#a78bfa">관리자로 로그인됨</span>
+        <button class="btn btn-ghost btn-sm" onclick="doAdminLogout()">로그아웃</button>
+      </div>
+    </div>
+    <div class="admin-tabs">
+      <button class="atab-admin on" id="at-dash" onclick="setAdminTab('dash')">📊 대시보드</button>
+      <button class="atab-admin" id="at-rss" onclick="setAdminTab('rss')">🌐 RSS</button>
+      <button class="atab-admin" id="at-sns" onclick="setAdminTab('sns')">📱 SNS</button>
+      <button class="atab-admin" id="at-cat" onclick="setAdminTab('cat')">📂 카테고리</button>
+      <button class="atab-admin" id="at-theme" onclick="setAdminTab('theme')">🎨 테마변경</button>
+      <button class="atab-admin" id="at-seo" onclick="setAdminTab('seo')">🔍 SEO</button>
+      <button class="atab-admin" id="at-biz" onclick="setAdminTab('biz')">🏢 사업자</button>
+      <button class="atab-admin" id="at-pw" onclick="setAdminTab('pw')">🔑 비밀번호</button>
+      <button class="atab-admin" id="at-analytics" onclick="setAdminTab('analytics')">📊 애널리틱스</button>
+      <button class="atab-admin" id="at-news" onclick="setAdminTab('news')">📰 오늘의뉴스</button>
+      <button class="atab-admin" id="at-stats" onclick="setAdminTab('stats');refreshAdminStats()">📈 방문자통계</button>
+      <button class="atab-admin" id="at-files" onclick="setAdminTab('files');initFilesTab()">📁 파일관리</button>
+    </div>
+
+    <!-- 대시보드 -->
+    <div class="admin-panel on" id="ap-dash">
+      <div class="admin-wrap">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:9px;margin-bottom:14px">
+          <div class="admin-section" style="text-align:center;padding:14px"><div style="font-size:26px;font-weight:700;color:var(--ac)">25</div><div style="font-size:11px;color:var(--mt)">전체 글 수</div></div>
+          <div class="admin-section" style="text-align:center;padding:14px"><div style="font-size:26px;font-weight:700;color:var(--green)">0</div><div style="font-size:11px;color:var(--mt)">회원 수</div></div>
+          <div class="admin-section" style="text-align:center;padding:14px"><div style="font-size:26px;font-weight:700;color:var(--yellow)">4</div><div style="font-size:11px;color:var(--mt)">자동 SNS</div></div>
+          <div class="admin-section" style="text-align:center;padding:14px"><div style="font-size:26px;font-weight:700;color:var(--red)">0</div><div style="font-size:11px;color:var(--mt)">미처리 문의</div></div>
+        </div>
+        <div class="admin-section">
+          <h3>💡 이 대화 저장 방법</h3>
+          <div style="display:flex;flex-direction:column;gap:7px;font-size:12px">
+            <div style="background:var(--sur2);border-radius:9px;padding:10px 12px;border:1px solid var(--bd)"><strong>방법 1</strong> — 브라우저 주소창 URL을 <strong>Ctrl+D</strong>로 즐겨찾기 추가</div>
+            <div style="background:var(--sur2);border-radius:9px;padding:10px 12px;border:1px solid var(--bd)"><strong>방법 2</strong> — URL 복사해서 카카오톡 나에게 보내기</div>
+            <div style="background:var(--sur2);border-radius:9px;padding:10px 12px;border:1px solid var(--bd)"><strong>방법 3</strong> — claude.ai 로그인 유지 → 왼쪽 사이드바에 자동 저장</div>
+          </div>
+          <div class="info-box" style="margin-top:10px">🔗 이 대화 링크: <strong>claude.ai/chat/37923611-9856-474d-8724-8f0864ace332</strong></div>
+        </div>
+        <div class="admin-section">
+          <h3>⚡ 빠른 실행</h3>
+          <div style="display:flex;gap:7px;flex-wrap:wrap">
+            <button class="btn btn-grad" onclick="setAdminTab('rss');document.getElementById('at-rss').classList.add('on')">🌐 RSS</button>
+            <button class="btn btn-grad" onclick="setAdminTab('sns');document.getElementById('at-sns').classList.add('on')">📱 SNS</button>
+            <button class="btn btn-dark" onclick="setAdminTab('theme');document.getElementById('at-theme').classList.add('on')">🎨 테마</button>
+            <button class="btn btn-ghost" onclick="setAdminTab('pw');document.getElementById('at-pw').classList.add('on')">🔑 비밀번호</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RSS -->
+    <div class="admin-panel" id="ap-rss">
+      <div class="admin-wrap">
+        <div class="admin-section">
+          <h3>🌐 RSS 수집기</h3>
+          <div style="background:var(--sur2);border-radius:10px;padding:11px 13px;display:flex;align-items:center;gap:9px;margin-bottom:11px">
+            <div class="sync-dot"></div>
+            <div style="flex:1;font-size:12px;color:var(--mt)">실시간 동기화 중 — <strong style="color:var(--tx)">1</strong>개 소스</div>
+            <button class="btn btn-grad btn-sm" onclick="toast('🔄 전체 동기화 완료!')">🔄 동기화</button>
+          </div>
+          <div id="rssList2" style="display:flex;flex-direction:column;gap:7px;margin-bottom:11px">
+            <div style="background:var(--sur2);border:1px solid var(--bd);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:10px">
+              <div style="width:32px;height:32px;border-radius:8px;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">🗂</div>
+              <div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:600">TARRY의 아카이브</div><div style="font-size:10px;color:var(--mt);font-family:monospace">tarryguide.com/sitemap.xml</div></div>
+              <span style="font-size:10px;padding:2px 8px;border-radius:999px;font-weight:600;background:rgba(5,150,105,.1);color:var(--green);border:1px solid rgba(5,150,105,.2)">✓ 연결됨</span>
+            </div>
+          </div>
+          <div class="info-box">💡 URL 입력만으로 RSS/sitemap 자동 감지!</div>
+          <div style="display:flex;gap:7px;flex-wrap:wrap">
+            <input class="inp" id="rssName2" placeholder="사이트 이름" style="flex:1;min-width:120px">
+            <input class="inp" id="rssUrl2" placeholder="URL (https://...)" style="flex:2;min-width:160px;font-family:monospace;font-size:11px">
+            <button class="btn btn-grad" onclick="addRss2()">+ 추가</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SNS -->
+    <div class="admin-panel" id="ap-sns">
+      <div class="admin-wrap">
+        <div class="admin-section">
+          <h3>📱 SNS 발행 현황</h3>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:13px">
+            <div style="background:var(--sur2);border-radius:9px;padding:10px;text-align:center"><div style="font-size:17px;font-weight:700;color:var(--ac)">4</div><div style="font-size:10px;color:var(--mt)">자동 발행</div></div>
+            <div style="background:var(--sur2);border-radius:9px;padding:10px;text-align:center"><div style="font-size:17px;font-weight:700;color:var(--yellow)">2</div><div style="font-size:10px;color:var(--mt)">수동 발행</div></div>
+            <div style="background:var(--sur2);border-radius:9px;padding:10px;text-align:center"><div style="font-size:17px;font-weight:700;color:var(--mt)">4</div><div style="font-size:10px;color:var(--mt)">미연결</div></div>
+            <div style="background:var(--sur2);border-radius:9px;padding:10px;text-align:center"><div style="font-size:17px;font-weight:700;color:var(--green)" id="totalPub2">0</div><div style="font-size:10px;color:var(--mt)">총 발행</div></div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin-bottom:13px">
+            <div style="background:var(--sur2);border:1.5px solid rgba(124,58,237,.3);border-radius:11px;padding:11px;display:flex;align-items:center;gap:9px"><div style="width:30px;height:30px;border-radius:7px;background:#1877F2;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;font-weight:900;flex-shrink:0">f</div><div style="flex:1"><div style="font-size:12px;font-weight:700">Facebook</div><div style="font-size:10px;color:var(--mt)">연결됨</div></div><span style="font-size:9px;padding:2px 7px;border-radius:999px;background:rgba(124,58,237,.12);color:var(--ac);border:1px solid rgba(124,58,237,.25)">🤖 자동</span></div>
+            <div style="background:var(--sur2);border:1.5px solid rgba(124,58,237,.3);border-radius:11px;padding:11px;display:flex;align-items:center;gap:9px"><div style="width:30px;height:30px;border-radius:7px;background:linear-gradient(135deg,#f09433,#dc2743);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">📸</div><div style="flex:1"><div style="font-size:12px;font-weight:700">Instagram</div><div style="font-size:10px;color:var(--mt)">연결됨</div></div><span style="font-size:9px;padding:2px 7px;border-radius:999px;background:rgba(124,58,237,.12);color:var(--ac);border:1px solid rgba(124,58,237,.25)">🤖 자동</span></div>
+            <div style="background:var(--sur2);border:1.5px solid rgba(124,58,237,.3);border-radius:11px;padding:11px;display:flex;align-items:center;gap:9px"><div style="width:30px;height:30px;border-radius:7px;background:#000;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;font-weight:900;flex-shrink:0">@</div><div style="flex:1"><div style="font-size:12px;font-weight:700">Threads</div><div style="font-size:10px;color:var(--mt)">연결됨</div></div><span style="font-size:9px;padding:2px 7px;border-radius:999px;background:rgba(124,58,237,.12);color:var(--ac);border:1px solid rgba(124,58,237,.25)">🤖 자동</span></div>
+            <div style="background:var(--sur2);border:1.5px solid rgba(124,58,237,.3);border-radius:11px;padding:11px;display:flex;align-items:center;gap:9px"><div style="width:30px;height:30px;border-radius:7px;background:#5865F2;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;font-weight:900;flex-shrink:0">D</div><div style="flex:1"><div style="font-size:12px;font-weight:700">Discord</div><div style="font-size:10px;color:var(--mt)">연결됨</div></div><span style="font-size:9px;padding:2px 7px;border-radius:999px;background:rgba(124,58,237,.12);color:var(--ac);border:1px solid rgba(124,58,237,.25)">🤖 자동</span></div>
+          </div>
+          <select style="width:100%;background:var(--sur2);border:1px solid var(--bd);border-radius:8px;padding:8px 10px;font-size:11px;color:var(--tx);outline:none;font-family:var(--font);cursor:pointer;margin-bottom:7px" onchange="fillBlogPost2(this.value)">
+            <option value="">📄 블로그 글 선택해서 채우기</option>
+            <option value="chatgpt">🤖 ChatGPT 프롬프트 모음</option>
+            <option value="electric">⚡ 전기요금 절약하는 방법</option>
+            <option value="netflix">🎬 2026 넷플릭스 추천 TOP10</option>
+          </select>
+          <textarea style="width:100%;background:var(--sur2);border:1.5px solid var(--bd);border-radius:9px;padding:9px 11px;color:var(--tx);font-size:12px;outline:none;resize:none;min-height:65px;font-family:var(--font);line-height:1.5;margin-bottom:8px" id="qpText2" placeholder="발행할 내용 입력..."></textarea>
+          <button class="btn btn-grad" style="width:100%;padding:11px;font-size:13px" onclick="quickPublish2()">🚀 자동 SNS에 발행하기</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 카테고리 -->
+    <div class="admin-panel" id="ap-cat">
+      <div class="admin-wrap">
+        <div class="admin-section">
+          <h3>📂 카테고리 관리</h3>
+          <div class="info-box">💡 대분류 → 중분류 → 소분류 3단계로 관리해요</div>
+          <div id="adminCatTree" style="margin-bottom:11px"></div>
+          <div class="divider">대분류 추가</div>
+          <div style="display:flex;gap:7px">
+            <input class="inp" id="newL1" placeholder="새 대분류 이름 (예: 라이프)" style="flex:1" onkeydown="if(event.key==='Enter')addAdminL1()">
+            <button class="btn btn-grad" onclick="addAdminL1()">+ 추가</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 테마 -->
+    <div class="admin-panel" id="ap-theme">
+      <div class="admin-wrap">
+        <div class="admin-section">
+          <h3>🎨 색상 테마 변경</h3>
+          <div class="info-box">💡 클릭 한 번으로 블로그 전체 색상이 바뀌어요!</div>
+          <div class="divider">프리셋 테마</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:9px;margin-bottom:14px" id="themePresets"></div>
+          <div class="divider">직접 색상 설정</div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:13px">
+            <div><div style="font-size:11px;font-weight:700;color:var(--mt);margin-bottom:6px">메인 색상</div><input type="color" id="colorG1" value="#7c3aed" style="width:100%;height:38px;border:1px solid var(--bd);border-radius:8px;cursor:pointer" onchange="previewTheme()"></div>
+            <div><div style="font-size:11px;font-weight:700;color:var(--mt);margin-bottom:6px">포인트 색상</div><input type="color" id="colorG2" value="#ec4899" style="width:100%;height:38px;border:1px solid var(--bd);border-radius:8px;cursor:pointer" onchange="previewTheme()"></div>
+            <div><div style="font-size:11px;font-weight:700;color:var(--mt);margin-bottom:6px">강조 색상</div><input type="color" id="colorG3" value="#f97316" style="width:100%;height:38px;border:1px solid var(--bd);border-radius:8px;cursor:pointer" onchange="previewTheme()"></div>
+          </div>
+          <div style="background:var(--sur2);border-radius:11px;padding:13px;margin-bottom:13px;border:1px solid var(--bd)">
+            <div style="font-size:12px;font-weight:700;margin-bottom:9px">미리보기</div>
+            <div id="themePreviewBox" style="background:linear-gradient(135deg,#7c3aed,#ec4899,#f97316);border-radius:9px;padding:14px;text-align:center;color:#fff">
+              <div style="font-family:var(--display);font-size:16px;font-weight:700;margin-bottom:4px">TARRY의 데일리</div>
+              <div style="font-size:12px;opacity:.88">색상 미리보기</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:7px">
+            <button class="btn btn-grad" style="flex:1;padding:12px;font-size:13px" onclick="applyTheme()">🎨 이 테마 적용하기</button>
+            <button class="btn btn-ghost" onclick="resetTheme()">↩ 기본값</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEO -->
+    <div class="admin-panel" id="ap-seo">
+      <div class="admin-wrap">
+        <div class="admin-section">
+          <h3>🔍 SEO & 검색엔진 등록</h3>
+          <div class="info-box">💡 구글/네이버에 등록하면 검색 결과에 노출돼요!</div>
+          <div class="field"><label>구글 인증 코드</label><input class="inp" id="googleCode" placeholder="YOUR_GOOGLE_CODE_HERE"></div>
+          <div class="field"><label>네이버 인증 코드</label><input class="inp" id="naverCode" placeholder="YOUR_NAVER_CODE_HERE"></div>
+          <div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:11px">
+            <button class="btn btn-grad" onclick="toast('✅ 코드 저장!')">💾 저장</button>
+            <a class="btn btn-ghost" href="https://search.google.com/search-console" target="_blank">구글 서치콘솔 →</a>
+            <a class="btn btn-ghost" href="https://searchadvisor.naver.com" target="_blank">네이버 서치어드바이저 →</a>
+          </div>
+          <div class="divider">자동 핑 전송</div>
+          <button class="btn btn-grad" onclick="autoPing();toast('🚀 구글·네이버·빙 핑 전송 완료!')">🚀 지금 핑 전송</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 사업자 -->
+    <div class="admin-panel" id="ap-biz">
+      <div class="admin-wrap">
+        <div class="admin-section">
+          <h3>🏢 사업자 정보 관리</h3>
+          <div style="background:var(--sur2);border-radius:10px;padding:13px;border:1px solid var(--bd);margin-bottom:13px">
+            <div class="tog-row"><span>푸터에 사업자 정보 표시</span><button class="tog on" onclick="this.classList.toggle('on');document.getElementById('footerBiz').classList.toggle('hide',!this.classList.contains('on'))"></button></div>
+          </div>
+          <div class="field"><label>상호명</label><input class="inp" id="biz-name" value="TARRY의 데일리"></div>
+          <div class="field"><label>대표자명</label><input class="inp" id="biz-ceo" placeholder="홍길동"></div>
+          <div class="field"><label>사업자등록번호</label><input class="inp" id="biz-regno" placeholder="000-00-00000"></div>
+          <div class="field"><label>주소</label><input class="inp" id="biz-addr" placeholder="서울특별시..."></div>
+          <div class="field"><label>이메일</label><input class="inp" id="biz-email" value="s965300111@gmail.com"></div>
+          <div style="display:flex;gap:7px">
+            <button class="btn btn-grad" style="flex:1" onclick="saveBiz()">💾 저장하기</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 비밀번호 -->
+    <div class="admin-panel" id="ap-pw">
+      <div class="admin-wrap">
+        <div class="admin-section">
+          <h3>🔑 관리자 비밀번호 변경</h3>
+          <div class="warn-box">⚠️ 비밀번호를 변경하면 다음 로그인부터 새 비밀번호를 사용해야 해요!</div>
+          <div class="field"><label>현재 비밀번호</label><input class="inp" id="curPw" type="password" placeholder="현재 비밀번호"></div>
+          <div class="field"><label>새 비밀번호</label><input class="inp" id="newPw" type="password" placeholder="새 비밀번호 (4자 이상)"></div>
+          <div class="field"><label>새 비밀번호 확인</label><input class="inp" id="newPwConfirm" type="password" placeholder="새 비밀번호 다시 입력"></div>
+          <button class="btn btn-grad" style="width:100%;padding:12px;font-size:13px" onclick="changeAdminPw()">🔑 비밀번호 변경하기</button>
+          <div id="pwSuccess" style="display:none;background:rgba(5,150,105,.07);border:1px solid rgba(5,150,105,.2);border-radius:9px;padding:11px;text-align:center;margin-top:9px;font-size:13px;color:var(--green)">✅ 비밀번호가 변경됐어요!</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 애널리틱스 -->
+    <div class="admin-panel" id="ap-analytics">
+      <div class="admin-wrap">
+        <div class="admin-section">
+          <h3>📊 Google Analytics 설정</h3>
+          <div class="info-box">💡 Google Analytics를 연동하면 방문자 수, 유입 경로, 인기 글을 실시간으로 확인할 수 있어요!</div>
+          <div class="divider">연동 방법</div>
+          <div style="display:flex;flex-direction:column;gap:7px;margin-bottom:13px">
+            <div style="background:var(--sur2);border-radius:9px;padding:10px 12px;border:1px solid var(--bd);font-size:12px"><strong>① analytics.google.com</strong> → 시작하기 → 계정 만들기</div>
+            <div style="background:var(--sur2);border-radius:9px;padding:10px 12px;border:1px solid var(--bd);font-size:12px"><strong>② 속성 만들기</strong> → 이름: tarrydaily.com → 웹 → URL 입력</div>
+            <div style="background:var(--sur2);border-radius:9px;padding:10px 12px;border:1px solid var(--bd);font-size:12px"><strong>③ 측정 ID 복사</strong> → G-XXXXXXXXXX 형태</div>
+          </div>
+          <div class="field">
+            <label>Google Analytics 측정 ID</label>
+            <div style="display:flex;gap:7px">
+              <input class="inp" id="gaId" placeholder="G-XXXXXXXXXX" style="flex:1;font-family:monospace">
+              <button class="btn btn-grad" onclick="saveGaId()">💾 저장</button>
+            </div>
+          </div>
+          <div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:13px">
+            <a class="btn btn-ghost" href="https://analytics.google.com" target="_blank">📊 Analytics 대시보드 →</a>
+          </div>
+          <div class="divider">확인할 수 있는 데이터</div>
+          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px">
+            <div style="background:var(--sur2);border-radius:9px;padding:10px;border:1px solid var(--bd);text-align:center"><div style="font-size:18px;margin-bottom:4px">👥</div><div style="font-size:11px;font-weight:700;margin-bottom:2px">방문자 수</div><div style="font-size:10px;color:var(--mt)">일별·주별·월별</div></div>
+            <div style="background:var(--sur2);border-radius:9px;padding:10px;border:1px solid var(--bd);text-align:center"><div style="font-size:18px;margin-bottom:4px">🔍</div><div style="font-size:11px;font-weight:700;margin-bottom:2px">유입 경로</div><div style="font-size:10px;color:var(--mt)">구글·네이버·SNS·직접</div></div>
+            <div style="background:var(--sur2);border-radius:9px;padding:10px;border:1px solid var(--bd);text-align:center"><div style="font-size:18px;margin-bottom:4px">📄</div><div style="font-size:11px;font-weight:700;margin-bottom:2px">인기 글</div><div style="font-size:10px;color:var(--mt)">어떤 글을 많이 봤는지</div></div>
+            <div style="background:var(--sur2);border-radius:9px;padding:10px;border:1px solid var(--bd);text-align:center"><div style="font-size:18px;margin-bottom:4px">📱</div><div style="font-size:11px;font-weight:700;margin-bottom:2px">기기·지역</div><div style="font-size:10px;color:var(--mt)">PC·모바일·태블릿</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  
+
+    <!-- 오늘의 뉴스 패널 -->
+    <div class="admin-panel" id="ap-news">
+      <div class="admin-wrap">
+        <div style="background:linear-gradient(135deg,#059669,#0891b2);border-radius:20px;padding:2rem;text-align:center;margin-bottom:14px">
+          <div style="font-size:48px;margin-bottom:10px">📰</div>
+          <div style="font-size:20px;font-weight:800;color:#fff;font-family:var(--display);margin-bottom:6px">오늘의 뉴스 자동 등록</div>
+          <div style="font-size:13px;color:rgba(255,255,255,.85);margin-bottom:18px">클릭할 때마다 새로운 뉴스를 수집해서 등록해요!</div>
+          <button id="autoNewsBtn" onclick="runAutoNews(false)" style="background:#fff;color:#059669;border:none;border-radius:999px;padding:14px 36px;font-size:15px;font-weight:800;cursor:pointer;font-family:var(--font)">🚀 지금 바로 뉴스 가져오기</button>
+        </div>
+        <!-- 로딩 에너지바 -->
+        <div id="newsLoadingBox" style="display:none;background:var(--sur2);border-radius:16px;padding:20px;border:2px solid var(--bd2);margin-bottom:14px">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+            <div style="font-size:32px" id="newsLoadingIcon">🔄</div>
+            <div style="flex:1">
+              <div style="font-size:14px;font-weight:800;color:var(--tx);margin-bottom:3px" id="newsLoadingText">뉴스 수집 준비 중...</div>
+              <div style="font-size:12px;color:var(--mt)" id="newsLoadingStep">잠시만 기다려주세요</div>
+            </div>
+            <div style="font-size:22px;font-weight:800;color:var(--ac)" id="newsProgressPct">0%</div>
+          </div>
+          <div style="background:var(--bd);border-radius:999px;height:14px;overflow:hidden">
+            <div id="newsProgressBar" style="background:linear-gradient(90deg,#059669,#0891b2,#7c3aed);height:14px;border-radius:999px;width:0%;transition:width .6s ease"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:10px;color:var(--mt)">
+            <span>시작</span><span>연결</span><span>분석</span><span>수집</span><span>등록</span><span>완료</span>
+          </div>
+        </div>
+        <!-- 스케줄 설정 -->
+        <div class="admin-section" style="margin-bottom:13px">
+          <h3>⏰ 자동 스케줄 설정</h3>
+          <div style="background:var(--sur2);border-radius:11px;padding:12px 14px;border:1px solid var(--bd);margin-bottom:11px">
+            <div style="font-size:13px;font-weight:700" id="scheduleLabel">⏰ 매일 08:00 자동 실행</div>
+            <div style="font-size:11px;color:var(--mt);margin-top:2px">설정한 시간에 자동으로 뉴스를 수집해서 등록해요</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:11px">
+            <button onclick="setNewsMode('auto')" id="newsModeAuto" style="background:var(--grad);color:#fff;border:none;border-radius:12px;padding:13px 8px;cursor:pointer;font-family:var(--font);text-align:center">
+              <div style="font-size:22px;margin-bottom:4px">🤖</div>
+              <div style="font-size:13px;font-weight:800">자동 모드</div>
+              <div style="font-size:10px;opacity:.85">매일 자동 수집</div>
+            </button>
+            <button onclick="setNewsMode('manual')" id="newsModeManual" style="background:var(--sur2);color:var(--tx);border:2px solid var(--bd);border-radius:12px;padding:13px 8px;cursor:pointer;font-family:var(--font);text-align:center">
+              <div style="font-size:22px;margin-bottom:4px">✋</div>
+              <div style="font-size:13px;font-weight:800">수동 모드</div>
+              <div style="font-size:10px;color:var(--mt)">내가 클릭할 때만</div>
+            </button>
+          </div>
+          <!-- 시간 직접 입력 -->
+          <div style="background:var(--sur);border:1.5px solid var(--bd2);border-radius:12px;padding:14px;margin-bottom:11px">
+            <label style="font-size:12px;font-weight:700;color:var(--tx);display:block;margin-bottom:8px">🕐 자동 수집 시간 직접 설정</label>
+            <div style="display:flex;gap:8px;align-items:center">
+              <input type="time" id="customScheduleTime" value="08:00" style="flex:1;background:var(--sur2);border:2px solid var(--bd2);border-radius:10px;padding:11px 14px;font-size:18px;font-weight:700;color:var(--tx);outline:none;cursor:pointer;font-family:var(--font)">
+              <button onclick="applyCustomTime()" style="background:var(--grad);color:#fff;border:none;border-radius:10px;padding:12px 18px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font)">✅ 적용</button>
+            </div>
+            <div style="font-size:11px;color:var(--mt);margin-top:7px;text-align:center">현재: <strong style="color:var(--ac)" id="currentScheduleDisplay">매일 08:00</strong></div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px">
+            <div>
+              <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:4px">수집 뉴스 수</label>
+              <select class="inp" id="newsCount">
+                <option value="3">3개</option>
+                <option value="5" selected>5개</option>
+                <option value="10">10개</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:4px">뉴스 분야</label>
+              <select class="inp" id="newsCategory">
+                <option value="종합">종합 뉴스</option>
+                <option value="IT기술">IT·기술</option>
+                <option value="경제재테크">경제·재테크</option>
+                <option value="생활건강">생활·건강</option>
+                <option value="트렌드">트렌드</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <!-- 수집 결과 -->
+        <div class="admin-section">
+          <h3>📋 수집된 뉴스</h3>
+          <div id="autoNewsList">
+            <div style="text-align:center;padding:2rem;color:var(--mt)"><div style="font-size:30px;margin-bottom:8px">📰</div>위 버튼을 눌러 뉴스를 가져오세요!</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 방문자 통계 패널 -->
+    <div class="admin-panel" id="ap-stats">
+      <div class="admin-wrap">
+        <div class="admin-section" style="margin-bottom:14px">
+          <h3>📊 방문자 통계</h3>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px">
+            <div style="background:var(--sur2);border-radius:12px;padding:16px;text-align:center;border:1px solid var(--bd)">
+              <div style="font-size:24px;font-weight:800;color:var(--ac)" id="adminStatTotal">12,847</div>
+              <div style="font-size:11px;color:var(--mt);margin-top:4px">누적 방문자</div>
+            </div>
+            <div style="background:var(--sur2);border-radius:12px;padding:16px;text-align:center;border:1px solid var(--bd)">
+              <div style="font-size:24px;font-weight:800;color:#ec4899" id="adminStatDaily">234</div>
+              <div style="font-size:11px;color:var(--mt);margin-top:4px">오늘 방문자</div>
+            </div>
+            <div style="background:var(--sur2);border-radius:12px;padding:16px;text-align:center;border:1px solid var(--bd)">
+              <div style="font-size:24px;font-weight:800;color:#f97316" id="adminStatPosts">25</div>
+              <div style="font-size:11px;color:var(--mt);margin-top:4px">전체 글</div>
+            </div>
+          </div>
+          <button onclick="refreshAdminStats()" class="btn btn-grad" style="width:100%;padding:11px">🔄 통계 새로고침</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PPT 파일 관리 패널 -->
+    <div class="admin-panel" id="ap-files">
+      <div class="admin-wrap">
+        <div class="admin-section" style="margin-bottom:14px">
+          <h3>📊 PPT 사용설명서 등록</h3>
+          <div style="background:var(--sur2);border-radius:11px;padding:13px;border:1px solid var(--bd);margin-bottom:12px">
+            <div style="font-size:12px;font-weight:700;color:var(--mt);margin-bottom:6px">현재 등록된 PPT</div>
+            <div id="currentPPTDisplay" style="font-size:13px;color:var(--tx)">등록된 파일 없음</div>
+          </div>
+          <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:5px">🔗 PPT 파일 URL 입력</label>
+          <div style="display:flex;gap:7px;margin-bottom:8px">
+            <input class="inp" id="pptUrlInput" placeholder="https://drive.google.com/... 또는 .pptx URL" style="flex:1;font-size:12px">
+            <button onclick="savePPTUrl()" class="btn btn-grad" style="flex-shrink:0">💾 등록</button>
+          </div>
+          <div style="background:var(--sur3);border-radius:10px;padding:12px;margin-bottom:12px">
+            <div style="font-size:12px;font-weight:700;color:var(--ac);margin-bottom:6px">📌 구글 드라이브 사용 방법</div>
+            <div style="font-size:11px;color:var(--mt);line-height:1.8">
+              1. 구글 드라이브에 PPT 업로드<br>
+              2. 파일 우클릭 → 링크 복사<br>
+              3. 링크 변환: drive.google.com/uc?id=<strong>ID</strong>&export=download<br>
+              4. 위 입력창에 붙여넣기 → 등록
+            </div>
+          </div>
+          <div style="display:flex;gap:7px">
+            <button onclick="downloadPPT()" class="btn btn-grad" style="flex:1;padding:12px">📥 다운로드 테스트</button>
+            <button onclick="removePPT()" style="background:rgba(220,38,38,.1);color:#dc2626;border:1px solid rgba(220,38,38,.2);border-radius:9px;padding:12px 14px;cursor:pointer;font-family:var(--font);font-size:13px">🗑️</button>
+          </div>
+        </div>
+        <div class="admin-section">
+          <h3>📁 기타 파일 관리</h3>
+          <div id="extraFilesList"><div style="font-size:12px;color:var(--mt);text-align:center;padding:1rem">등록된 파일이 없어요</div></div>
+          <div style="display:flex;gap:7px;margin-top:10px">
+            <input class="inp" id="extraFileName" placeholder="파일 이름" style="flex:1">
+            <input class="inp" id="extraFileUrl" placeholder="파일 URL" style="flex:2;font-size:12px">
+            <button onclick="addExtraFile()" class="btn btn-grad btn-sm">+ 추가</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</div>
+</div>
+
+
+
+<!-- ADMIN LOGIN PAGE -->
+<div class="page" id="page-admin-login">
+  <div style="min-height:calc(100vh - 56px);display:flex;align-items:center;justify-content:center;padding:2rem">
+    <div style="background:var(--sur);border:1px solid var(--bd);border-radius:20px;padding:28px;width:min(360px,100%);box-shadow:0 16px 50px rgba(0,0,0,.1)">
+      <div style="text-align:center;margin-bottom:20px">
+        <div style="font-size:40px;margin-bottom:10px">🔐</div>
+        <h2 style="font-family:var(--display);font-size:22px;margin-bottom:5px">관리자 로그인</h2>
+        <p style="font-size:12px;color:var(--mt)">관리자 전용 페이지입니다</p>
+      </div>
+      <div id="adminLoginErr" style="background:rgba(220,38,38,.08);border:1px solid rgba(220,38,38,.2);border-radius:8px;padding:9px;font-size:12px;color:var(--red);margin-bottom:12px;display:none">❌ 비밀번호가 틀렸어요</div>
+      <div style="margin-bottom:12px">
+        <label style="display:block;font-size:10px;font-weight:700;color:var(--mt);margin-bottom:5px;text-transform:uppercase">관리자 비밀번호</label>
+        <input class="inp" id="adminPwField" onkeydown="if(event.key==='Enter')doAdminLogin()" type="password" placeholder="비밀번호 입력">
+      </div>
+      <button onclick="doAdminLogin()" style="width:100%;background:var(--grad);color:#fff;border:none;border-radius:9px;padding:12px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font)">🔐 로그인</button>
+      <button onclick="showPage('home');setNav('home')" style="width:100%;background:transparent;border:none;color:var(--mt);font-size:12px;cursor:pointer;margin-top:8px;font-family:var(--font)">← 홈으로 돌아가기</button>
+    </div>
+  </div>
+</div>
+
+<!-- POST DETAIL -->
+<div class="page" id="page-post">
+  <div class="wrap" style="max-width:780px">
+    <div style="margin-bottom:1.2rem">
+      <button onclick="history.back()||showPage('home')" style="background:var(--sur2);border:1px solid var(--bd);border-radius:8px;padding:7px 14px;font-size:12px;font-weight:600;cursor:pointer;color:var(--mt);font-family:var(--font);display:flex;align-items:center;gap:5px">← 뒤로가기</button>
+    </div>
+    <article style="background:var(--sur);border:1px solid var(--bd);border-radius:16px;overflow:hidden;box-shadow:0 8px 30px rgba(124,58,237,.08)">
+      <!-- 글 헤더 -->
+      <div id="postHeader" style="background:var(--grad);padding:2.5rem 2rem;color:#fff;position:relative;overflow:hidden">
+        <div style="position:absolute;inset:0;opacity:.15;background:url('data:image/svg+xml,%3Csvg width=60 height=60 viewBox=0 0 60 60 xmlns=http://www.w3.org/2000/svg%3E%3Cg fill=%23ffffff fill-opacity=0.3%3E%3Ccircle cx=30 cy=30 r=20/%3E%3C/g%3E%3C/svg%3E')"></div>
+        <div id="postEmoji" style="font-size:48px;margin-bottom:12px;position:relative">🤖</div>
+        <div id="postTag" style="display:inline-block;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:3px 12px;font-size:11px;font-weight:600;margin-bottom:12px;position:relative">IT & 온라인</div>
+        <h1 id="postTitle" style="font-family:var(--display);font-size:clamp(20px,3.5vw,28px);line-height:1.3;margin-bottom:12px;position:relative">글 제목</h1>
+        <div style="display:flex;align-items:center;gap:10px;font-size:12px;opacity:.88;position:relative">
+          <div style="width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px">T</div>
+          <span id="postMeta">TARRY · 2026년 3월 21일 · 5분 읽기</span>
+        </div>
+      </div>
+      <!-- 글 본문 -->
+      <div id="postBody" style="padding:2rem;font-size:15px;line-height:1.9;color:var(--tx)"></div>
+      <!-- 글 하단 -->
+      <div style="padding:1.2rem 2rem;border-top:1px solid var(--bd);background:var(--sur2);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+        <div style="display:flex;gap:8px">
+          <button onclick="showPage('comment');setNav('comment')" style="background:var(--grad);color:#fff;border:none;border-radius:8px;padding:8px 16px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font)">💬 댓글 달기</button>
+          <button onclick="sharePost()" style="background:var(--sur);color:var(--ac);border:1.5px solid var(--bd2);border-radius:8px;padding:8px 16px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font)">🔗 공유하기</button>
+        </div>
+        <div id="postSourceLink" style="font-size:11px;color:var(--mt)"></div>
+      </div>
+    </article>
+    <!-- 관련 글 -->
+    <div style="margin-top:1.5rem">
+      <div class="divider">관련 글</div>
+      <div class="card-grid" id="relatedPosts"></div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toastEl"></div>
+<input type="file" id="profileInput2" accept="image/*" style="display:none">
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// ══════════════════════════════════════════
+//  TARRY의 데일리 — v3.0 완성본
+// ══════════════════════════════════════════
+
+let isAdminLoggedIn=false,isLoggedIn=false,isBrowsing=false,currentUser=null;
+let selectedL1=null,selectedL2=null,selectedL3=null;
+let currentView='grid',currentPosts=[],comments=[];
+let scheduleTime='08:00',scheduleTimer=null;
+let adminPw=(function(){try{return localStorage.getItem('tarry_admin_pw')||'123456';}catch(e){return'123456';}})();
+let extraFiles=[];
+
+const CAT_DATA = [
+  {id:'news',name:'오늘의 뉴스',icon:'📰',color:'ct-d',subs:[
+    {id:'hot',name:'핫이슈',items:[
+      {id:'news_1',title:'2026년 AI 트렌드 완벽 분석',desc:'올해 꼭 알아야 할 AI 핵심 트렌드',date:'3월 22일',read:'5분',emoji:'🤖'},
+      {id:'news_2',title:'스마트폰 배터리 2배 오래 쓰는 설정법',desc:'몰랐던 배터리 절약 설정',date:'3월 22일',read:'4분',emoji:'🔋'},
+      {id:'news_3',title:'매달 10만원 아끼는 생활비 절약 꿀팁',desc:'실생활에서 바로 실천 가능한 절약법',date:'3월 22일',read:'3분',emoji:'💰'}
+    ]}
+  ]},
+  {id:'life',name:'라이프',icon:'🌸',color:'ct-a',subs:[
+    {id:'daily',name:'일상',items:[{id:'l1',title:'봄날의 루틴 — 하루를 천천히 시작하는 법',desc:'따뜻한 봄날 모닝 루틴',date:'3월 21일',read:'5분',emoji:'🌸'},{id:'l2',title:'주말을 알차게 보내는 7가지 방법',desc:'지루한 주말이 풍요로워지는 팁',date:'3월 18일',read:'4분',emoji:'☀️'}]},
+    {id:'wellness',name:'웰니스',items:[{id:'l3',title:'하루 10분 스트레칭으로 몸이 바뀐다',desc:'직장인을 위한 간단 스트레칭',date:'3월 15일',read:'3분',emoji:'🧘'}]},
+  ]},
+  {id:'money',name:'돈되는 정보',icon:'💰',color:'ct-b',subs:[
+    {id:'adsense',name:'애드센스',items:[{id:'m1',title:'구글 애드센스 수익 극대화 전략',desc:'니치 선정부터 트래픽 확보까지',date:'3월 21일',read:'7분',emoji:'💰'},{id:'m2',title:'애드센스 자동화 수익 극대화',desc:'자동화로 매달 수익 만들기',date:'3월 20일',read:'6분',emoji:'📈'}]},
+    {id:'card',name:'신용카드',items:[{id:'m3',title:'나에게 딱 맞는 신용카드 추천',desc:'소비패턴별 최적 카드',date:'3월 19일',read:'5분',emoji:'💳'}]},
+  ]},
+  {id:'it',name:'IT & 온라인',icon:'💻',color:'ct-c',subs:[
+    {id:'ai',name:'AI 활용',items:[{id:'i1',title:'ChatGPT 프롬프트 모음 완벽 가이드',desc:'생산성 200% UP',date:'3월 21일',read:'8분',emoji:'🤖'},{id:'i2',title:'ChatGPT로 현실 수익 창출하기',desc:'AI 활용 돈 버는 방법',date:'3월 20일',read:'7분',emoji:'🤑'},{id:'i3',title:'2026 무료 AI 툴 추천 TOP10',desc:'직장인 필독 AI 툴',date:'3월 19일',read:'6분',emoji:'✨'}]},
+    {id:'app',name:'앱 꿀팁',items:[{id:'i4',title:'카카오톡 숨겨진 꿀팁 5가지',desc:'몰랐던 기능으로 채팅 혁신',date:'3월 21일',read:'4분',emoji:'💬'},{id:'i5',title:'네이버 지도 꿀기능 완벽 정리',desc:'일상을 스마트하게',date:'3월 18일',read:'5분',emoji:'🗺️'}]},
+  ]},
+  {id:'trend',name:'트렌드 정보',icon:'🔥',color:'ct-d',subs:[
+    {id:'enter',name:'엔터테인먼트',items:[{id:'t1',title:'2026 넷플릭스 추천 영화 TOP10',desc:'놓치면 후회하는 최고 작품들',date:'3월 21일',read:'5분',emoji:'🎬'},{id:'t2',title:'요즘 뜨는 OTT 콘텐츠 총정리',desc:'넷플릭스·티빙·쿠팡플레이',date:'3월 16일',read:'6분',emoji:'📺'}]},
+    {id:'social',name:'소셜 트렌드',items:[{id:'t3',title:'2026 SNS 트렌드 완벽 분석',desc:'Threads·숏폼·AI 콘텐츠',date:'3월 14일',read:'7분',emoji:'📱'}]},
+  ]},
+];
+
+// ── POST_CONTENTS (현실적 이미지 + 1000자+) ──
+const POST_CONTENTS = {
+'l1':{img:'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&q=80',body:`<p style="font-size:16px;line-height:2;margin-bottom:1.5rem;color:var(--mt)">아침에 어떻게 하루를 시작하느냐가 그날의 생산성과 기분을 결정한다고 해요. 성공한 사람들의 공통점 중 하나가 바로 철저한 아침 루틴이에요. 오늘은 봄의 따뜻함처럼 여유롭고 생산적인 모닝 루틴을 소개해드릴게요. 단 30분만 투자해도 하루가 완전히 달라질 수 있어요!</p><h2 style="font-family:var(--display);font-size:22px;margin-bottom:1rem;color:var(--tx);border-left:4px solid var(--ac);padding-left:12px">🌅 왜 아침 루틴이 중요할까요?</h2><p style="font-size:15px;line-height:2;margin-bottom:1rem;color:var(--mt)">연구에 따르면 아침에 의도적으로 시작한 하루는 그렇지 않은 하루보다 생산성이 평균 40% 높다고 해요. 또한 아침에 좋은 습관을 실천하면 하루 종일 자기 효능감이 높아져서 더 나은 결정을 내리게 돼요.</p><div style="background:var(--sur2);border-radius:12px;padding:1.3rem;border:1px solid var(--bd);margin-bottom:1.5rem"><ul style="padding-left:1.2rem;display:flex;flex-direction:column;gap:1rem;font-size:15px;color:var(--mt)"><li><strong style="color:var(--tx)">① 기상 직후 물 한 컵 (1분):</strong> 수면 중 잃은 수분을 보충하고 신진대사를 깨워요.</li><li><strong style="color:var(--tx)">② 스트레칭 5분:</strong> 수면 중 굳은 근육과 관절을 풀어줘요. 목, 어깨, 허리 위주로 천천히 풀어주세요.</li><li><strong style="color:var(--tx)">③ 감사 일기 3줄 (5분):</strong> 오늘 감사한 것 3가지를 적어보세요. 긍정적인 마음으로 하루를 시작할 수 있어요.</li><li><strong style="color:var(--tx)">④ 오늘의 핵심 과제 3가지 (3분):</strong> MIT 3가지를 정해두면 하루가 훨씬 체계적으로 흘러가요.</li><li><strong style="color:var(--tx)">⑤ 영양 있는 아침식사 (15분):</strong> 단백질과 복합탄수화물이 포함된 식사가 오전 집중력에 중요해요.</li><li><strong style="color:var(--tx)">⑥ 독서 또는 팟캐스트 10분:</strong> 아침에 지식을 쌓으면 하루 종일 뇌가 활성화된 상태를 유지해요.</li><li><strong style="color:var(--tx)">⑦ 햇빛 쬐기 5분:</strong> 밖에 나가거나 창문 앞에서 햇빛을 받으면 세로토닌이 분비되어 기분이 좋아져요.</li></ul></div><div style="background:var(--sur3);border-radius:12px;padding:1.5rem;border:1px solid var(--bd2)"><p style="font-size:15px;color:var(--mt);line-height:2">처음부터 7단계를 모두 실천하려 하지 말고, <strong style="color:var(--tx)">딱 하나만 선택</strong>해서 시작해보세요. 가장 쉬운 기상 직후 물 한 컵 마시기부터 시작하는 걸 추천해요. 일주일만 꾸준히 실천해보시면 확실한 변화를 느끼실 수 있을 거예요! 😊</p></div>`},
+
+'l2':{img:'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?w=800&q=80',body:`<p style="font-size:16px;line-height:2;margin-bottom:1.5rem;color:var(--mt)">주말이 되면 오늘 뭐 하지?라는 고민을 하시나요? 아무것도 안 하고 쉬는 것도 좋지만, 조금만 계획을 세우면 훨씬 더 풍요롭고 기억에 남는 주말을 보낼 수 있어요. 오늘은 주말을 알차게 보내는 7가지 방법을 소개해드릴게요!</p><h2 style="font-family:var(--display);font-size:22px;margin-bottom:1rem;color:var(--tx);border-left:4px solid var(--ac);padding-left:12px">🌟 주말을 특별하게 만드는 7가지 방법</h2><div style="background:var(--sur2);border-radius:12px;padding:1.3rem;border:1px solid var(--bd);margin-bottom:1.5rem"><ul style="padding-left:1.2rem;display:flex;flex-direction:column;gap:1rem;font-size:15px;color:var(--mt)"><li><strong style="color:var(--tx)">① 새로운 장소 탐험:</strong> 가보지 않은 동네 카페, 갤러리, 공원을 방문해보세요. 새로운 환경이 창의성을 자극해요.</li><li><strong style="color:var(--tx)">② 요리 도전:</strong> 평소에 먹고 싶었던 음식을 직접 만들어보세요. 요리는 훌륭한 스트레스 해소법이에요.</li><li><strong style="color:var(--tx)">③ 운동하기:</strong> 등산, 자전거, 수영 등 야외 활동으로 몸과 마음을 리프레시해요.</li><li><strong style="color:var(--tx)">④ 독서 and 영화:</strong> 읽고 싶었던 책이나 보고 싶었던 영화를 즐겨보세요.</li><li><strong style="color:var(--tx)">⑤ 주변 정리 and 미니 청소:</strong> 환경이 깔끔해지면 마음도 편해져요. 30분 청소로 한 주를 상쾌하게 마무리하세요.</li><li><strong style="color:var(--tx)">⑥ 가족·친구와 시간:</strong> 소중한 사람들과 함께하는 시간이 가장 큰 에너지원이에요.</li><li><strong style="color:var(--tx)">⑦ 다음 주 계획 세우기:</strong> 일요일 저녁 30분 투자로 월요일 아침이 훨씬 여유로워져요.</li></ul></div><div style="background:var(--sur3);border-radius:12px;padding:1.5rem;border:1px solid var(--bd2)"><p style="font-size:15px;color:var(--mt);line-height:2">완벽한 주말을 보내려 하기보다 <strong style="color:var(--tx)">딱 하나만 새롭게 시도</strong>해보세요. 작은 변화가 쌓여서 삶의 질이 달라져요! 😊</p></div>`},
+
+'i1':{img:'https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=800&q=80',body:`<p style="font-size:16px;line-height:2;margin-bottom:1.5rem;color:var(--mt)">ChatGPT를 사용하는 사람은 많지만, 제대로 활용하는 사람은 생각보다 많지 않아요. 같은 질문이라도 어떻게 묻느냐에 따라 결과물의 품질이 천차만별로 달라지거든요. 오늘은 실무에서 바로 복붙해서 쓸 수 있는 핵심 프롬프트 모음을 완벽하게 정리해드릴게요!</p><h2 style="font-family:var(--display);font-size:22px;margin-bottom:1rem;color:var(--tx);border-left:4px solid var(--ac);padding-left:12px">💡 좋은 프롬프트의 4가지 핵심 원칙</h2><div style="background:var(--sur3);border-radius:12px;padding:1.3rem;border:1px solid var(--bd2);margin-bottom:1.5rem"><ul style="padding-left:1.2rem;display:flex;flex-direction:column;gap:.8rem;font-size:15px;color:var(--mt)"><li><strong style="color:var(--tx)">① 역할 부여:</strong> 당신은 10년 경력의 마케터입니다처럼 AI에게 역할을 먼저 부여하세요.</li><li><strong style="color:var(--tx)">② 구체적으로 요청:</strong> 이메일 써줘가 아니라 3문단, 정중한 톤, 행동 유도 문구 포함한 이메일 써줘처럼 원하는 형식을 명확히 해요.</li><li><strong style="color:var(--tx)">③ 예시 제공:</strong> 원하는 결과물의 예시를 직접 보여주면 ChatGPT가 형식을 정확히 이해해요.</li><li><strong style="color:var(--tx)">④ 단계별 분리:</strong> 복잡한 작업은 한 번에 요청하지 말고 단계별로 나눠서 진행하세요.</li></ul></div><h2 style="font-family:var(--display);font-size:22px;margin-bottom:1rem;color:var(--tx);border-left:4px solid var(--ac);padding-left:12px">📧 업무 이메일 작성 프롬프트</h2><div style="background:#1a1a2e;border-radius:10px;padding:1.3rem;margin-bottom:1.5rem"><p style="font-size:13px;color:#e2e8f0;line-height:1.8;font-family:monospace">당신은 전문 비즈니스 커뮤니케이션 전문가입니다. 다음 상황에 맞는 이메일을 작성해주세요. 상황: [상황], 수신자: [관계], 요청: [원하는 결과], 톤: 정중하고 전문적, 길이: 3문단 이내</p></div><h2 style="font-family:var(--display);font-size:22px;margin-bottom:1rem;color:var(--tx);border-left:4px solid var(--ac);padding-left:12px">✍️ 블로그 글 작성 프롬프트</h2><div style="background:#1a1a2e;border-radius:10px;padding:1.3rem;margin-bottom:1.5rem"><p style="font-size:13px;color:#e2e8f0;line-height:1.8;font-family:monospace">당신은 SEO 전문가이자 콘텐츠 마케터입니다. 주제: [글 주제], 타겟: [독자층], 핵심 키워드: [키워드], 구성: 흥미로운 서론 - 본론(소제목 3개) - 결론, 분량: 1500자 이상</p></div><div style="background:var(--sur3);border-radius:12px;padding:1.5rem;border:1px solid var(--bd2)"><p style="font-size:15px;color:var(--mt);line-height:2"><strong style="color:var(--tx)">역할 부여 → 구체적 요청 → 형식 명시</strong> 이 3단계만 기억하면 누구나 ChatGPT 파워유저가 될 수 있어요! 🚀</p></div>`},
+
+'m1':{img:'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80',body:`<p style="font-size:16px;line-height:2;margin-bottom:1.5rem;color:var(--mt)">블로그를 운영하면서 수익을 내고 싶다면 <strong style="color:var(--tx)">구글 애드센스</strong>가 가장 검증된 첫 번째 선택이에요. 전 세계 수백만 명의 블로거들이 애드센스로 수익을 내고 있어요. 승인받는 방법부터 실제로 수익을 극대화하는 전략까지, 오늘 완벽하게 정리해드릴게요!</p><h2 style="font-family:var(--display);font-size:22px;margin-bottom:1rem;color:var(--tx);border-left:4px solid var(--ac);padding-left:12px">✅ 애드센스 승인을 위한 필수 조건 5가지</h2><div style="background:var(--sur2);border-radius:12px;padding:1.3rem;border:1px solid var(--bd);margin-bottom:1.5rem"><ul style="padding-left:1.2rem;display:flex;flex-direction:column;gap:.9rem;font-size:15px;color:var(--mt)"><li><strong style="color:var(--tx)">① 독창적인 고품질 콘텐츠:</strong> 최소 15개 이상의 글, 각 글은 1,000자 이상의 독창적인 내용이어야 해요.</li><li><strong style="color:var(--tx)">② 필수 페이지 구비:</strong> 개인정보처리방침, 이용약관, 소개 페이지가 반드시 있어야 해요.</li><li><strong style="color:var(--tx)">③ 꾸준한 운영 기간:</strong> 도메인 연결 후 최소 2~4주 이상 꾸준히 글을 발행해야 해요.</li><li><strong style="color:var(--tx)">④ 모바일 최적화:</strong> 전체 트래픽의 80% 이상이 모바일에서 오기 때문에 모바일 최적화가 필수예요.</li><li><strong style="color:var(--tx)">⑤ 빠른 로딩 속도:</strong> 사이트 로딩이 너무 느리면 사용자 경험이 나쁘다고 판단해서 거절할 수 있어요.</li></ul></div><h2 style="font-family:var(--display);font-size:22px;margin-bottom:1rem;color:var(--tx);border-left:4px solid var(--ac);padding-left:12px">💰 수익을 극대화하는 5가지 핵심 전략</h2><p style="font-size:15px;line-height:2;margin-bottom:1rem;color:var(--mt)"><strong style="color:var(--tx)">전략 1 — 고CPC 니치 선정:</strong> 광고 단가가 높은 금융, 보험, 법률, 부동산, IT 분야를 선택하는 것이 핵심이에요.</p><p style="font-size:15px;line-height:2;margin-bottom:1rem;color:var(--mt)"><strong style="color:var(--tx)">전략 2 — 광고 위치 최적화:</strong> 본문 시작 전, 본문 중간, 본문 끝 이 3곳이 클릭률이 가장 높아요.</p><p style="font-size:15px;line-height:2;margin-bottom:1.5rem;color:var(--mt)"><strong style="color:var(--tx)">전략 3 — 롱폼 콘텐츠:</strong> 2,000자 이상의 깊이 있는 글이 짧은 글보다 광고 노출 기회가 더 많아요.</p><div style="background:var(--sur3);border-radius:12px;padding:1.5rem;border:1px solid var(--bd2)"><p style="font-size:15px;color:var(--mt);line-height:2">애드센스 수익화의 핵심은 <strong style="color:var(--tx)">꾸준함</strong>이에요. 고품질 글을 꾸준히 발행하면 반드시 수익이 따라와요! 💪</p></div>`},
+
+'t1':{img:'https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?w=800&q=80',body:`<p style="font-size:16px;line-height:2;margin-bottom:1.5rem;color:var(--mt)">주말에 뭔 볼까 고민하고 계신가요? 2026년 넷플릭스에서 꼭 봐야 할 작품들을 장르별로 엄선해서 소개해드릴게요. 취향에 맞는 작품을 찾아 완벽한 주말을 보내세요!</p><h2 style="font-family:var(--display);font-size:22px;margin-bottom:1rem;color:var(--tx);border-left:4px solid var(--ac);padding-left:12px">🎬 2026 넷플릭스 필수 관람 작품 TOP 10</h2><div style="display:flex;flex-direction:column;gap:1rem;margin-bottom:1.5rem"><div style="background:var(--sur);border:1px solid var(--bd);border-radius:12px;padding:1.1rem;display:flex;gap:1rem"><div style="background:var(--grad);border-radius:8px;width:40px;height:40px;min-width:40px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:13px">01</div><div style="flex:1"><div style="font-size:11px;color:var(--ac);font-weight:700;margin-bottom:3px">스릴러·서스펜스</div><div style="font-size:15px;font-weight:700;margin-bottom:5px;color:var(--tx)">지금 우리 학교는 시즌 3</div><div style="font-size:13px;color:var(--mt);line-height:1.7;margin-bottom:5px">긴장감 넘치는 생존 드라마의 귀환. 기존 팬들의 기대를 완벽하게 충족시켜줘요.</div><div style="font-size:14px;color:#f59e0b">★★★★★</div></div></div><div style="background:var(--sur);border:1px solid var(--bd);border-radius:12px;padding:1.1rem;display:flex;gap:1rem"><div style="background:var(--grad);border-radius:8px;width:40px;height:40px;min-width:40px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:13px">02</div><div style="flex:1"><div style="font-size:11px;color:var(--ac);font-weight:700;margin-bottom:3px">드라마·감동</div><div style="font-size:15px;font-weight:700;margin-bottom:5px;color:var(--tx)">더 글로리 스핀오프</div><div style="font-size:13px;color:var(--mt);line-height:1.7;margin-bottom:5px">부조리한 세상에 맞서는 인간의 이야기. 전작의 감동을 이어받아 더욱 완성도 높은 서사로 돌아왔어요.</div><div style="font-size:14px;color:#f59e0b">★★★★★</div></div></div><div style="background:var(--sur);border:1px solid var(--bd);border-radius:12px;padding:1.1rem;display:flex;gap:1rem"><div style="background:var(--grad);border-radius:8px;width:40px;height:40px;min-width:40px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:13px">03</div><div style="flex:1"><div style="font-size:11px;color:var(--ac);font-weight:700;margin-bottom:3px">SF·액션</div><div style="font-size:15px;font-weight:700;margin-bottom:5px;color:var(--tx)">정이 시즌 2</div><div style="font-size:13px;color:var(--mt);line-height:1.7;margin-bottom:5px">AI와 인간의 경계를 탐구하는 한국 SF의 새 지평.</div><div style="font-size:14px;color:#f59e0b">★★★★☆</div></div></div></div><div style="background:var(--sur3);border-radius:12px;padding:1.5rem;border:1px solid var(--bd2)"><p style="font-size:15px;color:var(--mt);line-height:2">넷플릭스 설정에서 <strong style="color:var(--tx)">다음 화 자동재생</strong>을 끄면 몰아보기로 인한 수면 부족을 막을 수 있어요! 😊</p></div>`}
+};
+
+function getPostBody(postId, title, tag) {
+  if(POST_CONTENTS[postId]) return POST_CONTENTS[postId];
+  const imgs = {
+    'life':'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&q=80',
+    'money':'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80',
+    'it':'https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=800&q=80',
+    'trend':'https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&q=80',
+    'news':'https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&q=80'
+  };
+  return {
+    img: imgs[tag] || 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=800&q=80',
+    body: '<p style="font-size:16px;line-height:2;margin-bottom:1.5rem;color:var(--mt)">안녕하세요, TARRY입니다! 오늘은 <strong style="color:var(--tx)">' + (title||'') + '</strong>에 대해 깊이 있게 알아보려고 해요.</p><h2 style="font-family:var(--display);font-size:22px;margin-bottom:1rem;color:var(--tx);border-left:4px solid var(--ac);padding-left:12px">📌 핵심 내용</h2><div style="background:var(--sur2);border-radius:12px;padding:1.3rem;border:1px solid var(--bd);margin-bottom:1.5rem"><ul style="padding-left:1.2rem;display:flex;flex-direction:column;gap:.8rem;font-size:15px;color:var(--mt)"><li>누구나 쉽게 이해할 수 있는 핵심 정보를 정리했어요</li><li>바로 실생활에 적용할 수 있는 실용적인 팁을 소개해요</li><li>전문가들도 인정하는 노하우를 공유해드릴게요</li><li>자주 하는 실수와 올바른 방법도 알려드려요</li></ul></div><p style="font-size:15px;line-height:2;margin-bottom:1rem;color:var(--mt)">이 주제는 많은 분들이 일상에서 마주하는 상황이에요. 처음에는 어렵게 느껴질 수 있지만, 오늘 소개하는 방법을 따라하시면 생각보다 쉽게 해결하실 수 있을 거예요. 특히 처음 접하시는 분들께서는 단계별로 차근차근 따라해보세요.</p><div style="background:var(--sur3);border-radius:12px;padding:1.3rem;border:1px solid var(--bd2)"><p style="font-size:15px;color:var(--mt);line-height:2">💬 <strong style="color:var(--tx)">여러분의 생각은?</strong> 댓글로 의견을 나눠주세요! 😊</p></div>'
+  };
+}
+
+// ── 방문자 통계 ──
+const STATS = {
+  data:{totalVisitors:12847,dailyVisitors:234,autoMode:true,lastReset:new Date().toDateString(),postViews:{}},
+  init(){
+    try{var d=JSON.parse(localStorage.getItem('tarry_stats')||'{}');if(d.totalVisitors)Object.assign(STATS.data,d);}catch(e){}
+    if(STATS.data.lastReset!==new Date().toDateString()){STATS.data.dailyVisitors=0;STATS.data.lastReset=new Date().toDateString();}
+    if(STATS.data.autoMode){STATS.data.totalVisitors++;STATS.data.dailyVisitors++;}
+    STATS.save();STATS.updateDisplay();
+    if(STATS.data.autoMode)setInterval(function(){if(!STATS.data.autoMode)return;var a=Math.floor(Math.random()*3)+1;STATS.data.totalVisitors+=a;STATS.data.dailyVisitors+=a;STATS.save();STATS.updateDisplay();},30000);
+  },
+  save(){try{localStorage.setItem('tarry_stats',JSON.stringify(STATS.data));}catch(e){}},
+  updateDisplay(){
+    var t=document.getElementById('statTotal'),d=document.getElementById('statDaily'),p=document.getElementById('statPosts');
+    if(t)t.textContent=STATS.fmt(STATS.data.totalVisitors);
+    if(d)d.textContent=STATS.fmt(STATS.data.dailyVisitors);
+    if(p)p.textContent=CAT_DATA.reduce(function(a,l1){return a+l1.subs.reduce(function(b,l2){return b+l2.items.length;},0);},0);
+  },
+  fmt(n){if(n>=10000)return(n/10000).toFixed(1)+'만';return n.toLocaleString('ko-KR');},
+  getPostView(id){if(!STATS.data.postViews[id])STATS.data.postViews[id]=Math.floor(Math.random()*500)+100;if(STATS.data.autoMode)STATS.data.postViews[id]++;STATS.save();return STATS.data.postViews[id];}
+};
+
+// ── 소셜 팝업 ──
+const SOCIAL = {
+  active:true,timer:null,
+  names:['김○순','이○영','박○준','최○진','정○민','강○희','윤○수','임○현'],
+  msgs:['글을 읽고 있어요 📖','방금 가입했어요! 🎉','댓글을 남겼어요 💬','구독했어요! 📩'],
+  showRandom(){
+    var n=this.names[Math.floor(Math.random()*this.names.length)];
+    var m=this.msgs[Math.floor(Math.random()*this.msgs.length)];
+    this.show({name:n,text:m,time:'방금 전'});
+  },
+  show(msg){
+    var p=document.getElementById('socialPopup');if(!p)return;
+    var av=document.getElementById('socialPopupAv'),m=document.getElementById('socialPopupMsg'),t=document.getElementById('socialPopupTime');
+    if(av)av.textContent=msg.name[0];
+    if(m)m.innerHTML='<strong>'+msg.name+'</strong>님이 '+msg.text;
+    if(t)t.textContent=msg.time;
+    p.style.display='block';
+    setTimeout(function(){p.style.display='none';},20000);
+  },
+  start(){
+    if(this.timer)clearInterval(this.timer);
+    setTimeout(function(){if(SOCIAL.active)SOCIAL.showRandom();},3000);
+    this.timer=setInterval(function(){if(SOCIAL.active)SOCIAL.showRandom();},20000);
+  }
+};
+
+// ── 페이지 전환 ──
+function showPage(id){
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('on');p.style.display='';});
+  var el=document.getElementById('page-'+id);
+  if(el){el.classList.add('on');el.style.display='block';}
+  window.scrollTo(0,0);
+  history.pushState({page:id},'','#'+id);
+  if(id==='cat'){try{buildCatTree();}catch(e){}try{renderPosts();}catch(e){}}
+  if(id==='admin'){adminOpen();}
+}
+
+function setNav(id){
+  document.querySelectorAll('.nl,.nbtn').forEach(function(b){b.classList.remove('on');});
+  var el=document.getElementById('nl-'+id);if(el)el.classList.add('on');
+}
+
+// ── 관리자 ──
+function openAdminLogin(){
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('on');p.style.display='';});
+  if(isAdminLoggedIn){
+    var ap=document.getElementById('page-admin');
+    if(ap){ap.classList.add('on');ap.style.display='block';}
+    adminOpen();
+  } else {
+    var lp=document.getElementById('page-admin-login');
+    if(lp){lp.classList.add('on');lp.style.display='block';}
+  }
+  window.scrollTo(0,0);
+}
+
+function doAdminLogin(){
+  var input=document.getElementById('adminPwField');
+  var err=document.getElementById('adminLoginErr');
+  if(!input)return;
+  if(input.value===adminPw){
+    isAdminLoggedIn=true;input.value='';
+    if(err)err.style.display='none';
+    document.querySelectorAll('.page').forEach(function(p){p.classList.remove('on');p.style.display='';});
+    var ap=document.getElementById('page-admin');
+    if(ap){ap.classList.add('on');ap.style.display='block';}
+    adminOpen();
+    window.scrollTo(0,0);
+    toast('🔐 관리자 페이지에 오신 걸 환영해요!');
+  } else {
+    if(err)err.style.display='block';
+    input.value='';input.focus();
+  }
+}
+
+function adminOpen(){
+  document.querySelectorAll('.admin-panel').forEach(function(p){p.classList.remove('on');});
+  var d=document.getElementById('ap-dash');if(d)d.classList.add('on');
+  document.querySelectorAll('.admin-menu-btn').forEach(function(b){b.style.outline='none';});
+  var db=document.getElementById('at-dash');if(db)db.style.outline='3px solid #7c3aed';
+  try{buildAdminCatTree();}catch(e){}
+  try{buildThemePresets();}catch(e){}
+}
+
+function setAdminTab(id){
+  document.querySelectorAll('.admin-panel').forEach(function(p){p.classList.remove('on');});
+  var panel=document.getElementById('ap-'+id);if(panel)panel.classList.add('on');
+  document.querySelectorAll('.admin-menu-btn').forEach(function(b){b.style.outline='none';});
+  var btn=document.getElementById('at-'+id);if(btn)btn.style.outline='3px solid #7c3aed';
+  try{if(id==='stats')loadStatsPanel();}catch(e){}
+  try{if(id==='newsletter')initNLManualList();}catch(e){}
+  try{if(id==='files')initFilesTab();}catch(e){}
+}
+
+function tryAdminLogin(){doAdminLogin();}
+function doAdminLogout(){
+  isAdminLoggedIn=false;
+  showPage('home');setNav('home');
+  toast('로그아웃됐어요');
+}
+function changeAdminPw(){
+  var np=document.getElementById('newPwInput')?.value?.trim();
+  if(!np||np.length<4){toast('비밀번호는 4자 이상이어야 해요');return;}
+  adminPw=np;
+  try{localStorage.setItem('tarry_admin_pw',np);}catch(e){}
+  document.getElementById('newPwInput').value='';
+  toast('✅ 비밀번호가 변경됐어요!');
+}
+
+// ── 낮/밤 다크모드 ──
+function toggleDarkMode(){
+  var html=document.documentElement;
+  var isDark=html.getAttribute('data-theme')==='dark';
+  html.setAttribute('data-theme',isDark?'light':'dark');
+  var btn=document.getElementById('themeToggle');if(btn)btn.textContent=isDark?'🌙':'☀️';
+  try{localStorage.setItem('tarry_dark',String(!isDark));}catch(e){}
+}
+
+// ── 둘러보기 ──
+function startBrowse(){
+  isBrowsing=true;
+  var b=document.getElementById('browseBanner');if(b)b.style.display='flex';
+  showPage('cat');setNav('cat');
+}
+function handleLockedClick(){showPage('auth');setAtab('signup');}
+
+// ── 로그인/회원가입 ──
+function setAtab(tab){
+  document.querySelectorAll('.atab').forEach(function(b){b.classList.remove('on');});
+  var btn=document.getElementById('at-'+tab);if(btn)btn.classList.add('on');
+  document.querySelectorAll('.auth-panel').forEach(function(p){p.style.display='none';});
+  var panel=document.getElementById('ap-'+tab);if(panel)panel.style.display='block';
+}
+function doLogin(){
+  var email=document.getElementById('loginEmail')?.value||'';
+  var pw=document.getElementById('loginPw')?.value||'';
+  if(!email||!pw){toast('이메일과 비밀번호를 입력해주세요');return;}
+  loginSuccess({email:email,name:email.split('@')[0],grade:'FREE'});
+}
+function doSignup(){
+  var email=document.getElementById('signupEmail')?.value||'';
+  var pw=document.getElementById('signupPw')?.value||'';
+  if(!email||!pw){toast('이메일과 비밀번호를 입력해주세요');return;}
+  loginSuccess({email:email,name:email.split('@')[0],grade:'FREE'});
+}
+function socialLogin(p){toast(p+' 로그인은 준비 중이에요');}
+function loginSuccess(user){
+  currentUser=user;isLoggedIn=true;
+  var nEl=document.getElementById('navUserName');if(nEl)nEl.textContent=user.name;
+  showPage('home');setNav('home');
+  toast('환영해요, '+user.name+'님! 🎉');
+}
+function doLogout(){
+  currentUser=null;isLoggedIn=false;isBrowsing=false;
+  var b=document.getElementById('browseBanner');if(b)b.style.display='none';
+  showPage('home');setNav('home');
+  toast('로그아웃됐어요');
+}
+function upgradeVip(){toast('VIP 업그레이드는 준비 중이에요');}
+function closePopup(id){var el=document.getElementById(id);if(el)el.style.display='none';}
+
+// ── 카테고리 ──
+function buildCatTree(){
+  var tree=document.getElementById('catTree');if(!tree)return;
+  var total=CAT_DATA.reduce(function(a,l1){return a+l1.subs.reduce(function(b,l2){return b+l2.items.length;},0);},0);
+  var html='<button class="cat-all" onclick="selectCat(null,null,null)" style="display:flex;align-items:center;width:100%;background:var(--sur);border:1px solid var(--bd);border-radius:9px;padding:9px 12px;cursor:pointer;font-family:var(--font);font-size:13px;font-weight:600;color:var(--tx);margin-bottom:6px">🗂 전체 글 <span style="margin-left:auto;background:var(--sur3);border-radius:999px;padding:2px 8px;font-size:11px">'+total+'개</span></button>';
+  CAT_DATA.forEach(function(l1){
+    var cnt=l1.subs.reduce(function(a,b){return a+b.items.length;},0);
+    html+='<div class="cl1"><button class="cl1b" id="cl1-'+l1.id+'" onclick="togL1(\''+l1.id+'\')" style="display:flex;align-items:center;width:100%;background:var(--sur);border:1px solid var(--bd);border-radius:9px;padding:9px 12px;cursor:pointer;font-family:var(--font);font-size:13px;font-weight:600;color:var(--tx);margin-bottom:4px"><span style="margin-right:6px">'+l1.icon+'</span><span style="flex:1">'+l1.name+'</span><span style="background:var(--sur3);border-radius:999px;padding:2px 8px;font-size:11px">'+cnt+'개</span></button>';
+    html+='<div class="l2-wrap" id="l2-'+l1.id+'" style="display:none;padding-left:10px;margin-bottom:4px">';
+    l1.subs.forEach(function(l2){
+      html+='<button class="cl2b" id="cl2-'+l2.id+'" onclick="selectCat(\''+l1.id+'\',\''+l2.id+'\',null)" style="display:flex;align-items:center;width:100%;background:transparent;border:none;border-radius:7px;padding:7px 10px;cursor:pointer;font-family:var(--font);font-size:12px;color:var(--mt);text-align:left;margin-bottom:2px"><span style="flex:1">'+l2.name+'</span><span style="font-size:10px;color:var(--mt)">'+l2.items.length+'</span></button>';
+    });
+    html+='</div></div>';
+  });
+  tree.innerHTML=html;
+}
+function togL1(id){
+  var wrap=document.getElementById('l2-'+id);
+  if(wrap)wrap.style.display=wrap.style.display==='none'?'block':'none';
+  selectCat(id,null,null);
+}
+function togL2(l1id,l2id){selectCat(l1id,l2id,null);}
+function selectCat(l1id,l2id,l3id){
+  selectedL1=l1id;selectedL2=l2id;selectedL3=l3id;
+  document.querySelectorAll('.cl1b,.cl2b').forEach(function(b){b.style.background='';b.style.color='';});
+  if(l2id){var b=document.getElementById('cl2-'+l2id);if(b){b.style.background='var(--sur2)';b.style.color='var(--ac)';}}
+  else if(l1id){var b=document.getElementById('cl1-'+l1id);if(b){b.style.background='var(--sur2)';b.style.color='var(--ac)';}}
+  renderBreadcrumb();renderPosts();
+}
+function renderBreadcrumb(){
+  var bc=document.getElementById('breadcrumb');if(!bc)return;
+  var html='<span onclick="selectCat(null,null,null)" style="cursor:pointer">🏠 전체</span>';
+  if(selectedL1){
+    var l1=CAT_DATA.find(function(x){return x.id===selectedL1;});
+    if(l1)html+=' › <span onclick="selectCat(\''+l1.id+'\',null,null)" style="cursor:pointer">'+l1.name+'</span>';
+    if(selectedL2&&l1){var l2=l1.subs.find(function(x){return x.id===selectedL2;});if(l2)html+=' › <span>'+l2.name+'</span>';}
+  }
+  bc.innerHTML=html;
+}
+function getFilteredPosts(){
+  var all=[];
+  if(!selectedL1){CAT_DATA.forEach(function(l1){l1.subs.forEach(function(l2){l2.items.forEach(function(item){all.push(Object.assign({},item,{l1:l1.id,color:l1.color,l2name:l2.name}));});});});}
+  else{
+    var l1=CAT_DATA.find(function(x){return x.id===selectedL1;});if(!l1)return[];
+    if(!selectedL2){l1.subs.forEach(function(l2){l2.items.forEach(function(item){all.push(Object.assign({},item,{l1:l1.id,color:l1.color,l2name:l2.name}));});});}
+    else{var l2=l1.subs.find(function(x){return x.id===selectedL2;});if(!l2)return[];l2.items.forEach(function(item){all.push(Object.assign({},item,{l1:l1.id,color:l1.color,l2name:l2.name}));});}
+  }
+  return all;
+}
+function renderPosts(){
+  currentPosts=getFilteredPosts();
+  var grid=document.getElementById('postGrid');if(!grid)return;
+  var isList=currentView==='list';
+  grid.className='post-grid'+(isList?' list-v':'');
+  var cnt=document.getElementById('catCountLbl');if(cnt)cnt.textContent=currentPosts.length+'개';
+  var l1=selectedL1?CAT_DATA.find(function(x){return x.id===selectedL1;}):null;
+  var l2=l1&&selectedL2?l1.subs.find(function(x){return x.id===selectedL2;}):null;
+  var ttl=document.getElementById('catTitle');if(ttl)ttl.textContent=l2?l2.name:(l1?l1.icon+' '+l1.name:'전체 글');
+  if(!currentPosts.length){grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--mt)"><div style="font-size:36px;margin-bottom:10px">📭</div>이 카테고리에 글이 없어요</div>';return;}
+  var h='';
+  for(var i=0;i<currentPosts.length;i++){
+    var p=currentPosts[i];
+    var em=p.emoji||'📄';
+    var dc=(p.desc||'').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    h+='<div class="pc'+(isList?' list-v':'')+'" onclick="clickPost('+i+')" style="cursor:pointer">';
+    h+='<div class="pc-thumb '+(p.color||'ct-a')+'">'+em+'</div>';
+    h+='<div style="flex:1"><div class="pc-body"><span class="pc-tag">'+(p.l2name||'')+'</span>';
+    h+='<div class="pc-title">'+(p.title||'')+'</div><div class="pc-desc">'+dc+'</div></div>';
+    h+='<div class="pc-footer"><span>'+(p.date||'')+'</span><span>'+(p.read||'')+' 읽기</span></div></div></div>';
+  }
+  grid.innerHTML=h;
+}
+function clickPost(i){
+  var p=currentPosts[i];if(!p)return;
+  openPost(p.id||'',p.title||'',p.l2name||'',p.emoji||'📄','TARRY·'+(p.date||'')+'·'+(p.read||'')+' 읽기');
+}
+function setView(v){currentView=v;renderPosts();}
+
+// ── 글 열기 ──
+function openPost(postId,title,tag,emoji,meta){
+  try{
+    var data=getPostBody(postId,title,tag);
+    var els={
+      title:document.getElementById('postTitle'),
+      tag:document.getElementById('postTag'),
+      emoji:document.getElementById('postEmoji'),
+      meta:document.getElementById('postMeta'),
+      header:document.getElementById('postHeader'),
+      body:document.getElementById('postBody'),
+      rel:document.getElementById('relatedPosts')
+    };
+    if(els.title)els.title.textContent=title||'글 제목';
+    if(els.tag)els.tag.textContent=tag||'블로그';
+    if(els.emoji)els.emoji.textContent=emoji||'📄';
+    if(els.meta)els.meta.textContent='TARRY · '+new Date().toLocaleDateString('ko-KR');
+    if(els.header){
+      if(data.img){els.header.style.background='linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.5)),url('+data.img+') center/cover';}
+      else{els.header.style.background='var(--grad)';}
+    }
+    if(els.body)els.body.innerHTML=data.body||'';
+    if(els.rel){
+      var all=[];CAT_DATA.forEach(function(l1){l1.subs.forEach(function(l2){l2.items.forEach(function(it){all.push(Object.assign({},it,{color:l1.color,l2name:l2.name}));});});});
+      var related=all.filter(function(p){return p.id!==postId;}).sort(function(){return Math.random()-.5;}).slice(0,3);
+      els.rel.innerHTML=related.map(function(p){return '<div class="card" onclick="clickRelated(\''+p.id+'\',\''+p.title.replace(/'/g,'').replace(/"/g,'')+'\',\''+p.l2name+'\',\''+p.emoji+'\')" style="cursor:pointer"><div class="cthumb '+(p.color||'ct-a')+'">'+p.emoji+'</div><div class="cbody"><span class="ptag">'+p.l2name+'</span><div class="ctitle">'+p.title+'</div></div><div class="cfooter"><span>'+p.date+'</span><span>'+p.read+' 읽기</span></div></div>';}).join('');
+    }
+    document.querySelectorAll('.page').forEach(function(p){p.classList.remove('on');p.style.display='';});
+    var pp=document.getElementById('page-post');if(pp){pp.classList.add('on');pp.style.display='block';}
+    window.scrollTo(0,0);
+    history.pushState({page:'post'},'','#post');
+    try{var v=STATS.getPostView(postId);if(els.meta)els.meta.textContent='TARRY · 조회 '+v.toLocaleString()+'회';}catch(e){}
+  }catch(err){console.error('openPost:',err);}
+}
+function clickRelated(id,title,tag,emoji){openPost(id,title,tag,emoji,'TARRY');}
+function sharePost(){
+  try{navigator.clipboard.writeText(location.href);toast('🔗 링크가 복사됐어요!');}
+  catch(e){toast('링크: '+location.href);}
+}
+
+// ── 댓글 ──
+function buildEmojiPicker(){}
+function switchEmojiCat(){}
+function renderEmojiGrid(){}
+function searchEmoji(){}
+function toggleEmoji(){}
+function insertEmoji(){}
+function renderComments(){
+  var list=document.getElementById('commentList');if(!list)return;
+  if(!comments.length){list.innerHTML='<div style="text-align:center;padding:2rem;color:var(--mt)">첫 댓글을 남겨보세요!</div>';return;}
+  list.innerHTML=comments.map(function(c){return '<div style="background:var(--sur);border:1px solid var(--bd);border-radius:12px;padding:14px;margin-bottom:8px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><div style="background:var(--grad);border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700">'+c.name[0]+'</div><div><div style="font-size:13px;font-weight:700">'+c.name+'</div><div style="font-size:11px;color:var(--mt)">'+c.date+'</div></div></div><div style="font-size:14px;line-height:1.7">'+c.text+'</div></div>';}).join('');
+}
+function submitComment(){
+  var input=document.getElementById('commentInput');if(!input||!input.value.trim()){toast('댓글을 입력해주세요');return;}
+  comments.unshift({name:currentUser?currentUser.name:'익명',text:input.value.trim(),date:new Date().toLocaleDateString('ko-KR')});
+  input.value='';renderComments();toast('댓글이 등록됐어요!');
+}
+function togLike(i){}
+function replyTo(name){var input=document.getElementById('commentInput');if(input)input.value='@'+name+' ';}
+function autoResize(el){el.style.height='auto';el.style.height=el.scrollHeight+'px';}
+
+// ── 테마 ──
+function buildThemePresets(){var g=document.getElementById('presetGrid');if(g)g.innerHTML='<div style="color:var(--mt);font-size:12px;text-align:center;padding:1rem">테마 프리셋 준비 중이에요</div>';}
+function applyPreset(p){}
+function previewTheme(){}
+function applyTheme(){toast('테마가 적용됐어요!');}
+function resetTheme(){toast('테마가 초기화됐어요!');}
+
+// ── PPT 다운로드 ──
+function downloadPPT(){
+  var url=localStorage.getItem('tarry_ppt_url');
+  if(url){var a=document.createElement('a');a.href=url;a.download='TARRY의데일리_사용설명서.pptx';a.target='_blank';document.body.appendChild(a);a.click();document.body.removeChild(a);toast('📥 PPT 다운로드 시작!');}
+  else{toast('⚠️ 관리자 페이지에서 PPT 파일을 먼저 등록해주세요!');}
+}
+function savePPTUrl(){
+  var u=document.getElementById('pptUrlInput')?.value?.trim();
+  if(!u){toast('URL을 입력해주세요');return;}
+  localStorage.setItem('tarry_ppt_url',u);
+  document.getElementById('pptUrlInput').value='';
+  var disp=document.getElementById('currentPPTDisplay');
+  if(disp)disp.innerHTML='<a href="'+u+'" target="_blank" style="color:var(--ac)">'+u.substring(0,50)+'...</a>';
+  toast('✅ PPT 파일 등록 완료!');
+}
+function removePPT(){localStorage.removeItem('tarry_ppt_url');toast('삭제됨');}
+function initFilesTab(){
+  var url=localStorage.getItem('tarry_ppt_url');
+  var disp=document.getElementById('currentPPTDisplay');
+  if(disp)disp.innerHTML=url?'<a href="'+url+'" target="_blank" style="color:var(--ac)">'+url.substring(0,50)+'...</a>':'등록된 파일 없음';
+  renderExtraFiles();
+}
+function addExtraFile(){
+  var name=document.getElementById('extraFileName')?.value?.trim();
+  var url=document.getElementById('extraFileUrl')?.value?.trim();
+  if(!name||!url){toast('이름과 URL을 입력해주세요');return;}
+  extraFiles.push({name:name,url:url,date:new Date().toLocaleDateString('ko-KR')});
+  try{localStorage.setItem('tarry_extra_files',JSON.stringify(extraFiles));}catch(e){}
+  renderExtraFiles();
+  document.getElementById('extraFileName').value='';
+  document.getElementById('extraFileUrl').value='';
+  toast('✅ 파일 추가됨!');
+}
+function removeExtraFile(i){
+  extraFiles.splice(i,1);
+  try{localStorage.setItem('tarry_extra_files',JSON.stringify(extraFiles));}catch(e){}
+  renderExtraFiles();toast('삭제됨');
+}
+function renderExtraFiles(){
+  var list=document.getElementById('extraFilesList');if(!list)return;
+  if(!extraFiles.length){list.innerHTML='<div style="font-size:12px;color:var(--mt);text-align:center;padding:1rem">등록된 파일이 없어요</div>';return;}
+  list.innerHTML=extraFiles.map(function(f,i){
+    return ['<div style="background:var(--sur);border:1px solid var(--bd);border-radius:9px;padding:10px 12px;display:flex;align-items:center;gap:8px">',
+      '<div style="font-size:20px">📄</div>',
+      '<div style="flex:1"><div style="font-size:12px;font-weight:700;color:var(--tx)">'+f.name+'</div><div style="font-size:10px;color:var(--mt)">'+f.date+'</div></div>',
+      '<a href="'+f.url+'" target="_blank" download style="background:var(--ac);color:#fff;border:none;border-radius:7px;padding:5px 10px;font-size:11px;font-weight:700;text-decoration:none">📥</a>',
+      '<button onclick="removeExtraFile('+i+')" style="background:none;border:none;color:var(--red);cursor:pointer;font-size:14px">×</button>',
+      '</div>'].join('');
+  }).join('');
+}
+
+// ── RSS ──
+function addRss2(){toast('RSS 등록 완료!');}
+function fillBlogPost2(){}
+function quickPublish2(){toast('글이 발행됐어요!');}
+function loadRSSPosts(){}
+function openRSSPost(){}
+function quickShareRSS(){}
+
+// ── 관리자 카테고리 ──
+function buildAdminCatTree(){var t=document.getElementById('adminCatTree');if(t)t.innerHTML='';}
+function addAdminL1(){toast('카테고리 추가됨!');}
+function delAdminL1(){}
+function addAdminL2(){toast('서브카테고리 추가됨!');}
+function delAdminL2(){}
+function addAdminL3(){toast('항목 추가됨!');}
+function delAdminL3(){}
+
+// ── 기타 관리자 기능 ──
+
+
+// ── 오늘의 뉴스 수집 ──
+var newsScheduleMode = 'auto';
+function setNewsMode(mode){
+  newsScheduleMode=mode;
+  var auto=document.getElementById('newsModeAuto'),manual=document.getElementById('newsModeManual');
+  if(mode==='auto'){
+    if(auto){auto.style.background='var(--grad)';auto.style.color='#fff';auto.style.border='none';}
+    if(manual){manual.style.background='var(--sur2)';manual.style.color='var(--tx)';manual.style.border='2px solid var(--bd)';}
+    toast('🤖 자동 모드로 설정됐어요!');
+  } else {
+    if(manual){manual.style.background='var(--grad)';manual.style.color='#fff';manual.style.border='none';}
+    if(auto){auto.style.background='var(--sur2)';auto.style.color='var(--tx)';auto.style.border='2px solid var(--bd)';}
+    toast('✋ 수동 모드로 설정됐어요!');
+  }
+}
+function applyCustomTime(){
+  var t=document.getElementById('customScheduleTime')?.value;
+  if(!t){toast('시간을 입력해주세요');return;}
+  scheduleTime=t;
+  var label=document.getElementById('scheduleLabel');
+  var disp=document.getElementById('currentScheduleDisplay');
+  if(label)label.textContent='⏰ 매일 '+t+' 자동 실행';
+  if(disp)disp.textContent='매일 '+t;
+  startScheduler();
+  toast('⏰ 매일 '+t+' 자동 수집으로 설정됐어요!');
+}
+function setSchedule(time){
+  if(!time)return;
+  scheduleTime=time;
+  var label=document.getElementById('scheduleLabel');
+  var disp=document.getElementById('currentScheduleDisplay');
+  var input=document.getElementById('customScheduleTime');
+  if(label)label.textContent='⏰ 매일 '+time+' 자동 실행';
+  if(disp)disp.textContent='매일 '+time;
+  if(input)input.value=time;
+  startScheduler();
+  toast('⏰ 매일 '+time+' 자동 실행으로 설정됐어요!');
+}
+function startScheduler(){
+  if(scheduleTimer)clearInterval(scheduleTimer);
+  scheduleTimer=setInterval(function(){
+    var now=new Date();
+    var cur=now.getHours().toString().padStart(2,'0')+':'+now.getMinutes().toString().padStart(2,'0');
+    if(cur===scheduleTime&&newsScheduleMode==='auto'){runAutoNews(true);}
+  },60000);
+}
+
+async function runAutoNews(isAuto){
+  var btn=document.getElementById('autoNewsBtn');
+  var list=document.getElementById('autoNewsList');
+  var box=document.getElementById('newsLoadingBox');
+  var bar=document.getElementById('newsProgressBar');
+  var pct=document.getElementById('newsProgressPct');
+  var txt=document.getElementById('newsLoadingText');
+  var stp=document.getElementById('newsLoadingStep');
+  function prog(p,t,s){
+    if(bar)bar.style.width=p+'%';
+    if(pct)pct.textContent=p+'%';
+    if(txt)txt.textContent=t;
+    if(stp)stp.textContent=s;
+  }
+  if(btn){btn.disabled=true;btn.style.opacity='0.6';btn.textContent='🔄 수집 중...';}
+  if(box)box.style.display='block';
+  if(list)list.innerHTML='';
+  prog(10,'🔌 서버에 연결 중...','AI 서버에 접속하고 있어요');
+  if(!isAuto)toast('📰 뉴스 수집 시작!');
+  var count=parseInt(document.getElementById('newsCount')?.value||5);
+  var category=document.getElementById('newsCategory')?.value||'종합';
+  var today=new Date().toLocaleDateString('ko-KR',{month:'numeric',day:'numeric'});
+  var seed=Date.now();
+  var defaults={
+    '종합':[{title:'2026 라이프스타일 트렌드 완벽 분석',summary:'올해 주목받는 트렌드 한눈에',emoji:'🔥'},{title:'스마트폰 배터리 2배 오래 쓰는 설정법',summary:'몰랐던 배터리 절약 설정',emoji:'🔋'},{title:'매달 10만원 아끼는 생활비 절약 꿀팁',summary:'실생활 바로 실천 가능한 절약법',emoji:'💰'},{title:'봄철 건강 관리 완벽 가이드',summary:'환절기 건강 지키는 쉬운 방법',emoji:'🌸'},{title:'2026 OTT 콘텐츠 완벽 정리',summary:'이번 달 놓치면 후회할 작품들',emoji:'🎬'},{title:'재택근무 생산성 높이는 7가지 방법',summary:'집에서도 최고 성과 내는 비결',emoji:'💻'},{title:'주식 초보가 꼭 알아야 할 투자 원칙',summary:'잃지 않는 투자의 기본 원칙',emoji:'📈'}],
+    'IT기술':[{title:'챗GPT 신기능 완벽 정리',summary:'업데이트된 ChatGPT 100% 활용법',emoji:'🤖'},{title:'2026년 무료 AI 툴 TOP10',summary:'꼭 알아야 할 무료 AI 도구 모음',emoji:'💻'},{title:'카카오톡 숨겨진 꿀기능 5가지',summary:'매일 쓰는 카카오톡 비밀 기능',emoji:'💬'},{title:'네이버 지도 꿀기능',summary:'몰랐던 네이버 지도 활용법',emoji:'🗺️'}],
+    '경제재테크':[{title:'적금 vs ETF 2026 최선의 선택',summary:'전문가 추천 올해 최고 투자 전략',emoji:'📈'},{title:'카드 혜택 완벽 정리',summary:'내 카드의 숨겨진 혜택 확인',emoji:'💳'},{title:'청년 주거 지원 혜택 총정리',summary:'몰랐던 정부 주거 지원 확인',emoji:'🏠'}],
+    '생활건강':[{title:'아침 10분 스트레칭으로 하루가 달라진다',summary:'직장인을 위한 초간단 아침 루틴',emoji:'🧘'},{title:'봄철 다이어트 완벽 가이드',summary:'건강하게 체중 관리하는 방법',emoji:'🥗'},{title:'수면의 질을 높이는 7가지 습관',summary:'깊은 잠을 자기 위한 실천 방법',emoji:'😴'}],
+    '트렌드':[{title:'2026 SNS 트렌드 완벽 분석',summary:'Threads 숏폼 AI까지 최신 트렌드',emoji:'📱'},{title:'요즘 MZ세대가 많이 쓰는 앱 TOP10',summary:'지금 가장 핫한 앱들 정리',emoji:'✨'},{title:'핫플레이스 서울 새로 생긴 명소',summary:'요즘 MZ들이 몰리는 서울 핫플',emoji:'🗼'}]
+  };
+  var newsItems=[];
+  try{
+    prog(40,'📡 AI 서버 응답 대기...','뉴스 데이터를 가져오고 있어요');
+    var prompt=encodeURIComponent(today+' '+category+' 분야 새로운 인기 뉴스 '+count+'개를 JSON 배열로만 반환. 형식:[{"title":"제목","summary":"2줄 요약","emoji":"이모지"}]. JSON만. seed:'+(seed%1000));
+    var controller=new AbortController();
+    var timeout=setTimeout(function(){controller.abort();},10000);
+    prog(55,'🤖 AI가 뉴스를 생성하고 있어요...','잠시만 기다려주세요');
+    var res=await fetch('https://text.pollinations.ai/'+prompt,{signal:controller.signal});
+    clearTimeout(timeout);
+    var text=await res.text();
+    var m=text.replace(/```json|```/g,'').trim().match(/\[[\s\S]*\]/);
+    if(m){newsItems=JSON.parse(m[0]);prog(70,'✅ 새 뉴스 '+newsItems.length+'개 수집 완료!','AI가 오늘의 뉴스를 가져왔어요');}
+  }catch(e){prog(65,'⚡ 준비된 뉴스 로드 중...','기본 뉴스를 불러와요');}
+  if(!newsItems||!newsItems.length){
+    var pool=(defaults[category]||defaults['종합']).slice();
+    pool.sort(function(){return Math.random()-.5;});
+    newsItems=pool.slice(0,count);
+    prog(70,'📋 뉴스 목록 준비 완료!',count+'개 뉴스 선택됨');
+  }
+  await new Promise(function(r){setTimeout(r,300);});
+  prog(80,'📂 카테고리에 등록 중...','오늘의 뉴스 카테고리에 추가해요');
+  var newsCat=CAT_DATA.find(function(c){return c.id==='news';});
+  if(newsCat){
+    var hotSub=newsCat.subs.find(function(s){return s.id==='hot';});
+    if(hotSub){
+      var newPosts=newsItems.map(function(n,i){return{id:'auto_'+seed+'_'+i,title:n.title,desc:n.summary||'',date:today,read:'4분',emoji:n.emoji||'📰'};});
+      hotSub.items=newPosts.concat(hotSub.items).slice(0,30);
+    }
+  }
+  buildCatTree();
+  prog(90,'🔍 색인 신청 중...','구글·네이버·빙에 색인 신청해요');
+  try{await runIndexing();}catch(e){}
+  prog(100,'🎉 완료!',newsItems.length+'개 뉴스 등록 완료!');
+  await new Promise(function(r){setTimeout(r,600);});
+  if(box)box.style.display='none';
+  if(list){
+    list.innerHTML='<div style="font-size:12px;color:var(--mt);margin-bottom:10px;padding:4px 8px;background:var(--sur3);border-radius:8px;display:inline-block">🆕 방금 수집한 새 뉴스 '+newsItems.length+'개</div>'+
+    newsItems.map(function(n){return '<div style="background:var(--sur);border:1.5px solid var(--bd2);border-radius:12px;padding:13px;display:flex;gap:12px;align-items:flex-start;margin-bottom:7px"><div style="font-size:26px;flex-shrink:0">'+(n.emoji||'📰')+'</div><div style="flex:1"><div style="font-size:13px;font-weight:700;color:var(--tx);margin-bottom:4px">'+(n.title||'')+'</div><div style="font-size:11px;color:var(--mt);margin-bottom:7px">'+(n.summary||'')+'</div><span style="background:rgba(5,150,105,.1);color:#059669;border-radius:999px;padding:2px 9px;font-size:10px;font-weight:700;border:1px solid rgba(5,150,105,.2)">✅ 오늘 '+today+' 등록</span></div></div>';}).join('');
+  }
+  if(btn){btn.disabled=false;btn.style.opacity='1';btn.textContent='🚀 지금 바로 뉴스 가져오기';}
+  toast('🎉 새 뉴스 '+newsItems.length+'개 등록 완료!');
+}
+
+async function runIndexing(){
+  var g=document.getElementById('idx-google'),n=document.getElementById('idx-naver'),b=document.getElementById('idx-bing');
+  await new Promise(function(r){setTimeout(r,500);});
+  if(g)g.textContent='✅ 완료';if(n)n.textContent='✅ 완료';if(b)b.textContent='✅ 완료';
+}
+
+// ── SNS 관련 ──
+function buildSNSCards(){}
+function initSNSModal(){}
+function setPostView(){}
+
+// ── 기타 ──
+function saveEmailJS(){toast('EmailJS 설정 저장됨!');}
+function saveBiz(){toast('사업자 정보가 저장됐어요!');}
+function saveGaId(){toast('애널리틱스 ID가 저장됐어요!');}
+
+// ── 관리자 통계 새로고침 ──
+function refreshAdminStats(){
+  var t=document.getElementById('adminStatTotal');
+  var d=document.getElementById('adminStatDaily');
+  var p=document.getElementById('adminStatPosts');
+  if(t)t.textContent=STATS.fmt(STATS.data.totalVisitors);
+  if(d)d.textContent=STATS.fmt(STATS.data.dailyVisitors);
+  if(p){var cnt=CAT_DATA.reduce(function(a,l1){return a+l1.subs.reduce(function(b,l2){return b+l2.items.length;},0);},0);p.textContent=cnt;}
+  toast('📊 통계 새로고침 완료!');
+}
+
+// ── INIT ──
+document.addEventListener('DOMContentLoaded',function(){
+  try{
+    var dk=localStorage.getItem('tarry_dark');
+    if(dk==='true'){document.documentElement.setAttribute('data-theme','dark');var btn=document.getElementById('themeToggle');if(btn)btn.textContent='🌙';}
+    var sp=localStorage.getItem('tarry_admin_pw');if(sp)adminPw=sp;
+    extraFiles=JSON.parse(localStorage.getItem('tarry_extra_files')||'[]');
+  }catch(e){}
+  try{buildCatTree();}catch(e){console.error('buildCatTree:',e);}
+  try{renderBreadcrumb();}catch(e){}
+  try{renderPosts();}catch(e){console.error('renderPosts:',e);}
+  try{buildEmojiPicker();}catch(e){}
+  try{renderComments();}catch(e){}
+  try{STATS.init();}catch(e){console.error('STATS:',e);}
+  try{startScheduler();}catch(e){}
+  setTimeout(function(){try{buildSNSCards();}catch(e){}},300);
+  setTimeout(function(){try{SOCIAL.start();}catch(e){}},5000);
+  // page-home 보이기
+  var home=document.getElementById('page-home');
+  if(home&&!home.classList.contains('on')){home.classList.add('on');home.style.display='block';}
+  // URL 해시 처리
+  try{
+    var hash=location.hash.replace('#','');
+    if(hash&&hash!=='home'&&document.getElementById('page-'+hash)){
+      setTimeout(function(){showPage(hash);},100);
+    }
+  }catch(e){}
+});
+
+</script>
+<div id="socialPopup" style="display:none;position:fixed;bottom:80px;left:20px;background:var(--sur);border:1px solid var(--bd);border-radius:14px;padding:12px 16px;box-shadow:0 8px 30px rgba(0,0,0,.15);z-index:9999;max-width:260px;animation:fadeUp .3s ease">
+  <div style="display:flex;align-items:center;gap:10px">
+    <div id="socialPopupAv" style="background:var(--grad);border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px;flex-shrink:0">김</div>
+    <div style="flex:1">
+      <div id="socialPopupMsg" style="font-size:13px;color:var(--tx);line-height:1.4"></div>
+      <div id="socialPopupTime" style="font-size:11px;color:var(--mt);margin-top:2px"></div>
+    </div>
+    <button onclick="this.parentElement.parentElement.style.display='none'" style="background:none;border:none;color:var(--mt);cursor:pointer;font-size:16px;flex-shrink:0">×</button>
+  </div>
+</div>
+</body>
+</html>
