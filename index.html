@@ -2031,47 +2031,41 @@ body.dark-mode #socialPopupMsg{color:#e2e0f0!important}
       <div class="admin-wrap">
 
         <!-- 원클릭 버튼 -->
-        <div style="background:linear-gradient(135deg,#059669,#0891b2);border-radius:20px;padding:2rem;text-align:center;margin-bottom:14px;box-shadow:0 8px 30px rgba(5,150,105,.3)">
+        <div style="background:linear-gradient(135deg,#059669,#0891b2);border-radius:20px;padding:2rem;text-align:center;margin-bottom:14px">
           <div style="font-size:48px;margin-bottom:10px">📰</div>
-          <div style="font-size:22px;font-weight:800;color:#fff;font-family:var(--display);margin-bottom:6px">오늘의 뉴스 자동 등록</div>
-          <div style="font-size:13px;color:rgba(255,255,255,.85);margin-bottom:20px;line-height:1.6">버튼 하나로 오늘의 핫뉴스를 자동으로 수집하고<br>카테고리에 바로 등록해줘요!</div>
+          <div style="font-size:20px;font-weight:800;color:#fff;font-family:var(--display);margin-bottom:6px">오늘의 뉴스 자동 등록</div>
+          <div style="font-size:13px;color:rgba(255,255,255,.85);margin-bottom:18px">버튼 하나로 뉴스 수집 + 카테고리 자동 등록!</div>
           <button id="autoNewsBtn" onclick="runAutoNews(false)"
-            style="background:#fff;color:#059669;border:none;border-radius:999px;padding:16px 40px;font-size:16px;font-weight:800;cursor:pointer;font-family:var(--font);box-shadow:0 4px 20px rgba(0,0,0,.2)"
-            onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            style="background:#fff;color:#059669;border:none;border-radius:999px;padding:14px 36px;font-size:15px;font-weight:800;cursor:pointer;font-family:var(--font)">
             🚀 지금 바로 뉴스 가져오기
           </button>
         </div>
 
         <!-- 자동/수동 모드 -->
         <div class="admin-section" style="margin-bottom:13px">
-          <h3>⏰ 자동 실행 스케줄</h3>
-          <div style="background:var(--sur2);border-radius:12px;padding:14px;border:1px solid var(--bd);margin-bottom:10px;display:flex;align-items:center;justify-content:space-between">
-            <div>
-              <div style="font-size:13px;font-weight:700" id="scheduleLabel">⏰ 매일 오전 8시 자동 실행</div>
-              <div style="font-size:11px;color:var(--mt);margin-top:2px">매일 아침 8시에 자동으로 뉴스를 수집해서 등록해요</div>
-            </div>
-            <div style="text-align:right;flex-shrink:0">
-              <div style="font-size:10px;color:var(--mt)">다음 실행</div>
-              <div style="font-size:12px;font-weight:700;color:var(--ac)" id="nextRunTime">내일 08:00</div>
-            </div>
-          </div>
+          <h3>⏰ 자동 스케줄</h3>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
             <button onclick="setNewsMode('auto')" id="newsModeAuto"
-              style="background:var(--grad);color:#fff;border:none;border-radius:12px;padding:14px 10px;cursor:pointer;text-align:center;font-family:var(--font)">
+              style="background:var(--grad);color:#fff;border:none;border-radius:12px;padding:13px 8px;cursor:pointer;text-align:center;font-family:var(--font)">
               <div style="font-size:20px;margin-bottom:4px">🤖</div>
-              <div style="font-size:13px;font-weight:800">자동 모드</div>
+              <div style="font-size:12px;font-weight:800">자동 모드</div>
               <div style="font-size:10px;opacity:.85">매일 자동 수집</div>
             </button>
             <button onclick="setNewsMode('manual')" id="newsModeManual"
-              style="background:var(--sur2);color:var(--tx);border:2px solid var(--bd);border-radius:12px;padding:14px 10px;cursor:pointer;text-align:center;font-family:var(--font)">
+              style="background:var(--sur2);color:var(--tx);border:2px solid var(--bd);border-radius:12px;padding:13px 8px;cursor:pointer;text-align:center;font-family:var(--font)">
               <div style="font-size:20px;margin-bottom:4px">✋</div>
-              <div style="font-size:13px;font-weight:800">수동 모드</div>
-              <div style="font-size:10px;color:var(--mt)">버튼 클릭할 때만</div>
+              <div style="font-size:12px;font-weight:800">수동 모드</div>
+              <div style="font-size:10px;color:var(--mt)">내가 클릭할 때만</div>
             </button>
+          </div>
+          <div style="display:flex;gap:7px;margin-bottom:10px">
+            <button onclick="setSchedule('08:00')" class="btn btn-grad btn-sm" style="flex:1">⏰ 08:00</button>
+            <button onclick="setSchedule('09:00')" class="btn btn-ghost btn-sm" style="flex:1">⏰ 09:00</button>
+            <button onclick="setSchedule('12:00')" class="btn btn-ghost btn-sm" style="flex:1">⏰ 12:00</button>
           </div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px">
             <div>
-              <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:4px">수집 뉴스 수</label>
+              <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:4px">수집 수</label>
               <select class="inp" id="newsCount" style="cursor:pointer">
                 <option value="3">3개</option>
                 <option value="5" selected>5개</option>
@@ -2079,7 +2073,7 @@ body.dark-mode #socialPopupMsg{color:#e2e0f0!important}
               </select>
             </div>
             <div>
-              <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:4px">뉴스 분야</label>
+              <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:4px">분야</label>
               <select class="inp" id="newsCategory" style="cursor:pointer">
                 <option value="종합">종합 뉴스</option>
                 <option value="IT기술">IT·기술</option>
@@ -2091,44 +2085,42 @@ body.dark-mode #socialPopupMsg{color:#e2e0f0!important}
           </div>
         </div>
 
-        <!-- 색인 자동화 -->
+        <!-- 색인 -->
         <div class="admin-section" style="margin-bottom:13px">
           <h3>🔍 검색엔진 색인 자동화</h3>
           <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px">
-            <div style="background:var(--sur);border:1px solid var(--bd);border-radius:10px;padding:11px;text-align:center">
-              <div style="font-size:18px;margin-bottom:4px">🔵</div>
+            <div style="background:var(--sur);border:1px solid var(--bd);border-radius:10px;padding:10px;text-align:center">
+              <div style="font-size:16px;margin-bottom:3px">🔵</div>
               <div style="font-size:11px;font-weight:700">구글</div>
               <div style="font-size:10px;color:var(--mt)" id="idx-google">대기 중</div>
             </div>
-            <div style="background:var(--sur);border:1px solid var(--bd);border-radius:10px;padding:11px;text-align:center">
-              <div style="font-size:18px;margin-bottom:4px">🟢</div>
+            <div style="background:var(--sur);border:1px solid var(--bd);border-radius:10px;padding:10px;text-align:center">
+              <div style="font-size:16px;margin-bottom:3px">🟢</div>
               <div style="font-size:11px;font-weight:700">네이버</div>
               <div style="font-size:10px;color:var(--mt)" id="idx-naver">대기 중</div>
             </div>
-            <div style="background:var(--sur);border:1px solid var(--bd);border-radius:10px;padding:11px;text-align:center">
-              <div style="font-size:18px;margin-bottom:4px">🟠</div>
+            <div style="background:var(--sur);border:1px solid var(--bd);border-radius:10px;padding:10px;text-align:center">
+              <div style="font-size:16px;margin-bottom:3px">🟠</div>
               <div style="font-size:11px;font-weight:700">빙</div>
               <div style="font-size:10px;color:var(--mt)" id="idx-bing">대기 중</div>
             </div>
           </div>
-          <button onclick="runIndexing()" class="btn btn-grad" style="width:100%;padding:12px;font-size:13px">
-            🔍 지금 색인 신청하기
-          </button>
+          <button onclick="runIndexing()" class="btn btn-grad" style="width:100%;padding:11px;font-size:13px">🔍 색인 신청하기</button>
         </div>
 
-        <!-- 수집 결과 -->
+        <!-- 결과 -->
         <div class="admin-section">
-          <h3>📋 오늘 수집된 뉴스</h3>
+          <h3>📋 수집된 뉴스</h3>
           <div id="autoNewsList">
             <div style="text-align:center;padding:2rem;color:var(--mt)">
-              <div style="font-size:32px;margin-bottom:8px">📰</div>
+              <div style="font-size:30px;margin-bottom:8px">📰</div>
               위 버튼을 눌러 뉴스를 가져오세요!
             </div>
           </div>
         </div>
 
       </div>
-    </div>
+
 
 <div class="toast" id="toastEl"></div>
 <input type="file" id="profileInput2" accept="image/*" style="display:none">
