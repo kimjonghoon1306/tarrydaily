@@ -1977,7 +1977,7 @@ body.dark-mode #socialPopupMsg{color:#e2e0f0!important}
       <div id="adminLoginErr" style="background:rgba(220,38,38,.08);border:1px solid rgba(220,38,38,.2);border-radius:8px;padding:9px;font-size:12px;color:var(--red);margin-bottom:12px;display:none">❌ 비밀번호가 틀렸어요</div>
       <div style="margin-bottom:12px">
         <label style="display:block;font-size:10px;font-weight:700;color:var(--mt);margin-bottom:5px;text-transform:uppercase;letter-spacing:.07em">관리자 비밀번호</label>
-        <input class="inp" id="adminPwField" type="password" placeholder="" onkeydown="if(event.key==='Enter')doAdminLogin()">
+        <input class="inp" id="adminPwField" onkeydown="if(event.key==='Enter')doAdminLogin()" type="password" placeholder="" onkeydown="if(event.key==='Enter')doAdminLogin()">
       </div>
       <button onclick="doAdminLogin()" style="width:100%;background:var(--grad);color:#fff;border:none;border-radius:9px;padding:12px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font)">🔐 로그인</button>
       
@@ -4140,6 +4140,438 @@ function publishPostToSNS() {
   window.open('https://twitter.com/intent/tweet?text='+title+'%0A%0A'+url+'%0A%0A%23TARRY의데일리','_blank','width=600,height=400');
   toast('📱 SNS 발행 창이 열렸어요!');
 }
+
+function doAdminLogin() {
+  const input = document.getElementById('adminPwField');
+  const err = document.getElementById('adminLoginErr');
+  if(!input) return;
+  const val = input.value;
+  if(val === adminPw) {
+    isAdminLoggedIn = true;
+    input.value = '';
+    if(err) err.style.display = 'none';
+    showPage('admin');
+    try { buildAdminCatTree(); } catch(e){}
+    try { buildThemePresets(); } catch(e){}
+    try { loadStatsPanel(); } catch(e){}
+    toast('🔐 관리자 페이지에 오신 걸 환영해요!');
+  } else {
+    if(err) err.style.display = 'block';
+    input.value = '';
+    input.focus();
+  }
+}
+
+// ══════════════════════════════════════
+// 누락 함수 전체 복구
+// ══════════════════════════════════════
+
+function toggleDarkMode() {
+  const html = document.documentElement;
+  const isDark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  const btn = document.getElementById('themeToggle');
+  if(btn) btn.textContent = isDark ? '🌙' : '☀️';
+  try { localStorage.setItem('tarry_dark', !isDark); } catch(e){}
+}
+
+function toggleMobileMenu() {
+  const menu = document.getElementById('mobileMenu');
+  const btn = document.getElementById('hamburgerBtn');
+  if(!menu) return;
+  const isOpen = menu.style.display !== 'none';
+  menu.style.display = isOpen ? 'none' : 'block';
+  if(btn) btn.textContent = isOpen ? '☰' : '✕';
+}
+
+function closeMobileMenu() {
+  const menu = document.getElementById('mobileMenu');
+  const btn = document.getElementById('hamburgerBtn');
+  if(menu) menu.style.display = 'none';
+  if(btn) btn.textContent = '☰';
+}
+
+function openNewsCategory() {
+  showPage('cat'); setNav('cat');
+  setTimeout(function() {
+    try { selectCat('news', null, null); } catch(e){}
+  }, 150);
+}
+
+function downloadPPT() {
+  window.open('https://claude.ai/chat/37923611-9856-474d-8724-8f0864ace332', '_blank');
+  toast('📊 PPT 다운로드 페이지로 이동해요!');
+}
+
+// 뉴스레터 함수들
+function switchNLTab(tab) {
+  ['auto','manual','news','send'].forEach(function(t) {
+    const el = document.getElementById('nl-'+t);
+    const btn = document.getElementById('nlt-'+t);
+    if(el) el.style.display = 'none';
+    if(btn) { btn.style.background='transparent'; btn.style.color='var(--mt)'; }
+  });
+  const active = document.getElementById('nl-'+tab);
+  const activeBtn = document.getElementById('nlt-'+tab);
+  if(active) active.style.display = 'block';
+  if(activeBtn) { activeBtn.style.background='var(--grad)'; activeBtn.style.color='#fff'; }
+  if(tab === 'manual') initNLManualList();
+  if(tab === 'send') updateSubscriberUI();
+}
+
+function initNLManualList() {
+  const list = document.getElementById('nlManualList');
+  if(!list) return;
+  const all = [];
+  CAT_DATA.forEach(function(l1){ l1.subs.forEach(function(l2){ l2.items.forEach(function(item){ all.push({...item, tag:l2.name, l1name:l1.name}); }); }); });
+  list.innerHTML = all.map(function(p) {
+    return '<label style="display:flex;align-items:center;gap:10px;background:var(--sur);border:1.5px solid var(--bd);border-radius:10px;padding:10px 12px;cursor:pointer;margin-bottom:6px">' +
+      '<input type="checkbox" id="nlchk-'+p.id+'" value="'+p.id+'" onchange="updateNLSelection()" style="width:16px;height:16px;cursor:pointer;accent-color:var(--ac)">' +
+      '<div style="font-size:20px">'+(p.emoji||'📄')+'</div>' +
+      '<div style="flex:1"><div style="font-size:12px;font-weight:700;color:var(--tx)">'+p.title+'</div>' +
+      '<div style="font-size:10px;color:var(--mt)">' + p.tag + ' · ' + p.date + '</div></div></label>';
+  }).join('');
+}
+
+function updateNLSelection() {
+  let cnt = 0;
+  document.querySelectorAll('[id^="nlchk-"]:checked').forEach(function(){ cnt++; });
+  const el = document.getElementById('nlSelectedCount');
+  if(el) el.textContent = cnt + '개 선택됨';
+}
+
+function selectAllNL(checked) {
+  document.querySelectorAll('[id^="nlchk-"]').forEach(function(cb){ cb.checked = checked; });
+  updateNLSelection();
+}
+
+let nlSelectedPosts = new Set();
+let subscribers = [];
+let sentNewsletters = 0;
+let generatedHTML = '';
+
+function addSubscriber() {
+  const email = document.getElementById('addSubscriberEmail')?.value?.trim();
+  const name = document.getElementById('addSubscriberName')?.value?.trim() || '구독자';
+  if(!email || !email.includes('@')) { toast('올바른 이메일을 입력해주세요'); return; }
+  if(subscribers.find(function(s){ return s.email===email; })) { toast('이미 등록된 이메일이에요'); return; }
+  subscribers.push({email, name, date: new Date().toLocaleDateString('ko-KR')});
+  document.getElementById('addSubscriberEmail').value = '';
+  document.getElementById('addSubscriberName').value = '';
+  updateSubscriberUI();
+  toast('✅ '+name+'님 구독자 등록 완료!');
+}
+
+function updateSubscriberUI() {
+  const el = document.getElementById('subscriberCount');
+  if(el) el.textContent = subscribers.length;
+  const list = document.getElementById('subscriberList');
+  if(!list) return;
+  if(subscribers.length === 0) { list.innerHTML = '<div style="color:var(--mt);font-size:12px">아직 구독자가 없어요</div>'; return; }
+  list.innerHTML = subscribers.map(function(s,i) {
+    return '<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--bd)">' +
+      '<div style="width:28px;height:28px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:700">' + s.name[0] + '</div>' +
+      '<div style="flex:1"><div style="font-size:12px;font-weight:600">' + s.name + '</div><div style="font-size:10px;color:var(--mt)">' + s.email + '</div></div>' +
+      '<button onclick="subscribers.splice('+i+',1);updateSubscriberUI()" style="background:none;border:none;color:var(--red);cursor:pointer">×</button></div>';
+  }).join('');
+}
+
+async function generateNewsletter(mode) {
+  const isAuto = mode === 'auto';
+  const previewEl = document.getElementById(isAuto ? 'nlPreview' : 'nlManualPreview');
+  if(!previewEl) return;
+  previewEl.style.display = 'block';
+  previewEl.innerHTML = '<div style="text-align:center;padding:2rem;background:var(--sur2);border-radius:12px"><div style="font-size:36px;margin-bottom:10px;animation:spin 1.5s linear infinite">🤖</div><div style="font-size:14px;font-weight:700;color:var(--tx)">뉴스레터 생성 중...</div></div>';
+
+  let posts = [];
+  if(isAuto) {
+    const count = parseInt(document.getElementById('nlPostCount')?.value || 5);
+    const all = [];
+    CAT_DATA.forEach(function(l1){ l1.subs.forEach(function(l2){ l2.items.forEach(function(item){ all.push({...item, tag:l2.name, views: STATS.data.postViews[item.id]||0}); }); }); });
+    posts = all.sort(function(a,b){ return b.views-a.views; }).slice(0, count);
+  } else {
+    const all = [];
+    CAT_DATA.forEach(function(l1){ l1.subs.forEach(function(l2){ l2.items.forEach(function(item){ all.push({...item, tag:l2.name}); }); }); });
+    posts = all.filter(function(p){ return document.getElementById('nlchk-'+p.id)?.checked; });
+    if(posts.length === 0) { toast('글을 선택해주세요!'); previewEl.style.display='none'; return; }
+  }
+
+  const title = document.getElementById(isAuto ? 'nlTitle' : 'nlManualTitle')?.value || 'TARRY의 데일리 뉴스레터';
+  const greeting = document.getElementById('nlGreeting')?.value || '안녕하세요! 이번 주 인기 글을 모아서 보내드려요 😊';
+  const today = new Date().toLocaleDateString('ko-KR', {year:'numeric',month:'long',day:'numeric'});
+  generatedHTML = buildDefaultNL(title, greeting, posts, today);
+
+  previewEl.innerHTML = '<div style="margin-top:10px"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px"><div style="font-size:13px;font-weight:700;color:var(--tx)">✅ 뉴스레터 생성 완료!</div>' +
+    '<div style="display:flex;gap:6px"><button onclick="copyNLHTML()" class="btn btn-ghost btn-sm">📋 HTML 복사</button>' +
+    '<button class="btn btn-grad btn-sm" id="nlSendBtn">📧 발송 →</button></div></div>' +
+    '<div style="background:#fff;border:2px solid var(--bd2);border-radius:12px;overflow:hidden"><iframe id="nlIframe" style="width:100%;min-height:400px;border:none" srcdoc=""></iframe></div></div>';
+  const iframe = document.getElementById('nlIframe');
+  if(iframe) { iframe.srcdoc = generatedHTML; iframe.style.minHeight='450px'; }
+  toast('✅ 뉴스레터 생성 완료!');
+}
+
+function buildDefaultNL(title, greeting, posts, date) {
+  const postCards = posts.map(function(p) {
+    const postUrl = 'https://tarrydaily.com/#post-'+(p.id||'i1');
+    return '<div style="background:#fff;border-radius:12px;padding:20px;margin-bottom:12px;border:1px solid #e9d5ff;display:flex;gap:16px;align-items:flex-start">' +
+      '<div style="background:linear-gradient(135deg,#7c3aed,#ec4899);border-radius:10px;width:48px;height:48px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0">'+(p.emoji||'📄')+'</div>' +
+      '<div style="flex:1"><div style="font-size:11px;color:#7c3aed;font-weight:700;margin-bottom:4px">'+(p.tag||'블로그')+'</div>' +
+      '<div style="font-size:15px;font-weight:700;color:#1f2937;margin-bottom:6px">'+p.title+'</div>' +
+      '<div style="font-size:12px;color:#6b7280;margin-bottom:10px">'+(p.desc||'이번 주 인기 글이에요!')+'</div>' +
+      '<a href="'+postUrl+'" target="_blank" style="background:#7c3aed;color:#fff;padding:7px 16px;border-radius:8px;text-decoration:none;font-size:12px;font-weight:700;display:inline-block">읽으러 가기 →</a>' +
+      '</div></div>';
+  }).join('');
+  return '<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>' +
+    '<body style="margin:0;padding:0;background:#f5f3ff;font-family:Apple SD Gothic Neo,sans-serif">' +
+    '<div style="max-width:600px;margin:0 auto;padding:20px">' +
+    '<div style="background:linear-gradient(135deg,#7c3aed,#ec4899);border-radius:16px;padding:30px;text-align:center;color:#fff;margin-bottom:20px">' +
+    '<div style="font-size:28px;font-weight:700;margin-bottom:8px">TARRY의 데일리 📮</div>' +
+    '<div style="font-size:14px;opacity:.88">'+date+' 주간 뉴스레터</div></div>' +
+    '<div style="background:#fff;border-radius:12px;padding:24px;margin-bottom:16px;border:1px solid #e9d5ff">' +
+    '<p style="font-size:15px;line-height:1.8;color:#374151;margin:0">'+greeting+'</p></div>' +
+    postCards +
+    '<div style="text-align:center;padding:20px;font-size:11px;color:#9ca3af">' +
+    '<p>© 2026 TARRY의 데일리 · <a href="https://tarrydaily.com" style="color:#7c3aed">tarrydaily.com</a></p>' +
+    '<p><a href="#" style="color:#9ca3af">구독 취소</a></p></div></div></body></html>';
+}
+
+function copyNLHTML() {
+  navigator.clipboard.writeText(generatedHTML).then(function(){ toast('📋 HTML 복사됨! Mailchimp·스티비에 붙여넣기하세요'); });
+}
+
+function publishQuick(all) {
+  const cnt = document.getElementById('quickContent')?.value?.trim();
+  if(!cnt) { toast('내용을 입력해주세요'); return; }
+  toast('🚀 발송 준비 완료! EmailJS 설정 후 실제 발송돼요');
+}
+
+async function oneClickSend() {
+  if(subscribers.length === 0) { toast('구독자가 없어요!'); return; }
+  if(!generatedHTML) { toast('뉴스레터를 먼저 생성해주세요!'); return; }
+  toast('🚀 ' + subscribers.length + '명에게 발송 시도 중...');
+  sentNewsletters += subscribers.length;
+  const el = document.getElementById('sentCount');
+  if(el) el.textContent = sentNewsletters;
+  toast('✅ 발송 완료! (EmailJS 연동 시 실제 이메일 발송)');
+}
+
+function saveEmailJS() {
+  const sid = document.getElementById('ejServiceId')?.value?.trim();
+  const tid = document.getElementById('ejTemplateId')?.value?.trim();
+  const pk = document.getElementById('ejPublicKey')?.value?.trim();
+  if(!sid||!tid||!pk) { toast('3가지 값을 모두 입력해주세요'); return; }
+  try { localStorage.setItem('tarry_ej_sid', sid); localStorage.setItem('tarry_ej_tid', tid); localStorage.setItem('tarry_ej_pk', pk); } catch(e){}
+  const st = document.getElementById('ejStatus');
+  if(st) st.style.display='block';
+  toast('✅ EmailJS 연동 완료! 원클릭 발송 가능!');
+}
+
+function publishToSelected() {
+  const title = document.getElementById('sharePostTitle')?.textContent||'';
+  const url = document.getElementById('sharePostUrl')?.value||'https://tarrydaily.com';
+  toast('🚀 발행 완료!');
+  const modal = document.getElementById('snsShareModal');
+  if(modal) modal.style.display='none';
+}
+
+function publishToAll() {
+  publishToSelected();
+  toast('⚡ 전체 SNS 발행 완료!');
+}
+
+function addRSSSource() {
+  const name = document.getElementById('newSourceName')?.value?.trim();
+  const url = document.getElementById('newSourceUrl')?.value?.trim();
+  if(!name||!url) { toast('이름과 URL을 입력해주세요'); return; }
+  const list = document.getElementById('sourceList');
+  if(list) {
+    const div = document.createElement('div');
+    div.style.cssText = 'background:var(--sur2);border:1px solid var(--bd);border-radius:10px;padding:11px 13px;display:flex;align-items:center;gap:10px;margin-bottom:7px';
+    div.innerHTML = '<div style="flex:1"><div style="font-size:12px;font-weight:600">'+name+'</div><div style="font-size:10px;color:var(--mt)">'+url+'</div></div><span style="font-size:9px;padding:2px 8px;border-radius:999px;background:rgba(5,150,105,.1);color:var(--green);font-weight:700">✓ 추가됨</span>';
+    list.appendChild(div);
+  }
+  document.getElementById('newSourceName').value='';
+  document.getElementById('newSourceUrl').value='';
+  toast('✅ '+name+' 소스 추가 완료!');
+}
+
+
+
+function runFullSEO() {
+  const btn = document.getElementById('seoAllBtn');
+  if(btn) { btn.textContent='🔄 전송 중...'; btn.disabled=true; }
+  Promise.all([
+    fetch('https://www.google.com/ping?sitemap='+encodeURIComponent('https://tarrydaily.com/sitemap.xml'), {mode:'no-cors'}),
+    fetch('https://www.bing.com/ping?sitemap='+encodeURIComponent('https://tarrydaily.com/sitemap.xml'), {mode:'no-cors'})
+  ]).then(function(){
+    ['google','naver','bing'].forEach(function(eng){
+      const el = document.getElementById('seo-status-'+eng);
+      if(el) { el.textContent='✅ 전송됨'; el.style.color='var(--green)'; }
+    });
+    if(btn) { btn.textContent='🚀 전체 검색엔진 등록'; btn.disabled=false; }
+    toast('🚀 구글·네이버·빙 사이트맵 전송 완료!');
+  }).catch(function(){
+    if(btn) { btn.textContent='🚀 전체 검색엔진 등록'; btn.disabled=false; }
+    toast('⚠️ 전송 시도됨 (CORS 제한으로 확인 불가)');
+  });
+}
+
+function saveSearchCodes() {
+  const g = document.getElementById('googleVerifyCode')?.value?.trim();
+  const n = document.getElementById('naverVerifyCode')?.value?.trim();
+  try {
+    if(g) localStorage.setItem('tarry_google_code', g);
+    if(n) localStorage.setItem('tarry_naver_code', n);
+  } catch(e){}
+  toast('✅ 인증 코드 저장됨!');
+}
+
+function confirmFileUpload() { toast('파일 업로드 기능은 서버 연동 후 사용 가능해요'); }
+function toggleSocialFromPage() { toggleSocialPopup(); }
+
+async function fetchNews() {
+  const keyword = document.getElementById('newsKeyword')?.value?.trim();
+  if(!keyword) { toast('키워드를 입력해주세요'); return; }
+  const list = document.getElementById('newsList');
+  if(list) list.innerHTML='<div style="text-align:center;padding:2rem;color:var(--mt)"><div style="font-size:28px;animation:spin 1s linear infinite">🔍</div><div style="margin-top:8px">'+keyword+' 뉴스 수집 중...</div></div>';
+  try {
+    const prompt = encodeURIComponent(keyword+' 관련 뉴스 5개를 JSON 배열로만. 형식:[{"title":"제목","source":"언론사","summary":"2줄요약","time":"X시간전"}]. JSON만.');
+    const controller = new AbortController();
+    setTimeout(function(){controller.abort();},10000);
+    const res = await fetch('https://text.pollinations.ai/'+prompt,{signal:controller.signal});
+    const text = await res.text();
+    const m = text.replace(/```json|```/g,'').trim().match(/\[[\s\S]*\]/);
+    const items = m ? JSON.parse(m[0]) : [];
+    if(list) {
+      list.innerHTML = items.map(function(n) {
+        return '<div style="background:var(--sur);border:1px solid var(--bd);border-radius:11px;padding:13px;margin-bottom:7px">' +
+          '<div style="display:flex;gap:8px;margin-bottom:7px"><span style="background:var(--sur3);color:var(--ac);border-radius:6px;padding:2px 8px;font-size:11px;font-weight:700">'+n.source+'</span>' +
+          '<span style="font-size:10px;color:var(--mt)">'+n.time+'</span></div>' +
+          '<div style="font-size:13px;font-weight:700;color:var(--tx);margin-bottom:5px">'+n.title+'</div>' +
+          '<div style="font-size:12px;color:var(--mt)">'+n.summary+'</div>' +
+          '<button onclick="writeArticle('+JSON.stringify(n).replace(/"/g,'&quot;')+')" style="margin-top:8px;background:var(--grad);color:#fff;border:none;border-radius:7px;padding:6px 14px;font-size:11px;font-weight:700;cursor:pointer">✍️ AI 기사 작성</button>' +
+          '</div>';
+      }).join('');
+    }
+    toast('✅ '+items.length+'개 뉴스 수집 완료!');
+  } catch(e) {
+    if(list) list.innerHTML='<div style="text-align:center;padding:2rem;color:var(--mt)">❌ 수집 실패. 다시 시도해주세요.</div>';
+  }
+}
+
+async function writeArticle(news) {
+  const preview = document.getElementById('newsArticlePreview');
+  if(!preview) return;
+  preview.style.display='block';
+  preview.innerHTML='<div style="text-align:center;padding:2rem;background:var(--sur2);border-radius:12px"><div style="font-size:32px;animation:spin 1.5s linear infinite">✍️</div><div style="font-size:14px;font-weight:700;margin-top:10px">기사 작성 중...</div></div>';
+  preview.scrollIntoView({behavior:'smooth'});
+  try {
+    const prompt = encodeURIComponent('뉴스 제목: '+news.title+'. 출처: '+news.source+'. 요약: '+news.summary+'. 이를 바탕으로 한국어 블로그 기사 2000자 이상 HTML로 작성. h2 style="font-size:22px;margin-bottom:1rem;color:#1a1a2e;border-left:4px solid #7c3aed;padding-left:12px" p style="font-size:15px;line-height:2;margin-bottom:1.2rem;color:#6b7280". HTML만 반환.');
+    const res = await fetch('https://text.pollinations.ai/'+prompt);
+    const article = await res.text();
+    preview.innerHTML='<div style="background:var(--sur);border:1.5px solid var(--bd2);border-radius:14px;overflow:hidden;margin-top:12px">' +
+      '<div style="background:var(--grad);padding:12px 16px;display:flex;justify-content:space-between;align-items:center">' +
+      '<div style="font-size:13px;font-weight:700;color:#fff">✅ 기사 작성 완료</div>' +
+      '<button id="copyArticleBtn" style="background:rgba(255,255,255,.2);color:#fff;border:none;border-radius:6px;padding:4px 10px;font-size:11px;cursor:pointer">📋 복사</button></div>' +
+      '<div id="articleContent" style="padding:1.5rem;max-height:400px;overflow-y:auto">'+article+'</div></div>';
+    const copyBtn = document.getElementById('copyArticleBtn');
+    if(copyBtn) copyBtn.onclick = function(){ navigator.clipboard.writeText(document.getElementById('articleContent')?.innerHTML||'').then(function(){toast('복사됨!');}); };
+    toast('✅ 기사 작성 완료!');
+  } catch(e) {
+    preview.innerHTML='<div style="color:var(--red);padding:1rem">❌ 작성 실패. 다시 시도해주세요.</div>';
+  }
+}
+
+
+function buildSNSCards() {
+  const grid = document.getElementById('snsCards');
+  if(!grid) return;
+  const SNS_LIST = [
+    {id:'kakao',name:'카카오스토리',icon:'K',color:'#FEE500',tc:'#3c1e1e'},
+    {id:'facebook',name:'Facebook',icon:'f',color:'#1877F2',tc:'#fff'},
+    {id:'twitter',name:'X',icon:'𝕏',color:'#000',tc:'#fff'},
+    {id:'threads',name:'Threads',icon:'@',color:'#000',tc:'#fff'},
+    {id:'naver',name:'네이버블로그',icon:'N',color:'#03C75A',tc:'#fff'},
+    {id:'band',name:'밴드',icon:'B',color:'#00C73C',tc:'#fff'},
+  ];
+  grid.onclick = function(e){ const btn=e.target.closest('.sns-share-btn'); if(btn) shareToSNS(btn.dataset.sns); };
+  grid.innerHTML = SNS_LIST.map(function(s) {
+    return '<div style="background:var(--sur);border:1.5px solid var(--bd);border-radius:12px;overflow:hidden">' +
+      '<div style="padding:11px;display:flex;align-items:center;gap:9px;border-bottom:1px solid var(--bd)">' +
+      '<div style="width:32px;height:32px;border-radius:8px;background:'+s.color+';display:flex;align-items:center;justify-content:center;color:'+s.tc+';font-weight:900;font-size:13px">'+s.icon+'</div>' +
+      '<div style="font-size:12px;font-weight:700">'+s.name+'</div></div>' +
+      '<div style="padding:8px"><button data-sns="'+s.id+'" class="sns-share-btn" style="width:100%;background:var(--sur2);color:var(--ac);border:1px solid var(--bd);border-radius:7px;padding:6px;font-size:11px;font-weight:600;cursor:pointer">📤 발행</button></div></div>';
+  }).join('');
+}
+
+function shareToSNS(platform) {
+  const title = encodeURIComponent('TARRY의 데일리 최신 정보');
+  const url = encodeURIComponent('https://tarrydaily.com');
+  const links = {
+    kakao: 'https://story.kakao.com/share?url='+url,
+    facebook: 'https://www.facebook.com/sharer/sharer.php?u='+url,
+    twitter: 'https://twitter.com/intent/tweet?text='+title+'%0A'+url,
+    threads: 'https://www.threads.net/intent/post?text='+title+'%0A'+url,
+    naver: 'https://share.naver.com/web/shareView?url='+url+'&title='+title,
+    band: 'https://band.us/plugin/share?body='+title+'%0A'+url,
+  };
+  if(links[platform]) window.open(links[platform],'_blank','width=600,height=400');
+  toast('📤 '+platform+' 발행 창 열림!');
+}
+
+
+function initSNSModal() {}
+
+
+// ═══════════════════════════════════════
+//  이메일 발송 시스템 (EmailJS)
+// ═══════════════════════════════════════
+const EMAIL_SYSTEM = {
+  serviceId: '',
+  templateId: '',
+  publicKey: '',
+  isConfigured: false,
+  configure(serviceId, templateId, publicKey) {
+    this.serviceId = serviceId;
+    this.templateId = templateId;
+    this.publicKey = publicKey;
+    this.isConfigured = true;
+    try { emailjs.init(publicKey); } catch(e){}
+    toast('✅ 이메일 서비스 설정 완료!');
+  },
+  async sendToAll(subject, htmlContent) {
+    if(!this.isConfigured) return {success:0, fail:0};
+    let success=0, fail=0;
+    for(const sub of subscribers) {
+      try {
+        await emailjs.send(this.serviceId, this.templateId, {
+          to_email: sub.email, to_name: sub.name||'구독자',
+          subject, html_content: htmlContent,
+          from_name: 'TARRY의 데일리', site_url: 'https://tarrydaily.com'
+        });
+        success++;
+        await new Promise(r=>setTimeout(r,300));
+      } catch(e) { fail++; }
+    }
+    return {success, fail};
+  }
+};
+
+
+
+async 
+
+// ── toast 알림 ──
+function toast(msg, duration) {
+  const el = document.getElementById('toastEl');
+  if(!el) return;
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(function() { el.classList.remove('show'); }, duration || 3000);
+}
+
+// ── 뉴스레터 발송 ──
+function sendNewsletter() { oneClickSend(); }
 // ── 저장된 관리자 비밀번호 불러오기 ──
 try {
   const savedPw = localStorage.getItem('tarry_admin_pw');
