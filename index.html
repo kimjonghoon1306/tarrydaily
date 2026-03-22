@@ -2153,7 +2153,9 @@ body.dark-mode #socialPopupMsg{color:#e2e0f0!important}
 <div class="toast" id="toastEl"></div>
 <input type="file" id="profileInput2" accept="image/*" style="display:none">
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>// ═══════════════════════════════════════════
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+window.onerror=function(m,s,l,c,e){document.title="JS오류:"+m.substring(0,30);return false;};
+// ═══════════════════════════════════════════
 //  TARRY의 데일리 — 자동배포 시스템 v3.0
 //  대한민국 최고 수준 자동화
 // ═══════════════════════════════════════════
@@ -2763,7 +2765,7 @@ function quickShareRSS(post) {
 
 let currentUser = null, isBrowsing = false;
 let adminPw = (function(){ try { return localStorage.getItem('tarry_admin_pw') || '123456'; } catch(e){ return '123456'; } })(), isAdminLoggedIn = false;
-let selectedL1 = null, selectedL2 = null, selectedL3 = null;
+let selectedL1 = null, selectedL2 = null, selectedL3 = null, currentPosts = [];
 let currentView = 'grid', currentFont = 'Noto Sans KR', currentColor = '#1a1a2e';
 let activeCat = '스마일';
 let profileImageData = null, totalPublished = 0;
