@@ -1,0 +1,6 @@
+/feed /index.html 200
+/feed.xml /index.html 200
+/rss /index.html 200
+/rss.xml /index.html 200
+/atom.xml /index.html 200
+/* /index.html 200
