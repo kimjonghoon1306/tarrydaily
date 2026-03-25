@@ -9178,5 +9178,23 @@ document.addEventListener('DOMContentLoaded',()=>{
 <script src="js/sns.js"></script>
 <script src="js/mobile.js"></script>
 <script src="js/remote.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+<script>
+  const firebaseConfig = {
+    apiKey: "여기에 apiKey",
+    authDomain: "여기에 authDomain",
+    databaseURL: "여기에 databaseURL",
+    projectId: "여기에 projectId",
+    storageBucket: "여기에 storageBucket",
+    messagingSenderId: "여기에 messagingSenderId",
+    appId: "여기에 appId"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
+
+  window.firebaseDb = db;
+</script>
 </body>
 </html>
