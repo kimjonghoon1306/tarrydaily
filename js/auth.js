@@ -129,10 +129,32 @@ function changeAdminPw(){
 
 // ── doLogin ──
 function doLogin(){
-  const email=document.getElementById('lEmail')?.value||'';
+  const email=(document.getElementById('lEmail')?.value||'').trim();
   const pw=document.getElementById('lPw')?.value||'';
-  if(!email||!pw){toast('이메일과 비밀번호를 입력해주세요');return;}
-  loginSuccess({email,name:email.split('@')[0],grade:'FREE'});
+  var msgEl = document.getElementById('loginMsg');
+  function showErr(msg){
+    if(msgEl){
+      msgEl.textContent=msg;
+      msgEl.style.display='block';
+      msgEl.style.background='rgba(220,38,38,.08)';
+      msgEl.style.border='1px solid rgba(220,38,38,.2)';
+      msgEl.style.color='#dc2626';
+    }
+    toast(msg);
+  }
+  if(msgEl) msgEl.style.display='none';
+  if(!email){ showErr('⚠️ 이메일을 입력해주세요'); return; }
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ showErr('⚠️ 올바른 이메일 형식이 아니에요 (예: abc@gmail.com)'); return; }
+  if(!pw){ showErr('⚠️ 비밀번호를 입력해주세요'); return; }
+  // 회원 확인
+  var members=[];
+  try{ members=JSON.parse(localStorage.getItem('tarry_members')||'[]'); }catch(e){}
+  var found=members.find(function(m){return m.email===email;});
+  if(!found){ showErr('❌ 가입되지 않은 이메일이에요'); return; }
+  if(found.pw!==pw){ showErr('❌ 비밀번호가 틀렸어요'); return; }
+  if(msgEl){ msgEl.textContent='✅ 로그인 성공!'; msgEl.style.display='block'; msgEl.style.background='rgba(5,150,105,.08)'; msgEl.style.border='1px solid rgba(5,150,105,.2)'; msgEl.style.color='#059669'; }
+  loginSuccess(found);
+  toast('👋 환영해요, '+found.name+'님!');
 }
 
 // ── checkSignupEmail ──
