@@ -107,7 +107,6 @@
     <button class="nl" id="nl-comment" onclick="showPage('comment');setNav('comment')">💬 댓글</button>
     <button class="nl" id="nl-member" onclick="showPage('member');setNav('member')">👤 마이페이지</button>
     <button class="nl" id="nl-about" onclick="showPage('about');setNav('about')">👋 소개</button>
-    <button class="nl" id="nl-intro" onclick="showPage('intro');setNav('intro')">🚀 소개서</button>
     <button class="nl" id="nl-contact" onclick="showPage('contact');setNav('contact')">📨 문의</button>
   </div>
   <div class="nav-r">
@@ -4050,148 +4049,76 @@ function setAtab(tab){
   document.querySelectorAll('.auth-panel').forEach(p=>p.style.display='none');
   const panel=document.getElementById(tab==='login'?'loginF':'signupF');if(panel)panel.style.display='block';
 }
-function doLogin(){
-  const email=document.getElementById('lEmail')?.value||'';
-  const pw=document.getElementById('lPw')?.value||'';
-  if(!email||!pw){toast('이메일과 비밀번호를 입력해주세요');return;}
-  loginSuccess({email,name:email.split('@')[0],grade:'FREE'});
-}
-/* ── 회원가입 실시간 체크 ── */
-function checkSignupEmail(){
-  var email = document.getElementById('sEmail')?.value?.trim()||'';
-  var box = document.getElementById('emailCheckBox');
-  var icon = document.getElementById('ec_format_icon');
-  if(!email){if(box)box.style.display='none';return;}
-  if(box) box.style.display='block';
-  var ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  if(icon){
-    icon.textContent = ok ? '✅' : '❌';
-    icon.parentElement.style.color = ok ? '#059669' : '#dc2626';
-  }
-}
-
-function checkSignupPw(){
-  var pw = document.getElementById('sPw')?.value||'';
-  var box = document.getElementById('pwCheckBox');
-  if(!pw){if(box)box.style.display='none';return;}
-  if(box) box.style.display='block';
-
-  var checks = {
-    len:   pw.length >= 6,
-    upper: /[A-Z]/.test(pw),
-    lower: /[a-z]/.test(pw),
-    num:   /[0-9]/.test(pw)
-  };
-
-  function setCheck(id, iconId, ok){
-    var row = document.getElementById(id);
-    var ic  = document.getElementById(iconId);
-    if(ic)  ic.textContent = ok ? '✅' : '⬜';
-    if(row) row.style.color = ok ? '#059669' : 'var(--mt)';
-  }
-  setCheck('pwCheck_len',   'pc_len',   checks.len);
-  setCheck('pwCheck_upper', 'pc_upper', checks.upper);
-  setCheck('pwCheck_lower', 'pc_lower', checks.lower);
-  setCheck('pwCheck_num',   'pc_num',   checks.num);
-
-  var score = Object.values(checks).filter(Boolean).length;
-  var bar   = document.getElementById('pwStrengthBar');
-  var label = document.getElementById('pwStrengthLabel');
-  var configs = [
-    {w:'25%', color:'#ef4444', txt:'취약해요 😟'},
-    {w:'50%', color:'#f97316', txt:'조금 더 필요해요 🤔'},
-    {w:'75%', color:'#eab308', txt:'거의 다 왔어요 😊'},
-    {w:'100%',color:'#22c55e', txt:'완벽해요! 🎉'}
-  ];
-  if(bar && label && score > 0){
-    bar.style.width   = configs[score-1].w;
-    bar.style.background = configs[score-1].color;
-    label.textContent = configs[score-1].txt;
-    label.style.color = configs[score-1].color;
-  }
-}
-
 function doSignup(){
   var nick  = document.getElementById('sNick')?.value?.trim()||'';
   var email = document.getElementById('sEmail')?.value?.trim()||'';
   var pw    = document.getElementById('sPw')?.value||'';
-  // 이메일 검증
-  if(!email){toast('✉️ 이메일을 입력해주세요');return;}
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){toast('✉️ 올바른 이메일 형식이 아니에요 (예: abc@gmail.com)');return;}
-  // 비밀번호 검증
-  if(!pw){toast('🔐 비밀번호를 입력해주세요');return;}
-  if(pw.length<6){toast('🔐 비밀번호는 6자 이상이어야 해요');return;}
-  if(!/[A-Z]/.test(pw)){toast('🔐 영문 대문자(A–Z)를 1개 이상 포함해주세요');return;}
-  if(!/[a-z]/.test(pw)){toast('🔐 영문 소문자(a–z)를 1개 이상 포함해주세요');return;}
-  if(!/[0-9]/.test(pw)){toast('🔐 숫자(0–9)를 1개 이상 포함해주세요');return;}
 
-  // 중복 이메일 체크
+  var errEl = document.getElementById('signupErrorMsg');
+  var sucEl = document.getElementById('signupSuccessMsg');
+  function showErr(msg){
+    if(errEl){ errEl.textContent=msg; errEl.style.display='block'; }
+    if(sucEl) sucEl.style.display='none';
+    toast(msg);
+  }
+  if(errEl) errEl.style.display='none';
+
+  // 이름 검증
+  if(!nick){ showErr('⚠️ 이름을 입력해주세요'); return; }
+  if(nick.length < 2){ showErr('⚠️ 이름은 2자 이상 입력해주세요'); return; }
+
+  // 이메일 검증
+  if(!email){ showErr('✉️ 이메일을 입력해주세요'); return; }
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ showErr('✉️ 올바른 이메일 형식이 아니에요 (예: abc@gmail.com)'); return; }
+
+  // 비밀번호 검증
+  if(!pw){ showErr('🔐 비밀번호를 입력해주세요'); return; }
+  if(pw.length < 6){ showErr('🔐 비밀번호는 6자 이상이어야 해요'); return; }
+  if(!/[A-Z]/.test(pw)){ showErr('🔐 영문 대문자(A–Z)를 포함해주세요'); return; }
+  if(!/[a-z]/.test(pw)){ showErr('🔐 영문 소문자(a–z)를 포함해주세요'); return; }
+  if(!/[0-9]/.test(pw)){ showErr('🔐 숫자(0–9)를 포함해주세요'); return; }
+
+  // 중복 이메일
   try{
     var members = JSON.parse(localStorage.getItem('tarry_members')||'[]');
     if(members.find(function(m){return m.email===email;})){
-      toast('✉️ 이미 가입된 이메일이에요');return;
+      showErr('✉️ 이미 가입된 이메일이에요'); return;
     }
   }catch(e){}
 
-  // URL 추천코드 확인
-  var refCode = '';
+  var refCode='';
+  try{ var up=new URLSearchParams(window.location.search); refCode=up.get('ref')||sessionStorage.getItem('tarry_ref')||''; }catch(e){}
+  var myCode='TARRY_'+email.split('@')[0].toUpperCase().replace(/[^A-Z0-9]/g,'').substring(0,8)+'_'+Date.now().toString(36).toUpperCase().slice(-4);
+  var joinDate=new Date().toLocaleDateString('ko-KR');
+  var user={email:email,name:nick,grade:'FREE',pw:pw,joinDate:joinDate,refCode:myCode,refBy:refCode,profileImg:''};
+
   try{
-    var urlParams = new URLSearchParams(window.location.search);
-    refCode = urlParams.get('ref') || sessionStorage.getItem('tarry_ref') || '';
+    var members2=JSON.parse(localStorage.getItem('tarry_members')||'[]');
+    members2.push(user);
+    localStorage.setItem('tarry_members',JSON.stringify(members2));
   }catch(e){}
 
-  // 고유 추천코드 생성
-  var myCode = 'TARRY_' + email.split('@')[0].toUpperCase().replace(/[^A-Z0-9]/g,'').substring(0,8) + '_' + Date.now().toString(36).toUpperCase().slice(-4);
-
-  var joinDate = new Date().toLocaleDateString('ko-KR');
-  var user = {
-    email: email,
-    name:  nick || email.split('@')[0],
-    grade: 'FREE',
-    pw:    pw,
-    joinDate: joinDate,
-    refCode:  myCode,
-    refBy:    refCode,
-    profileImg: ''
-  };
-
-  // 회원 저장
-  try{
-    var members = JSON.parse(localStorage.getItem('tarry_members')||'[]');
-    members.push(user);
-    localStorage.setItem('tarry_members', JSON.stringify(members));
-  }catch(e){}
-
-  // 추천인 유입 기록
-  if(refCode){
-    try{
-      var refs = JSON.parse(localStorage.getItem('tarry_refs')||'{}');
-      if(!refs[refCode]) refs[refCode]=[];
-      refs[refCode].push({name: user.name, email: email, date: joinDate});
-      localStorage.setItem('tarry_refs', JSON.stringify(refs));
-    }catch(e){}
-  }
-
+  if(sucEl) sucEl.style.display='block';
   loginSuccess(user);
-  toast('🎉 가입 완료! 환영해요, '+(nick||email.split('@')[0])+'님!');
-  // 기존 팝업 제거 후 새로 생성
+  toast('🎉 가입 완료! 환영해요, '+nick+'님!');
   setTimeout(function(){
-    var existing = document.getElementById('signupSuccessPop');
+    var existing=document.getElementById('signupSuccessPop');
     if(existing) existing.remove();
-    var pop = document.createElement('div');
-    pop.id = 'signupSuccessPop';
+    var pop=document.createElement('div');
+    pop.id='signupSuccessPop';
     pop.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px';
-    pop.onclick = function(e){ if(e.target===pop) pop.remove(); };
-    pop.innerHTML='<div style="background:var(--sur);border-radius:22px;padding:32px 28px;text-align:center;max-width:340px;width:100%;box-shadow:0 24px 70px rgba(124,58,237,.25)">'
+    pop.onclick=function(e){if(e.target===pop)pop.remove();};
+    pop.innerHTML='<div style="background:var(--sur);border-radius:22px;padding:32px 28px;text-align:center;max-width:340px;width:100%">'
       +'<div style="font-size:56px;margin-bottom:12px">🎉</div>'
       +'<h2 style="font-family:var(--display);font-size:22px;color:var(--tx);margin-bottom:8px">가입 완료!</h2>'
-      +'<p style="font-size:14px;color:var(--mt);margin-bottom:20px">환영해요, <strong style="color:var(--ac)">'+(nick||email.split('@')[0])+'</strong>님!<br>TARRY의 데일리 회원이 됐어요 😊</p>'
+      +'<p style="font-size:14px;color:var(--mt);margin-bottom:20px">환영해요, <strong style="color:var(--ac)">'+nick+'</strong>님!<br>TARRY의 데일리 회원이 됐어요 😊</p>'
       +'<button onclick="document.getElementById(\'signupSuccessPop\').remove()" style="background:var(--grad);color:#fff;border:none;border-radius:10px;padding:12px 32px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font)">시작하기 🚀</button>'
       +'</div>';
     document.body.appendChild(pop);
-    setTimeout(function(){ if(pop.parentNode) pop.remove(); }, 5000);
-  }, 300);
+    setTimeout(function(){if(pop.parentNode)pop.remove();},5000);
+  },300);
 }
+
 
 function doLogin(){
   var email = document.getElementById('lEmail')?.value?.trim()||'';
