@@ -82,3 +82,54 @@ function updateCommentLikeInFirebase(firebaseKey, likes) {
     firebaseDB.ref('comments/' + firebaseKey + '/likes').set(likes);
   } catch(e) {}
 }
+
+// ── 글별 댓글 저장 ──
+var currentPostId = null;
+var postCommentListeners = {};
+
+function submitPostComment(){
+  var input = document.getElementById('postCommentInput');
+  if(!input || !input.value.trim()){ toast('댓글을 입력해주세요'); return; }
+  var cmt = {
+    name: currentUser ? currentUser.name : '익명',
+    text: input.value.trim(),
+    date: new Date().toLocaleDateString('ko-KR'),
+    timestamp: Date.now(),
+    likes: 0
+  };
+  if(firebaseDB && currentPostId){
+    firebaseDB.ref('postComments/' + currentPostId).push(cmt);
+    input.value = '';
+    toast('✅ 댓글이 등록됐어요!');
+  } else {
+    toast('잠시 후 다시 시도해주세요');
+  }
+}
+
+function loadPostComments(postId){
+  if(!firebaseDB || !postId) return;
+  currentPostId = postId;
+  // 이전 리스너 해제
+  if(postCommentListeners[postId]){
+    firebaseDB.ref('postComments/' + postId).off('value', postCommentListeners[postId]);
+  }
+  var listener = firebaseDB.ref('postComments/' + postId).on('value', function(snapshot){
+    var list = document.getElementById('postCommentList');
+    if(!list) return;
+    var data = snapshot.val();
+    if(!data){ list.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--mt);font-size:13px">첫 번째 댓글을 남겨주세요 😊</div>'; return; }
+    var cmts = Object.entries(data).map(function([k,v]){ return Object.assign({},v,{key:k}); });
+    cmts.sort(function(a,b){ return b.timestamp - a.timestamp; });
+    list.innerHTML = cmts.map(function(c){
+      return '<div style="background:var(--sur);border:1px solid var(--bd);border-radius:12px;padding:14px">'
+        + '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">'
+        + '<div style="width:32px;height:32px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:13px;flex-shrink:0">'+(c.name?c.name[0].toUpperCase():'익')+'</div>'
+        + '<div><div style="font-size:13px;font-weight:700;color:var(--tx)">'+c.name+'</div>'
+        + '<div style="font-size:11px;color:var(--mt)">'+c.date+'</div></div>'
+        + '</div>'
+        + '<div style="font-size:14px;color:var(--tx);line-height:1.7">'+c.text+'</div>'
+        + '</div>';
+    }).join('');
+  });
+  postCommentListeners[postId] = listener;
+}

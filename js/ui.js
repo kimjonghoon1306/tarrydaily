@@ -201,6 +201,8 @@ function openPost(postId,title,tag,emoji,meta){
       rel.forEach((p,i)=>{const el=els.rel.querySelector('.rel-'+i);if(el)el.addEventListener('click',()=>openPost(p.id,p.title,p.l2name,p.emoji,'TARRY'));});
     }
     showPage('post');
+    // 글별 댓글 로드
+    try{ if(typeof loadPostComments==='function') loadPostComments(postId); }catch(e){}
     try{const v=STATS.getPostView(postId);if(els.meta)els.meta.textContent='TARRY · 조회 '+v.toLocaleString()+'회';}catch(e){}
   }catch(err){console.error('openPost:',err);}
 }
