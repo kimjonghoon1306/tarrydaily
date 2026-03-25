@@ -166,19 +166,26 @@ function renderComments(){
 function submitComment(){
   const input=document.getElementById('commentInput');
   if(!input||!input.value.trim()){toast('댓글을 입력해주세요');return;}
+  // 로그인 확인
+  if(!isLoggedIn && !isAdminLoggedIn){
+    toast('🔐 로그인 후 댓글을 작성할 수 있어요');
+    showPage('auth');setNav('auth');
+    return;
+  }
+  var userName = isAdminLoggedIn ? (localStorage.getItem('tarry_admin_name')||'관리자') : (currentUser?currentUser.name:'익명');
   var newCmt={
-    name:currentUser?currentUser.name:'익명',
-    avatar:currentUser?currentUser.name[0].toUpperCase():'익',
-    text:input.value.trim(),
-    date:new Date().toLocaleDateString('ko-KR'),
+    name: userName,
+    avatar: userName[0].toUpperCase(),
+    text: input.value.trim(),
+    date: new Date().toLocaleDateString('ko-KR'),
     timestamp: Date.now(),
-    likes:0
+    likes: 0,
+    isAdmin: isAdminLoggedIn
   };
-  // Firebase에 저장 (연동된 경우)
+  // Firebase에 저장
   if(typeof saveCommentToFirebase === 'function' && firebaseDB){
     saveCommentToFirebase(newCmt);
   } else {
-    // Firebase 없을 때 localStorage 사용
     comments.unshift(newCmt);
     try{ localStorage.setItem('tarry_comments', JSON.stringify(comments)); }catch(e){}
     renderComments();
