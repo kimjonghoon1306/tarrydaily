@@ -1,7 +1,0 @@
-/sw.js        /sw.js        200
-/feed.xml     /feed.xml     200
-/feed         /feed.xml     301
-/rss          /feed.xml     301
-/rss.xml      /feed.xml     301
-/atom.xml     /feed.xml     301
-/*            /index.html   200
