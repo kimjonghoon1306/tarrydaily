@@ -9781,8 +9781,16 @@ var currentPostId = null;
     // 댓글 실시간 로드
     firebaseDB.ref('comments').on('value', function(snapshot){
       var data = snapshot.val();
-      comments = data ? Object.entries(data).map(function(e){ return Object.assign({},e[1],{firebaseKey:e[0]}); }) : [];
-      comments.sort(function(a,b){ return (b.timestamp||0)-(a.timestamp||0); });
+      if(data){
+        comments = Object.entries(data).map(function(e){ return Object.assign({},e[1],{firebaseKey:e[0]}); });
+        comments.sort(function(a,b){ return (b.timestamp||0)-(a.timestamp||0); });
+      } else {
+        // Firebase에 댓글 없으면 localStorage 유지
+        try{
+          var saved = JSON.parse(localStorage.getItem('tarry_comments')||'[]');
+          if(saved.length && comments.length===0) comments = saved;
+        }catch(e){}
+      }
       try{renderComments();}catch(e){}
       try{renderHomeComments();}catch(e){}
       try{renderAdminComments();}catch(e){}
