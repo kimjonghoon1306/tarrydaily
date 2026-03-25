@@ -171,3 +171,9 @@ function downloadSWFile(){
   URL.revokeObjectURL(url);
   toast('✅ sw.js 다운로드 완료! Cloudflare Pages에 index.html과 함께 업로드해주세요');
 }
+// ── Firebase 초기화 (페이지 로드 시) ──
+document.addEventListener('DOMContentLoaded', function(){
+  setTimeout(function(){
+    try{ initFirebase(); }catch(e){ console.log('Firebase 초기화:', e); }
+  }, 500);
+});

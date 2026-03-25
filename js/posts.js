@@ -168,24 +168,28 @@ function submitComment(){
   if(!input||!input.value.trim()){toast('댓글을 입력해주세요');return;}
   var newCmt={
     name:currentUser?currentUser.name:'익명',
+    avatar:currentUser?currentUser.name[0].toUpperCase():'익',
     text:input.value.trim(),
     date:new Date().toLocaleDateString('ko-KR'),
+    timestamp: Date.now(),
     likes:0
   };
-  comments.unshift(newCmt);
-  // localStorage에 댓글 저장 (PC·모바일 공유)
-  try{ localStorage.setItem('tarry_comments', JSON.stringify(comments)); }catch(e){}
+  // Firebase에 저장 (연동된 경우)
+  if(typeof saveCommentToFirebase === 'function' && firebaseDB){
+    saveCommentToFirebase(newCmt);
+  } else {
+    // Firebase 없을 때 localStorage 사용
+    comments.unshift(newCmt);
+    try{ localStorage.setItem('tarry_comments', JSON.stringify(comments)); }catch(e){}
+    renderComments();
+    try{renderHomeComments();}catch(e){}
+    try{renderAdminComments();}catch(e){}
+    try{renderAdminComments2();}catch(e){}
+    var cnt=document.getElementById('commentCount'); if(cnt) cnt.textContent=comments.length;
+  }
   input.value='';
-  renderComments();
-  // 댓글 목록 맨 위로 스크롤
   var list=document.getElementById('commentList');
   if(list) list.scrollIntoView({behavior:'smooth',block:'start'});
-  // 홈 댓글 및 관리자 패널도 동시 갱신
-  try{renderHomeComments();}catch(e){}
-  try{renderAdminComments();}catch(e){}
-  try{renderAdminComments2();}catch(e){}
-  // 댓글 수 배지 갱신
-  var cnt=document.getElementById('commentCount'); if(cnt) cnt.textContent=comments.length;
   toast('✅ 댓글이 등록됐어요!');
 }
 
