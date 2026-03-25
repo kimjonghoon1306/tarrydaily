@@ -4390,28 +4390,10 @@ function handleLockedClick(){showPage('auth');setNav('auth');setAtab('signup');}
 function setAtab(tab){
   document.querySelectorAll('.atab').forEach(b=>b.classList.remove('on'));
   const btn=document.getElementById('at-'+tab);if(btn)btn.classList.add('on');
-  document.querySelectorAll('.auth-panel').forEach(p=>p.style.display='none');
-  const panel=document.getElementById(tab==='login'?'loginF':'signupF');if(panel)panel.style.display='block';
-}
-function doLogin(){
-  var email=(document.getElementById('lEmail')?.value||'').trim();
-  var pw=document.getElementById('lPw')?.value||'';
-  var msg=document.getElementById('loginMsg');
-  function showErr(txt){
-    if(msg){msg.textContent=txt;msg.style.display='block';msg.style.background='rgba(220,38,38,.08)';msg.style.border='1px solid rgba(220,38,38,.2)';msg.style.color='#dc2626';}
-    toast(txt);
-  }
-  if(msg) msg.style.display='none';
-  if(!email){showErr('⚠️ 이메일을 입력해주세요');return;}
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){showErr('⚠️ 올바른 이메일 형식이 아니에요');return;}
-  if(!pw){showErr('⚠️ 비밀번호를 입력해주세요');return;}
-  var members=[];
-  try{members=JSON.parse(localStorage.getItem('tarry_members')||'[]');}catch(e){}
-  var found=members.find(function(m){return m.email===email;});
-  if(!found){showErr('❌ 가입되지 않은 이메일이에요');return;}
-  if(found.pw!==pw){showErr('❌ 비밀번호가 틀렸어요');return;}
-  if(msg){msg.textContent='✅ 로그인됐어요!';msg.style.display='block';msg.style.background='rgba(5,150,105,.08)';msg.style.border='1px solid rgba(5,150,105,.2)';msg.style.color='#059669';}
-  setTimeout(function(){loginSuccess(found);},600);
+  var loginF=document.getElementById('loginF');
+  var signupF=document.getElementById('signupF');
+  if(loginF) loginF.style.display = tab==='login' ? 'block' : 'none';
+  if(signupF) signupF.style.display = tab==='signup' ? 'block' : 'none';
 }
 /* ── 회원가입 실시간 체크 ── */
 function checkSignupEmail(){
@@ -4474,7 +4456,11 @@ function doSignup(){
   var pw    = document.getElementById('sPw')?.value||'';
   var errEl = document.getElementById('signupErrorMsg');
   function showErr(msg){
-    if(errEl){errEl.textContent=msg;errEl.style.display='block';}
+    if(errEl){
+      errEl.textContent=msg;
+      errEl.style.display='block';
+      setTimeout(function(){if(errEl)errEl.style.display='none';},3000);
+    }
     toast(msg);
   }
   if(errEl) errEl.style.display='none';
@@ -4570,10 +4556,11 @@ function doLogin(){
     msg.style.background = ok ? 'rgba(5,150,105,.08)' : 'rgba(220,38,38,.08)';
     msg.style.border = ok ? '1px solid rgba(5,150,105,.2)' : '1px solid rgba(220,38,38,.2)';
     msg.style.color = ok ? '#059669' : '#dc2626';
-    if(ok) setTimeout(function(){msg.style.display='none';}, 2500);
+    setTimeout(function(){if(msg)msg.style.display='none';}, ok ? 2000 : 3000);
   }
-  if(!email||!pw){showMsg('이메일과 비밀번호를 입력해주세요', false);return;}
-
+  if(!email){showMsg('⚠️ 이메일을 입력해주세요', false);return;}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){showMsg('⚠️ 올바른 이메일 형식이 아니에요', false);return;}
+  if(!pw){showMsg('⚠️ 비밀번호를 입력해주세요', false);return;}
   try{
     var members = JSON.parse(localStorage.getItem('tarry_members')||'[]');
     var found = members.find(function(m){return m.email===email && m.pw===pw;});
@@ -4583,7 +4570,6 @@ function doLogin(){
       return;
     }
   }catch(e){}
-
   showMsg('❌ 이메일 또는 비밀번호가 틀렸어요', false);
 }
 
