@@ -20,6 +20,8 @@
 <title>TARRY의 데일리 — tarrydaily.com</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <script>
 // EmailJS 초기화 — 아래 YOUR_PUBLIC_KEY 를 EmailJS 대시보드 Public Key 로 교체하세요
 (function(){
@@ -5011,25 +5013,28 @@ function renderComments(){
 function submitComment(){
   const input=document.getElementById('commentInput');
   if(!input||!input.value.trim()){toast('댓글을 입력해주세요');return;}
+  if(!isLoggedIn&&!isAdminLoggedIn){toast('🔐 로그인 후 댓글을 작성해주세요');showPage('auth');setNav('auth');return;}
+  var name = isAdminLoggedIn ? (localStorage.getItem('tarry_admin_name')||'관리자') : (currentUser?currentUser.name:'익명');
   var newCmt={
-    name:currentUser?currentUser.name:'익명',
-    text:input.value.trim(),
-    date:new Date().toLocaleDateString('ko-KR'),
-    likes:0
+    name: name,
+    text: input.value.trim(),
+    date: new Date().toLocaleDateString('ko-KR'),
+    timestamp: Date.now(),
+    likes: 0
   };
-  comments.unshift(newCmt);
-  // localStorage에 댓글 저장 (PC·모바일 공유)
-  try{ localStorage.setItem('tarry_comments', JSON.stringify(comments)); }catch(e){}
+  // Firebase에 저장 (PC/모바일 실시간 연동)
+  if(typeof saveCommentToFirebase==='function' && firebaseDB){
+    saveCommentToFirebase(newCmt);
+  } else {
+    comments.unshift(newCmt);
+    try{localStorage.setItem('tarry_comments',JSON.stringify(comments));}catch(e){}
+    renderComments();
+    try{renderHomeComments();}catch(e){}
+    try{renderAdminComments();}catch(e){}
+  }
   input.value='';
-  renderComments();
-  // 댓글 목록 맨 위로 스크롤
   var list=document.getElementById('commentList');
   if(list) list.scrollIntoView({behavior:'smooth',block:'start'});
-  // 홈 댓글 및 관리자 패널도 동시 갱신
-  try{renderHomeComments();}catch(e){}
-  try{renderAdminComments();}catch(e){}
-  try{renderAdminComments2();}catch(e){}
-  // 댓글 수 배지 갱신
   var cnt=document.getElementById('commentCount'); if(cnt) cnt.textContent=comments.length;
   toast('✅ 댓글이 등록됐어요!');
 }
@@ -9751,6 +9756,83 @@ function downloadSWFile(){
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
   toast('✅ sw.js 다운로드 완료! Cloudflare Pages에 index.html과 함께 업로드해주세요');
+}
+</script>
+
+<script>
+/* ── Firebase 댓글 연동 ── */
+var firebaseDB = null;
+var currentPostId = null;
+
+(function initFirebase(){
+  try{
+    var config = {
+      apiKey: "AIzaSyAD5ouPW6BcnUNWIKOivrLESogYDS58r1w",
+      authDomain: "tarry-daily.firebaseapp.com",
+      databaseURL: "https://tarry-daily-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "tarry-daily",
+      storageBucket: "tarry-daily.firebasestorage.app",
+      messagingSenderId: "907462343678",
+      appId: "1:907462343678:web:219506c111677942831eaf"
+    };
+    if(typeof firebase === 'undefined') return;
+    if(!firebase.apps.length) firebase.initializeApp(config);
+    firebaseDB = firebase.database();
+    // 댓글 실시간 로드
+    firebaseDB.ref('comments').on('value', function(snapshot){
+      var data = snapshot.val();
+      comments = data ? Object.entries(data).map(function(e){ return Object.assign({},e[1],{firebaseKey:e[0]}); }) : [];
+      comments.sort(function(a,b){ return (b.timestamp||0)-(a.timestamp||0); });
+      try{renderComments();}catch(e){}
+      try{renderHomeComments();}catch(e){}
+      try{renderAdminComments();}catch(e){}
+    });
+    console.log('✅ Firebase 연결 완료');
+  }catch(e){ console.log('Firebase 초기화 실패:', e); }
+})();
+
+function saveCommentToFirebase(cmt){
+  if(!firebaseDB) return false;
+  try{ firebaseDB.ref('comments').push(cmt); return true; }catch(e){ return false; }
+}
+
+function deleteCommentFromFirebase(key){
+  if(!firebaseDB||!key) return;
+  try{ firebaseDB.ref('comments/'+key).remove(); }catch(e){}
+}
+
+function loadPostComments(postId){
+  if(!firebaseDB||!postId) return;
+  currentPostId = postId;
+  firebaseDB.ref('postComments/'+postId).on('value', function(snapshot){
+    var list = document.getElementById('postCommentList');
+    if(!list) return;
+    var data = snapshot.val();
+    if(!data){ list.innerHTML='<div style="text-align:center;padding:2rem;color:var(--mt);font-size:13px">첫 번째 댓글을 남겨주세요 😊</div>'; return; }
+    var cmts = Object.entries(data).map(function(e){ return Object.assign({},e[1],{key:e[0]}); });
+    cmts.sort(function(a,b){ return (b.timestamp||0)-(a.timestamp||0); });
+    list.innerHTML = cmts.map(function(c){
+      return '<div style="background:var(--sur);border:1px solid var(--bd);border-radius:12px;padding:14px;margin-bottom:8px">'
+        +'<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">'
+        +'<div style="width:32px;height:32px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:13px">'+(c.name?c.name[0].toUpperCase():'익')+'</div>'
+        +'<div><div style="font-size:13px;font-weight:700;color:var(--tx)">'+c.name+'</div>'
+        +'<div style="font-size:11px;color:var(--mt)">'+c.date+'</div></div></div>'
+        +'<div style="font-size:14px;color:var(--tx);line-height:1.7">'+c.text+'</div></div>';
+    }).join('');
+  });
+}
+
+function submitPostComment(){
+  var input = document.getElementById('postCommentInput');
+  if(!input||!input.value.trim()){ toast('댓글을 입력해주세요'); return; }
+  if(!isLoggedIn&&!isAdminLoggedIn){ toast('🔐 로그인 후 댓글을 작성해주세요'); showPage('auth');setNav('auth'); return; }
+  var name = isAdminLoggedIn ? (localStorage.getItem('tarry_admin_name')||'관리자') : (currentUser?currentUser.name:'익명');
+  var cmt = { name:name, text:input.value.trim(), date:new Date().toLocaleDateString('ko-KR'), timestamp:Date.now() };
+  if(firebaseDB&&currentPostId){
+    firebaseDB.ref('postComments/'+currentPostId).push(cmt);
+    input.value='';
+    toast('✅ 댓글이 등록됐어요!');
+  }
 }
 </script>
 </body>
