@@ -3421,6 +3421,576 @@
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 
+
+<!-- 소셜 팝업 -->
+<div id="socialPopup" style="display:none;position:fixed;bottom:140px;left:16px;background:var(--sur);border:1px solid var(--bd);border-radius:16px;padding:12px 14px;box-shadow:0 8px 30px rgba(0,0,0,.2);z-index:9998;max-width:260px;animation:fadeUp .3s ease">
+  <div style="display:flex;align-items:center;gap:10px">
+    <div id="socialPopupAv" style="background:var(--grad);border-radius:50%;width:36px;height:36px;min-width:36px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:15px">김</div>
+    <div style="flex:1;min-width:0"><div id="socialPopupMsg" style="font-size:12px;color:var(--tx);line-height:1.4"></div><div id="socialPopupTime" style="font-size:10px;color:var(--mt);margin-top:2px">방금 전</div></div>
+    <button onclick="document.getElementById('socialPopup').style.display='none'" style="background:none;border:none;color:var(--mt);cursor:pointer;font-size:18px;padding:0;line-height:1;flex-shrink:0">×</button>
+  </div>
+</div>
+
+<!-- 모바일 하단 네비 -->
+
+
+<div id="mobileBottomNav" style="position:fixed;bottom:0;left:0;right:0;z-index:999;padding:0 0 calc(env(safe-area-inset-bottom,0px))">
+
+  <!-- 네비바 메인 -->
+  <div id="mobileNavBar" style="display:flex;justify-content:space-around;align-items:center;padding:8px 4px 10px;background:rgba(255,255,255,0.95);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-top:1px solid rgba(167,139,250,0.2);box-shadow:0 -6px 30px rgba(124,58,237,0.1)">
+
+    <!-- 홈: 보라 집돌이 캐릭터 -->
+    <button class="mnav-btn" onclick="showPage('home');setNav('home')">
+      <div class="mnav-icon mi-home">
+        <svg width="46" height="46" viewBox="0 0 46 46" fill="none">
+          <!-- 집 본체 -->
+          <rect x="10" y="24" width="26" height="16" rx="3" fill="rgba(255,255,255,0.9)"/>
+          <!-- 지붕 -->
+          <path d="M6 26L23 11L40 26" fill="rgba(255,255,255,0.6)" stroke="rgba(255,255,255,0.8)" stroke-width="1.5" stroke-linejoin="round"/>
+          <!-- 굴뚝 -->
+          <rect x="29" y="14" width="4" height="7" rx="1.5" fill="rgba(255,255,255,0.5)"/>
+          <!-- 연기 -->
+          <circle cx="31" cy="11.5" r="1.8" fill="rgba(255,255,255,0.3)"/>
+          <circle cx="33" cy="9.5" r="1.2" fill="rgba(255,255,255,0.2)"/>
+          <!-- 문 -->
+          <rect x="19" y="31" width="8" height="9" rx="4" fill="rgba(124,58,237,0.35)"/>
+          <!-- 창문 -->
+          <rect x="12" y="27" width="6" height="5" rx="1.5" fill="rgba(124,58,237,0.25)"/>
+          <rect x="28" y="27" width="6" height="5" rx="1.5" fill="rgba(124,58,237,0.25)"/>
+          <!-- 창문 십자 -->
+          <line x1="15" y1="27" x2="15" y2="32" stroke="rgba(255,255,255,0.5)" stroke-width="0.8"/>
+          <line x1="12" y1="29.5" x2="18" y2="29.5" stroke="rgba(255,255,255,0.5)" stroke-width="0.8"/>
+        </svg>
+      </div>
+      <span class="mnav-label" style="color:#7c3aed">홈</span>
+    </button>
+
+    <!-- 카테고리: 핑크 북이 눈 달린 캐릭터 -->
+    <button class="mnav-btn" onclick="showPage('cat');setNav('cat')">
+      <div class="mnav-icon mi-cat">
+        <svg width="46" height="46" viewBox="0 0 46 46" fill="none">
+          <!-- 책 몸통 -->
+          <rect x="8" y="12" width="30" height="26" rx="4" fill="rgba(255,255,255,0.9)"/>
+          <!-- 책등 -->
+          <rect x="8" y="12" width="5" height="26" rx="3" fill="rgba(255,255,255,0.5)"/>
+          <!-- 줄 -->
+          <rect x="17" y="19" width="16" height="2" rx="1" fill="rgba(236,72,153,0.4)"/>
+          <rect x="17" y="24" width="12" height="2" rx="1" fill="rgba(236,72,153,0.3)"/>
+          <rect x="17" y="29" width="14" height="2" rx="1" fill="rgba(236,72,153,0.25)"/>
+          <!-- 귀여운 눈 -->
+          <circle cx="17" cy="13" r="3.5" fill="white"/>
+          <circle cx="17" cy="13" r="2" fill="#ec4899" opacity="0.85"/>
+          <circle cx="17.7" cy="12.3" r="0.8" fill="white"/>
+          <circle cx="29" cy="13" r="3.5" fill="white"/>
+          <circle cx="29" cy="13" r="2" fill="#ec4899" opacity="0.85"/>
+          <circle cx="29.7" cy="12.3" r="0.8" fill="white"/>
+          <!-- 볼터치 -->
+          <ellipse cx="14" cy="15.5" rx="2" ry="1.2" fill="rgba(255,150,180,0.4)"/>
+          <ellipse cx="32" cy="15.5" rx="2" ry="1.2" fill="rgba(255,150,180,0.4)"/>
+          <!-- 입 -->
+          <path d="M21 16Q23 18 25 16" stroke="rgba(236,72,153,0.7)" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+      <span class="mnav-label" style="color:#ec4899">카테고리</span>
+    </button>
+
+    <!-- 댓글: 보라 말풍선 캐릭터 -->
+    <button class="mnav-btn" id="nl-comment" onclick="showPage('comment');setNav('comment')">
+      <div class="mnav-icon" style="background:linear-gradient(135deg,#7c3aed,#a855f7)">
+        <svg width="46" height="46" viewBox="0 0 46 46" fill="none">
+          <!-- 말풍선 몸통 -->
+          <rect x="7" y="9" width="28" height="19" rx="8" fill="rgba(255,255,255,0.95)"/>
+          <!-- 꼬리 -->
+          <path d="M13 28L10 37L21 30" fill="rgba(255,255,255,0.95)"/>
+          <!-- 귀여운 눈 -->
+          <circle cx="16" cy="18.5" r="2.5" fill="white"/>
+          <circle cx="16" cy="18.5" r="1.5" fill="rgba(124,58,237,0.85)"/>
+          <circle cx="16.7" cy="17.8" r="0.6" fill="white"/>
+          <circle cx="26" cy="18.5" r="2.5" fill="white"/>
+          <circle cx="26" cy="18.5" r="1.5" fill="rgba(124,58,237,0.85)"/>
+          <circle cx="26.7" cy="17.8" r="0.6" fill="white"/>
+          <!-- 볼터치 -->
+          <ellipse cx="12.5" cy="21" rx="2.2" ry="1.3" fill="rgba(196,168,255,0.45)"/>
+          <ellipse cx="29.5" cy="21" rx="2.2" ry="1.3" fill="rgba(196,168,255,0.45)"/>
+          <!-- 입 -->
+          <path d="M19 22Q21 24.5 23 22" stroke="rgba(124,58,237,0.7)" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+          <!-- 별 장식 -->
+          <circle cx="34" cy="12" r="1.5" fill="rgba(255,255,255,0.7)"/>
+          <circle cx="37" cy="20" r="1" fill="rgba(255,255,255,0.5)"/>
+        </svg>
+      </div>
+      <span class="mnav-label" style="color:#7c3aed">댓글</span>
+    </button>
+
+    <!-- 로그인: 오렌지 토끼 캐릭터 -->
+    <button class="mnav-btn" onclick="showPage('auth');setNav('auth');setAtab('login')">
+      <div class="mnav-icon mi-login">
+        <svg width="46" height="46" viewBox="0 0 46 46" fill="none">
+          <!-- 귀 -->
+          <ellipse cx="17" cy="11" rx="4" ry="7" fill="rgba(255,255,255,0.8)"/>
+          <ellipse cx="29" cy="11" rx="4" ry="7" fill="rgba(255,255,255,0.8)"/>
+          <ellipse cx="17" cy="11" rx="2.2" ry="4.5" fill="rgba(255,180,120,0.5)"/>
+          <ellipse cx="29" cy="11" rx="2.2" ry="4.5" fill="rgba(255,180,120,0.5)"/>
+          <!-- 얼굴 -->
+          <ellipse cx="23" cy="27" rx="12" ry="11" fill="rgba(255,255,255,0.95)"/>
+          <!-- 눈 -->
+          <circle cx="18.5" cy="25" r="2.5" fill="white"/>
+          <circle cx="18.5" cy="25" r="1.5" fill="#f97316" opacity="0.9"/>
+          <circle cx="19.1" cy="24.4" r="0.6" fill="white"/>
+          <circle cx="27.5" cy="25" r="2.5" fill="white"/>
+          <circle cx="27.5" cy="25" r="1.5" fill="#f97316" opacity="0.9"/>
+          <circle cx="28.1" cy="24.4" r="0.6" fill="white"/>
+          <!-- 볼터치 -->
+          <ellipse cx="15.5" cy="28" rx="2.8" ry="1.6" fill="rgba(255,160,100,0.35)"/>
+          <ellipse cx="30.5" cy="28" rx="2.8" ry="1.6" fill="rgba(255,160,100,0.35)"/>
+          <!-- 코+입 -->
+          <ellipse cx="23" cy="29" rx="1.2" ry="0.8" fill="rgba(249,115,22,0.6)"/>
+          <path d="M20.5 30.5Q23 33 25.5 30.5" stroke="rgba(249,115,22,0.7)" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+          <!-- 수염 -->
+          <line x1="14" y1="29" x2="20" y2="29.5" stroke="rgba(255,255,255,0.6)" stroke-width="0.8"/>
+          <line x1="26" y1="29.5" x2="32" y2="29" stroke="rgba(255,255,255,0.6)" stroke-width="0.8"/>
+        </svg>
+      </div>
+      <span class="mnav-label" style="color:#f97316">로그인</span>
+    </button>
+
+    <!-- 관리자: 민트 왕관 곰 캐릭터 -->
+    <button class="mnav-btn" onclick="toggleMobileDash()">
+      <div class="mnav-icon mi-admin">
+        <svg width="46" height="46" viewBox="0 0 46 46" fill="none">
+          <!-- 왕관 -->
+          <path d="M12 20L15 13L19.5 18L23 11L26.5 18L31 13L34 20Z" fill="rgba(255,255,255,0.9)"/>
+          <rect x="12" y="19" width="22" height="4" rx="2" fill="rgba(255,255,255,0.7)"/>
+          <!-- 왕관 보석 -->
+          <circle cx="23" cy="15" r="2" fill="rgba(16,185,129,0.5)"/>
+          <circle cx="15" cy="19" r="1.2" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="31" cy="19" r="1.2" fill="rgba(255,255,255,0.5)"/>
+          <!-- 곰 귀 -->
+          <circle cx="14" cy="26" r="4.5" fill="rgba(255,255,255,0.75)"/>
+          <circle cx="32" cy="26" r="4.5" fill="rgba(255,255,255,0.75)"/>
+          <circle cx="14" cy="26" r="2.5" fill="rgba(110,231,183,0.5)"/>
+          <circle cx="32" cy="26" r="2.5" fill="rgba(110,231,183,0.5)"/>
+          <!-- 얼굴 -->
+          <ellipse cx="23" cy="32" rx="11" ry="9" fill="rgba(255,255,255,0.95)"/>
+          <!-- 눈 -->
+          <circle cx="19" cy="30" r="2.2" fill="white"/>
+          <circle cx="19" cy="30" r="1.3" fill="#10b981" opacity="0.9"/>
+          <circle cx="19.5" cy="29.5" r="0.55" fill="white"/>
+          <circle cx="27" cy="30" r="2.2" fill="white"/>
+          <circle cx="27" cy="30" r="1.3" fill="#10b981" opacity="0.9"/>
+          <circle cx="27.5" cy="29.5" r="0.55" fill="white"/>
+          <!-- 볼터치 -->
+          <ellipse cx="16" cy="33" rx="2.5" ry="1.5" fill="rgba(110,231,183,0.35)"/>
+          <ellipse cx="30" cy="33" rx="2.5" ry="1.5" fill="rgba(110,231,183,0.35)"/>
+          <!-- 코 입 -->
+          <ellipse cx="23" cy="33.5" rx="2" ry="1.2" fill="rgba(16,185,129,0.4)"/>
+          <path d="M20.5 35Q23 37.5 25.5 35" stroke="rgba(16,185,129,0.7)" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+      <span class="mnav-label" style="color:#10b981">관리자</span>
+    </button>
+  </div>
+
+  <!-- 관리자 대시보드 패널 -->
+  <div id="mobileDashPanel" style="display:none;border-top:1px solid var(--bd);padding:14px;max-height:70vh;overflow-y:auto;background:var(--sur)">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <div style="font-size:14px;font-weight:800;color:var(--tx)">🔐 관리자 메뉴</div>
+      <button onclick="toggleMobileDash()" style="background:none;border:none;color:var(--mt);cursor:pointer;font-size:20px">×</button>
+    </div>
+    <!-- 비로그인 -->
+    <div id="mobileDashLogin" style="display:block">
+      <input type="password" id="mobilePwField" placeholder="관리자 비밀번호" style="width:100%;background:var(--sur2);border:1.5px solid var(--bd2);border-radius:10px;padding:11px 14px;font-size:14px;color:var(--tx);outline:none;font-family:var(--font);margin-bottom:8px;box-sizing:border-box">
+      <button onclick="doMobileAdminLogin()" style="width:100%;background:var(--grad);color:#fff;border:none;border-radius:10px;padding:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font)">🔐 로그인</button>
+    </div>
+    <!-- 로그인 후 -->
+    <div id="mobileDashMain" style="display:none">
+      <!-- 통계 카드 -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px">
+        <div style="background:linear-gradient(145deg,#fff,#e8e2ff);border-radius:14px;padding:12px;text-align:center;box-shadow:3px 3px 8px rgba(124,58,237,0.2),-2px -2px 6px rgba(255,255,255,0.9)">
+          <div style="font-size:18px;font-weight:800;color:var(--ac)" id="mDashTotal">-</div>
+          <div style="font-size:9px;color:var(--mt);margin-top:2px">누적</div>
+        </div>
+        <div style="background:linear-gradient(145deg,#fff,#fde8f0);border-radius:14px;padding:12px;text-align:center;box-shadow:3px 3px 8px rgba(236,72,153,0.2),-2px -2px 6px rgba(255,255,255,0.9)">
+          <div style="font-size:18px;font-weight:800;color:#ec4899" id="mDashDaily">-</div>
+          <div style="font-size:9px;color:var(--mt);margin-top:2px">오늘</div>
+        </div>
+        <div style="background:linear-gradient(145deg,#fff,#d1fae5);border-radius:14px;padding:12px;text-align:center;box-shadow:3px 3px 8px rgba(16,185,129,0.2),-2px -2px 6px rgba(255,255,255,0.9)">
+          <div style="font-size:18px;font-weight:800;color:#10b981" id="mDashPosts">-</div>
+          <div style="font-size:9px;color:var(--mt);margin-top:2px">글</div>
+        </div>
+      </div>
+      <!-- 빠른 메뉴 귀여운 아이콘 -->
+      
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
+
+        <!-- 뉴스수집 -->
+        <button class="dq-btn" onclick="closeMobileDash();showPage('admin');adminOpen();setAdminTab('news')">
+          <div class="dq-card" style="background:linear-gradient(135deg,#ecfdf5,#d1fae5);box-shadow:0 4px 14px rgba(16,185,129,0.2),inset 0 1px 0 rgba(255,255,255,0.8);border:1px solid rgba(16,185,129,0.15)">
+            <div style="width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#34d399,#059669);box-shadow:0 4px 10px rgba(5,150,105,0.4);display:flex;align-items:center;justify-content:center">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <rect x="3" y="5" width="18" height="3" rx="1.5" fill="white" opacity="0.9"/>
+                <rect x="3" y="10.5" width="13" height="2.5" rx="1.25" fill="white" opacity="0.75"/>
+                <rect x="3" y="15.5" width="9" height="2.5" rx="1.25" fill="white" opacity="0.6"/>
+                <circle cx="19" cy="17" r="3.5" fill="white" opacity="0.95"/>
+                <path d="M18 17L19 18L21 16" stroke="#059669" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div style="font-size:11px;font-weight:800;color:#065f46">수집 &amp; 발행</div>
+            <div style="font-size:9px;color:#6ee7b7;font-weight:600">🗞️ AI+발행</div>
+          </div>
+        </button>
+
+        <!-- 글 가져오기 -->
+        <button class="dq-btn" onclick="closeMobileDash();showPage('admin');adminOpen();setAdminTab('rss')">
+          <div class="dq-card" style="background:linear-gradient(135deg,#f5f3ff,#ede9fe);box-shadow:0 4px 14px rgba(124,58,237,0.2),inset 0 1px 0 rgba(255,255,255,0.8);border:1px solid rgba(124,58,237,0.15)">
+            <div style="width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#a78bfa,#7c3aed);box-shadow:0 4px 10px rgba(124,58,237,0.4);display:flex;align-items:center;justify-content:center">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <circle cx="5.5" cy="18.5" r="2" fill="white" opacity="0.9"/>
+                <path d="M4 11C7.87 11 11 14.13 11 18" stroke="white" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.8"/>
+                <path d="M4 6C10.63 6 16 11.37 16 18" stroke="white" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.6"/>
+                <path d="M20 18C20 11.37 14.63 6 8 6" stroke="white" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.4"/>
+              </svg>
+            </div>
+            <div style="font-size:11px;font-weight:800;color:#4c1d95">글 가져오기</div>
+            <div style="font-size:9px;color:#c4b5fd;font-weight:600">연동</div>
+          </div>
+        </button>
+
+        <!-- 방문자 통계 -->
+        <button class="dq-btn" onclick="closeMobileDash();showPage('admin');adminOpen();setAdminTab('stats');refreshAdminStats()">
+          <div class="dq-card" style="background:linear-gradient(135deg,#fff1f2,#ffe4e6);box-shadow:0 4px 14px rgba(244,63,94,0.2),inset 0 1px 0 rgba(255,255,255,0.8);border:1px solid rgba(244,63,94,0.15)">
+            <div style="width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#fb7185,#e11d48);box-shadow:0 4px 10px rgba(225,29,72,0.4);display:flex;align-items:center;justify-content:center">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <rect x="3" y="14" width="3.5" height="7" rx="1.75" fill="white" opacity="0.7"/>
+                <rect x="8.5" y="10" width="3.5" height="11" rx="1.75" fill="white" opacity="0.85"/>
+                <rect x="14" y="6" width="3.5" height="15" rx="1.75" fill="white" opacity="0.95"/>
+                <path d="M4.75 14L10.25 10L15.75 6" stroke="rgba(255,255,255,0.6)" stroke-width="1.2" stroke-linecap="round" stroke-dasharray="1.5 1.5"/>
+                <circle cx="19" cy="5" r="2.2" fill="white" opacity="0.9"/>
+                <path d="M18.2 5L19 5.9L20.4 4.3" stroke="#e11d48" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div style="font-size:11px;font-weight:800;color:#881337">방문자통계</div>
+            <div style="font-size:9px;color:#fda4af;font-weight:600">실시간</div>
+          </div>
+        </button>
+
+        <!-- 파일 관리 -->
+        <button class="dq-btn" onclick="closeMobileDash();showPage('admin');adminOpen();setAdminTab('files');initFilesTab()">
+          <div class="dq-card" style="background:linear-gradient(135deg,#fffbeb,#fef3c7);box-shadow:0 4px 14px rgba(245,158,11,0.2),inset 0 1px 0 rgba(255,255,255,0.8);border:1px solid rgba(245,158,11,0.15)">
+            <div style="width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#fbbf24,#d97706);box-shadow:0 4px 10px rgba(217,119,6,0.4);display:flex;align-items:center;justify-content:center">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M4 6C4 4.9 4.9 4 6 4H11L13 7H18C19.1 7 20 7.9 20 9V18C20 19.1 19.1 20 18 20H6C4.9 20 4 19.1 4 18V6Z" fill="white" opacity="0.9"/>
+                <path d="M4 10H20" stroke="rgba(217,119,6,0.4)" stroke-width="0.8"/>
+                <rect x="8" y="13" width="8" height="1.5" rx="0.75" fill="rgba(217,119,6,0.5)"/>
+                <rect x="9" y="15.5" width="6" height="1.5" rx="0.75" fill="rgba(217,119,6,0.35)"/>
+              </svg>
+            </div>
+            <div style="font-size:11px;font-weight:800;color:#78350f">파일 관리</div>
+            <div style="font-size:9px;color:#fcd34d;font-weight:600">PPT 등록</div>
+          </div>
+        </button>
+      </div>
+      <button onclick="closeMobileDash();showPage('admin');adminOpen()" style="width:100%;background:linear-gradient(145deg,#fff,#e8e2ff);border:none;border-radius:12px;padding:12px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font);color:var(--tx);box-shadow:3px 3px 8px rgba(124,58,237,0.2),-2px -2px 6px rgba(255,255,255,0.9);margin-bottom:8px">
+        🖥️ 전체 관리자 페이지로 이동
+      </button>
+
+      <!-- ━━━ 팝업 컨트롤러 ━━━ -->
+      <div style="margin-bottom:10px">
+        <div style="font-size:11px;font-weight:800;color:var(--mt);margin-bottom:7px;display:flex;align-items:center;gap:5px">
+          <span style="display:inline-block;width:3px;height:14px;background:linear-gradient(180deg,#f59e0b,#ef4444);border-radius:999px"></span>
+          🔔 팝업 컨트롤러
+        </div>
+
+        <!-- 상태 배너 -->
+        <div style="background:linear-gradient(135deg,#1a0a00,#3b1a00);border-radius:14px;padding:11px 13px;margin-bottom:7px;display:flex;align-items:center;justify-content:space-between;border:1px solid rgba(249,115,22,.2)">
+          <div style="display:flex;align-items:center;gap:8px">
+            <span style="font-size:18px">🔔</span>
+            <div>
+              <div style="font-size:12px;font-weight:800;color:#fef3c7">소셜 알림 팝업</div>
+              <div id="mPopupStateText" style="font-size:10px;color:rgba(254,243,199,.6)">● 상태 확인 중...</div>
+            </div>
+          </div>
+          <div id="mPopupBadge" style="font-size:10px;padding:3px 9px;border-radius:999px;font-weight:700;background:rgba(16,185,129,.2);color:#6ee7b7;border:1px solid rgba(16,185,129,.4)">● 활성</div>
+        </div>
+
+        <!-- 4개 기능 버튼 그리드 -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:7px">
+
+          <!-- ① 자동 시작 -->
+          <button onclick="mPopupStart()" style="background:linear-gradient(135deg,#052e16,#064e3b);border:none;border-radius:12px;padding:13px 10px;cursor:pointer;font-family:var(--font);text-align:center;-webkit-tap-highlight-color:transparent">
+            <div style="font-size:26px;margin-bottom:5px">▶️</div>
+            <div style="font-size:12px;font-weight:800;color:#6ee7b7">자동 시작</div>
+            <div style="font-size:9px;color:rgba(110,231,183,.6);margin-top:2px">자동 팝업 ON</div>
+          </button>
+
+          <!-- ② 멈춤 -->
+          <button onclick="mPopupStop()" style="background:linear-gradient(135deg,#0f0f1a,#1e1b4b);border:none;border-radius:12px;padding:13px 10px;cursor:pointer;font-family:var(--font);text-align:center;-webkit-tap-highlight-color:transparent">
+            <div style="font-size:26px;margin-bottom:5px">⏹️</div>
+            <div style="font-size:12px;font-weight:800;color:#c4b5fd">멈춤</div>
+            <div style="font-size:9px;color:rgba(196,181,253,.6);margin-top:2px">팝업 중단</div>
+          </button>
+
+          <!-- ③ 즉시 테스트 -->
+          <button onclick="mPopupTest()" style="background:linear-gradient(135deg,#3b0764,#6b21a8);border:none;border-radius:12px;padding:13px 10px;cursor:pointer;font-family:var(--font);text-align:center;-webkit-tap-highlight-color:transparent">
+            <div style="font-size:26px;margin-bottom:5px">⚡</div>
+            <div style="font-size:12px;font-weight:800;color:#e879f9">즉시 테스트</div>
+            <div style="font-size:9px;color:rgba(232,121,249,.6);margin-top:2px">지금 1회 표시</div>
+          </button>
+
+          <!-- ④ 직접 작성 토글 -->
+          <button onclick="toggleMPopupInput()" style="background:linear-gradient(135deg,#1e1b4b,#312e81);border:none;border-radius:12px;padding:13px 10px;cursor:pointer;font-family:var(--font);text-align:center;-webkit-tap-highlight-color:transparent">
+            <div style="font-size:26px;margin-bottom:5px">✍️</div>
+            <div style="font-size:12px;font-weight:800;color:#a5b4fc">직접 작성</div>
+            <div style="font-size:9px;color:rgba(165,180,252,.6);margin-top:2px">이름+메시지</div>
+          </button>
+
+        </div>
+
+        <!-- 직접 작성 입력 폼 (평소 숨김) -->
+        <div id="mPopupInputArea" style="display:none;background:linear-gradient(135deg,#1e1b4b,#2d2060);border-radius:12px;padding:12px;margin-bottom:7px;border:1px solid rgba(124,58,237,.3)">
+          <div style="font-size:11px;font-weight:700;color:#a5b4fc;margin-bottom:8px">✍️ 팝업 직접 작성</div>
+          <input id="mPopupName" class="inp" placeholder="👤 이름 (예: 김○수)" style="margin-bottom:6px;font-size:13px;background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2);color:#fff">
+          <input id="mPopupMsg" class="inp" placeholder="💬 메시지 (예: 방금 가입했어요 🎉)" style="margin-bottom:8px;font-size:13px;background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2);color:#fff">
+          <!-- 프리셋 태그 -->
+          <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px">
+            <button onclick="mSetMsg('방금 가입했어요 🎉')" style="background:rgba(124,58,237,.3);color:#c4b5fd;border:1px solid rgba(124,58,237,.4);border-radius:20px;padding:5px 10px;font-size:10px;cursor:pointer;font-family:var(--font)">🎉 가입</button>
+            <button onclick="mSetMsg('글을 읽고 있어요 📖')" style="background:rgba(59,130,246,.3);color:#93c5fd;border:1px solid rgba(59,130,246,.4);border-radius:20px;padding:5px 10px;font-size:10px;cursor:pointer;font-family:var(--font)">📖 열람</button>
+            <button onclick="mSetMsg('댓글을 남겼어요 💬')" style="background:rgba(16,185,129,.3);color:#6ee7b7;border:1px solid rgba(16,185,129,.4);border-radius:20px;padding:5px 10px;font-size:10px;cursor:pointer;font-family:var(--font)">💬 댓글</button>
+            <button onclick="mSetMsg('좋아요를 눌렀어요 ❤️')" style="background:rgba(239,68,68,.3);color:#fca5a5;border:1px solid rgba(239,68,68,.4);border-radius:20px;padding:5px 10px;font-size:10px;cursor:pointer;font-family:var(--font)">❤️ 좋아요</button>
+            <button onclick="mSetMsg('구독했어요 📩')" style="background:rgba(236,72,153,.3);color:#f9a8d4;border:1px solid rgba(236,72,153,.4);border-radius:20px;padding:5px 10px;font-size:10px;cursor:pointer;font-family:var(--font)">📩 구독</button>
+          </div>
+          <button onclick="mPopupSend()" style="width:100%;background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;border:none;border-radius:10px;padding:12px;font-size:13px;font-weight:800;cursor:pointer;font-family:var(--font)">📣 팝업 바로 발송!</button>
+        </div>
+      </div>
+
+      <!-- ━━━ 토탈 리모콘 ━━━ -->
+      <div style="margin-bottom:10px">
+        <div style="font-size:11px;font-weight:800;color:var(--mt);margin-bottom:7px;display:flex;align-items:center;gap:5px">
+          <span style="display:inline-block;width:3px;height:14px;background:linear-gradient(180deg,#7c3aed,#ec4899);border-radius:999px"></span>
+          🎮 토탈 리모콘
+        </div>
+
+        <!-- 콘텐츠 생산 -->
+        <div style="font-size:10px;font-weight:700;color:var(--mt);margin-bottom:5px">📝 콘텐츠 생산</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:8px">
+          <button onclick="closeMobileDash();runAutoNews(false)" style="background:linear-gradient(135deg,#ecfdf5,#d1fae5);border:1px solid rgba(16,185,129,.2);border-radius:11px;padding:10px 5px;cursor:pointer;font-family:var(--font);text-align:center;-webkit-tap-highlight-color:transparent">
+            <div style="font-size:22px;margin-bottom:3px">🗞️</div>
+            <div style="font-size:10px;font-weight:700;color:#065f46">수집&amp;발행</div>
+            <div style="font-size:8px;color:#6ee7b7">AI+발행</div>
+          </button>
+          <button onclick="closeMobileDash();showPage('admin');adminOpen();setAdminTab('rss');setTimeout(loadTarryGuideRSS,300)" style="background:linear-gradient(135deg,#f5f3ff,#ede9fe);border:1px solid rgba(124,58,237,.2);border-radius:11px;padding:10px 5px;cursor:pointer;font-family:var(--font);text-align:center;-webkit-tap-highlight-color:transparent">
+            <div style="font-size:22px;margin-bottom:3px">🔄</div>
+            <div style="font-size:10px;font-weight:700;color:#4c1d95">RSS동기화</div>
+            <div style="font-size:8px;color:#c4b5fd">글 가져오기</div>
+          </button>
+          <button onclick="closeMobileDash();showPage('admin');adminOpen();setAdminTab('write');setTimeout(newPost,300)" style="background:linear-gradient(135deg,#fdf2f8,#fce7f3);border:1px solid rgba(236,72,153,.2);border-radius:11px;padding:10px 5px;cursor:pointer;font-family:var(--font);text-align:center;-webkit-tap-highlight-color:transparent">
+            <div style="font-size:22px;margin-bottom:3px">✍️</div>
+            <div style="font-size:10px;font-weight:700;color:#831843">글쓰기</div>
+            <div style="font-size:8px;color:#f9a8d4">새 글 작성</div>
+          </button>
+        </div>
+
+        <!-- 독자 소통 -->
+        <div style="font-size:10px;font-weight:700;color:var(--mt);margin-bottom:5px">💬 독자 소통</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:8px">
+          <button onclick="closeMobileDash();showPage('admin');adminOpen();setAdminTab('newsletter')" style="background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1px solid rgba(59,130,246,.2);border-radius:11px;padding:10px 5px;cursor:pointer;font-family:var(--font);text-align:center;-webkit-tap-highlight-color:transparent">
+            <div style="font-size:22px;margin-bottom:3px">💌</div>
+            <div style="font-size:10px;font-weight:700;color:#1e3a8a">뉴스레터</div>
+            <div style="font-size:8px;color:#93c5fd">구독자 발송</div>
+          </button>
+          <button onclick="closeMobileDash();showPage('admin');adminOpen();setAdminTab('sns')" style="background:linear-gradient(135deg,#fff7ed,#ffedd5);border:1px solid rgba(249,115,22,.2);border-radius:11px;padding:10px 5px;cursor:pointer;font-family:var(--font);text-align:center;-webkit-tap-highlight-color:transparent">
+            <div style="font-size:22px;margin-bottom:3px">📱</div>
+            <div style="font-size:10px;font-weight:700;color:#7c2d12">SNS발행</div>
+            <div style="font-size:8px;color:#fdba74">콘텐츠 발행</div>
+          </button>
+          <button onclick="closeMobileDash();showPage('admin');adminOpen();setAdminTab('stats')" style="background:linear-gradient(135deg,#fff1f2,#ffe4e6);border:1px solid rgba(244,63,94,.2);border-radius:11px;padding:10px 5px;cursor:pointer;font-family:var(--font);text-align:center;-webkit-tap-highlight-color:transparent">
+            <div style="font-size:22px;margin-bottom:3px">📊</div>
+            <div style="font-size:10px;font-weight:700;color:#881337">통계</div>
+            <div style="font-size:8px;color:#fda4af">방문자 현황</div>
+          </button>
+        </div>
+
+        <!-- 사이트 관리 -->
+        <div style="font-size:10px;font-weight:700;color:var(--mt);margin-bottom:5px">⚙️ 사이트 관리</div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:8px">
+          <button onclick="closeMobileDash();showPage('admin');adminOpen();setAdminTab('cat')" style="background:var(--sur2);border:1px solid var(--bd);border-radius:11px;padding:10px 5px;cursor:pointer;font-family:var(--font);text-align:center;-webkit-tap-highlight-color:transparent">
+            <div style="font-size:20px;margin-bottom:3px">📂</div>
+            <div style="font-size:9px;font-weight:700;color:var(--tx)">카테고리</div>
+          </button>
+          <button onclick="closeMobileDash();showPage('admin');adminOpen();setAdminTab('theme')" style="background:var(--sur2);border:1px solid var(--bd);border-radius:11px;padding:10px 5px;cursor:pointer;font-family:var(--font);text-align:center;-webkit-tap-highlight-color:transparent">
+            <div style="font-size:20px;margin-bottom:3px">🎨</div>
+            <div style="font-size:9px;font-weight:700;color:var(--tx)">테마</div>
+          </button>
+          <button onclick="closeMobileDash();showPage('admin');adminOpen();setAdminTab('seo')" style="background:var(--sur2);border:1px solid var(--bd);border-radius:11px;padding:10px 5px;cursor:pointer;font-family:var(--font);text-align:center;-webkit-tap-highlight-color:transparent">
+            <div style="font-size:20px;margin-bottom:3px">🔍</div>
+            <div style="font-size:9px;font-weight:700;color:var(--tx)">SEO</div>
+          </button>
+          <button onclick="closeMobileDash();showPage('admin');adminOpen();setAdminTab('files')" style="background:var(--sur2);border:1px solid var(--bd);border-radius:11px;padding:10px 5px;cursor:pointer;font-family:var(--font);text-align:center;-webkit-tap-highlight-color:transparent">
+            <div style="font-size:20px;margin-bottom:3px">📁</div>
+            <div style="font-size:9px;font-weight:700;color:var(--tx)">파일</div>
+          </button>
+        </div>
+
+        <!-- 원버튼 -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+          <button onclick="toggleDarkMode()" style="background:linear-gradient(135deg,#1e1b4b,#312e81);color:#fff;border:none;border-radius:11px;padding:11px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font)">🌙 다크모드</button>
+          <button onclick="doAdminLogout();closeMobileDash()" style="background:rgba(220,38,38,.1);color:#dc2626;border:1px solid rgba(220,38,38,.2);border-radius:11px;padding:11px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font)">🚪 로그아웃</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- PPT 다운로드 정보수집 모달 -->
+<div id="pptDownloadModal" style="display:none;position:fixed;inset:0;background:rgba(10,9,20,.8);z-index:99999;align-items:center;justify-content:center;padding:20px">
+  <div style="background:var(--sur);border-radius:24px;width:min(440px,95vw);overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.4);position:relative">
+
+    <!-- 헤더 -->
+    <div style="background:linear-gradient(135deg,#1a1a2e,#2d1f4e);padding:24px 24px 20px;text-align:center;position:relative">
+      <button onclick="closePPTModal()" style="position:absolute;top:12px;right:12px;background:rgba(255,255,255,.15);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;line-height:1">×</button>
+      <div style="font-size:44px;margin-bottom:10px">📊</div>
+      <div style="font-size:19px;font-weight:800;color:#fff;font-family:'Playfair Display',serif;margin-bottom:6px">완벽 사용설명서 PPT</div>
+      <div style="font-size:12px;color:#a78bfa">무료 다운로드 · 회원 혜택 · 기능 안내 · 관리자 가이드</div>
+    </div>
+
+    <!-- 안내 -->
+    <div style="padding:20px 24px 0">
+      <div style="background:rgba(124,58,237,.08);border:1px solid rgba(124,58,237,.2);border-radius:12px;padding:12px 14px;margin-bottom:18px;font-size:12px;color:var(--mt);line-height:1.8">
+        🎁 <strong style="color:var(--tx)">무료로 다운로드</strong>할 수 있어요!<br>
+        연락처를 남겨주시면 <strong style="color:var(--ac)">새 자료 업데이트 소식</strong>도 가장 먼저 받아볼 수 있어요 😊
+      </div>
+
+      <!-- 이름 -->
+      <div style="margin-bottom:12px">
+        <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:5px">이름 <span style="color:#dc2626">*</span></label>
+        <input id="pptLeadName" class="inp" placeholder="홍길동" style="font-size:14px">
+      </div>
+
+      <!-- 이메일 -->
+      <div style="margin-bottom:12px">
+        <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:5px">이메일 <span style="color:#dc2626">*</span> <span style="font-weight:400;color:var(--mt)">(둘 중 하나 필수)</span></label>
+        <div style="position:relative">
+          <input id="pptLeadEmail" class="inp" type="email" placeholder="example@gmail.com" style="font-size:14px;padding-left:36px">
+          <span style="position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:16px;pointer-events:none">✉️</span>
+        </div>
+      </div>
+
+      <!-- 전화번호 -->
+      <div style="margin-bottom:18px">
+        <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:5px">전화번호 <span style="font-weight:400;color:var(--mt)">(선택)</span></label>
+        <div style="position:relative">
+          <input id="pptLeadPhone" class="inp" type="tel" placeholder="010-0000-0000" style="font-size:14px;padding-left:36px">
+          <span style="position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:16px;pointer-events:none">📱</span>
+        </div>
+      </div>
+
+      <!-- 오류 메시지 -->
+      <div id="pptModalErr" style="display:none;background:rgba(220,38,38,.08);border:1px solid rgba(220,38,38,.2);border-radius:8px;padding:9px 12px;font-size:12px;color:#dc2626;margin-bottom:12px"></div>
+
+      <!-- 다운로드 버튼 -->
+      <button onclick="submitPPTLead()" style="width:100%;background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;border:none;border-radius:12px;padding:14px;font-size:15px;font-weight:800;cursor:pointer;font-family:'Noto Sans KR',sans-serif;margin-bottom:10px;transition:.2s" onmouseover="this.style.opacity='.9'" onmouseout="this.style.opacity='1'">
+        📥 무료 다운로드 받기
+      </button>
+      <p style="text-align:center;font-size:10px;color:var(--mt);margin-bottom:18px;line-height:1.6">수집된 연락처는 새 자료 안내 외 다른 목적으로 사용되지 않아요</p>
+    </div>
+  </div>
+</div>
+
+<!-- 수동 수집 모달 -->
+<div id="manualCollectModal" style="display:none;position:fixed;inset:0;background:rgba(10,9,20,.85);z-index:99999;align-items:center;justify-content:center;padding:20px">
+  <div style="background:var(--sur);border-radius:20px;width:min(480px,95vw);max-height:85vh;overflow-y:auto;box-shadow:0 30px 80px rgba(0,0,0,.4)">
+    <div style="background:linear-gradient(135deg,#064e3b,#065f46);border-radius:20px 20px 0 0;padding:20px 20px 18px;position:relative">
+      <button onclick="closeManualCollect()" style="position:absolute;top:12px;right:12px;background:rgba(255,255,255,.15);border:none;color:#fff;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:16px">×</button>
+      <div style="font-size:20px;font-weight:900;color:#fff;font-family:var(--display);margin-bottom:4px">✋ 수동 뉴스 수집</div>
+      <div style="font-size:12px;color:rgba(110,231,183,.7)">원하는 주제와 내용으로 직접 설정해요</div>
+    </div>
+    <div style="padding:18px">
+      <div style="margin-bottom:12px">
+        <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:5px">🔍 검색 키워드</label>
+        <input class="inp" id="manualKeyword" placeholder="예: 챗GPT 활용법, 재테크 방법" style="font-size:13px">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
+        <div>
+          <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:5px">🌐 검색 소스</label>
+          <select class="inp" id="manualSource" style="font-size:12px">
+            <option value="google">Google 뉴스</option>
+            <option value="naver">네이버 뉴스</option>
+            <option value="daum">다음 뉴스</option>
+            <option value="all">전체 소스</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:5px">📂 카테고리</label>
+          <select class="inp" id="manualCategory" style="font-size:12px">
+            <option value="종합">종합</option><option value="IT기술">IT&기술</option>
+            <option value="경제재테크">경제&재테크</option><option value="생활건강">생활&건강</option><option value="트렌드">트렌드</option>
+          </select>
+        </div>
+      </div>
+      <div style="margin-bottom:12px">
+        <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:5px">📝 제목 (선택 — 비우면 AI가 자동 생성)</label>
+        <input class="inp" id="manualTitle" placeholder="예: 2026년 AI 트렌드 완벽 정리" style="font-size:13px">
+      </div>
+      <div style="margin-bottom:12px">
+        <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:5px">💬 추가 지시사항 (선택)</label>
+        <textarea class="inp" id="manualInstruction" placeholder="예: 초보자도 이해하기 쉽게 써줘 / 실제 사례 포함해줘" style="height:60px;resize:none;font-size:12px"></textarea>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
+        <div>
+          <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:5px">📊 글 분량</label>
+          <select class="inp" id="manualLength" style="font-size:12px">
+            <option value="1000">1,000자+</option><option value="1500" selected>1,500자+</option>
+            <option value="2000">2,000자+</option><option value="3000">3,000자+</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:5px">🖼️ 이미지</label>
+          <select class="inp" id="manualImg" style="font-size:12px">
+            <option value="ai">AI 자동생성</option>
+            <option value="unsplash">Unsplash</option>
+            <option value="none">이미지 없음</option>
+          </select>
+        </div>
+      </div>
+      <div style="background:var(--sur2);border-radius:11px;padding:11px;border:1px solid var(--bd);margin-bottom:14px">
+        <div style="font-size:11px;font-weight:700;color:var(--mt);margin-bottom:8px">📤 발행 대상</div>
+        <div style="display:flex;gap:14px;flex-wrap:wrap">
+          <label style="display:flex;align-items:center;gap:5px;font-size:12px;color:var(--tx);cursor:pointer"><input type="checkbox" id="mPubSite" checked style="accent-color:#7c3aed"> 🌐 사이트</label>
+          <label style="display:flex;align-items:center;gap:5px;font-size:12px;color:var(--tx);cursor:pointer"><input type="checkbox" id="mPubSns" style="accent-color:#f97316"> 📱 SNS</label>
+          <label style="display:flex;align-items:center;gap:5px;font-size:12px;color:var(--tx);cursor:pointer"><input type="checkbox" id="mPubNl" style="accent-color:#06b6d4"> 💌 뉴스레터</label>
+        </div>
+      </div>
+      <button onclick="runManualCollect()" style="width:100%;background:linear-gradient(135deg,#059669,#7c3aed);color:#fff;border:none;border-radius:12px;padding:14px;font-size:15px;font-weight:800;cursor:pointer;font-family:var(--font)">🚀 수동 수집 & 발행 시작!</button>
+    </div>
+  </div>
+</div>
+
+<!-- 공지 팝업 -->
+<div id="noticePopup" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:99999;align-items:center;justify-content:center;padding:20px">
+  <div style="background:var(--sur);border-radius:20px;padding:28px;max-width:420px;width:100%;position:relative;border:1px solid var(--bd2);box-shadow:0 20px 60px rgba(0,0,0,.4)">
+    <button onclick="hideNoticePopup()" style="position:absolute;top:14px;right:14px;background:var(--sur2);border:none;border-radius:50%;width:32px;height:32px;cursor:pointer;font-size:16px;color:var(--mt)">✕</button>
+    <div id="noticePopupTitle" style="font-size:20px;font-weight:800;color:var(--tx);margin-bottom:10px;padding-right:30px"></div>
+    <div id="noticePopupImg" style="display:none;margin-bottom:12px"><img id="noticePopupImgEl" src="" style="width:100%;border-radius:12px;max-height:200px;object-fit:cover"></div>
+    <div id="noticePopupVideo" style="display:none;margin-bottom:12px;border-radius:12px;overflow:hidden"><iframe id="noticePopupVideoEl" src="" style="width:100%;height:200px;border:none" allowfullscreen></iframe></div>
+    <div id="noticePopupContent" style="font-size:14px;color:var(--mt);line-height:1.8"></div>
+  </div>
+</div>
+
+
+<script src="js/data.js"></script>
+<script src="js/firebase.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/posts.js"></script>
+<script src="js/admin.js"></script>
+<script src="js/rss.js"></script>
+<script src="js/newsletter.js"></script>
+<script src="js/news.js"></script>
+<script src="js/sns.js"></script>
+<script src="js/mobile.js"></script>
+<script src="js/remote.js"></script>
 <script>
 // ══════════════════════════════════════════════════
 //  TARRY의 데일리 — v4.0 Final Complete Build
@@ -3883,295 +4453,19 @@ const SOCIAL={
 };
 
 /* ── 페이지 전환 ── */
-function showPage(id){
-  document.querySelectorAll('.page').forEach(p=>{p.classList.remove('on');p.style.display='none';});
-  const el=document.getElementById('page-'+id);
-  if(el){el.classList.add('on');el.style.display='block';}
-  window.scrollTo(0,0);
-  try{history.pushState({page:id},'','#'+id);}catch(e){}
-  if(id==='cat'){try{buildCatTree();}catch(e){}try{renderPosts();}catch(e){}}
-  if(id==='admin')adminOpen();
-  if(id==='member'){try{renderMemberPage();}catch(e){}}
-}
-function setNav(id){
-  document.querySelectorAll('.nl,.nbtn').forEach(b=>b.classList.remove('on'));
-  const el=document.getElementById('nl-'+id);if(el)el.classList.add('on');
-}
 
 /* ── 관리자 ── */
-function openAdminLogin(){
-  if(isAdminLoggedIn){
-    // 이미 로그인: 바로 관리자 페이지
-    var allPages = document.querySelectorAll('.page');
-    for(var pi=0;pi<allPages.length;pi++){
-      allPages[pi].style.display='none';
-      allPages[pi].classList.remove('on');
-    }
-    var pg = document.getElementById('page-admin');
-    if(pg){ pg.style.display='block'; pg.classList.add('on'); }
-    window.scrollTo(0,0);
-    try{ adminOpen(); }catch(e){}
-  } else {
-    // 미로그인: 팝업 표시
-    var popup = document.getElementById('adminLoginPopup');
-    if(popup){
-      popup.classList.remove('hide');
-      popup.classList.remove('hide');
-      popup.style.display='';
-      var inp = document.getElementById('adminPwInput');
-      if(inp){ inp.value=''; inp.focus(); }
-    }
-  }
-}
-function doAdminLogin(){
-  var v1 = (document.getElementById('adminPwInput')||{}).value||'';
-  var v2 = (document.getElementById('adminPwField')||{}).value||'';
-  var entered = v1 || v2;
-  if(!entered){ toast('비밀번호를 입력해주세요'); return; }
-  if(entered.trim() === adminPw){
-    isAdminLoggedIn = true;
-    var inp1 = document.getElementById('adminPwInput');
-    var inp2 = document.getElementById('adminPwField');
-    if(inp1) inp1.value = '';
-    if(inp2) inp2.value = '';
-    var e1 = document.getElementById('adminErr');
-    var e2 = document.getElementById('adminLoginErr');
-    if(e1) e1.style.display = 'none';
-    if(e2) e2.style.display = 'none';
-    // 성공 메시지 표시
-    var ok1 = document.getElementById('adminLoginOk');
-    var ok2 = document.getElementById('adminLoginOk2');
-    if(ok1){ ok1.style.display='block'; setTimeout(function(){ok1.style.display='none';},2000); }
-    if(ok2){ ok2.style.display='block'; setTimeout(function(){ok2.style.display='none';},2000); }
-    // 팝업 닫기
-    var popup = document.getElementById('adminLoginPopup');
-    if(popup) setTimeout(function(){ popup.classList.add('hide'); },600);
-    // 관리자 페이지로 이동
-    setTimeout(function(){
-      document.querySelectorAll('.page').forEach(function(p){
-        p.style.display='none'; p.classList.remove('on');
-      });
-      var pg = document.getElementById('page-admin');
-      if(pg){ pg.style.display='block'; pg.classList.add('on'); }
-      window.scrollTo(0,0);
-      try{ adminOpen(); }catch(e){}
-    }, 600);
-    toast('🔐 관리자 페이지에 오신 걸 환영해요!');
-  } else {
-    var e1 = document.getElementById('adminErr');
-    var e2 = document.getElementById('adminLoginErr');
-    if(e1) e1.style.display = 'block';
-    if(e2) e2.style.display = 'block';
-    var inp1 = document.getElementById('adminPwInput');
-    var inp2 = document.getElementById('adminPwField');
-    if(inp1){ inp1.value=''; inp1.focus(); }
-    else if(inp2){ inp2.value=''; inp2.focus(); }
-    toast('❌ 비밀번호가 틀렸어요');
-  }
-}
-function tryAdminLogin(){doAdminLogin();}
-function adminOpen(){
-  var adminPage=document.getElementById('page-admin');
-  if(adminPage){
-    document.querySelectorAll('.page').forEach(function(p){p.style.display='none';p.classList.remove('on');});
-    adminPage.style.display='block';
-    adminPage.classList.add('on');
-  }
-  switchTab('dash');
-}
 function setAdminTab(id){switchTab(id);}
-function doAdminLogout(){isAdminLoggedIn=false;showPage('home');setNav('home');toast('로그아웃됐어요');}
 
 /* 비밀번호 눈 토글 */
-function togglePwVis(inputId, btnId){
-  var inp = document.getElementById(inputId);
-  var btn = document.getElementById(btnId);
-  if(!inp) return;
-  var isHidden = inp.type === 'password';
-  inp.type = isHidden ? 'text' : 'password';
-  if(btn) btn.textContent = isHidden ? '🙈' : '👁️';
-}
 
-function changeAdminPw(){
-  var cur = (document.getElementById('curPw')?.value||'').trim();
-  var np  = (document.getElementById('newPw')?.value||'').trim();
-  var cnf = (document.getElementById('newPwConfirm')?.value||'').trim();
-  var ok  = document.getElementById('pwSuccess');
-  var errShow = function(msg){ toast(msg); };
-  if(!cur){ errShow('현재 비밀번호를 입력해주세요'); return; }
-  if(cur !== adminPw){ errShow('❌ 현재 비밀번호가 틀렸어요'); return; }
-  if(!np || np.length < 4){ errShow('새 비밀번호는 4자 이상이어야 해요'); return; }
-  if(np !== cnf){ errShow('새 비밀번호가 일치하지 않아요'); return; }
-  adminPw = np;
-  try{ localStorage.setItem('tarry_admin_pw', np); }catch(e){}
-  var curEl = document.getElementById('curPw');
-  var newEl = document.getElementById('newPw');
-  var cnfEl = document.getElementById('newPwConfirm');
-  if(curEl) curEl.value='';
-  if(newEl) newEl.value='';
-  if(cnfEl) cnfEl.value='';
-  if(ok){ ok.style.display='block'; setTimeout(function(){ ok.style.display='none'; }, 3000); }
-  toast('✅ 비밀번호가 성공적으로 변경됐어요!');
-}
 
 /* ── 다크모드 ── */
-function toggleDarkMode(){
-  const html=document.documentElement;
-  const isDark=html.getAttribute('data-theme')==='dark';
-  html.setAttribute('data-theme',isDark?'light':'dark');
-  const btn=document.getElementById('themeToggle');if(btn)btn.textContent=isDark?'🌙':'☀️';
-  // SVG 테마 아이콘 교체
-  const micon=document.getElementById('mobileThemeIcon');
-  if(micon){
-    if(isDark){
-      // 달 캐릭터 (라이트 모드로)
-      micon.setAttribute('viewBox','0 0 46 46');
-      micon.innerHTML='<path d="M30 23C30 27.97 26.19 32 21.5 32C16.81 32 13 27.97 13 23C13 18.03 16.81 14 21.5 14C19.5 16.5 19 20 21 22.5C23 25 27 25.5 30 23Z" fill="rgba(255,255,255,0.95)"/><circle cx="20" cy="21" r="1.5" fill="rgba(59,130,246,0.8)"/><circle cx="20.6" cy="20.4" r="0.6" fill="white"/><circle cx="25" cy="22" r="1.2" fill="rgba(59,130,246,0.6)"/><ellipse cx="18.5" cy="23.5" rx="2" ry="1.2" fill="rgba(147,197,253,0.4)"/><path d="M20 24.5Q22 26 24 24.5" stroke="rgba(59,130,246,0.6)" stroke-width="1" stroke-linecap="round" fill="none"/><path d="M34 10L34.8 12.4L37 12.4L35.2 13.9L35.9 16.3L34 14.8L32.1 16.3L32.8 13.9L31 12.4L33.2 12.4Z" fill="rgba(255,255,255,0.8)"/><circle cx="36" cy="20" r="1.2" fill="rgba(255,255,255,0.55)"/><circle cx="10" cy="15" r="1" fill="rgba(255,255,255,0.4)"/>';
-      const box=document.getElementById('mobileThemeIconBox');
-      if(box){box.style.background='linear-gradient(135deg,#93c5fd,#3b82f6)';box.style.boxShadow='0 4px 12px rgba(59,130,246,0.45),inset 0 1px 0 rgba(255,255,255,0.35)';}
-    } else {
-      // 해 캐릭터 (다크 모드로)
-      micon.setAttribute('viewBox','0 0 46 46');
-      micon.innerHTML='<circle cx="23" cy="23" r="9" fill="rgba(255,255,255,0.95)"/><circle cx="19.5" cy="21" r="2.2" fill="white"/><circle cx="19.5" cy="21" r="1.3" fill="rgba(249,115,22,0.85)"/><circle cx="20.1" cy="20.4" r="0.55" fill="white"/><circle cx="26.5" cy="21" r="2.2" fill="white"/><circle cx="26.5" cy="21" r="1.3" fill="rgba(249,115,22,0.85)"/><circle cx="27.1" cy="20.4" r="0.55" fill="white"/><ellipse cx="20" cy="24.5" rx="2.2" ry="1.3" fill="rgba(255,180,80,0.3)"/><ellipse cx="26" cy="24.5" rx="2.2" ry="1.3" fill="rgba(255,180,80,0.3)"/><ellipse cx="23" cy="25.5" rx="1.5" ry="0.9" fill="rgba(249,115,22,0.4)"/><path d="M20.5 26.5Q23 29 25.5 26.5" stroke="rgba(249,115,22,0.7)" stroke-width="1.2" stroke-linecap="round" fill="none"/><line x1="23" y1="10" x2="23" y2="7" stroke="rgba(255,255,255,0.85)" stroke-width="2" stroke-linecap="round"/><line x1="23" y1="39" x2="23" y2="36" stroke="rgba(255,255,255,0.85)" stroke-width="2" stroke-linecap="round"/><line x1="10" y1="23" x2="7" y2="23" stroke="rgba(255,255,255,0.85)" stroke-width="2" stroke-linecap="round"/><line x1="39" y1="23" x2="36" y2="23" stroke="rgba(255,255,255,0.85)" stroke-width="2" stroke-linecap="round"/><line x1="13.5" y1="13.5" x2="11.5" y2="11.5" stroke="rgba(255,255,255,0.6)" stroke-width="1.8" stroke-linecap="round"/><line x1="34.5" y1="34.5" x2="32.5" y2="32.5" stroke="rgba(255,255,255,0.6)" stroke-width="1.8" stroke-linecap="round"/><line x1="34.5" y1="13.5" x2="32.5" y2="15.5" stroke="rgba(255,255,255,0.6)" stroke-width="1.8" stroke-linecap="round"/><line x1="13.5" y1="34.5" x2="15.5" y2="32.5" stroke="rgba(255,255,255,0.6)" stroke-width="1.8" stroke-linecap="round"/>';
-      const box=document.getElementById('mobileThemeIconBox');
-      if(box){box.style.background='linear-gradient(135deg,#fde68a,#f97316)';box.style.boxShadow='0 4px 12px rgba(249,115,22,0.5),inset 0 1px 0 rgba(255,255,255,0.35)';}
-    }
-  }
-  try{localStorage.setItem('tarry_dark',String(!isDark));}catch(e){}
-}
 
 /* ── 로그인 ── */
-function startBrowse(){isBrowsing=true;showPage('cat');setNav('cat');}
-function handleLockedClick(){showPage('auth');setNav('auth');setAtab('signup');}
-function setAtab(tab){
-  document.querySelectorAll('.atab').forEach(b=>b.classList.remove('on'));
-  const btn=document.getElementById('at-'+tab);if(btn)btn.classList.add('on');
-  document.querySelectorAll('.auth-panel').forEach(p=>p.style.display='none');
-  const panel=document.getElementById(tab==='login'?'loginF':'signupF');if(panel)panel.style.display='block';
-}
-function doSignup(){
-  var nick  = document.getElementById('sNick')?.value?.trim()||'';
-  var email = document.getElementById('sEmail')?.value?.trim()||'';
-  var pw    = document.getElementById('sPw')?.value||'';
-
-  var errEl = document.getElementById('signupErrorMsg');
-  var sucEl = document.getElementById('signupSuccessMsg');
-  function showErr(msg){
-    if(errEl){ errEl.textContent=msg; errEl.style.display='block'; }
-    if(sucEl) sucEl.style.display='none';
-    toast(msg);
-  }
-  if(errEl) errEl.style.display='none';
-
-  // 이름 검증
-  if(!nick){ showErr('⚠️ 이름을 입력해주세요'); return; }
-  if(nick.length < 2){ showErr('⚠️ 이름은 2자 이상 입력해주세요'); return; }
-
-  // 이메일 검증
-  if(!email){ showErr('✉️ 이메일을 입력해주세요'); return; }
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ showErr('✉️ 올바른 이메일 형식이 아니에요 (예: abc@gmail.com)'); return; }
-
-  // 비밀번호 검증
-  if(!pw){ showErr('🔐 비밀번호를 입력해주세요'); return; }
-  if(pw.length < 6){ showErr('🔐 비밀번호는 6자 이상이어야 해요'); return; }
-  if(!/[A-Z]/.test(pw)){ showErr('🔐 영문 대문자(A–Z)를 포함해주세요'); return; }
-  if(!/[a-z]/.test(pw)){ showErr('🔐 영문 소문자(a–z)를 포함해주세요'); return; }
-  if(!/[0-9]/.test(pw)){ showErr('🔐 숫자(0–9)를 포함해주세요'); return; }
-
-  // 중복 이메일
-  try{
-    var members = JSON.parse(localStorage.getItem('tarry_members')||'[]');
-    if(members.find(function(m){return m.email===email;})){
-      showErr('✉️ 이미 가입된 이메일이에요'); return;
-    }
-  }catch(e){}
-
-  var refCode='';
-  try{ var up=new URLSearchParams(window.location.search); refCode=up.get('ref')||sessionStorage.getItem('tarry_ref')||''; }catch(e){}
-  var myCode='TARRY_'+email.split('@')[0].toUpperCase().replace(/[^A-Z0-9]/g,'').substring(0,8)+'_'+Date.now().toString(36).toUpperCase().slice(-4);
-  var joinDate=new Date().toLocaleDateString('ko-KR');
-  var user={email:email,name:nick,grade:'FREE',pw:pw,joinDate:joinDate,refCode:myCode,refBy:refCode,profileImg:''};
-
-  try{
-    var members2=JSON.parse(localStorage.getItem('tarry_members')||'[]');
-    members2.push(user);
-    localStorage.setItem('tarry_members',JSON.stringify(members2));
-  }catch(e){}
-
-  if(sucEl) sucEl.style.display='block';
-  loginSuccess(user);
-  toast('🎉 가입 완료! 환영해요, '+nick+'님!');
-  setTimeout(function(){
-    var existing=document.getElementById('signupSuccessPop');
-    if(existing) existing.remove();
-    var pop=document.createElement('div');
-    pop.id='signupSuccessPop';
-    pop.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px';
-    pop.onclick=function(e){if(e.target===pop)pop.remove();};
-    pop.innerHTML='<div style="background:var(--sur);border-radius:22px;padding:32px 28px;text-align:center;max-width:340px;width:100%">'
-      +'<div style="font-size:56px;margin-bottom:12px">🎉</div>'
-      +'<h2 style="font-family:var(--display);font-size:22px;color:var(--tx);margin-bottom:8px">가입 완료!</h2>'
-      +'<p style="font-size:14px;color:var(--mt);margin-bottom:20px">환영해요, <strong style="color:var(--ac)">'+nick+'</strong>님!<br>TARRY의 데일리 회원이 됐어요 😊</p>'
-      +'<button onclick="document.getElementById(\'signupSuccessPop\').remove()" style="background:var(--grad);color:#fff;border:none;border-radius:10px;padding:12px 32px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font)">시작하기 🚀</button>'
-      +'</div>';
-    document.body.appendChild(pop);
-    setTimeout(function(){if(pop.parentNode)pop.remove();},5000);
-  },300);
-}
 
 
-function doLogin(){
-  var email = document.getElementById('lEmail')?.value?.trim()||'';
-  var pw    = document.getElementById('lPw')?.value||'';
-  var msg   = document.getElementById('loginMsg');
-  function showMsg(text, ok){
-    if(!msg) return;
-    msg.style.display='block';
-    msg.textContent = text;
-    msg.style.background = ok ? 'rgba(5,150,105,.08)' : 'rgba(220,38,38,.08)';
-    msg.style.border = ok ? '1px solid rgba(5,150,105,.2)' : '1px solid rgba(220,38,38,.2)';
-    msg.style.color = ok ? '#059669' : '#dc2626';
-    if(ok) setTimeout(function(){msg.style.display='none';}, 2500);
-  }
-  if(!email||!pw){showMsg('이메일과 비밀번호를 입력해주세요', false);return;}
 
-  try{
-    var members = JSON.parse(localStorage.getItem('tarry_members')||'[]');
-    var found = members.find(function(m){return m.email===email && m.pw===pw;});
-    if(found){
-      showMsg('✅ 로그인됐어요! 환영해요 😊', true);
-      setTimeout(function(){ loginSuccess(found); }, 800);
-      return;
-    }
-  }catch(e){}
-
-  showMsg('❌ 이메일 또는 비밀번호가 틀렸어요', false);
-}
-
-function loginSuccess(user){
-  currentUser = user;
-  isLoggedIn  = true;
-  // 네비 업데이트
-  var guestArea = document.getElementById('guestArea');
-  var navUser   = document.getElementById('navUser');
-  var navGrade  = document.getElementById('navGrade');
-  var navAv     = document.getElementById('navAv');
-  if(guestArea) guestArea.style.display='none';
-  if(navUser)   navUser.style.display='flex';
-  if(navGrade)  navGrade.textContent = user.grade||'FREE';
-  if(navAv){
-    navAv.innerHTML = '';
-    if(user.profileImg){
-      navAv.innerHTML = '<img src="'+user.profileImg+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%">';
-    } else {
-      navAv.textContent = (user.name||'?')[0].toUpperCase();
-    }
-  }
-  // 마이페이지 렌더
-  renderMemberPage();
-  showPage('home');
-  setNav('home');
-}
 
 function renderMemberPage(){
   if(!currentUser) return;
@@ -4372,42 +4666,8 @@ function shareRefSMS(){
   catch(e){ toast('📱 문자앱을 열 수 없어요'); }
 }
 
-function doLogout(){
-  currentUser=null;isLoggedIn=false;isBrowsing=false;
-  var guestArea=document.getElementById('guestArea');if(guestArea)guestArea.style.display='flex';
-  var navUser=document.getElementById('navUser');if(navUser)navUser.style.display='none';
-  // 마이페이지 초기화
-  var gm=document.getElementById('guestMsg');var md=document.getElementById('memberDash');
-  if(gm)gm.style.display='block';if(md)md.style.display='none';
-  showPage('home');setNav('home');
-  toast('로그아웃됐어요');
-}
 
 /* ── 카테고리 ── */
-function buildCatTree(){
-  const tree=document.getElementById('catTree');if(!tree)return;
-  const total=CAT_DATA.reduce((a,l1)=>a+l1.subs.reduce((b,l2)=>b+l2.items.length,0),0);
-  let html=`<button onclick="selectCat(null,null,null)" style="display:flex;align-items:center;width:100%;background:var(--sur);border:1px solid var(--bd);border-radius:9px;padding:9px 12px;cursor:pointer;font-family:var(--font);font-size:13px;font-weight:600;color:var(--tx);margin-bottom:6px">🗂 전체 글 <span style="margin-left:auto;font-size:11px;color:var(--mt)">${total}개</span></button>`;
-  CAT_DATA.forEach(l1=>{
-    const cnt=l1.subs.reduce((a,b)=>a+b.items.length,0);
-    html+=`<div><button id="cl1-${l1.id}" style="display:flex;align-items:center;width:100%;background:var(--sur);border:1px solid var(--bd);border-radius:9px;padding:9px 12px;cursor:pointer;font-family:var(--font);font-size:13px;font-weight:600;color:var(--tx);margin-bottom:4px;text-align:left"><span style="margin-right:6px">${l1.icon}</span><span style="flex:1">${l1.name}</span><span style="font-size:11px;color:var(--mt)">${cnt}</span></button>`;
-    html+=`<div id="l2-${l1.id}" style="display:none;padding-left:10px;margin-bottom:4px">`;
-    l1.subs.forEach(l2=>{
-      html+=`<button id="cl2-${l2.id}" style="display:flex;align-items:center;width:100%;background:transparent;border:none;border-radius:7px;padding:7px 10px;cursor:pointer;font-family:var(--font);font-size:12px;color:var(--mt);text-align:left;margin-bottom:2px"><span style="flex:1">${l2.name}</span><span style="font-size:10px">${l2.items.length}</span></button>`;
-    });
-    html+='</div></div>';
-  });
-  tree.innerHTML=html;
-  // 이벤트 등록
-  CAT_DATA.forEach(l1=>{
-    const b1=document.getElementById('cl1-'+l1.id);
-    if(b1)b1.addEventListener('click',()=>togL1(l1.id));
-    l1.subs.forEach(l2=>{
-      const b2=document.getElementById('cl2-'+l2.id);
-      if(b2)b2.addEventListener('click',()=>selectCat(l1.id,l2.id,null));
-    });
-  });
-}
 function togL1(id){const w=document.getElementById('l2-'+id);if(w)w.style.display=w.style.display==='none'?'block':'none';selectCat(id,null,null);}
 function togL2(l1id,l2id){selectCat(l1id,l2id,null);}
 function selectCat(l1id,l2id,l3id){
@@ -4441,176 +4701,19 @@ function getFilteredPosts(){
   }
   return all;
 }
-function renderPosts(){
-  currentPosts=getFilteredPosts();
-  const grid=document.getElementById('postGrid');if(!grid)return;
-  const isList=currentView==='list';
-  grid.className='post-grid'+(isList?' list-v':'');
-  const cnt=document.getElementById('catCountLbl');if(cnt)cnt.textContent=currentPosts.length+'개';
-  const l1=selectedL1?CAT_DATA.find(x=>x.id===selectedL1):null;
-  const l2=l1&&selectedL2?l1.subs.find(x=>x.id===selectedL2):null;
-  const ttl=document.getElementById('catTitle');if(ttl)ttl.textContent=l2?l2.name:(l1?l1.icon+' '+l1.name:'전체 글');
-  if(!currentPosts.length){grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--mt)"><div style="font-size:36px;margin-bottom:8px">📭</div>이 카테고리에 글이 없어요</div>';return;}
-  let h='';
-  currentPosts.forEach((p,i)=>{
-    h+=`<div class="pc" data-idx="${i}" style="cursor:pointer">`;
-    h+=`<div class="pc-thumb ${p.color||'ct-a'}">${p.emoji||'📄'}</div>`;
-    h+=`<div style="flex:1"><div class="pc-body"><span class="pc-tag">${p.l2name||''}</span>`;
-    h+=`<div class="pc-title">${p.title||''}</div><div class="pc-desc">${p.desc||''}</div></div>`;
-    h+=`<div class="pc-footer"><span>${p.date||''}</span><span>${p.read||''} 읽기</span></div></div></div>`;
-  });
-  grid.innerHTML=h;
-  grid.querySelectorAll('.pc[data-idx]').forEach(el=>{
-    const i=parseInt(el.getAttribute('data-idx'));
-    el.addEventListener('click',()=>clickPost(i));
-  });
-}
-function clickPost(i){const p=currentPosts[i];if(!p)return;openPost(p.id||'',p.title||'',p.l2name||'',p.emoji||'📄','TARRY');}
-function setView(v){currentView=v;renderPosts();}
 
 /* ── 글 열기 ── */
-function openPost(postId,title,tag,emoji,meta){
-  try{
-    const data=getPostBody(postId,title,tag);
-    const els={title:document.getElementById('postTitle'),tag:document.getElementById('postTag'),emoji:document.getElementById('postEmoji'),meta:document.getElementById('postMeta'),header:document.getElementById('postHeader'),body:document.getElementById('postBody'),rel:document.getElementById('relatedPosts')};
-    if(els.title)els.title.textContent=title||'';
-    if(els.tag)els.tag.textContent=tag||'';
-    if(els.emoji)els.emoji.textContent=emoji||'📄';
-    if(els.meta)els.meta.textContent='TARRY · '+new Date().toLocaleDateString('ko-KR');
-    if(els.header)els.header.style.background=data.img?`linear-gradient(rgba(0,0,0,.4),rgba(0,0,0,.5)),url(${data.img}) center/cover`:'var(--grad)';
-    if(els.body)els.body.innerHTML=data.body||'';
-    if(els.rel){
-      let all=[];CAT_DATA.forEach(l1=>l1.subs.forEach(l2=>l2.items.forEach(it=>all.push({...it,color:l1.color,l2name:l2.name}))));
-      const rel=all.filter(p=>p.id!==postId).sort(()=>Math.random()-.5).slice(0,3);
-      els.rel.innerHTML=rel.map((p,i)=>`<div class="card rel-${i}" style="cursor:pointer"><div class="cthumb ${p.color||'ct-a'}">${p.emoji}</div><div class="cbody"><span class="ptag">${p.l2name}</span><div class="ctitle">${p.title}</div></div><div class="cfooter"><span>${p.date}</span><span>${p.read} 읽기</span></div></div>`).join('');
-      rel.forEach((p,i)=>{const el=els.rel.querySelector('.rel-'+i);if(el)el.addEventListener('click',()=>openPost(p.id,p.title,p.l2name,p.emoji,'TARRY'));});
-    }
-    showPage('post');
-    try{const v=STATS.getPostView(postId);if(els.meta)els.meta.textContent='TARRY · 조회 '+v.toLocaleString()+'회';}catch(e){}
-  }catch(err){console.error('openPost:',err);}
-}
-function sharePost(){try{navigator.clipboard.writeText(location.href);toast('🔗 링크 복사됐어요!');}catch(e){toast('링크: '+location.href);}}
 
 /* ── 댓글 ── */
-function buildEmojiPicker(){
-  var grid=document.getElementById('emojiGrid');
-  if(!grid)return;
-  var emojis=['😊', '😂', '🥰', '😍', '🤩', '😎', '🥳', '😜', '🤣', '😆', '❤️', '🧡', '💛', '💚', '💙', '💜', '🖤', '🤍', '💕', '💖', '👍', '👏', '🙌', '🤝', '✌️', '🤞', '👋', '🙏', '💪', '🎉', '🔥', '⭐', '✨', '💫', '🌟', '🎊', '🎁', '🎈', '🎀', '🏆', '🌸', '🌹', '🌺', '🌻', '🌼', '🍀', '🌿', '🍁', '🍂', '🌈', '☀️', '🌙', '⛅', '🌤️', '❄️', '🌊', '⚡', '🌙', '🌟', '🌏', '🍎', '🍊', '🍋', '🍇', '🍓', '🍑', '🍒', '🥝', '🍉', '🍌', '🍕', '🍔', '🍣', '🍜', '🍰', '🎂', '🍩', '🍪', '☕', '🧋', '🐶', '🐱', '🐰', '🐻', '🐼', '🦊', '🐸', '🐙', '🦋', '🌸', '🚀', '✈️', '🚗', '⚽', '🎸', '📚', '💡', '🔮', '🎭', '🎮'];
-  grid.innerHTML=emojis.map(function(e){
-    return '<button onclick="insertEmoji(\''+e+'\',this)" style="background:none;border:none;font-size:22px;cursor:pointer;padding:4px;border-radius:6px;line-height:1" >'+e+'</button>';
-  }).join('');
-}
-function toggleEmojiPicker(){
-  var box=document.getElementById('emojiPickerBox');
-  if(!box)return;
-  if(box.style.display==='none'||!box.style.display){
-    box.style.display='block';
-    buildEmojiPicker();
-  }else{
-    box.style.display='none';
-  }
-}
-function insertEmoji(emoji){
-  var input=document.getElementById('commentInput');
-  if(!input)return;
-  var pos=input.selectionStart||input.value.length;
-  input.value=input.value.slice(0,pos)+emoji+input.value.slice(pos);
-  input.focus();
-  input.setSelectionRange(pos+emoji.length,pos+emoji.length);
-}
 function switchEmojiCat(){}
 function renderEmojiGrid(){}
 function searchEmoji(){}
 function toggleEmoji(){}
 
 /* ── 댓글 렌더링 ── */
-function renderComments(){
-  // 댓글 수 업데이트
-  document.querySelectorAll('.comment-count-badge').forEach(function(el){el.textContent=comments.length+'개';});
-  var cnt = document.getElementById('commentCount');
-  if(cnt) cnt.textContent = comments.length;
 
-  var list = document.getElementById('commentList');
-  if(!list) return;
-
-  if(!comments.length){
-    list.innerHTML = '<div style="text-align:center;padding:3rem;color:var(--mt)"><div style="font-size:40px;margin-bottom:10px">💬</div><div style="font-size:14px;font-weight:700;color:var(--tx);margin-bottom:4px">아직 댓글이 없어요</div><div style="font-size:12px">첫 번째 댓글을 남겨보세요!</div></div>';
-    return;
-  }
-
-  var html = '';
-  for(var i=0; i<comments.length; i++){
-    var c = comments[i];
-    var replies = '';
-    if(c.replies && c.replies.length){
-      for(var r=0; r<c.replies.length; r++){
-        var rep = c.replies[r];
-        replies += '<div style="background:var(--sur3);border-radius:10px;padding:10px 12px;margin-top:8px;border-left:3px solid var(--ac)">'
-          + '<div style="display:flex;align-items:center;gap:6px;margin-bottom:5px">'
-          + '<div style="background:var(--grad);border-radius:50%;width:22px;height:22px;min-width:22px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:10px">'+rep.name[0]+'</div>'
-          + '<div style="font-size:12px;font-weight:700;color:var(--tx)">'+rep.name+'</div>'
-          + '<div style="font-size:10px;color:var(--mt)">'+rep.date+'</div>'
-          + '</div>'
-          + '<div style="font-size:13px;color:var(--mt)">'+rep.text+'</div>'
-          + '</div>';
-      }
-    }
-    html += '<div style="background:var(--sur);border:1px solid var(--bd);border-radius:14px;padding:14px;margin-bottom:10px">'
-      + '<div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px">'
-      + '<div style="background:var(--grad);border-radius:50%;width:34px;height:34px;min-width:34px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px">'+c.name[0]+'</div>'
-      + '<div style="flex:1">'
-      + '<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">'
-      + '<div style="font-size:13px;font-weight:700;color:var(--tx)">'+c.name+'</div>'
-      + '<div style="font-size:10px;color:var(--mt)">'+c.date+'</div>'
-      + '</div>'
-      + '<div style="font-size:14px;line-height:1.7;color:var(--mt)">'+c.text+'</div>'
-      + '<div style="display:flex;align-items:center;gap:8px;margin-top:8px">'
-      + '<button onclick="likeComment('+i+')" style="background:none;border:none;cursor:pointer;font-size:12px;color:var(--mt);display:flex;align-items:center;gap:3px;padding:0">❤️ <span id="like-'+i+'">'+(c.likes||0)+'</span></button>'
-      + '<button onclick="startReply('+i+')" style="background:none;border:none;cursor:pointer;font-size:12px;color:var(--ac);padding:0">↩️ 답글</button>'
-      + '</div>'
-      + '</div></div>'
-      + replies
-      + '<div id="reply-box-'+i+'" style="display:none;margin-top:8px">'
-      + '<div style="display:flex;gap:7px">'
-      + '<input id="reply-input-'+i+'" placeholder="답글 입력..." style="flex:1;background:var(--sur2);border:1px solid var(--bd);border-radius:8px;padding:8px 12px;font-size:13px;color:var(--tx);outline:none;font-family:var(--font)">'
-      + '<button onclick="submitReply('+i+')" style="background:var(--grad);color:#fff;border:none;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap">등록</button>'
-      + '<button onclick="closeReplyBox('+i+')" style="background:var(--sur2);border:1px solid var(--bd);border-radius:8px;padding:8px 10px;cursor:pointer;font-size:12px;color:var(--mt)">✕</button>'
-      + '</div>'
-      + '</div>'
-      + '</div>';
-  }
-  list.innerHTML = html;
-  try{renderHomeComments();}catch(e){}
-}
-
-function submitComment(){
-  const input=document.getElementById('commentInput');
-  if(!input||!input.value.trim()){toast('댓글을 입력해주세요');return;}
-  var newCmt={
-    name:currentUser?currentUser.name:'익명',
-    text:input.value.trim(),
-    date:new Date().toLocaleDateString('ko-KR'),
-    likes:0
-  };
-  comments.unshift(newCmt);
-  // localStorage에 댓글 저장 (PC·모바일 공유)
-  try{ localStorage.setItem('tarry_comments', JSON.stringify(comments)); }catch(e){}
-  input.value='';
-  renderComments();
-  // 댓글 목록 맨 위로 스크롤
-  var list=document.getElementById('commentList');
-  if(list) list.scrollIntoView({behavior:'smooth',block:'start'});
-  // 홈 댓글 및 관리자 패널도 동시 갱신
-  try{renderHomeComments();}catch(e){}
-  try{renderAdminComments();}catch(e){}
-  try{renderAdminComments2();}catch(e){}
-  // 댓글 수 배지 갱신
-  var cnt=document.getElementById('commentCount'); if(cnt) cnt.textContent=comments.length;
-  toast('✅ 댓글이 등록됐어요!');
-}
 function togLike(){}
 function replyTo(name){const i=document.getElementById('commentInput');if(i)i.value='@'+name+' ';}
-function autoResize(el){el.style.height='auto';el.style.height=el.scrollHeight+'px';}
 
 /* ── 관리자 댓글 ── */
 function removeAdminComment(i){
@@ -5029,33 +5132,6 @@ function clearPPTLeads(){
 }
 
 /* ── 통계 ── */
-function refreshAdminStats(){
-  var ti=document.getElementById('manualTotalInput');
-  var di=document.getElementById('manualDailyInput');
-  if(ti&&!ti.value)ti.value=STATS.data.totalVisitors;
-  if(di&&!di.value)di.value=STATS.data.dailyVisitors;
-
-  // 구독자 수 업데이트
-  try{
-    const subs=JSON.parse(localStorage.getItem('tarry_subscribers')||'[]');
-    const subEl=document.getElementById('adminStatSubs');if(subEl)subEl.textContent=subs.length;
-  }catch(e){}
-  // 댓글 수 업데이트
-  const cmtEl=document.getElementById('adminStatComments');if(cmtEl)cmtEl.textContent=comments.length;
-  // 방문자 차트 그리기
-  try{drawVisitorChart();}catch(e){}
-
-  const dt=document.getElementById('dashStatTotal'),dd=document.getElementById('dashStatDaily'),dp=document.getElementById('dashStatPosts');
-  if(dt)dt.textContent=STATS.fmt(STATS.data.totalVisitors);
-  if(dd)dd.textContent=STATS.fmt(STATS.data.dailyVisitors);
-  if(dp){const cnt=CAT_DATA.reduce((a,l1)=>a+l1.subs.reduce((b,l2)=>b+l2.items.length,0),0);dp.textContent=cnt;}
-  
-  const t=document.getElementById('adminStatTotal'),d=document.getElementById('adminStatDaily'),p=document.getElementById('adminStatPosts');
-  if(t)t.textContent=STATS.fmt(STATS.data.totalVisitors);
-  if(d)d.textContent=STATS.fmt(STATS.data.dailyVisitors);
-  if(p){const cnt=CAT_DATA.reduce((a,l1)=>a+l1.subs.reduce((b,l2)=>b+l2.items.length,0),0);p.textContent=cnt;}
-  toast('📊 통계 새로고침!');
-}
 
 /* ── RSS / tarryguide 연동 ── */
 /* ── RSS 소스 관리 ── */
@@ -6069,23 +6145,6 @@ function mSetMsg(msg){
 }
 
 
-function renderHomeComments(){
-  const list=document.getElementById('homeCommentList');
-  if(!list||!comments.length)return;
-  list.innerHTML=comments.slice(0,6).map(c=>`
-    <div style="background:var(--sur);border:1px solid var(--bd);border-radius:14px;padding:14px;transition:.2s" onmouseover="this.style.borderColor='var(--ac)'" onmouseout="this.style.borderColor='var(--bd)'">
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
-        <div style="background:var(--grad);border-radius:50%;width:32px;height:32px;min-width:32px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:13px">${c.name[0]}</div>
-        <div>
-          <div style="font-size:13px;font-weight:700;color:var(--tx)">${c.name}</div>
-          <div style="font-size:10px;color:var(--mt)">${c.date}</div>
-        </div>
-        <div style="margin-left:auto;font-size:11px;color:var(--mt)">❤️ ${c.likes}</div>
-      </div>
-      <div style="font-size:13px;color:var(--mt);line-height:1.7;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical">${c.text}</div>
-    </div>
-  `).join('');
-}
 
 
 
@@ -7323,34 +7382,7 @@ async function autoImportRSSPosts(posts){
   toast('🎉 '+results.length+'개 최상 퀄리티 글 등록 완료!');
 }
 
-function likeComment(i){
-  if(!comments[i])return;
-  comments[i].likes=(comments[i].likes||0)+1;
-  var el=document.getElementById('like-'+i);
-  if(el)el.textContent=comments[i].likes;
-}
-function startReply(i){
-  var box=document.getElementById('reply-box-'+i);
-  if(box){box.style.display=box.style.display==='none'?'flex':'none';}
-}
 
-function closeReplyBox(i){
-  var box = document.getElementById('reply-box-'+i);
-  if(box) box.style.display='none';
-}
-function submitReply(i){
-  var input=document.getElementById('reply-input-'+i);
-  if(!input||!input.value.trim()){toast('답글을 입력해주세요');return;}
-  if(!comments[i].replies)comments[i].replies=[];
-  comments[i].replies.push({
-    name:currentUser?currentUser.name:'익명',
-    text:input.value.trim(),
-    date:new Date().toLocaleDateString('ko-KR')
-  });
-  input.value='';
-  renderComments();
-  toast('답글이 등록됐어요!');
-}
 
 
 /* ── 방문자 수 수동 설정 ── */
@@ -7862,53 +7894,6 @@ function loadRSSPosts(){}function openRSSPost(){}function quickShareRSS(){}
 function publishPostToSNS(){setAdminTab('sns');initSNSPanel();}
 
 /* ── 카테고리 관리 ── */
-function renderAdminCatTree(){
-  const tree=document.getElementById('adminCatTree');
-  console.log('renderAdminCatTree 호출 — tree:', tree, '— CAT_DATA:', CAT_DATA?.length);
-  if(!tree)return;
-  // l1SelectForL2, l2SelectForPost 셀렉트 업데이트
-  const l1sel=document.getElementById('l1SelectForL2');
-  const l2sel=document.getElementById('l2SelectForPost');
-  if(l1sel)l1sel.innerHTML=CAT_DATA.map(l1=>`<option value="${l1.id}">${l1.icon} ${l1.name}</option>`).join('');
-  if(l2sel){
-    let opts='';
-    CAT_DATA.forEach(l1=>l1.subs.forEach(l2=>{opts+=`<option value="${l1.id}__${l2.id}">${l1.icon} ${l1.name} > ${l2.name}</option>`;}));
-    l2sel.innerHTML=opts;
-  }
-  // 트리 렌더링
-  tree.innerHTML=CAT_DATA.map(l1=>`
-    <div style="background:var(--sur);border:1px solid var(--bd);border-radius:12px;padding:12px;margin-bottom:8px">
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
-        <span style="font-size:20px">${l1.icon}</span>
-        <div style="flex:1">
-          <div style="font-size:14px;font-weight:700;color:var(--tx)">${l1.name}</div>
-          <div style="font-size:11px;color:var(--mt)">${l1.subs.reduce((a,s)=>a+s.items.length,0)}개 글</div>
-        </div>
-        <button onclick="delAdminL1('${l1.id}')" style="background:rgba(220,38,38,.1);color:#dc2626;border:1px solid rgba(220,38,38,.2);border-radius:6px;padding:4px 8px;font-size:11px;cursor:pointer;font-family:var(--font)">🗑️ 삭제</button>
-      </div>
-      <div style="padding-left:12px">
-        ${l1.subs.map(l2=>`
-          <div style="background:var(--sur2);border:1px solid var(--bd);border-radius:8px;padding:8px 10px;margin-bottom:6px;display:flex;align-items:center;gap:8px">
-            <div style="flex:1">
-              <div style="font-size:12px;font-weight:700;color:var(--tx)">${l2.name}</div>
-              <div style="font-size:10px;color:var(--mt)">${l2.items.length}개 글</div>
-            </div>
-            <button onclick="delAdminL2('${l1.id}','${l2.id}')" style="background:rgba(220,38,38,.1);color:#dc2626;border:none;border-radius:5px;padding:3px 7px;font-size:10px;cursor:pointer;font-family:var(--font)">삭제</button>
-          </div>
-          <div style="padding-left:10px">
-            ${l2.items.map((item,idx)=>`
-              <div style="display:flex;align-items:center;gap:6px;padding:5px 0;border-bottom:1px solid var(--bd)">
-                <span style="font-size:14px">${item.emoji||'📄'}</span>
-                <div style="flex:1;font-size:11px;color:var(--tx);overflow:hidden;white-space:nowrap;text-overflow:ellipsis">${item.title}</div>
-                <button onclick="delAdminPost('${l1.id}','${l2.id}',${idx})" style="background:none;border:none;color:#dc2626;cursor:pointer;font-size:12px;padding:0;flex-shrink:0">×</button>
-              </div>
-            `).join('')}
-          </div>
-        `).join('')}
-      </div>
-    </div>
-  `).join('');
-}
 
 function buildAdminCatTree(){renderAdminCatTree();}
 
@@ -7988,82 +7973,8 @@ function delAdminPost(l1id,l2id,idx){
 }
 
 function saveBiz(){toast('저장됐어요!');}function saveGaId(){toast('저장됐어요!');}function saveEmailJS(){toast('저장됐어요!');}function saveSearchCodes(){toast('저장됐어요!');}function autoPing(){toast('핑 전송 완료!');}
-function selectContactType(type){
-  // 카드 스타일 초기화
-  ['inquiry','report','ad','etc'].forEach(function(t){
-    var card = document.getElementById('ctype-'+t);
-    var guide = document.getElementById('contact-guide-'+t);
-    if(card){ card.style.border='2px solid var(--bd)'; card.style.background='var(--sur)'; }
-    if(guide) guide.style.display='none';
-  });
-  // 선택된 카드 활성화
-  var sel = document.getElementById('ctype-'+type);
-  var selGuide = document.getElementById('contact-guide-'+type);
-  if(sel){ sel.style.border='2px solid var(--ac)'; sel.style.background='linear-gradient(135deg,rgba(124,58,237,.08),rgba(236,72,153,.05))'; }
-  if(selGuide) selGuide.style.display='block';
-  // 라벨 업데이트
-  var labels = {'inquiry':'1:1 문의','report':'신고하기','ad':'광고/제휴','etc':'기타 문의'};
-  var label = document.getElementById('contactTypeLabel');
-  if(label) label.textContent = labels[type]||'1:1 문의';
-}
-function selContact(t){document.querySelectorAll('.ctab').forEach(b=>b.classList.remove('on'));const b=document.getElementById('ct-'+t);if(b)b.classList.add('on');}
-function selCat(btn){document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('sel'));if(btn)btn.classList.add('sel');}
-async function submitContact(){
-  var type    = document.querySelector('.ctab.on')?.dataset?.type || '일반';
-  var name    = (document.getElementById('contactName')?.value||'').trim();
-  var email   = (document.getElementById('contactEmail')?.value||'').trim();
-  var message = (document.getElementById('contactMessage')?.value||'').trim();
-  if(!name){ toast('이름을 입력해주세요'); return; }
-  if(!email||!email.includes('@')){ toast('올바른 이메일을 입력해주세요'); return; }
-  if(!message){ toast('문의 내용을 입력해주세요'); return; }
-
-  var btn = document.querySelector('.submit-btn');
-  if(btn){ btn.disabled=true; btn.textContent='📨 전송 중...'; }
-
-  var ejsPk  = localStorage.getItem('tarry_ejs_pk')||'';
-  var ejsSvc = localStorage.getItem('tarry_ejs_service')||'';
-  var ejsTpl = localStorage.getItem('tarry_ejs_template')||'';
-  var sent   = false;
-
-  if(ejsPk && ejsSvc && ejsTpl && typeof emailjs !== 'undefined'){
-    try{
-      emailjs.init(ejsPk);
-      await emailjs.send(ejsSvc, ejsTpl, {
-        to_email:   'tarry9653@daum.net',
-        from_name:  name+' ('+email+')',
-        reply_to:   email,
-        subject:    '[문의] '+type+' — '+name,
-        post_title: '['+type+'] 문의',
-        message:    message,
-        site_url:   'https://tarrydaily.com'
-      });
-      sent = true;
-    }catch(e){ console.warn('EmailJS 문의 전송 오류:', e); }
-  }
-
-  if(btn){ btn.disabled=false; btn.textContent='📨 문의 보내기'; }
-
-  // 입력 초기화
-  ['contactName','contactEmail','contactMessage'].forEach(function(id){
-    var el=document.getElementById(id); if(el) el.value='';
-  });
-
-  if(sent){
-    toast('✅ 문의가 tarry9653@daum.net으로 전송됐어요!');
-  } else {
-    // EmailJS 미설정 시 안내
-    toast('✅ 문의가 접수됐어요! (실제 발송은 EmailJS 설정 후 활성화)');
-  }
-}
-function togFaq(el){const arr=el.querySelector('.faq-arr'),ans=el.nextElementSibling;if(arr)arr.classList.toggle('open');if(ans)ans.classList.toggle('open');}
 // subscribeEmail은 뉴스레터 함수에서 처리
 function upgradeVip(){toast('VIP 업그레이드는 준비 중이에요');}
-function closePopup(id){
-  var el=document.getElementById(id);
-  if(!el) return;
-  el.classList.add('hide');
-  el.style.display='none';
-}
 function socialLogin(p){toast(p+' 로그인은 준비 중이에요');}
 function handleProfileUpload(){}
 function updateAllAvatars(){}
@@ -8454,37 +8365,10 @@ function initSNSTab(){
 }
 
 /* ── TOAST ── */
-function toast(msg,dur){const el=document.getElementById('toastEl');if(!el)return;el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),dur||3000);}
 
 /* ── INIT ── */
 
 /* ── 관리자 탭 전환 (가장 단순한 방식) ── */
-function switchTab(id){
-  var adminPage=document.getElementById('page-admin');
-  if(adminPage){adminPage.style.display='block';adminPage.classList.add('on');}
-  document.querySelectorAll('.page').forEach(function(p){
-    if(p.id!=='page-admin'){p.style.display='none';p.classList.remove('on');}
-  });
-  var pids=['dash','remote','rss','sns','cat','theme','seo','biz','pw','analytics','news','stats','files','write','newsletter'];
-  for(var i=0;i<pids.length;i++){
-    var el=document.getElementById('ap-'+pids[i]);
-    if(el) el.style.display=(pids[i]===id)?'block':'none';
-  }
-  var btns=document.querySelectorAll('.atab-admin');
-  for(var j=0;j<btns.length;j++){ btns[j].style.cssText=''; }
-  var ab=document.getElementById('at-'+id);
-  if(ab) ab.style.cssText='background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;font-weight:800';
-  try{if(id==='stats')refreshAdminStats();}catch(e){}
-  try{if(id==='newsletter')initNewsletterTab();}catch(e){}
-  try{if(id==='cat')renderAdminCatTree();}catch(e){}
-  try{if(id==='files')initFilesTab();}catch(e){}
-  try{if(id==='write')initWritePanel();}catch(e){}
-  try{if(id==='rss')initRssTab();}catch(e){}
-  try{if(id==='remote')initRemoteTab();}catch(e){}
-  try{if(id==='sns')initSNSTab();}catch(e){}
-  try{if(id==='pw')loadAdminProfile();}catch(e){}
-  try{if(id==='dash'){renderAdminComments();renderAdminComments2();refreshAdminStats();}}catch(e){}
-}
 
 /* ══════════════════════════════════════
    🎯 전역 리플 이펙트 & 버튼 피드백
@@ -8587,575 +8471,5 @@ document.addEventListener('DOMContentLoaded',()=>{
 });
 
 </script>
-
-<!-- 소셜 팝업 -->
-<div id="socialPopup" style="display:none;position:fixed;bottom:140px;left:16px;background:var(--sur);border:1px solid var(--bd);border-radius:16px;padding:12px 14px;box-shadow:0 8px 30px rgba(0,0,0,.2);z-index:9998;max-width:260px;animation:fadeUp .3s ease">
-  <div style="display:flex;align-items:center;gap:10px">
-    <div id="socialPopupAv" style="background:var(--grad);border-radius:50%;width:36px;height:36px;min-width:36px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:15px">김</div>
-    <div style="flex:1;min-width:0"><div id="socialPopupMsg" style="font-size:12px;color:var(--tx);line-height:1.4"></div><div id="socialPopupTime" style="font-size:10px;color:var(--mt);margin-top:2px">방금 전</div></div>
-    <button onclick="document.getElementById('socialPopup').style.display='none'" style="background:none;border:none;color:var(--mt);cursor:pointer;font-size:18px;padding:0;line-height:1;flex-shrink:0">×</button>
-  </div>
-</div>
-
-<!-- 모바일 하단 네비 -->
-
-
-<div id="mobileBottomNav" style="position:fixed;bottom:0;left:0;right:0;z-index:999;padding:0 0 calc(env(safe-area-inset-bottom,0px))">
-
-  <!-- 네비바 메인 -->
-  <div id="mobileNavBar" style="display:flex;justify-content:space-around;align-items:center;padding:8px 4px 10px;background:rgba(255,255,255,0.95);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-top:1px solid rgba(167,139,250,0.2);box-shadow:0 -6px 30px rgba(124,58,237,0.1)">
-
-    <!-- 홈: 보라 집돌이 캐릭터 -->
-    <button class="mnav-btn" onclick="showPage('home');setNav('home')">
-      <div class="mnav-icon mi-home">
-        <svg width="46" height="46" viewBox="0 0 46 46" fill="none">
-          <!-- 집 본체 -->
-          <rect x="10" y="24" width="26" height="16" rx="3" fill="rgba(255,255,255,0.9)"/>
-          <!-- 지붕 -->
-          <path d="M6 26L23 11L40 26" fill="rgba(255,255,255,0.6)" stroke="rgba(255,255,255,0.8)" stroke-width="1.5" stroke-linejoin="round"/>
-          <!-- 굴뚝 -->
-          <rect x="29" y="14" width="4" height="7" rx="1.5" fill="rgba(255,255,255,0.5)"/>
-          <!-- 연기 -->
-          <circle cx="31" cy="11.5" r="1.8" fill="rgba(255,255,255,0.3)"/>
-          <circle cx="33" cy="9.5" r="1.2" fill="rgba(255,255,255,0.2)"/>
-          <!-- 문 -->
-          <rect x="19" y="31" width="8" height="9" rx="4" fill="rgba(124,58,237,0.35)"/>
-          <!-- 창문 -->
-          <rect x="12" y="27" width="6" height="5" rx="1.5" fill="rgba(124,58,237,0.25)"/>
-          <rect x="28" y="27" width="6" height="5" rx="1.5" fill="rgba(124,58,237,0.25)"/>
-          <!-- 창문 십자 -->
-          <line x1="15" y1="27" x2="15" y2="32" stroke="rgba(255,255,255,0.5)" stroke-width="0.8"/>
-          <line x1="12" y1="29.5" x2="18" y2="29.5" stroke="rgba(255,255,255,0.5)" stroke-width="0.8"/>
-        </svg>
-      </div>
-      <span class="mnav-label" style="color:#7c3aed">홈</span>
-    </button>
-
-    <!-- 카테고리: 핑크 북이 눈 달린 캐릭터 -->
-    <button class="mnav-btn" onclick="showPage('cat');setNav('cat')">
-      <div class="mnav-icon mi-cat">
-        <svg width="46" height="46" viewBox="0 0 46 46" fill="none">
-          <!-- 책 몸통 -->
-          <rect x="8" y="12" width="30" height="26" rx="4" fill="rgba(255,255,255,0.9)"/>
-          <!-- 책등 -->
-          <rect x="8" y="12" width="5" height="26" rx="3" fill="rgba(255,255,255,0.5)"/>
-          <!-- 줄 -->
-          <rect x="17" y="19" width="16" height="2" rx="1" fill="rgba(236,72,153,0.4)"/>
-          <rect x="17" y="24" width="12" height="2" rx="1" fill="rgba(236,72,153,0.3)"/>
-          <rect x="17" y="29" width="14" height="2" rx="1" fill="rgba(236,72,153,0.25)"/>
-          <!-- 귀여운 눈 -->
-          <circle cx="17" cy="13" r="3.5" fill="white"/>
-          <circle cx="17" cy="13" r="2" fill="#ec4899" opacity="0.85"/>
-          <circle cx="17.7" cy="12.3" r="0.8" fill="white"/>
-          <circle cx="29" cy="13" r="3.5" fill="white"/>
-          <circle cx="29" cy="13" r="2" fill="#ec4899" opacity="0.85"/>
-          <circle cx="29.7" cy="12.3" r="0.8" fill="white"/>
-          <!-- 볼터치 -->
-          <ellipse cx="14" cy="15.5" rx="2" ry="1.2" fill="rgba(255,150,180,0.4)"/>
-          <ellipse cx="32" cy="15.5" rx="2" ry="1.2" fill="rgba(255,150,180,0.4)"/>
-          <!-- 입 -->
-          <path d="M21 16Q23 18 25 16" stroke="rgba(236,72,153,0.7)" stroke-width="1.2" stroke-linecap="round" fill="none"/>
-        </svg>
-      </div>
-      <span class="mnav-label" style="color:#ec4899">카테고리</span>
-    </button>
-
-    <!-- 댓글: 보라 말풍선 캐릭터 -->
-    <button class="mnav-btn" id="nl-comment" onclick="showPage('comment');setNav('comment')">
-      <div class="mnav-icon" style="background:linear-gradient(135deg,#7c3aed,#a855f7)">
-        <svg width="46" height="46" viewBox="0 0 46 46" fill="none">
-          <!-- 말풍선 몸통 -->
-          <rect x="7" y="9" width="28" height="19" rx="8" fill="rgba(255,255,255,0.95)"/>
-          <!-- 꼬리 -->
-          <path d="M13 28L10 37L21 30" fill="rgba(255,255,255,0.95)"/>
-          <!-- 귀여운 눈 -->
-          <circle cx="16" cy="18.5" r="2.5" fill="white"/>
-          <circle cx="16" cy="18.5" r="1.5" fill="rgba(124,58,237,0.85)"/>
-          <circle cx="16.7" cy="17.8" r="0.6" fill="white"/>
-          <circle cx="26" cy="18.5" r="2.5" fill="white"/>
-          <circle cx="26" cy="18.5" r="1.5" fill="rgba(124,58,237,0.85)"/>
-          <circle cx="26.7" cy="17.8" r="0.6" fill="white"/>
-          <!-- 볼터치 -->
-          <ellipse cx="12.5" cy="21" rx="2.2" ry="1.3" fill="rgba(196,168,255,0.45)"/>
-          <ellipse cx="29.5" cy="21" rx="2.2" ry="1.3" fill="rgba(196,168,255,0.45)"/>
-          <!-- 입 -->
-          <path d="M19 22Q21 24.5 23 22" stroke="rgba(124,58,237,0.7)" stroke-width="1.2" stroke-linecap="round" fill="none"/>
-          <!-- 별 장식 -->
-          <circle cx="34" cy="12" r="1.5" fill="rgba(255,255,255,0.7)"/>
-          <circle cx="37" cy="20" r="1" fill="rgba(255,255,255,0.5)"/>
-        </svg>
-      </div>
-      <span class="mnav-label" style="color:#7c3aed">댓글</span>
-    </button>
-
-    <!-- 로그인: 오렌지 토끼 캐릭터 -->
-    <button class="mnav-btn" onclick="showPage('auth');setNav('auth');setAtab('login')">
-      <div class="mnav-icon mi-login">
-        <svg width="46" height="46" viewBox="0 0 46 46" fill="none">
-          <!-- 귀 -->
-          <ellipse cx="17" cy="11" rx="4" ry="7" fill="rgba(255,255,255,0.8)"/>
-          <ellipse cx="29" cy="11" rx="4" ry="7" fill="rgba(255,255,255,0.8)"/>
-          <ellipse cx="17" cy="11" rx="2.2" ry="4.5" fill="rgba(255,180,120,0.5)"/>
-          <ellipse cx="29" cy="11" rx="2.2" ry="4.5" fill="rgba(255,180,120,0.5)"/>
-          <!-- 얼굴 -->
-          <ellipse cx="23" cy="27" rx="12" ry="11" fill="rgba(255,255,255,0.95)"/>
-          <!-- 눈 -->
-          <circle cx="18.5" cy="25" r="2.5" fill="white"/>
-          <circle cx="18.5" cy="25" r="1.5" fill="#f97316" opacity="0.9"/>
-          <circle cx="19.1" cy="24.4" r="0.6" fill="white"/>
-          <circle cx="27.5" cy="25" r="2.5" fill="white"/>
-          <circle cx="27.5" cy="25" r="1.5" fill="#f97316" opacity="0.9"/>
-          <circle cx="28.1" cy="24.4" r="0.6" fill="white"/>
-          <!-- 볼터치 -->
-          <ellipse cx="15.5" cy="28" rx="2.8" ry="1.6" fill="rgba(255,160,100,0.35)"/>
-          <ellipse cx="30.5" cy="28" rx="2.8" ry="1.6" fill="rgba(255,160,100,0.35)"/>
-          <!-- 코+입 -->
-          <ellipse cx="23" cy="29" rx="1.2" ry="0.8" fill="rgba(249,115,22,0.6)"/>
-          <path d="M20.5 30.5Q23 33 25.5 30.5" stroke="rgba(249,115,22,0.7)" stroke-width="1.2" stroke-linecap="round" fill="none"/>
-          <!-- 수염 -->
-          <line x1="14" y1="29" x2="20" y2="29.5" stroke="rgba(255,255,255,0.6)" stroke-width="0.8"/>
-          <line x1="26" y1="29.5" x2="32" y2="29" stroke="rgba(255,255,255,0.6)" stroke-width="0.8"/>
-        </svg>
-      </div>
-      <span class="mnav-label" style="color:#f97316">로그인</span>
-    </button>
-
-    <!-- 관리자: 민트 왕관 곰 캐릭터 -->
-    <button class="mnav-btn" onclick="toggleMobileDash()">
-      <div class="mnav-icon mi-admin">
-        <svg width="46" height="46" viewBox="0 0 46 46" fill="none">
-          <!-- 왕관 -->
-          <path d="M12 20L15 13L19.5 18L23 11L26.5 18L31 13L34 20Z" fill="rgba(255,255,255,0.9)"/>
-          <rect x="12" y="19" width="22" height="4" rx="2" fill="rgba(255,255,255,0.7)"/>
-          <!-- 왕관 보석 -->
-          <circle cx="23" cy="15" r="2" fill="rgba(16,185,129,0.5)"/>
-          <circle cx="15" cy="19" r="1.2" fill="rgba(255,255,255,0.5)"/>
-          <circle cx="31" cy="19" r="1.2" fill="rgba(255,255,255,0.5)"/>
-          <!-- 곰 귀 -->
-          <circle cx="14" cy="26" r="4.5" fill="rgba(255,255,255,0.75)"/>
-          <circle cx="32" cy="26" r="4.5" fill="rgba(255,255,255,0.75)"/>
-          <circle cx="14" cy="26" r="2.5" fill="rgba(110,231,183,0.5)"/>
-          <circle cx="32" cy="26" r="2.5" fill="rgba(110,231,183,0.5)"/>
-          <!-- 얼굴 -->
-          <ellipse cx="23" cy="32" rx="11" ry="9" fill="rgba(255,255,255,0.95)"/>
-          <!-- 눈 -->
-          <circle cx="19" cy="30" r="2.2" fill="white"/>
-          <circle cx="19" cy="30" r="1.3" fill="#10b981" opacity="0.9"/>
-          <circle cx="19.5" cy="29.5" r="0.55" fill="white"/>
-          <circle cx="27" cy="30" r="2.2" fill="white"/>
-          <circle cx="27" cy="30" r="1.3" fill="#10b981" opacity="0.9"/>
-          <circle cx="27.5" cy="29.5" r="0.55" fill="white"/>
-          <!-- 볼터치 -->
-          <ellipse cx="16" cy="33" rx="2.5" ry="1.5" fill="rgba(110,231,183,0.35)"/>
-          <ellipse cx="30" cy="33" rx="2.5" ry="1.5" fill="rgba(110,231,183,0.35)"/>
-          <!-- 코 입 -->
-          <ellipse cx="23" cy="33.5" rx="2" ry="1.2" fill="rgba(16,185,129,0.4)"/>
-          <path d="M20.5 35Q23 37.5 25.5 35" stroke="rgba(16,185,129,0.7)" stroke-width="1.2" stroke-linecap="round" fill="none"/>
-        </svg>
-      </div>
-      <span class="mnav-label" style="color:#10b981">관리자</span>
-    </button>
-  </div>
-
-  <!-- 관리자 대시보드 패널 -->
-  <div id="mobileDashPanel" style="display:none;border-top:1px solid var(--bd);padding:14px;max-height:70vh;overflow-y:auto;background:var(--sur)">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-      <div style="font-size:14px;font-weight:800;color:var(--tx)">🔐 관리자 메뉴</div>
-      <button onclick="toggleMobileDash()" style="background:none;border:none;color:var(--mt);cursor:pointer;font-size:20px">×</button>
-    </div>
-    <!-- 비로그인 -->
-    <div id="mobileDashLogin" style="display:block">
-      <input type="password" id="mobilePwField" placeholder="관리자 비밀번호" style="width:100%;background:var(--sur2);border:1.5px solid var(--bd2);border-radius:10px;padding:11px 14px;font-size:14px;color:var(--tx);outline:none;font-family:var(--font);margin-bottom:8px;box-sizing:border-box">
-      <button onclick="doMobileAdminLogin()" style="width:100%;background:var(--grad);color:#fff;border:none;border-radius:10px;padding:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font)">🔐 로그인</button>
-    </div>
-    <!-- 로그인 후 -->
-    <div id="mobileDashMain" style="display:none">
-      <!-- 통계 카드 -->
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px">
-        <div style="background:linear-gradient(145deg,#fff,#e8e2ff);border-radius:14px;padding:12px;text-align:center;box-shadow:3px 3px 8px rgba(124,58,237,0.2),-2px -2px 6px rgba(255,255,255,0.9)">
-          <div style="font-size:18px;font-weight:800;color:var(--ac)" id="mDashTotal">-</div>
-          <div style="font-size:9px;color:var(--mt);margin-top:2px">누적</div>
-        </div>
-        <div style="background:linear-gradient(145deg,#fff,#fde8f0);border-radius:14px;padding:12px;text-align:center;box-shadow:3px 3px 8px rgba(236,72,153,0.2),-2px -2px 6px rgba(255,255,255,0.9)">
-          <div style="font-size:18px;font-weight:800;color:#ec4899" id="mDashDaily">-</div>
-          <div style="font-size:9px;color:var(--mt);margin-top:2px">오늘</div>
-        </div>
-        <div style="background:linear-gradient(145deg,#fff,#d1fae5);border-radius:14px;padding:12px;text-align:center;box-shadow:3px 3px 8px rgba(16,185,129,0.2),-2px -2px 6px rgba(255,255,255,0.9)">
-          <div style="font-size:18px;font-weight:800;color:#10b981" id="mDashPosts">-</div>
-          <div style="font-size:9px;color:var(--mt);margin-top:2px">글</div>
-        </div>
-      </div>
-      <!-- 빠른 메뉴 귀여운 아이콘 -->
-      
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
-
-        <!-- 뉴스수집 -->
-        <button class="dq-btn" onclick="closeMobileDash();showPage('admin');adminOpen();setAdminTab('news')">
-          <div class="dq-card" style="background:linear-gradient(135deg,#ecfdf5,#d1fae5);box-shadow:0 4px 14px rgba(16,185,129,0.2),inset 0 1px 0 rgba(255,255,255,0.8);border:1px solid rgba(16,185,129,0.15)">
-            <div style="width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#34d399,#059669);box-shadow:0 4px 10px rgba(5,150,105,0.4);display:flex;align-items:center;justify-content:center">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <rect x="3" y="5" width="18" height="3" rx="1.5" fill="white" opacity="0.9"/>
-                <rect x="3" y="10.5" width="13" height="2.5" rx="1.25" fill="white" opacity="0.75"/>
-                <rect x="3" y="15.5" width="9" height="2.5" rx="1.25" fill="white" opacity="0.6"/>
-                <circle cx="19" cy="17" r="3.5" fill="white" opacity="0.95"/>
-                <path d="M18 17L19 18L21 16" stroke="#059669" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <div style="font-size:11px;font-weight:800;color:#065f46">수집 &amp; 발행</div>
-            <div style="font-size:9px;color:#6ee7b7;font-weight:600">🗞️ AI+발행</div>
-          </div>
-        </button>
-
-        <!-- 글 가져오기 -->
-        <button class="dq-btn" onclick="closeMobileDash();showPage('admin');adminOpen();setAdminTab('rss')">
-          <div class="dq-card" style="background:linear-gradient(135deg,#f5f3ff,#ede9fe);box-shadow:0 4px 14px rgba(124,58,237,0.2),inset 0 1px 0 rgba(255,255,255,0.8);border:1px solid rgba(124,58,237,0.15)">
-            <div style="width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#a78bfa,#7c3aed);box-shadow:0 4px 10px rgba(124,58,237,0.4);display:flex;align-items:center;justify-content:center">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <circle cx="5.5" cy="18.5" r="2" fill="white" opacity="0.9"/>
-                <path d="M4 11C7.87 11 11 14.13 11 18" stroke="white" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.8"/>
-                <path d="M4 6C10.63 6 16 11.37 16 18" stroke="white" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.6"/>
-                <path d="M20 18C20 11.37 14.63 6 8 6" stroke="white" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.4"/>
-              </svg>
-            </div>
-            <div style="font-size:11px;font-weight:800;color:#4c1d95">글 가져오기</div>
-            <div style="font-size:9px;color:#c4b5fd;font-weight:600">연동</div>
-          </div>
-        </button>
-
-        <!-- 방문자 통계 -->
-        <button class="dq-btn" onclick="closeMobileDash();showPage('admin');adminOpen();setAdminTab('stats');refreshAdminStats()">
-          <div class="dq-card" style="background:linear-gradient(135deg,#fff1f2,#ffe4e6);box-shadow:0 4px 14px rgba(244,63,94,0.2),inset 0 1px 0 rgba(255,255,255,0.8);border:1px solid rgba(244,63,94,0.15)">
-            <div style="width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#fb7185,#e11d48);box-shadow:0 4px 10px rgba(225,29,72,0.4);display:flex;align-items:center;justify-content:center">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <rect x="3" y="14" width="3.5" height="7" rx="1.75" fill="white" opacity="0.7"/>
-                <rect x="8.5" y="10" width="3.5" height="11" rx="1.75" fill="white" opacity="0.85"/>
-                <rect x="14" y="6" width="3.5" height="15" rx="1.75" fill="white" opacity="0.95"/>
-                <path d="M4.75 14L10.25 10L15.75 6" stroke="rgba(255,255,255,0.6)" stroke-width="1.2" stroke-linecap="round" stroke-dasharray="1.5 1.5"/>
-                <circle cx="19" cy="5" r="2.2" fill="white" opacity="0.9"/>
-                <path d="M18.2 5L19 5.9L20.4 4.3" stroke="#e11d48" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <div style="font-size:11px;font-weight:800;color:#881337">방문자통계</div>
-            <div style="font-size:9px;color:#fda4af;font-weight:600">실시간</div>
-          </div>
-        </button>
-
-        <!-- 파일 관리 -->
-        <button class="dq-btn" onclick="closeMobileDash();showPage('admin');adminOpen();setAdminTab('files');initFilesTab()">
-          <div class="dq-card" style="background:linear-gradient(135deg,#fffbeb,#fef3c7);box-shadow:0 4px 14px rgba(245,158,11,0.2),inset 0 1px 0 rgba(255,255,255,0.8);border:1px solid rgba(245,158,11,0.15)">
-            <div style="width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#fbbf24,#d97706);box-shadow:0 4px 10px rgba(217,119,6,0.4);display:flex;align-items:center;justify-content:center">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path d="M4 6C4 4.9 4.9 4 6 4H11L13 7H18C19.1 7 20 7.9 20 9V18C20 19.1 19.1 20 18 20H6C4.9 20 4 19.1 4 18V6Z" fill="white" opacity="0.9"/>
-                <path d="M4 10H20" stroke="rgba(217,119,6,0.4)" stroke-width="0.8"/>
-                <rect x="8" y="13" width="8" height="1.5" rx="0.75" fill="rgba(217,119,6,0.5)"/>
-                <rect x="9" y="15.5" width="6" height="1.5" rx="0.75" fill="rgba(217,119,6,0.35)"/>
-              </svg>
-            </div>
-            <div style="font-size:11px;font-weight:800;color:#78350f">파일 관리</div>
-            <div style="font-size:9px;color:#fcd34d;font-weight:600">PPT 등록</div>
-          </div>
-        </button>
-      </div>
-      <button onclick="closeMobileDash();showPage('admin');adminOpen()" style="width:100%;background:linear-gradient(145deg,#fff,#e8e2ff);border:none;border-radius:12px;padding:12px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font);color:var(--tx);box-shadow:3px 3px 8px rgba(124,58,237,0.2),-2px -2px 6px rgba(255,255,255,0.9);margin-bottom:8px">
-        🖥️ 전체 관리자 페이지로 이동
-      </button>
-
-      <!-- ━━━ 팝업 컨트롤러 ━━━ -->
-      <div style="margin-bottom:10px">
-        <div style="font-size:11px;font-weight:800;color:var(--mt);margin-bottom:7px;display:flex;align-items:center;gap:5px">
-          <span style="display:inline-block;width:3px;height:14px;background:linear-gradient(180deg,#f59e0b,#ef4444);border-radius:999px"></span>
-          🔔 팝업 컨트롤러
-        </div>
-
-        <!-- 상태 배너 -->
-        <div style="background:linear-gradient(135deg,#1a0a00,#3b1a00);border-radius:14px;padding:11px 13px;margin-bottom:7px;display:flex;align-items:center;justify-content:space-between;border:1px solid rgba(249,115,22,.2)">
-          <div style="display:flex;align-items:center;gap:8px">
-            <span style="font-size:18px">🔔</span>
-            <div>
-              <div style="font-size:12px;font-weight:800;color:#fef3c7">소셜 알림 팝업</div>
-              <div id="mPopupStateText" style="font-size:10px;color:rgba(254,243,199,.6)">● 상태 확인 중...</div>
-            </div>
-          </div>
-          <div id="mPopupBadge" style="font-size:10px;padding:3px 9px;border-radius:999px;font-weight:700;background:rgba(16,185,129,.2);color:#6ee7b7;border:1px solid rgba(16,185,129,.4)">● 활성</div>
-        </div>
-
-        <!-- 4개 기능 버튼 그리드 -->
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:7px">
-
-          <!-- ① 자동 시작 -->
-          <button onclick="mPopupStart()" style="background:linear-gradient(135deg,#052e16,#064e3b);border:none;border-radius:12px;padding:13px 10px;cursor:pointer;font-family:var(--font);text-align:center;-webkit-tap-highlight-color:transparent">
-            <div style="font-size:26px;margin-bottom:5px">▶️</div>
-            <div style="font-size:12px;font-weight:800;color:#6ee7b7">자동 시작</div>
-            <div style="font-size:9px;color:rgba(110,231,183,.6);margin-top:2px">자동 팝업 ON</div>
-          </button>
-
-          <!-- ② 멈춤 -->
-          <button onclick="mPopupStop()" style="background:linear-gradient(135deg,#0f0f1a,#1e1b4b);border:none;border-radius:12px;padding:13px 10px;cursor:pointer;font-family:var(--font);text-align:center;-webkit-tap-highlight-color:transparent">
-            <div style="font-size:26px;margin-bottom:5px">⏹️</div>
-            <div style="font-size:12px;font-weight:800;color:#c4b5fd">멈춤</div>
-            <div style="font-size:9px;color:rgba(196,181,253,.6);margin-top:2px">팝업 중단</div>
-          </button>
-
-          <!-- ③ 즉시 테스트 -->
-          <button onclick="mPopupTest()" style="background:linear-gradient(135deg,#3b0764,#6b21a8);border:none;border-radius:12px;padding:13px 10px;cursor:pointer;font-family:var(--font);text-align:center;-webkit-tap-highlight-color:transparent">
-            <div style="font-size:26px;margin-bottom:5px">⚡</div>
-            <div style="font-size:12px;font-weight:800;color:#e879f9">즉시 테스트</div>
-            <div style="font-size:9px;color:rgba(232,121,249,.6);margin-top:2px">지금 1회 표시</div>
-          </button>
-
-          <!-- ④ 직접 작성 토글 -->
-          <button onclick="toggleMPopupInput()" style="background:linear-gradient(135deg,#1e1b4b,#312e81);border:none;border-radius:12px;padding:13px 10px;cursor:pointer;font-family:var(--font);text-align:center;-webkit-tap-highlight-color:transparent">
-            <div style="font-size:26px;margin-bottom:5px">✍️</div>
-            <div style="font-size:12px;font-weight:800;color:#a5b4fc">직접 작성</div>
-            <div style="font-size:9px;color:rgba(165,180,252,.6);margin-top:2px">이름+메시지</div>
-          </button>
-
-        </div>
-
-        <!-- 직접 작성 입력 폼 (평소 숨김) -->
-        <div id="mPopupInputArea" style="display:none;background:linear-gradient(135deg,#1e1b4b,#2d2060);border-radius:12px;padding:12px;margin-bottom:7px;border:1px solid rgba(124,58,237,.3)">
-          <div style="font-size:11px;font-weight:700;color:#a5b4fc;margin-bottom:8px">✍️ 팝업 직접 작성</div>
-          <input id="mPopupName" class="inp" placeholder="👤 이름 (예: 김○수)" style="margin-bottom:6px;font-size:13px;background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2);color:#fff">
-          <input id="mPopupMsg" class="inp" placeholder="💬 메시지 (예: 방금 가입했어요 🎉)" style="margin-bottom:8px;font-size:13px;background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2);color:#fff">
-          <!-- 프리셋 태그 -->
-          <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px">
-            <button onclick="mSetMsg('방금 가입했어요 🎉')" style="background:rgba(124,58,237,.3);color:#c4b5fd;border:1px solid rgba(124,58,237,.4);border-radius:20px;padding:5px 10px;font-size:10px;cursor:pointer;font-family:var(--font)">🎉 가입</button>
-            <button onclick="mSetMsg('글을 읽고 있어요 📖')" style="background:rgba(59,130,246,.3);color:#93c5fd;border:1px solid rgba(59,130,246,.4);border-radius:20px;padding:5px 10px;font-size:10px;cursor:pointer;font-family:var(--font)">📖 열람</button>
-            <button onclick="mSetMsg('댓글을 남겼어요 💬')" style="background:rgba(16,185,129,.3);color:#6ee7b7;border:1px solid rgba(16,185,129,.4);border-radius:20px;padding:5px 10px;font-size:10px;cursor:pointer;font-family:var(--font)">💬 댓글</button>
-            <button onclick="mSetMsg('좋아요를 눌렀어요 ❤️')" style="background:rgba(239,68,68,.3);color:#fca5a5;border:1px solid rgba(239,68,68,.4);border-radius:20px;padding:5px 10px;font-size:10px;cursor:pointer;font-family:var(--font)">❤️ 좋아요</button>
-            <button onclick="mSetMsg('구독했어요 📩')" style="background:rgba(236,72,153,.3);color:#f9a8d4;border:1px solid rgba(236,72,153,.4);border-radius:20px;padding:5px 10px;font-size:10px;cursor:pointer;font-family:var(--font)">📩 구독</button>
-          </div>
-          <button onclick="mPopupSend()" style="width:100%;background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;border:none;border-radius:10px;padding:12px;font-size:13px;font-weight:800;cursor:pointer;font-family:var(--font)">📣 팝업 바로 발송!</button>
-        </div>
-      </div>
-
-      <!-- ━━━ 토탈 리모콘 ━━━ -->
-      <div style="margin-bottom:10px">
-        <div style="font-size:11px;font-weight:800;color:var(--mt);margin-bottom:7px;display:flex;align-items:center;gap:5px">
-          <span style="display:inline-block;width:3px;height:14px;background:linear-gradient(180deg,#7c3aed,#ec4899);border-radius:999px"></span>
-          🎮 토탈 리모콘
-        </div>
-
-        <!-- 콘텐츠 생산 -->
-        <div style="font-size:10px;font-weight:700;color:var(--mt);margin-bottom:5px">📝 콘텐츠 생산</div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:8px">
-          <button onclick="closeMobileDash();runAutoNews(false)" style="background:linear-gradient(135deg,#ecfdf5,#d1fae5);border:1px solid rgba(16,185,129,.2);border-radius:11px;padding:10px 5px;cursor:pointer;font-family:var(--font);text-align:center;-webkit-tap-highlight-color:transparent">
-            <div style="font-size:22px;margin-bottom:3px">🗞️</div>
-            <div style="font-size:10px;font-weight:700;color:#065f46">수집&amp;발행</div>
-            <div style="font-size:8px;color:#6ee7b7">AI+발행</div>
-          </button>
-          <button onclick="closeMobileDash();showPage('admin');adminOpen();setAdminTab('rss');setTimeout(loadTarryGuideRSS,300)" style="background:linear-gradient(135deg,#f5f3ff,#ede9fe);border:1px solid rgba(124,58,237,.2);border-radius:11px;padding:10px 5px;cursor:pointer;font-family:var(--font);text-align:center;-webkit-tap-highlight-color:transparent">
-            <div style="font-size:22px;margin-bottom:3px">🔄</div>
-            <div style="font-size:10px;font-weight:700;color:#4c1d95">RSS동기화</div>
-            <div style="font-size:8px;color:#c4b5fd">글 가져오기</div>
-          </button>
-          <button onclick="closeMobileDash();showPage('admin');adminOpen();setAdminTab('write');setTimeout(newPost,300)" style="background:linear-gradient(135deg,#fdf2f8,#fce7f3);border:1px solid rgba(236,72,153,.2);border-radius:11px;padding:10px 5px;cursor:pointer;font-family:var(--font);text-align:center;-webkit-tap-highlight-color:transparent">
-            <div style="font-size:22px;margin-bottom:3px">✍️</div>
-            <div style="font-size:10px;font-weight:700;color:#831843">글쓰기</div>
-            <div style="font-size:8px;color:#f9a8d4">새 글 작성</div>
-          </button>
-        </div>
-
-        <!-- 독자 소통 -->
-        <div style="font-size:10px;font-weight:700;color:var(--mt);margin-bottom:5px">💬 독자 소통</div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:8px">
-          <button onclick="closeMobileDash();showPage('admin');adminOpen();setAdminTab('newsletter')" style="background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1px solid rgba(59,130,246,.2);border-radius:11px;padding:10px 5px;cursor:pointer;font-family:var(--font);text-align:center;-webkit-tap-highlight-color:transparent">
-            <div style="font-size:22px;margin-bottom:3px">💌</div>
-            <div style="font-size:10px;font-weight:700;color:#1e3a8a">뉴스레터</div>
-            <div style="font-size:8px;color:#93c5fd">구독자 발송</div>
-          </button>
-          <button onclick="closeMobileDash();showPage('admin');adminOpen();setAdminTab('sns')" style="background:linear-gradient(135deg,#fff7ed,#ffedd5);border:1px solid rgba(249,115,22,.2);border-radius:11px;padding:10px 5px;cursor:pointer;font-family:var(--font);text-align:center;-webkit-tap-highlight-color:transparent">
-            <div style="font-size:22px;margin-bottom:3px">📱</div>
-            <div style="font-size:10px;font-weight:700;color:#7c2d12">SNS발행</div>
-            <div style="font-size:8px;color:#fdba74">콘텐츠 발행</div>
-          </button>
-          <button onclick="closeMobileDash();showPage('admin');adminOpen();setAdminTab('stats')" style="background:linear-gradient(135deg,#fff1f2,#ffe4e6);border:1px solid rgba(244,63,94,.2);border-radius:11px;padding:10px 5px;cursor:pointer;font-family:var(--font);text-align:center;-webkit-tap-highlight-color:transparent">
-            <div style="font-size:22px;margin-bottom:3px">📊</div>
-            <div style="font-size:10px;font-weight:700;color:#881337">통계</div>
-            <div style="font-size:8px;color:#fda4af">방문자 현황</div>
-          </button>
-        </div>
-
-        <!-- 사이트 관리 -->
-        <div style="font-size:10px;font-weight:700;color:var(--mt);margin-bottom:5px">⚙️ 사이트 관리</div>
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:8px">
-          <button onclick="closeMobileDash();showPage('admin');adminOpen();setAdminTab('cat')" style="background:var(--sur2);border:1px solid var(--bd);border-radius:11px;padding:10px 5px;cursor:pointer;font-family:var(--font);text-align:center;-webkit-tap-highlight-color:transparent">
-            <div style="font-size:20px;margin-bottom:3px">📂</div>
-            <div style="font-size:9px;font-weight:700;color:var(--tx)">카테고리</div>
-          </button>
-          <button onclick="closeMobileDash();showPage('admin');adminOpen();setAdminTab('theme')" style="background:var(--sur2);border:1px solid var(--bd);border-radius:11px;padding:10px 5px;cursor:pointer;font-family:var(--font);text-align:center;-webkit-tap-highlight-color:transparent">
-            <div style="font-size:20px;margin-bottom:3px">🎨</div>
-            <div style="font-size:9px;font-weight:700;color:var(--tx)">테마</div>
-          </button>
-          <button onclick="closeMobileDash();showPage('admin');adminOpen();setAdminTab('seo')" style="background:var(--sur2);border:1px solid var(--bd);border-radius:11px;padding:10px 5px;cursor:pointer;font-family:var(--font);text-align:center;-webkit-tap-highlight-color:transparent">
-            <div style="font-size:20px;margin-bottom:3px">🔍</div>
-            <div style="font-size:9px;font-weight:700;color:var(--tx)">SEO</div>
-          </button>
-          <button onclick="closeMobileDash();showPage('admin');adminOpen();setAdminTab('files')" style="background:var(--sur2);border:1px solid var(--bd);border-radius:11px;padding:10px 5px;cursor:pointer;font-family:var(--font);text-align:center;-webkit-tap-highlight-color:transparent">
-            <div style="font-size:20px;margin-bottom:3px">📁</div>
-            <div style="font-size:9px;font-weight:700;color:var(--tx)">파일</div>
-          </button>
-        </div>
-
-        <!-- 원버튼 -->
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
-          <button onclick="toggleDarkMode()" style="background:linear-gradient(135deg,#1e1b4b,#312e81);color:#fff;border:none;border-radius:11px;padding:11px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font)">🌙 다크모드</button>
-          <button onclick="doAdminLogout();closeMobileDash()" style="background:rgba(220,38,38,.1);color:#dc2626;border:1px solid rgba(220,38,38,.2);border-radius:11px;padding:11px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font)">🚪 로그아웃</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-<!-- PPT 다운로드 정보수집 모달 -->
-<div id="pptDownloadModal" style="display:none;position:fixed;inset:0;background:rgba(10,9,20,.8);z-index:99999;align-items:center;justify-content:center;padding:20px">
-  <div style="background:var(--sur);border-radius:24px;width:min(440px,95vw);overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.4);position:relative">
-
-    <!-- 헤더 -->
-    <div style="background:linear-gradient(135deg,#1a1a2e,#2d1f4e);padding:24px 24px 20px;text-align:center;position:relative">
-      <button onclick="closePPTModal()" style="position:absolute;top:12px;right:12px;background:rgba(255,255,255,.15);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;line-height:1">×</button>
-      <div style="font-size:44px;margin-bottom:10px">📊</div>
-      <div style="font-size:19px;font-weight:800;color:#fff;font-family:'Playfair Display',serif;margin-bottom:6px">완벽 사용설명서 PPT</div>
-      <div style="font-size:12px;color:#a78bfa">무료 다운로드 · 회원 혜택 · 기능 안내 · 관리자 가이드</div>
-    </div>
-
-    <!-- 안내 -->
-    <div style="padding:20px 24px 0">
-      <div style="background:rgba(124,58,237,.08);border:1px solid rgba(124,58,237,.2);border-radius:12px;padding:12px 14px;margin-bottom:18px;font-size:12px;color:var(--mt);line-height:1.8">
-        🎁 <strong style="color:var(--tx)">무료로 다운로드</strong>할 수 있어요!<br>
-        연락처를 남겨주시면 <strong style="color:var(--ac)">새 자료 업데이트 소식</strong>도 가장 먼저 받아볼 수 있어요 😊
-      </div>
-
-      <!-- 이름 -->
-      <div style="margin-bottom:12px">
-        <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:5px">이름 <span style="color:#dc2626">*</span></label>
-        <input id="pptLeadName" class="inp" placeholder="홍길동" style="font-size:14px">
-      </div>
-
-      <!-- 이메일 -->
-      <div style="margin-bottom:12px">
-        <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:5px">이메일 <span style="color:#dc2626">*</span> <span style="font-weight:400;color:var(--mt)">(둘 중 하나 필수)</span></label>
-        <div style="position:relative">
-          <input id="pptLeadEmail" class="inp" type="email" placeholder="example@gmail.com" style="font-size:14px;padding-left:36px">
-          <span style="position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:16px;pointer-events:none">✉️</span>
-        </div>
-      </div>
-
-      <!-- 전화번호 -->
-      <div style="margin-bottom:18px">
-        <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:5px">전화번호 <span style="font-weight:400;color:var(--mt)">(선택)</span></label>
-        <div style="position:relative">
-          <input id="pptLeadPhone" class="inp" type="tel" placeholder="010-0000-0000" style="font-size:14px;padding-left:36px">
-          <span style="position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:16px;pointer-events:none">📱</span>
-        </div>
-      </div>
-
-      <!-- 오류 메시지 -->
-      <div id="pptModalErr" style="display:none;background:rgba(220,38,38,.08);border:1px solid rgba(220,38,38,.2);border-radius:8px;padding:9px 12px;font-size:12px;color:#dc2626;margin-bottom:12px"></div>
-
-      <!-- 다운로드 버튼 -->
-      <button onclick="submitPPTLead()" style="width:100%;background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;border:none;border-radius:12px;padding:14px;font-size:15px;font-weight:800;cursor:pointer;font-family:'Noto Sans KR',sans-serif;margin-bottom:10px;transition:.2s" onmouseover="this.style.opacity='.9'" onmouseout="this.style.opacity='1'">
-        📥 무료 다운로드 받기
-      </button>
-      <p style="text-align:center;font-size:10px;color:var(--mt);margin-bottom:18px;line-height:1.6">수집된 연락처는 새 자료 안내 외 다른 목적으로 사용되지 않아요</p>
-    </div>
-  </div>
-</div>
-
-<!-- 수동 수집 모달 -->
-<div id="manualCollectModal" style="display:none;position:fixed;inset:0;background:rgba(10,9,20,.85);z-index:99999;align-items:center;justify-content:center;padding:20px">
-  <div style="background:var(--sur);border-radius:20px;width:min(480px,95vw);max-height:85vh;overflow-y:auto;box-shadow:0 30px 80px rgba(0,0,0,.4)">
-    <div style="background:linear-gradient(135deg,#064e3b,#065f46);border-radius:20px 20px 0 0;padding:20px 20px 18px;position:relative">
-      <button onclick="closeManualCollect()" style="position:absolute;top:12px;right:12px;background:rgba(255,255,255,.15);border:none;color:#fff;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:16px">×</button>
-      <div style="font-size:20px;font-weight:900;color:#fff;font-family:var(--display);margin-bottom:4px">✋ 수동 뉴스 수집</div>
-      <div style="font-size:12px;color:rgba(110,231,183,.7)">원하는 주제와 내용으로 직접 설정해요</div>
-    </div>
-    <div style="padding:18px">
-      <div style="margin-bottom:12px">
-        <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:5px">🔍 검색 키워드</label>
-        <input class="inp" id="manualKeyword" placeholder="예: 챗GPT 활용법, 재테크 방법" style="font-size:13px">
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
-        <div>
-          <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:5px">🌐 검색 소스</label>
-          <select class="inp" id="manualSource" style="font-size:12px">
-            <option value="google">Google 뉴스</option>
-            <option value="naver">네이버 뉴스</option>
-            <option value="daum">다음 뉴스</option>
-            <option value="all">전체 소스</option>
-          </select>
-        </div>
-        <div>
-          <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:5px">📂 카테고리</label>
-          <select class="inp" id="manualCategory" style="font-size:12px">
-            <option value="종합">종합</option><option value="IT기술">IT&기술</option>
-            <option value="경제재테크">경제&재테크</option><option value="생활건강">생활&건강</option><option value="트렌드">트렌드</option>
-          </select>
-        </div>
-      </div>
-      <div style="margin-bottom:12px">
-        <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:5px">📝 제목 (선택 — 비우면 AI가 자동 생성)</label>
-        <input class="inp" id="manualTitle" placeholder="예: 2026년 AI 트렌드 완벽 정리" style="font-size:13px">
-      </div>
-      <div style="margin-bottom:12px">
-        <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:5px">💬 추가 지시사항 (선택)</label>
-        <textarea class="inp" id="manualInstruction" placeholder="예: 초보자도 이해하기 쉽게 써줘 / 실제 사례 포함해줘" style="height:60px;resize:none;font-size:12px"></textarea>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
-        <div>
-          <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:5px">📊 글 분량</label>
-          <select class="inp" id="manualLength" style="font-size:12px">
-            <option value="1000">1,000자+</option><option value="1500" selected>1,500자+</option>
-            <option value="2000">2,000자+</option><option value="3000">3,000자+</option>
-          </select>
-        </div>
-        <div>
-          <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:5px">🖼️ 이미지</label>
-          <select class="inp" id="manualImg" style="font-size:12px">
-            <option value="ai">AI 자동생성</option>
-            <option value="unsplash">Unsplash</option>
-            <option value="none">이미지 없음</option>
-          </select>
-        </div>
-      </div>
-      <div style="background:var(--sur2);border-radius:11px;padding:11px;border:1px solid var(--bd);margin-bottom:14px">
-        <div style="font-size:11px;font-weight:700;color:var(--mt);margin-bottom:8px">📤 발행 대상</div>
-        <div style="display:flex;gap:14px;flex-wrap:wrap">
-          <label style="display:flex;align-items:center;gap:5px;font-size:12px;color:var(--tx);cursor:pointer"><input type="checkbox" id="mPubSite" checked style="accent-color:#7c3aed"> 🌐 사이트</label>
-          <label style="display:flex;align-items:center;gap:5px;font-size:12px;color:var(--tx);cursor:pointer"><input type="checkbox" id="mPubSns" style="accent-color:#f97316"> 📱 SNS</label>
-          <label style="display:flex;align-items:center;gap:5px;font-size:12px;color:var(--tx);cursor:pointer"><input type="checkbox" id="mPubNl" style="accent-color:#06b6d4"> 💌 뉴스레터</label>
-        </div>
-      </div>
-      <button onclick="runManualCollect()" style="width:100%;background:linear-gradient(135deg,#059669,#7c3aed);color:#fff;border:none;border-radius:12px;padding:14px;font-size:15px;font-weight:800;cursor:pointer;font-family:var(--font)">🚀 수동 수집 & 발행 시작!</button>
-    </div>
-  </div>
-</div>
-
-<!-- 공지 팝업 -->
-<div id="noticePopup" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:99999;align-items:center;justify-content:center;padding:20px">
-  <div style="background:var(--sur);border-radius:20px;padding:28px;max-width:420px;width:100%;position:relative;border:1px solid var(--bd2);box-shadow:0 20px 60px rgba(0,0,0,.4)">
-    <button onclick="hideNoticePopup()" style="position:absolute;top:14px;right:14px;background:var(--sur2);border:none;border-radius:50%;width:32px;height:32px;cursor:pointer;font-size:16px;color:var(--mt)">✕</button>
-    <div id="noticePopupTitle" style="font-size:20px;font-weight:800;color:var(--tx);margin-bottom:10px;padding-right:30px"></div>
-    <div id="noticePopupImg" style="display:none;margin-bottom:12px"><img id="noticePopupImgEl" src="" style="width:100%;border-radius:12px;max-height:200px;object-fit:cover"></div>
-    <div id="noticePopupVideo" style="display:none;margin-bottom:12px;border-radius:12px;overflow:hidden"><iframe id="noticePopupVideoEl" src="" style="width:100%;height:200px;border:none" allowfullscreen></iframe></div>
-    <div id="noticePopupContent" style="font-size:14px;color:var(--mt);line-height:1.8"></div>
-  </div>
-</div>
-
-
-<script src="js/data.js"></script>
-<script src="js/firebase.js"></script>
-<script src="js/ui.js"></script>
-<script src="js/auth.js"></script>
-<script src="js/posts.js"></script>
-<script src="js/admin.js"></script>
-<script src="js/rss.js"></script>
-<script src="js/newsletter.js"></script>
-<script src="js/news.js"></script>
-<script src="js/sns.js"></script>
-<script src="js/mobile.js"></script>
-<script src="js/remote.js"></script>
 </body>
 </html>
