@@ -1,4 +1,4 @@
-'<button onclick="closeReplyBox('+i+')" style="background:var(--sur2);border:1px solid var(--bd);border-radius:8px;padding:8px 10px;cursor:pointer;font-size:12px;color:var(--mt)">✕</button>'<!DOCTYPE html><!-- v1774201697 -->
+<!DOCTYPE html><!-- v1774201697 -->
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -1042,7 +1042,7 @@
       <button class="atab-admin" id="at-theme" onclick="switchTab('theme')">🎨 테마</button>
       <button class="atab-admin" id="at-seo" onclick="switchTab('seo')">🔍 SEO</button>
       <button class="atab-admin" id="at-biz" onclick="switchTab('biz')">🏢 사업자</button>
-      <button class="atab-admin" id="at-pw" onclick="switchTab('pw')">🔑 비밀번호</button>
+      <button class="atab-admin" id="at-pw" onclick="switchTab('pw')">⚙️ 관리자 설정</button>
       <button class="atab-admin" id="at-analytics" onclick="switchTab('analytics')">📊 애널리틱스</button>
       <button class="atab-admin" id="at-news" onclick="switchTab('news')">🗞️ 수집&발행</button>
       <button class="atab-admin" id="at-stats" onclick="switchTab('stats')">📈 방문자통계</button>
@@ -2479,6 +2479,48 @@
           <button class="btn btn-grad" style="width:100%;padding:12px;font-size:13px" onclick="changeAdminPw()">🔑 비밀번호 변경하기</button>
           <div id="pwSuccess" style="display:none;background:rgba(5,150,105,.07);border:1px solid rgba(5,150,105,.2);border-radius:9px;padding:11px;text-align:center;margin-top:9px;font-size:13px;color:var(--green)">✅ 비밀번호가 변경됐어요!</div>
         </div>
+
+        <!-- OG 이미지 설정 -->
+        <div class="admin-section" style="margin-top:14px">
+          <h3>🖼️ 링크 공유 이미지 설정</h3>
+          <div class="info-box">💡 카카오톡·SNS 등에서 링크를 공유할 때 보이는 대표 이미지예요</div>
+
+          <!-- 현재 이미지 미리보기 -->
+          <div style="margin-bottom:12px">
+            <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:6px">현재 공유 이미지</label>
+            <div id="ogImagePreview" style="width:100%;height:160px;border-radius:12px;overflow:hidden;background:var(--sur2);border:1px solid var(--bd);display:flex;align-items:center;justify-content:center">
+              <img id="ogImagePreviewImg" src="" style="width:100%;height:100%;object-fit:cover;display:none">
+              <div id="ogImagePlaceholder" style="text-align:center;color:var(--mt)">
+                <div style="font-size:32px;margin-bottom:8px">🖼️</div>
+                <div style="font-size:12px">이미지를 등록해주세요</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 이미지 업로드 -->
+          <div style="margin-bottom:10px">
+            <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:6px">📁 이미지 직접 업로드</label>
+            <div onclick="document.getElementById('ogImageFile').click()" style="border:2px dashed var(--bd2);border-radius:12px;padding:20px;text-align:center;cursor:pointer;background:var(--sur2);transition:.2s" onmouseover="this.style.borderColor='var(--ac)'" onmouseout="this.style.borderColor='var(--bd2)'">
+              <div style="font-size:24px;margin-bottom:6px">📤</div>
+              <div style="font-size:13px;font-weight:700;color:var(--tx);margin-bottom:4px">클릭하여 이미지 선택</div>
+              <div style="font-size:11px;color:var(--mt)">권장 크기: 1200 × 630px · JPG/PNG</div>
+            </div>
+            <input type="file" id="ogImageFile" accept="image/*" style="display:none" onchange="handleOgImageUpload(this)">
+          </div>
+
+          <!-- URL 직접 입력 -->
+          <div style="margin-bottom:12px">
+            <label style="font-size:11px;font-weight:700;color:var(--mt);display:block;margin-bottom:6px">🔗 또는 이미지 URL 직접 입력</label>
+            <div style="display:flex;gap:7px">
+              <input class="inp" id="ogImageUrl" placeholder="https://example.com/image.jpg" style="flex:1;font-size:12px">
+              <button onclick="applyOgImageUrl()" style="background:var(--grad);color:#fff;border:none;border-radius:9px;padding:10px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font);white-space:nowrap">적용</button>
+            </div>
+          </div>
+
+          <button onclick="saveOgImage()" style="width:100%;background:var(--grad);color:#fff;border:none;border-radius:10px;padding:12px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font)">💾 공유 이미지 저장</button>
+          <div id="ogSaveMsg" style="display:none;background:rgba(5,150,105,.07);border:1px solid rgba(5,150,105,.2);border-radius:8px;padding:9px;text-align:center;margin-top:8px;font-size:12px;color:#059669">✅ 공유 이미지가 저장됐어요! 다음 링크 공유 시 반영돼요.</div>
+        </div>
+
       </div>
     </div>
 

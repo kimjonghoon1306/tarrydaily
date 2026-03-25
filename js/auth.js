@@ -540,6 +540,8 @@ function loadAdminProfile(){
     imgEl.src = img; imgEl.style.display='block';
     if(iniEl) iniEl.style.display='none';
   }
+  // OG 이미지 설정 로드
+  try{ loadOgImageSetting(); }catch(e){}
 }
 
 // ── handleProfileUpload ──

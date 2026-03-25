@@ -700,3 +700,87 @@ function loadPostsFromStorage(){
     }
   }catch(e){}
 }
+// ── OG 이미지 설정 ──
+function handleOgImageUpload(input){
+  if(!input.files||!input.files[0]) return;
+  var file = input.files[0];
+  var reader = new FileReader();
+  reader.onload = function(e){
+    var dataUrl = e.target.result;
+    // 미리보기
+    var img = document.getElementById('ogImagePreviewImg');
+    var placeholder = document.getElementById('ogImagePlaceholder');
+    if(img){ img.src=dataUrl; img.style.display='block'; }
+    if(placeholder) placeholder.style.display='none';
+    // URL 입력란에도 표시
+    var urlInput = document.getElementById('ogImageUrl');
+    if(urlInput) urlInput.value = '(업로드된 이미지)';
+    // localStorage에 임시 저장
+    try{ localStorage.setItem('tarry_og_image_data', dataUrl); }catch(e){}
+    toast('✅ 이미지 업로드 완료! 저장 버튼을 눌러주세요');
+  };
+  reader.readAsDataURL(file);
+}
+
+function applyOgImageUrl(){
+  var url = (document.getElementById('ogImageUrl')?.value||'').trim();
+  if(!url){ toast('URL을 입력해주세요'); return; }
+  var img = document.getElementById('ogImagePreviewImg');
+  var placeholder = document.getElementById('ogImagePlaceholder');
+  if(img){ img.src=url; img.style.display='block'; }
+  if(placeholder) placeholder.style.display='none';
+  try{ localStorage.removeItem('tarry_og_image_data'); }catch(e){}
+  toast('✅ 이미지 URL 적용됐어요! 저장 버튼을 눌러주세요');
+}
+
+function saveOgImage(){
+  var url = (document.getElementById('ogImageUrl')?.value||'').trim();
+  var dataUrl = '';
+  try{ dataUrl = localStorage.getItem('tarry_og_image_data')||''; }catch(e){}
+
+  var finalUrl = dataUrl || url;
+  if(!finalUrl){ toast('이미지를 먼저 선택해주세요'); return; }
+
+  // og:image 메타태그 동적 업데이트
+  var ogImg = document.querySelector('meta[property="og:image"]');
+  var twImg = document.querySelector('meta[name="twitter:image"]');
+  if(ogImg && !dataUrl) ogImg.setAttribute('content', finalUrl);
+  if(twImg && !dataUrl) twImg.setAttribute('content', finalUrl);
+
+  // localStorage에 저장
+  try{
+    if(dataUrl){
+      localStorage.setItem('tarry_og_image_data', dataUrl);
+      localStorage.removeItem('tarry_og_image_url');
+    } else {
+      localStorage.setItem('tarry_og_image_url', finalUrl);
+      localStorage.removeItem('tarry_og_image_data');
+    }
+  }catch(e){}
+
+  var msg = document.getElementById('ogSaveMsg');
+  if(msg){ msg.style.display='block'; setTimeout(function(){ msg.style.display='none'; },3000); }
+  toast('✅ 공유 이미지가 저장됐어요!');
+}
+
+function loadOgImageSetting(){
+  try{
+    var dataUrl = localStorage.getItem('tarry_og_image_data')||'';
+    var url = localStorage.getItem('tarry_og_image_url')||'';
+    var finalUrl = dataUrl || url;
+    if(!finalUrl) return;
+    var img = document.getElementById('ogImagePreviewImg');
+    var placeholder = document.getElementById('ogImagePlaceholder');
+    var urlInput = document.getElementById('ogImageUrl');
+    if(img){ img.src=finalUrl; img.style.display='block'; }
+    if(placeholder) placeholder.style.display='none';
+    if(urlInput && url) urlInput.value = url;
+    // 메타태그에도 적용
+    if(url){
+      var ogImg = document.querySelector('meta[property="og:image"]');
+      var twImg = document.querySelector('meta[name="twitter:image"]');
+      if(ogImg) ogImg.setAttribute('content', url);
+      if(twImg) twImg.setAttribute('content', url);
+    }
+  }catch(e){}
+}
