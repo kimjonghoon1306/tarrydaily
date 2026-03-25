@@ -50,6 +50,13 @@ function selectContactType(type){
   var labels = {'inquiry':'1:1 문의','report':'신고하기','ad':'광고/제휴','etc':'기타 문의'};
   var label = document.getElementById('contactTypeLabel');
   if(label) label.textContent = labels[type]||'1:1 문의';
+  // 카테고리 버튼도 연동
+  var catMap = {'inquiry':'일반 문의','report':'기술 오류','ad':'광고/제휴','etc':'일반 문의'};
+  var targetText = catMap[type];
+  document.querySelectorAll('.cat-btn').forEach(function(btn){
+    btn.classList.remove('sel');
+    if(btn.textContent.trim() === targetText) btn.classList.add('sel');
+  });
 }
 
 // ── selContact ──
