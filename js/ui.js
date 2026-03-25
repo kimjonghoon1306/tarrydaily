@@ -10,6 +10,11 @@ function showPage(id){
   if(id==='cat'){try{buildCatTree();}catch(e){}try{renderPosts();}catch(e){}}
   if(id==='admin')adminOpen();
   if(id==='member'){try{renderMemberPage();}catch(e){}}
+  // 댓글 페이지 - 로그인 안내 표시
+  if(id==='comment'){
+    var notice = document.getElementById('commentLoginNotice');
+    if(notice) notice.style.display = (isLoggedIn||isBrowsing) ? 'none' : 'block';
+  }
 }
 
 // ── setNav ──

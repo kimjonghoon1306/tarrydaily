@@ -323,19 +323,22 @@
 <div class="page" id="page-comment">
   <div class="wrap" style="padding-top:2rem;max-width:760px">
     <!-- 헤더 -->
-    <div style="margin-bottom:1.5rem">
+    <div style="margin-bottom:1.2rem">
       <div style="font-size:11px;color:var(--ac);font-weight:700;margin-bottom:6px;letter-spacing:.05em">💬 COMMUNITY</div>
       <h1 style="font-family:var(--display);font-size:26px;color:var(--tx);margin-bottom:4px">독자들의 이야기</h1>
       <p style="font-size:14px;color:var(--mt)">여러분의 소중한 이야기를 들려주세요</p>
     </div>
 
-    <!-- 댓글 작성 -->
-    <div style="background:var(--sur);border:1px solid var(--bd);border-radius:16px;padding:18px;margin-bottom:1.5rem">
-      <div style="font-size:14px;font-weight:700;color:var(--tx);margin-bottom:12px">✏️ 댓글 쓰기</div>
+    <!-- 댓글 작성 (상단 고정) -->
+    <div style="background:var(--sur);border:1px solid var(--bd);border-radius:16px;padding:18px;margin-bottom:1.2rem">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px">
+        <div style="font-size:14px;font-weight:700;color:var(--tx)">✏️ 댓글 쓰기</div>
+        <div id="commentLoginNotice" style="font-size:12px;color:var(--ac);font-weight:600;background:rgba(124,58,237,.08);border:1px solid rgba(124,58,237,.2);border-radius:999px;padding:4px 12px;cursor:pointer" onclick="showPage('auth');setNav('auth')">🔐 로그인 후 댓글을 작성해주세요</div>
+      </div>
       <div style="position:relative;margin-bottom:10px">
         <textarea id="commentInput" placeholder="여러분의 생각을 남겨주세요... (이모지 버튼을 눌러보세요! 😊)" style="width:100%;min-height:80px;background:var(--sur2);border:1.5px solid var(--bd);border-radius:10px;padding:12px 14px;font-size:14px;color:var(--tx);resize:vertical;font-family:var(--font);outline:none;box-sizing:border-box" oninput="autoResize(this)"></textarea>
       </div>
-      <!-- 이모지 + 답글 -->
+      <!-- 이모지 + 등록 -->
       <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
         <button onclick="toggleEmojiPicker()" style="background:var(--sur2);border:1px solid var(--bd);border-radius:8px;padding:7px 12px;font-size:18px;cursor:pointer" title="이모지">😊</button>
         <button onclick="submitComment()" style="background:var(--grad);color:#fff;border:none;border-radius:9px;padding:9px 20px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font);margin-left:auto">💬 등록</button>
@@ -396,11 +399,16 @@
           <div style="font-size:11px;color:var(--mt);text-align:center">클릭해서 프로필 사진 업로드</div>
           <input type="file" id="profileInput" accept="image/*" style="display:none" onchange="handleProfileUpload(this)">
         </div>
-        <div class="field"><label>닉네임</label><input class="inp" id="sNick" placeholder="사용할 닉네임" oninput="updateSignupInitial()"></div>
 
-        <!-- 이메일 필드 -->
+        <!-- 이름 -->
         <div class="field">
-          <label>이메일 <span style="font-size:10px;color:var(--mt);font-weight:400">(아이디로 사용돼요)</span></label>
+          <label>이름 <span style="font-size:10px;color:var(--mt);font-weight:400">(댓글에 표시돼요)</span></label>
+          <input class="inp" id="sNick" placeholder="홍길동" oninput="updateSignupInitial()">
+        </div>
+
+        <!-- 이메일 (아이디) -->
+        <div class="field">
+          <label>이메일 <span style="font-size:10px;color:var(--mt);font-weight:400">(아이디로 사용돼요 · 변경 불가)</span></label>
           <input class="inp" id="sEmail" type="email" placeholder="example@gmail.com" oninput="checkSignupEmail()">
           <div id="emailCheckBox" style="display:none;margin-top:8px;padding:10px 12px;border-radius:10px;background:var(--sur2);border:1px solid var(--bd)">
             <div style="font-size:11px;font-weight:700;color:var(--mt);margin-bottom:6px">✉️ 이메일 형식 확인</div>
@@ -410,38 +418,32 @@
           </div>
         </div>
 
-        <!-- 비밀번호 필드 -->
+        <!-- 비밀번호 -->
         <div class="field">
-          <label>비밀번호</label>
+          <label>비밀번호 <span style="font-size:10px;color:var(--mt);font-weight:400">(영문 대·소문자 + 숫자 포함 6자 이상)</span></label>
           <div style="position:relative">
-            <input class="inp" id="sPw" type="password" placeholder="영문 대·소문자 + 숫자 포함 6자 이상" oninput="checkSignupPw()" style="padding-right:40px">
+            <input class="inp" id="sPw" type="password" placeholder="영문 대문자 + 소문자 + 숫자 포함 6자 이상" oninput="checkSignupPw()" style="padding-right:40px">
             <button type="button" onclick="togglePwVis('sPw','sPwEye')" id="sPwEye" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:18px;line-height:1;padding:0;color:var(--mt)">👁️</button>
           </div>
-
-          <!-- 비밀번호 조건 체크 박스 -->
+          <!-- 비밀번호 조건 체크 -->
           <div id="pwCheckBox" style="display:none;margin-top:8px;padding:12px 14px;border-radius:12px;background:var(--sur2);border:1px solid var(--bd)">
-            <div style="font-size:11px;font-weight:700;color:var(--mt);margin-bottom:8px">🔐 비밀번호 조건을 모두 충족해야 가입할 수 있어요</div>
+            <div style="font-size:11px;font-weight:700;color:var(--mt);margin-bottom:8px">🔐 아래 조건을 모두 충족해야 가입할 수 있어요</div>
             <div style="display:flex;flex-direction:column;gap:5px">
-              <div id="pwCheck_len" style="display:flex;align-items:center;gap:7px;font-size:12px;transition:color .2s">
-                <span id="pc_len" style="font-size:15px;line-height:1">⬜</span>
-                <span>6자 이상</span>
+              <div style="display:flex;align-items:center;gap:7px;font-size:12px">
+                <span id="pc_len" style="font-size:15px">⬜</span><span>6자 이상</span>
               </div>
-              <div id="pwCheck_upper" style="display:flex;align-items:center;gap:7px;font-size:12px;transition:color .2s">
-                <span id="pc_upper" style="font-size:15px;line-height:1">⬜</span>
-                <span>영문 대문자 포함 <span style="font-size:10px;opacity:.65">(A–Z)</span></span>
+              <div style="display:flex;align-items:center;gap:7px;font-size:12px">
+                <span id="pc_upper" style="font-size:15px">⬜</span><span>영문 대문자 포함 (A–Z)</span>
               </div>
-              <div id="pwCheck_lower" style="display:flex;align-items:center;gap:7px;font-size:12px;transition:color .2s">
-                <span id="pc_lower" style="font-size:15px;line-height:1">⬜</span>
-                <span>영문 소문자 포함 <span style="font-size:10px;opacity:.65">(a–z)</span></span>
+              <div style="display:flex;align-items:center;gap:7px;font-size:12px">
+                <span id="pc_lower" style="font-size:15px">⬜</span><span>영문 소문자 포함 (a–z)</span>
               </div>
-              <div id="pwCheck_num" style="display:flex;align-items:center;gap:7px;font-size:12px;transition:color .2s">
-                <span id="pc_num" style="font-size:15px;line-height:1">⬜</span>
-                <span>숫자 포함 <span style="font-size:10px;opacity:.65">(0–9)</span></span>
+              <div style="display:flex;align-items:center;gap:7px;font-size:12px">
+                <span id="pc_num" style="font-size:15px">⬜</span><span>숫자 포함 (0–9)</span>
               </div>
             </div>
-            <!-- 강도 바 -->
             <div style="margin-top:10px">
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px">
                 <span style="font-size:10px;color:var(--mt)">비밀번호 강도</span>
                 <span id="pwStrengthLabel" style="font-size:10px;font-weight:700;color:var(--mt)">입력 중...</span>
               </div>
@@ -450,7 +452,17 @@
               </div>
             </div>
           </div>
+          <!-- 에러 메시지 -->
+          <div id="pwErrorMsg" style="display:none;margin-top:6px;padding:8px 12px;border-radius:8px;background:rgba(220,38,38,.08);border:1px solid rgba(220,38,38,.2);font-size:12px;color:#dc2626;font-weight:600"></div>
         </div>
+
+        <!-- 가입 결과 메시지 -->
+        <div id="signupSuccessMsg" style="display:none;margin-bottom:12px;padding:14px;border-radius:12px;background:rgba(5,150,105,.08);border:1px solid rgba(5,150,105,.25);text-align:center">
+          <div style="font-size:24px;margin-bottom:6px">🎉</div>
+          <div style="font-size:14px;font-weight:800;color:#059669;margin-bottom:4px">가입이 완료됐어요!</div>
+          <div style="font-size:12px;color:var(--mt)">TARRY의 데일리 멤버가 되신 걸 환영해요 😊</div>
+        </div>
+        <div id="signupErrorMsg" style="display:none;margin-bottom:12px;padding:12px;border-radius:10px;background:rgba(220,38,38,.08);border:1px solid rgba(220,38,38,.2);font-size:13px;color:#dc2626;font-weight:600;text-align:center"></div>
 
         <button class="auth-submit" onclick="doSignup()">가입하기 🎉</button>
         <div style="margin-top:8px"><button class="wpb wpb-browse" style="padding:9px;width:100%" onclick="startBrowse()">👀 가입 없이 먼저 둘러볼게요</button></div>
@@ -8806,7 +8818,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     </div>
     <!-- 비로그인 -->
     <div id="mobileDashLogin" style="display:block">
-      <input type="password" id="mobilePwField" placeholder="관리자 비밀번호 (123456)" style="width:100%;background:var(--sur2);border:1.5px solid var(--bd2);border-radius:10px;padding:11px 14px;font-size:14px;color:var(--tx);outline:none;font-family:var(--font);margin-bottom:8px;box-sizing:border-box">
+      <input type="password" id="mobilePwField" placeholder="관리자 비밀번호" style="width:100%;background:var(--sur2);border:1.5px solid var(--bd2);border-radius:10px;padding:11px 14px;font-size:14px;color:var(--tx);outline:none;font-family:var(--font);margin-bottom:8px;box-sizing:border-box">
       <button onclick="doMobileAdminLogin()" style="width:100%;background:var(--grad);color:#fff;border:none;border-radius:10px;padding:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font)">🔐 로그인</button>
     </div>
     <!-- 로그인 후 -->
